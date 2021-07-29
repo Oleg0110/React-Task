@@ -1,0 +1,92 @@
+button {
+   border: none;
+   cursor: pointer;
+   background-color: #fff;
+}
+
+.navHeaderButton {
+   padding-right: 20px;
+   font-weight: bold;
+   transition: 0.3s;
+   align-items: center;
+   display: flex;
+}
+
+.navHeaderButtonCreate {
+   font-weight: bold;
+   color: #fff;
+   background-color: rgb(27, 74, 228);
+   padding: 6px 9px;
+   border-radius: 4px;
+   transition: 0.5s;
+}
+
+.navHeaderButton:hover {
+   color: rgb(27, 74, 228);
+   transition: 0.3s;
+}
+
+.navHeaderButtonCreate:hover {
+   color: rgb(27, 74, 228);
+   background-color: rgb(252, 252, 252);
+   transition: 0.5s;
+}
+
+.sidebarButton {
+   display: flex;
+   align-items: center;
+   padding: 10px 20px 10px 10px;
+   color: rgb(107, 107, 107);
+}
+
+.sidebarButton:hover {
+   background-color: rgba(107, 107, 107, 0.178);
+   color: rgb(27, 74, 228);
+}
+
+.sidebarIcon {
+   color: rgb(0, 0, 0);
+   font-size: 0;
+   transform: scale(1.5);
+}
+
+.boardReleaseButton {
+   padding: 8px 10px;
+   margin-right: 15px;
+   background-color: #7d7d7d36;
+}
+
+.boardReleaseButton:hover {
+   background-color: #7d7d7da1;
+}
+
+.boardFiltersButton {
+   display: flex;
+   align-items: center;
+}
+
+.accordionButton {
+   color: #7d7d7da1;
+   background-color: #7d7d7d36;
+   margin-left: 163px;
+   padding: 10px;
+   border-radius: 3px;
+}
+
+.accordionButton:hover {
+   background-color: #7d7d7da1;
+   color: rgb(75, 75, 75);
+}
+
+.userAccountButton {
+   margin: 50px 0px 20px;
+   padding: 10px 55px;
+   background-color: #7d7d7d36;
+   color: #484343fc;
+   font-weight: bold;
+}
+
+.userAccountButton:hover {
+   background-color: #7d7d7da1;
+   color: rgb(75, 75, 75);
+}

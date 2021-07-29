@@ -1,0 +1,25 @@
+.mainHeaderStyle {
+   border-bottom: 2px solid #d1c9c9;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px;
+}
+
+.navHeaderButton {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.searchHeader {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.searchHeaderStyle {
+   padding: 4px 10px 4px 10px;
+   border-radius: 4px;
+   border: 1px solid #9493935c;
+}
