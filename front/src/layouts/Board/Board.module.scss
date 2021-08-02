@@ -13,9 +13,19 @@
    display: flex;
 }
 
+.release button img {
+   margin-left: 25px;
+   transform: scale(1.4);
+}
+
 .searchQuick {
    display: flex;
-   padding: 15px 0 25px 15px;
+   padding: 15px 0 0px 15px;
+   align-items: baseline;
+}
+
+.searchQuick button img {
+   padding-left: 5px;
 }
 
 .searchBoard {
@@ -23,9 +33,37 @@
    margin-right: 15px;
    border-radius: 4px;
    background-color: #7d7d7d36;
+   padding: 3px 0px;
+}
+
+.searchIcon {
+   position: absolute;
+   left: 60px;
+   top: 6px;
+   transform: scale(0.8);
+}
+
+.filtersButton {
+   display: flex;
+   align-items: center;
+}
+
+.filtersButton:hover {
+   color: rgb(27, 74, 228);
 }
 
 .accordionStyle {
+   display: flex;
+   justify-content: space-around;
+   flex-wrap: wrap;
+}
+
+.searchBoardArea {
+   position: relative;
+}
+
+.taskBoard {
+   padding-bottom: 30px;
    display: flex;
    justify-content: space-around;
    flex-wrap: wrap;

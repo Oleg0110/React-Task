@@ -4,12 +4,29 @@
    justify-content: space-between;
    align-items: center;
    padding: 15px;
+   flex-wrap: wrap;
 }
 
-.navHeaderButton {
+.buttonOpenSidebar {
+   width: 3%;
+}
+
+.sidebarIcon {
+   color: rgb(0, 0, 0);
+   font-size: 0;
+   transform: scale(1.8);
+}
+
+.linkHeaderButton {
    display: flex;
    justify-content: space-around;
    align-items: center;
+   flex-wrap: wrap;
+   width: 50%;
+}
+
+.navHeaderButton img {
+   padding-left: 5px;
 }
 
 .searchHeader {
@@ -18,8 +35,67 @@
    align-items: center;
 }
 
-.searchHeaderStyle {
-   padding: 4px 10px 4px 10px;
+.searchHeader button {
+   margin-left: 10px;
+}
+
+.searchHeader button img:hover {
+   opacity: 0.7;
+}
+
+.searchHeaderArea {
+   position: relative;
+}
+
+.searchArea {
+   padding: 4px 0px 4px 22px;
    border-radius: 4px;
    border: 1px solid #9493935c;
+}
+
+.searchIcon {
+   position: absolute;
+   left: 5px;
+   top: 5px;
+   transform: scale(0.8);
+}
+
+.userPhoto {
+   width: 25px;
+   height: 25px;
+   border-radius: 50%;
+}
+
+.buttonCreate {
+   font-weight: bold;
+   color: #fff;
+   background-color: rgb(27, 74, 228);
+   padding: 6px 9px;
+   border-radius: 4px;
+   transition: 0.5s;
+}
+
+.buttonCreate:hover {
+   color: rgb(27, 74, 228);
+   background-color: rgb(252, 252, 252);
+   transition: 0.5s;
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+   // .buttonSidebar {
+   //    display: block;
+   // }
+
+   // .navHeaderButton {
+   //    display: none;
+   // }
+}
+
+@media (max-width: 576px) {
 }

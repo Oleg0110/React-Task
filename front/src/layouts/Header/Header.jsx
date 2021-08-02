@@ -1,38 +1,35 @@
 import Button from "../../components/Button/Button"
 import styles from "./Header.module.scss"
-import Sidebar from "../Sidebar/Sidebar"
-import AppsIcon from "@material-ui/icons/Apps";
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import HelpIcon from '@material-ui/icons/Help';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import { ReactComponent as UserPhoto } from "../../assets/img/me.png"
+import userPhoto from "../../assets/img/me.png"
+import headereMenuicon from "../../assets/icon/headerMenuIcon.svg"
+import bell from "../../assets/icon/bell.svg"
+import question from "../../assets/icon/questionIcon.svg"
+import settings from "../../assets/icon/settings.svg"
+import searchIcon from "../../assets/icon/searchIcon.svg"
 
-
-
-const Header = ({ headerStyle }) => {
-   return <div className={styles[headerStyle]}>
-      <Button buttonStyle="sidebarIcon" > <AppsIcon /> </Button>
-      <Sidebar sidebarStyle="sidebar"></Sidebar>
-      <div className={styles.navHeaderButton}>
-         <Button buttonStyle="navHeaderButton">Your Work</Button>
-         <Button buttonStyle="navHeaderButton">Projects<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Filters<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Dashboards<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">People<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Plans<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Apps<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButtonCreate">Create</Button>
+const Header = ({ onClick }) => {
+   return (<div className={styles.mainHeaderStyle}>
+      <div className={styles.buttonOpenSidebar}>
+         <Button onClick={onClick}><img className={styles.sidebarIcon} src={headereMenuicon} alt="Menu Icon"></img> </Button>
+      </div>
+      <div className={styles.linkHeaderButton}>
+         <Button buttonStyle="mainButtonStyle">Projects</Button>
+         <Button buttonStyle="mainButtonStyle">Dashboards</Button>
+         <Button buttonStyle="mainButtonStyle">People</Button>
+         <Button><span className={styles.buttonCreate}>Create</span></Button>
       </div>
       <div className={styles.searchHeader}>
-
-         <input type="text" placeholder="Search" className={styles.searchHeaderStyle} />
-         <Button><NotificationsIcon /></Button>
-         <Button><HelpIcon /></Button>
-         <Button><SettingsIcon /></Button>
-         <Button>user</Button>
+         <div className={styles.searchHeaderArea}>
+            <input type="text" placeholder="Search" className={styles.searchArea} />
+            <img src={searchIcon} className={styles.searchIcon} alt="Search Icon"></img>
+         </div>
+         <Button><img src={bell} alt="Bell Icon"></img></Button>
+         <Button><img src={question} alt="Question Icon"></img></Button>
+         <Button><img src={settings} alt="Setting Icon"></img></Button>
+         <Button><img className={styles.userPhoto} src={userPhoto} alt="User Photo"></img></Button>
       </div>
    </div >
+   );
 
 }
 

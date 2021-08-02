@@ -1,0 +1,14 @@
+.taskBoard {
+   width: 270px;
+   max-height: 600px;
+   background-color: #7d7d7d36;
+   margin: 20px 0;
+   overflow: auto;
+}
+
+.taskTitle {
+   text-align: start;
+   padding: 8px 10px;
+   font-weight: bold;
+   color: rgb(117, 117, 117);
+}
