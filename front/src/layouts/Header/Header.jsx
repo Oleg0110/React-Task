@@ -1,17 +1,12 @@
 import Button from "../../components/Button/Button"
 import styles from "./Header.module.scss"
 import userPhoto from "../../assets/img/me.png"
-import headereMenuicon from "../../assets/icon/headerMenuIcon.svg"
-import bell from "../../assets/icon/bell.svg"
-import question from "../../assets/icon/questionIcon.svg"
-import settings from "../../assets/icon/settings.svg"
-import searchIcon from "../../assets/icon/searchIcon.svg"
+
 
 const Header = ({ onClick }) => {
-   return (<div className={styles.mainHeaderStyle}>
-      <div className={styles.buttonOpenSidebar}>
-         <Button onClick={onClick}><img className={styles.sidebarIcon} src={headereMenuicon} alt="Menu Icon"></img> </Button>
-      </div>
+   return (<header className={styles.mainHeaderStyle}>
+      <Button onClick={onClick}><div className={`${styles["open-sidebar-icon"]}`} alt="Open Sidebar Icon" />
+      </Button>
       <div className={styles.linkHeaderButton}>
          <Button buttonStyle="mainButtonStyle">Projects</Button>
          <Button buttonStyle="mainButtonStyle">Dashboards</Button>
@@ -21,14 +16,14 @@ const Header = ({ onClick }) => {
       <div className={styles.searchHeader}>
          <div className={styles.searchHeaderArea}>
             <input type="text" placeholder="Search" className={styles.searchArea} />
-            <img src={searchIcon} className={styles.searchIcon} alt="Search Icon"></img>
+            <div className={styles.searchIcon} alt="Search Icon" />
          </div>
-         <Button><img src={bell} alt="Bell Icon"></img></Button>
-         <Button><img src={question} alt="Question Icon"></img></Button>
-         <Button><img src={settings} alt="Setting Icon"></img></Button>
-         <Button><img className={styles.userPhoto} src={userPhoto} alt="User Photo"></img></Button>
+         <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
+         <Button><div className={`${styles.icon} ${styles["question-icon"]}`} alt="Question Icon" /></Button>
+         <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
+         <Button><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
       </div>
-   </div >
+   </header>
    );
 
 }

@@ -9,11 +9,31 @@ button {
    transition: 0.3s;
    align-items: center;
    display: flex;
+   font-size: 16px;
+   position: relative;
 }
 
 .mainButtonStyle:hover {
    color: rgb(27, 74, 228);
-   transition: 0.3s;
+}
+
+.mainButtonStyle:hover::before {
+   transition: 0.3s all;
+   opacity: 1;
+   transform: translateY(21px) rotate(0deg);
+}
+
+.mainButtonStyle::before {
+   content: "";
+   width: 100%;
+   height: 2px;
+   background-color: rgb(27, 74, 228);
+   position: absolute;
+   bottom: -5%;
+   transition: 0.5s all;
+   opacity: 0;
+   transform: translateY(0px) rotate(0deg);
+   z-index: 2;
 }
 
 .secondButtonStyle {
@@ -26,6 +46,25 @@ button {
 .secondButtonStyle:hover {
    background-color: rgba(107, 107, 107, 0.178);
    color: rgb(27, 74, 228);
+}
+
+.secondButtonStyle:hover::before {
+   transition: 0.3s all;
+   opacity: 1;
+   transform: translateX(-20px) rotate(90deg);
+}
+
+.secondButtonStyle::before {
+   content: "";
+   width: 22%;
+   height: 2px;
+   background-color: rgb(27, 74, 228);
+   position: absolute;
+   right: -10.7%;
+   transition: 0.5s all;
+   opacity: 0;
+   transform: translateX(0px) rotate(90deg);
+   z-index: 2;
 }
 
 .thirdButtonStyle {

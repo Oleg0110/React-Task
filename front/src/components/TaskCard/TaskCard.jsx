@@ -1,16 +1,20 @@
 import styles from "./TaskCard.module.scss"
-import bell from "../../assets/icon/bell.svg"
-import bell2 from "../../assets/icon/bell.svg"
-import bell3 from "../../assets/icon/bell.svg"
 
 
-const TaskCard = (props) => {
+const TaskCard = ({ children, label, labelStyle, taskState, priority, alt, userPhoto }) => {
    return (<div className={styles.taskCard}>
-      <p className={styles.cardText}>{props.text}</p>
-      <p className={styles[props.labelStyle]}>{props.label}</p>
-      <div>
-
+      <p className={styles.cardText}>{children}</p>
+      <p className={styles[labelStyle]}>{label}</p>
+      <div className={styles.taskInfo}>
+         <div className={styles.stateTable}>
+            <div className={`${styles.taskState} ${styles[`taskState-${taskState}`]}`} />
+            <div className={`${styles.priority} ${styles[`priority-${priority}`]}`} />
+         </div>
+         <div className={styles.userPhotoBlock}>
+            <div className={`${styles.userPhoto} ${styles[`userPhoto-${userPhoto}`]}`} alt={alt} />
+         </div>
       </div>
+
    </div >
 
    )

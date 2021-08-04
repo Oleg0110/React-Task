@@ -1,26 +1,31 @@
 .mainBoardStyle {
-   padding: 20px 20px 300px 20px;
+   padding: 20px;
 }
 
 .boardStyle {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 15px;
+   padding: 0px 15px 15px;
 }
 
 .release {
    display: flex;
 }
 
-.release button img {
+.three-dots {
+   background-image: url(../../assets/icon/threeDots.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 27px;
+   width: 25px;
+   height: 25px;
    margin-left: 25px;
-   transform: scale(1.4);
 }
 
 .searchQuick {
    display: flex;
-   padding: 15px 0 0px 15px;
+   padding: 14px 0 0px 25px;
    align-items: baseline;
 }
 
@@ -36,35 +41,50 @@
    padding: 3px 0px;
 }
 
+.searchBoardArea {
+   position: relative;
+}
+
 .searchIcon {
+   background-image: url(../../assets/icon/searchIcon.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 16px;
    position: absolute;
-   left: 60px;
-   top: 6px;
-   transform: scale(0.8);
+   right: 18px;
+   width: 17px;
+   height: 17px;
+   top: 5px;
 }
 
 .filtersButton {
    display: flex;
    align-items: center;
+   position: relative;
 }
 
 .filtersButton:hover {
    color: rgb(27, 74, 228);
 }
 
-.accordionStyle {
-   display: flex;
-   justify-content: space-around;
-   flex-wrap: wrap;
-}
-
-.searchBoardArea {
-   position: relative;
+.arrowIcon {
+   background-image: url(../../assets/icon/arrowDown.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 15px;
+   position: absolute;
+   right: -23px;
+   width: 17px;
+   height: 17px;
 }
 
 .taskBoard {
    padding-bottom: 30px;
    display: flex;
-   justify-content: space-around;
-   flex-wrap: wrap;
+   min-width: 1300px;
+   overflow-x: auto;
+}
+
+.boardprob .taskBoard {
+   min-width: 1250px;
 }

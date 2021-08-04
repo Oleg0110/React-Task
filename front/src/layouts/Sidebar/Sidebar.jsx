@@ -1,23 +1,17 @@
 import Button from "../../components/Button/Button"
 import styles from "./Sidebar.module.scss"
-import backLog from "../../assets/icon/backLog.svg"
-import reports from "../../assets/icon/reports.svg"
-import components from "../../assets/icon/components.svg"
-import releases from "../../assets/icon/releases.svg"
-import addItem from "../../assets/icon/addItem.svg"
-import settings from "../../assets/icon/settings.svg"
 
 
 
 const Sidebar = ({ isOpened }) => {
 
    return (<div className={`${styles.sidebar} ${isOpened && styles.opened} `}>
-      <Button buttonStyle="secondButtonStyle"><img src={backLog} alt="Back Log Icon"></img>Backlog</Button>
-      <Button buttonStyle="secondButtonStyle"><img src={reports} alt="Reports Icon"></img>Reports</Button>
-      <Button buttonStyle="secondButtonStyle"><img src={components} alt="Components Icon"></img>Components</Button>
-      <Button buttonStyle="secondButtonStyle"><img src={releases} alt="Release Icon"></img>Releases</Button>
-      <Button buttonStyle="secondButtonStyle"><img src={addItem} alt="Add Item Icon"></img>Add item</Button>
-      <Button buttonStyle="secondButtonStyle"><img src={settings} alt="Setting Icon"></img>Project settings</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["backlog-icon"]}`} alt="Back Log Icon" />Backlog</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["reports-icon"]}`} alt="Reports Icon" />Reports</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["components-icon"]}`} alt="Components Icon" />Components</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["release-icon"]}`} alt="Release Icon" />Releases</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["add-item-icon"]}`} alt="Add Item Icon" />Add item</Button>
+      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" />Project settings</Button>
    </div>
    );
 }
