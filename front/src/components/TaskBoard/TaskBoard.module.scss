@@ -1,0 +1,34 @@
+.taskBoard {
+   width: 300px;
+   max-height: 550px;
+   background-color: #7d7d7d36;
+   margin: 20px 10px;
+   border-radius: 5px;
+}
+
+.taskTitle {
+   text-align: start;
+   padding: 8px 10px;
+   font-weight: bold;
+   color: rgb(117, 117, 117);
+}
+
+.scroll {
+   overflow: auto;
+   max-height: 440px;
+}
+
+.scroll::-webkit-scrollbar {
+   width: 15px;
+}
+
+.scroll::-webkit-scrollbar-track {
+   background: #cccccc;
+   border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+   background-color: #adadad;
+   border: 4px solid #cccccc;
+   border-radius: 10px;
+}

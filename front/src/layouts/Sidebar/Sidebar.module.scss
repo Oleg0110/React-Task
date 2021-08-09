@@ -4,7 +4,47 @@
    flex-direction: column;
    align-items: flex-start;
    top: 8%;
-   left: 0%;
+   left: -100%;
    border-right: 2px solid #d1c9c9;
    padding: 15px 20px;
+   transition: 0.5s;
+   background-color: #ffffff;
+   z-index: 1;
+}
+
+.opened {
+   left: 0;
+}
+
+.icon {
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 18px;
+   width: 25px;
+   height: 25px;
+   margin-right: 7px;
+}
+
+.backlog-icon {
+   background-image: url("../../assets/icon/backLog.svg");
+}
+
+.reports-icon {
+   background-image: url("../../assets/icon/reports.svg");
+}
+
+.components-icon {
+   background-image: url("../../assets/icon/components.svg");
+}
+
+.release-icon {
+   background-image: url("../../assets/icon/releases.svg");
+}
+
+.add-item-icon {
+   background-image: url("../../assets/icon/addItem.svg");
+}
+
+.setting-icon {
+   background-image: url("../../assets/icon/settings.svg");
 }

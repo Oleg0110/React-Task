@@ -4,89 +4,88 @@ button {
    background-color: #fff;
 }
 
-.navHeaderButton {
-   padding-right: 20px;
+.mainButtonStyle {
    font-weight: bold;
    transition: 0.3s;
    align-items: center;
    display: flex;
+   font-size: 16px;
+   position: relative;
 }
 
-.navHeaderButtonCreate {
-   font-weight: bold;
-   color: #fff;
+.mainButtonStyle:hover {
+   color: rgb(27, 74, 228);
+}
+
+.mainButtonStyle:hover::before {
+   transition: 0.3s all;
+   opacity: 1;
+   transform: translateY(21px) rotate(0deg);
+}
+
+.mainButtonStyle::before {
+   content: "";
+   width: 100%;
+   height: 2px;
    background-color: rgb(27, 74, 228);
-   padding: 6px 9px;
-   border-radius: 4px;
-   transition: 0.5s;
+   position: absolute;
+   bottom: -5%;
+   transition: 0.5s all;
+   opacity: 0;
+   transform: translateY(0px) rotate(0deg);
+   z-index: 2;
 }
 
-.navHeaderButton:hover {
-   color: rgb(27, 74, 228);
-   transition: 0.3s;
-}
-
-.navHeaderButtonCreate:hover {
-   color: rgb(27, 74, 228);
-   background-color: rgb(252, 252, 252);
-   transition: 0.5s;
-}
-
-.sidebarButton {
+.secondButtonStyle {
    display: flex;
    align-items: center;
    padding: 10px 20px 10px 10px;
-   color: rgb(107, 107, 107);
+   width: 100%;
 }
 
-.sidebarButton:hover {
+.secondButtonStyle:hover {
    background-color: rgba(107, 107, 107, 0.178);
    color: rgb(27, 74, 228);
 }
 
-.sidebarIcon {
-   color: rgb(0, 0, 0);
-   font-size: 0;
-   transform: scale(1.5);
+.secondButtonStyle:hover::before {
+   transition: 0.3s all;
+   opacity: 1;
+   transform: translateX(-20px) rotate(90deg);
 }
 
-.boardReleaseButton {
+.secondButtonStyle::before {
+   content: "";
+   width: 22%;
+   height: 2px;
+   background-color: rgb(27, 74, 228);
+   position: absolute;
+   right: -10.7%;
+   transition: 0.5s all;
+   opacity: 0;
+   transform: translateX(0px) rotate(90deg);
+   z-index: 2;
+}
+
+.thirdButtonStyle {
    padding: 8px 10px;
-   margin-right: 15px;
    background-color: #7d7d7d36;
+   border-radius: 2px;
 }
 
-.boardReleaseButton:hover {
+.thirdButtonStyle:hover {
    background-color: #7d7d7da1;
 }
 
-.boardFiltersButton {
-   display: flex;
-   align-items: center;
-}
+// .accordionButton {
+//    color: #7d7d7da1;
+//    background-color: #7d7d7d36;
+//    margin-left: 163px;
+//    padding: 10px;
+//    border-radius: 3px;
+// }
 
-.accordionButton {
-   color: #7d7d7da1;
-   background-color: #7d7d7d36;
-   margin-left: 163px;
-   padding: 10px;
-   border-radius: 3px;
-}
-
-.accordionButton:hover {
-   background-color: #7d7d7da1;
-   color: rgb(75, 75, 75);
-}
-
-.userAccountButton {
-   margin: 50px 0px 20px;
-   padding: 10px 55px;
-   background-color: #7d7d7d36;
-   color: #484343fc;
-   font-weight: bold;
-}
-
-.userAccountButton:hover {
-   background-color: #7d7d7da1;
-   color: rgb(75, 75, 75);
-}
+// .accordionButton:hover {
+//    background-color: #7d7d7da1;
+//    color: rgb(75, 75, 75);
+// }

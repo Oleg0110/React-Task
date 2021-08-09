@@ -1,38 +1,30 @@
 import Button from "../../components/Button/Button"
 import styles from "./Header.module.scss"
-import Sidebar from "../Sidebar/Sidebar"
-import AppsIcon from "@material-ui/icons/Apps";
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import HelpIcon from '@material-ui/icons/Help';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import { ReactComponent as UserPhoto } from "../../assets/img/me.png"
+import userPhoto from "../../assets/img/me.png"
 
 
-
-const Header = ({ headerStyle }) => {
-   return <div className={styles[headerStyle]}>
-      <Button buttonStyle="sidebarIcon" > <AppsIcon /> </Button>
-      <Sidebar sidebarStyle="sidebar"></Sidebar>
-      <div className={styles.navHeaderButton}>
-         <Button buttonStyle="navHeaderButton">Your Work</Button>
-         <Button buttonStyle="navHeaderButton">Projects<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Filters<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Dashboards<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">People<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Plans<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButton">Apps<ExpandMoreIcon /></Button>
-         <Button buttonStyle="navHeaderButtonCreate">Create</Button>
+const Header = ({ onClick }) => {
+   return (<header className={styles.mainHeaderStyle}>
+      <Button onClick={onClick}><div className={`${styles["open-sidebar-icon"]}`} alt="Open Sidebar Icon" />
+      </Button>
+      <div className={styles.linkHeaderButton}>
+         <Button buttonStyle="mainButtonStyle">Projects</Button>
+         <Button buttonStyle="mainButtonStyle">Dashboards</Button>
+         <Button buttonStyle="mainButtonStyle">People</Button>
+         <Button><span className={styles.buttonCreate}>Create</span></Button>
       </div>
       <div className={styles.searchHeader}>
-
-         <input type="text" placeholder="Search" className={styles.searchHeaderStyle} />
-         <Button><NotificationsIcon /></Button>
-         <Button><HelpIcon /></Button>
-         <Button><SettingsIcon /></Button>
-         <Button>user</Button>
+         <div className={styles.searchHeaderArea}>
+            <input type="text" placeholder="Search" className={styles.searchArea} />
+            <div className={styles.searchIcon} alt="Search Icon" />
+         </div>
+         <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
+         <Button><div className={`${styles.icon} ${styles["question-icon"]}`} alt="Question Icon" /></Button>
+         <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
+         <Button><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
       </div>
-   </div >
+   </header>
+   );
 
 }
 
