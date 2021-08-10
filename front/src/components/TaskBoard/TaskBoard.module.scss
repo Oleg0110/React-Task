@@ -6,11 +6,32 @@
    border-radius: 5px;
 }
 
+.taskInfo {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
 .taskTitle {
    text-align: start;
    padding: 8px 10px;
    font-weight: bold;
    color: rgb(117, 117, 117);
+}
+
+.plus {
+   background-image: url(../../assets/icon/plusIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   width: 30px;
+   height: 30px;
+   margin-right: 7px;
+   margin-top: 5px;
+}
+
+.plus:hover {
+   background-color: rgba(148, 148, 148, 0.575);
+   border-radius: 50%;
 }
 
 .scroll {

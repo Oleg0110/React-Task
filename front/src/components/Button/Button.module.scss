@@ -1,7 +1,7 @@
 button {
    border: none;
    cursor: pointer;
-   background-color: #fff;
+   background-color: rgba(255, 255, 255, 0);
 }
 
 .mainButtonStyle {
@@ -20,7 +20,7 @@ button {
 .mainButtonStyle:hover::before {
    transition: 0.3s all;
    opacity: 1;
-   transform: translateY(21px) rotate(0deg);
+   transform: translateY(19.5px) rotate(0deg);
 }
 
 .mainButtonStyle::before {
@@ -51,12 +51,12 @@ button {
 .secondButtonStyle:hover::before {
    transition: 0.3s all;
    opacity: 1;
-   transform: translateX(-20px) rotate(90deg);
+   transform: translateX(-17px) rotate(90deg);
 }
 
 .secondButtonStyle::before {
    content: "";
-   width: 22%;
+   width: 25%;
    height: 2px;
    background-color: rgb(27, 74, 228);
    position: absolute;
@@ -71,21 +71,10 @@ button {
    padding: 8px 10px;
    background-color: #7d7d7d36;
    border-radius: 2px;
+   display: flex;
+   align-items: center;
 }
 
 .thirdButtonStyle:hover {
    background-color: #7d7d7da1;
 }
-
-// .accordionButton {
-//    color: #7d7d7da1;
-//    background-color: #7d7d7d36;
-//    margin-left: 163px;
-//    padding: 10px;
-//    border-radius: 3px;
-// }
-
-// .accordionButton:hover {
-//    background-color: #7d7d7da1;
-//    color: rgb(75, 75, 75);
-// }

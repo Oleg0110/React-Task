@@ -1,4 +1,4 @@
-import Button from "../../components/Button/Button"
+import { Button } from "../../components"
 import styles from "./Sidebar.module.scss"
 
 
@@ -11,7 +11,6 @@ const Sidebar = ({ isOpened }) => {
       <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["components-icon"]}`} alt="Components Icon" />Components</Button>
       <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["release-icon"]}`} alt="Release Icon" />Releases</Button>
       <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["add-item-icon"]}`} alt="Add Item Icon" />Add item</Button>
-      <Button buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" />Project settings</Button>
    </div>
    );
 }
