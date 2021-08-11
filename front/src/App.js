@@ -5,12 +5,10 @@ import { Sidebar } from "./layouts"
 import { Home } from "./layouts"
 import { Projects } from "./layouts"
 import { Dashboards } from "./layouts"
-import { People } from "./layouts"
-import { Settings } from "./layouts"
-import { Create } from "./layouts"
+import { EmptyPage } from './layouts';
 import { useState } from 'react';
 import { CreateListModalWindow } from './components';
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 
 function App() {
 
@@ -23,15 +21,18 @@ function App() {
          <Header onClick={() => setIsOpened(!isOpened)}></Header>
          <Sidebar isOpened={isOpened}></Sidebar>
          <BrowserRouter>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/projects" component={Projects} />
-            <Route exact path="/dashboards" component={Dashboards}>
-               <Dashboards onClick={() => setIsListModalOpened(!isListModalOpened)}></Dashboards>
-               <CreateListModalWindow isModalOpened={isListModalOpened} onModalClose={() => setIsListModalOpened(false)} />
-            </Route>
-            <Route exact path="/people" component={People} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/create" component={Create} />
+            <Switch>
+               <Route exact path="/" component={Home} />
+               <Route exact path="/projects" component={Projects} />
+               <Route exact path="/dashboards" component={Dashboards}>
+                  <Dashboards onClick={() => setIsListModalOpened(!isListModalOpened)}></Dashboards>
+                  <CreateListModalWindow isModalOpened={isListModalOpened} onModalClose={() => setIsListModalOpened(false)} />
+               </Route>
+               <Route exact path="/people" component={EmptyPage} />
+               <Route exact path="/settings" component={EmptyPage} />
+               <Route exact path="/create" component={EmptyPage} />
+               <Redirect to="/" />
+            </Switch>
          </BrowserRouter>
          {/* <UserAccount></UserAccount> */}
       </div >

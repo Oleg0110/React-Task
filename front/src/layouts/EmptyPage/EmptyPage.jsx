@@ -1,6 +1,6 @@
-import styles from "./Create.module.scss"
+import styles from "./EmptyPage.module.scss"
 
-const Create = ({ children }) => {
+const EmptyPage = ({ children }) => {
    return (<div className={styles.backFon}>
       <h1 className={styles.title}>Sorry.</h1>
       <p className={styles.text}>The page is being developed in the future there will be content</p>
@@ -11,4 +11,4 @@ const Create = ({ children }) => {
    )
 }
 
-export default Create
+export default EmptyPage

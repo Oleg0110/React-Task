@@ -1,16 +1,14 @@
 
 import styles from "./Dashboards.module.scss"
-import { Button } from "../../../components"
-import { TaskBoard } from "../../../components"
-import { TaskCard } from "../../../components"
-// import person from "../../../assets/img/person.png"
-// import person2 from "../../../assets/img/person2.png"
-// import person3 from "../../../assets/img/person3.png"
-// import person4 from "../../../assets/img/person4.png"
-// import person5 from "../../../assets/img/person5.png"
+import { Button } from "../../components"
+import { TaskBoard } from "../../components"
+import BoardStore from "../../stores/BoardStore/BoardStore"
+import { observer } from "mobx-react"
 
 
 const Board = ({ children, onClick }) => {
+
+   const { lists } = BoardStore
 
 
    return (<div className={styles.mainBoardStyle}>
@@ -32,7 +30,8 @@ const Board = ({ children, onClick }) => {
          </div>
       </div>
       <div className={styles.boardLists}>
-         <TaskBoard title="TO DO">
+         {lists.map((data) => <TaskBoard title={data.title} cardsData={data.tasks} key={data.id} />)}
+         {/* <TaskBoard title="TO DO">
             <TaskCard priority="medium" taskState="done" label="SPACE TRAVEL PARTNERS"
                labelStyle="firstLabelStyle" userPhoto="first" alt="User Photo">Engage Jupiter Express out solar system travel</TaskCard>
             <TaskCard priority="low" taskState="arrow-up" label="LOCAL MARS OFFICE"
@@ -58,12 +57,12 @@ const Board = ({ children, onClick }) => {
             <TaskCard priority="medium" taskState="done" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Draft network plan for Mars Office</TaskCard>
          </TaskBoard>
-         {/* <TaskBoard title="CODE REVIEW 2">
+         <TaskBoard title="CODE REVIEW 2">
             <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="third" alt="User Photo">Register with the Mars Ministry of Revenue</TaskCard>
             <TaskCard priority="medium" taskState="done" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Draft network plan for Mars Office</TaskCard>
-         </TaskBoard> */}
+         </TaskBoard>
          <TaskBoard title="DONE">
             <TaskCard priority="medium" taskState="arrow-up" label="LARGE TEAM SUPPORT"
                labelStyle="fourthLabelStyle" userPhoto="fourth" alt="User Photo">Homepage filter uses an inline style-should use a class</TaskCard>
@@ -85,11 +84,11 @@ const Board = ({ children, onClick }) => {
                labelStyle="firstLabelStyle" userPhoto="fifth" alt="User Photo">Establish a catering vendor to provide meal service</TaskCard>
             <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Requesting available flights is nów taking</TaskCard>
-         </TaskBoard>
+         </TaskBoard> */}
       </div>
       {children}
    </div >
    );
 }
 
-export default Board
+export default observer(Board)

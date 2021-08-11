@@ -1,6 +1,7 @@
 import styles from "./CreateListModalWindow.module.scss"
 import Button from "../Button/Button"
 import { useRef } from "react"
+import BoardStore from "../../stores/BoardStore/BoardStore"
 
 
 const CreateListModalWindow = ({ isModalOpened, onModalClose }) => {
@@ -16,10 +17,11 @@ const CreateListModalWindow = ({ isModalOpened, onModalClose }) => {
             <span className={styles.title}>List Title</span>
             <form className={styles.form} onSubmit={(e) => {
                e.preventDefault()
-               console.log(ref.current.value);
+               BoardStore.pushList(ref.current.value)
+               console.log(BoardStore.lists.length);
             }}>
                <input type="text" placeholder="Title" className={styles.input} ref={ref} />
-               <Button buttonStyle="thirdButtonStyle">Add List</Button>
+               <Button onClick={onModalClose} buttonStyle="thirdButtonStyle">Add List</Button>
             </form>
          </div>
       </div>

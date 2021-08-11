@@ -14,7 +14,7 @@ button {
 }
 
 .mainButtonStyle:hover {
-   color: rgb(27, 74, 228);
+   color: #fb8c00;
 }
 
 .mainButtonStyle:hover::before {
@@ -27,7 +27,7 @@ button {
    content: "";
    width: 100%;
    height: 2px;
-   background-color: rgb(27, 74, 228);
+   background-color: #fb8c00;
    position: absolute;
    bottom: -5%;
    transition: 0.5s all;
@@ -45,7 +45,7 @@ button {
 
 .secondButtonStyle:hover {
    background-color: rgba(107, 107, 107, 0.178);
-   color: rgb(27, 74, 228);
+   color: #fb8c00;
 }
 
 .secondButtonStyle:hover::before {
@@ -58,7 +58,7 @@ button {
    content: "";
    width: 25%;
    height: 2px;
-   background-color: rgb(27, 74, 228);
+   background-color: #fb8c00;
    position: absolute;
    right: -10.7%;
    transition: 0.5s all;

@@ -1,9 +1,7 @@
 export { default as Header } from "./Header/Header";
-export { default as Dashboards } from "./Pages/Dashboards/Dashboards";
-export { default as Create } from "./Pages/Create/Create";
-export { default as Home } from "./Pages/Home/Home";
-export { default as People } from "./Pages/People/People";
-export { default as Projects } from "./Pages/Projects/Projects";
-export { default as Settings } from "./Pages/Settings/Settings";
+export { default as Dashboards } from "./Dashboards/Dashboards";
+export { default as Home } from "./Home/Home";
+export { default as Projects } from "./Projects/Projects";
+export { default as EmptyPage } from "./EmptyPage/EmptyPage";
 export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as UserAccount } from "./UserAccount/UserAccount"
