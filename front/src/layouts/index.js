@@ -1,4 +1,7 @@
-import { default as Header } from "./Header/Header";
-import { default as Board } from "./Board/Board";
-import { default as Sidebar } from "./Sidebar/Sidebar";
-import { default as UserAccount } from "./UserAccount/UserAccount"
+export { default as Header } from "./Header/Header";
+export { default as Dashboards } from "./Dashboards/Dashboards";
+export { default as Home } from "./Home/Home";
+export { default as Projects } from "./Projects/Projects";
+export { default as EmptyPage } from "./EmptyPage/EmptyPage";
+export { default as Sidebar } from "./Sidebar/Sidebar";
+export { default as UserAccount } from "./UserAccount/UserAccount"

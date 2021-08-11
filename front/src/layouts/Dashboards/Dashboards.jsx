@@ -1,33 +1,37 @@
 
-import styles from "./Board.module.scss"
-import Button from "../../components/Button/Button"
-import TaskBoard from "../../components/TaskBoard/TaskBoard"
-import TaskCard from "../../components/TaskCard/TaskCard"
-import person from "../../assets/img/person.png"
-import person2 from "../../assets/img/person2.png"
-import person3 from "../../assets/img/person3.png"
-import person4 from "../../assets/img/person4.png"
-import person5 from "../../assets/img/person5.png"
+import styles from "./Dashboards.module.scss"
+import { Button } from "../../components"
+import { TaskBoard } from "../../components"
+import BoardStore from "../../stores/BoardStore/BoardStore"
+import { observer } from "mobx-react"
 
 
-const Board = ({ }) => {
+const Board = ({ children, onClick }) => {
+
+   const { lists } = BoardStore
+
+
    return (<div className={styles.mainBoardStyle}>
       <div className={styles.boardStyle}>
-         <h2>Board</h2>
+         <h2 className={styles.mainTitle}>Board</h2>
          <div className={styles.release}>
             <Button buttonStyle="thirdButtonStyle">Release</Button>
             <Button><div className={styles["three-dots"]} alt="Dots" /></Button>
          </div>
       </div>
-      <div className={styles.searchQuick}>
-         <div className={styles.searchBoardArea}>
-            <input type="text" className={styles.searchBoard} />
-            <div className={styles.searchIcon} alt="Search Icon" />
+      <div className={styles.create}>
+         <Button onClick={onClick} buttonStyle="thirdButtonStyle"><div className={styles.plus} alt="Plus Icon" />Create List</Button>
+         <div className={styles.searchQuick}>
+            <div className={styles.searchBoardArea}>
+               <input type="text" className={styles.searchBoard} />
+               <div className={styles.searchIcon} alt="Search Icon" />
+            </div>
+            <Button ><span className={styles.filtersButton}>Quick Filters<div className={styles.arrowIcon} alt="Arrow" /></span></Button>
          </div>
-         <Button ><span className={styles.filtersButton}>Quick Filters<div className={styles.arrowIcon} alt="Arrow" /></span></Button>
       </div>
-      <div className={styles.taskBoard}>
-         <TaskBoard title="TO DO 5">
+      <div className={styles.boardLists}>
+         {lists.map((data) => <TaskBoard title={data.title} cardsData={data.tasks} key={data.id} />)}
+         {/* <TaskBoard title="TO DO">
             <TaskCard priority="medium" taskState="done" label="SPACE TRAVEL PARTNERS"
                labelStyle="firstLabelStyle" userPhoto="first" alt="User Photo">Engage Jupiter Express out solar system travel</TaskCard>
             <TaskCard priority="low" taskState="arrow-up" label="LOCAL MARS OFFICE"
@@ -39,7 +43,7 @@ const Board = ({ }) => {
             <TaskCard priority="hight" taskState="done" label="SPACE TRAVEL PARTNERS"
                labelStyle="firstLabelStyle" userPhoto="fifth" alt="User Photo">Establish a catering vendor to provide meal service</TaskCard>
          </TaskBoard>
-         <TaskBoard title="IN PROGRESS 3">
+         <TaskBoard title="IN PROGRESS">
             <TaskCard priority="medium" taskState="mark" label="SEESPACEEZ PLUS"
                labelStyle="secondLabelStyle" userPhoto="fifth" alt="User Photo">Requesting available flights is nów taking</TaskCard>
             <TaskCard priority="medium" taskState="done" label="SPACE TRAVEL PARTNERS"
@@ -47,19 +51,19 @@ const Board = ({ }) => {
             <TaskCard priority="medium" taskState="tool" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="fourth" alt="User Photo">Establish a catering vendor to provide meal service</TaskCard>
          </TaskBoard>
+         <TaskBoard title="CODE REVIEW">
+            <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
+               labelStyle="thirdLabelStyle" userPhoto="third" alt="User Photo">Register with the Mars Ministry of Revenue</TaskCard>
+            <TaskCard priority="medium" taskState="done" label="LOCAL MARS OFFICE"
+               labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Draft network plan for Mars Office</TaskCard>
+         </TaskBoard>
          <TaskBoard title="CODE REVIEW 2">
             <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="third" alt="User Photo">Register with the Mars Ministry of Revenue</TaskCard>
             <TaskCard priority="medium" taskState="done" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Draft network plan for Mars Office</TaskCard>
          </TaskBoard>
-         {/* <TaskBoard title="CODE REVIEW 2">
-            <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
-               labelStyle="thirdLabelStyle" userPhoto="third" alt="User Photo">Register with the Mars Ministry of Revenue</TaskCard>
-            <TaskCard priority="medium" taskState="done" label="LOCAL MARS OFFICE"
-               labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Draft network plan for Mars Office</TaskCard>
-         </TaskBoard> */}
-         <TaskBoard title="DONE 10">
+         <TaskBoard title="DONE">
             <TaskCard priority="medium" taskState="arrow-up" label="LARGE TEAM SUPPORT"
                labelStyle="fourthLabelStyle" userPhoto="fourth" alt="User Photo">Homepage filter uses an inline style-should use a class</TaskCard>
             <TaskCard priority="medium" taskState="tool" label="SPACE TRAVEL PARTNERS"
@@ -80,10 +84,11 @@ const Board = ({ }) => {
                labelStyle="firstLabelStyle" userPhoto="fifth" alt="User Photo">Establish a catering vendor to provide meal service</TaskCard>
             <TaskCard priority="medium" taskState="mark" label="LOCAL MARS OFFICE"
                labelStyle="thirdLabelStyle" userPhoto="first" alt="User Photo">Requesting available flights is nów taking</TaskCard>
-         </TaskBoard>
+         </TaskBoard> */}
       </div>
+      {children}
    </div >
    );
 }
 
-export default Board
+export default observer(Board)

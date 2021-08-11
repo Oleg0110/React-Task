@@ -1,0 +1,65 @@
+.backFon {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   background: rgba(0, 0, 0, 0.4);
+   backdrop-filter: blur(1px);
+   display: none;
+}
+
+.modalBody {
+   max-width: 550px;
+   margin: auto;
+   background-color: #fff;
+   margin-top: 18%;
+   padding: 20px 30px;
+   border-radius: 5px;
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border: 2px solid;
+}
+
+.opened {
+   height: 100%;
+   display: block;
+}
+
+.close {
+   height: 0%;
+   display: none;
+}
+
+.closeIcon {
+   background-image: url(../../assets/icon/closeIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 15px;
+   width: 25px;
+   height: 25px;
+}
+
+.closeIconPosition {
+   position: absolute;
+   top: 1%;
+   right: 0%;
+}
+
+.title {
+   font-weight: 600;
+   font-size: 22px;
+   color: rgb(117, 117, 117);
+}
+
+.form {
+   display: contents;
+}
+
+.input {
+   padding: 5px;
+   margin-left: -70px;
+   border-radius: 4px;
+   font-size: 20px;
+   border: 1px solid #9493935c;
+}
