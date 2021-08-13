@@ -1,9 +1,9 @@
 import styles from "./TaskCard.module.scss"
 
 
-const TaskCard = ({ children, label, labelStyle, taskState, priority, alt, userPhoto }) => {
+const TaskCard = ({ text, label, labelStyle, taskState, priority, alt, userPhoto }) => {
    return (<div className={styles.taskCard}>
-      <p className={styles.cardText}>{children}</p>
+      <p className={styles.cardText}>{text}</p>
       <p className={styles[labelStyle]}>{label}</p>
       <div className={styles.taskInfo}>
          <div className={styles.stateTable}>

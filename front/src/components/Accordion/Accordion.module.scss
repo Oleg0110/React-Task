@@ -1,0 +1,71 @@
+.accordionSection {
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
+}
+
+.accordion {
+   background-color: #fff;
+   color: #444;
+   cursor: pointer;
+   padding: 18px;
+   display: flex;
+   align-items: center;
+   border: none;
+   outline: none;
+   transition: background-color 0.6s ease;
+   width: 800px;
+   justify-content: space-between;
+   border-radius: 10px 10px 0px 0px;
+   box-shadow: 3px 0px 3px 0px #aaa;
+}
+
+.accordion:hover {
+   // background-color: #ffcc80;
+   background-color: #bce0bb;
+}
+
+.accordionTitle {
+   font-weight: 600;
+   font-size: 17px;
+}
+
+.accordionIcon {
+   margin-left: auto;
+   transition: transform 0.6s ease;
+}
+
+.rotate {
+   transform: rotate(90deg);
+}
+
+.accordionContent {
+   background-color: #fff;
+   overflow: hidden;
+   transition: max-height 0.6s ease;
+   width: 800px;
+   border-radius: 0px 0px 10px 10px;
+   box-shadow: 2px 1px 3px 1px #aaa;
+   text-align: start;
+   padding: 3px;
+}
+
+.goTo {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-right: 10px;
+}
+
+.contentTitle {
+   font-weight: 600;
+   font-size: 17px;
+   padding: 10px 15px;
+}
+
+.accordionText {
+   font-size: 15px;
+   font-weight: 400;
+   padding: 18px;
+   text-align: start;
+}

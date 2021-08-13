@@ -1,33 +1,34 @@
-import styles from "./AddTaskModalWindow.module.scss"
-import Button from "../Button/Button"
-import BoardStore from "../../stores/BoardStore/BoardStore"
+import styles from "./CreateTaskModalWindow.module.scss"
+import { Button } from ".."
+import { BoardStore } from "../../stores"
 import { useRef } from "react"
 import { observer } from "mobx-react"
 
 
 const AddTaskModalWindow = ({ isModalOpened, onModalClose }) => {
 
-   const ref = useRef(null)
+   const taskRef = useRef(null)
 
    return (<div className={`${styles.backFon} ${isModalOpened && styles.opened}`}>
-      <div className={styles.modalBody}>
-         <div className={styles.form}>
-            <div className={styles.closeIconPosition}>
-               <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
-            </div>
-            <form onSubmit={(e) => {
-               e.preventDefault()
-               BoardStore.pushTask(ref.current.value)
-               console.log(BoardStore.lists.length);
-            }}>
-               <div className={styles.cardText}>
-                  <span className={styles.text}>Card Text</span>
-                  <br />
-                  <textarea type="textarea" placeholder="Text" className={styles.textInput} ref={ref} />
+      <div className={styles.createArea}>
+         <div className={styles.modalBody}>
+            <div className={styles.form}>
+               <div className={styles.closeIconPosition}>
+                  <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
+               <form onSubmit={(e) => {
+                  e.preventDefault()
+                  BoardStore.pushTask(taskRef.current.value)
+               }}>
+                  <div className={styles.cardText}>
+                     <span className={styles.text}>Card Text</span>
+                     <br />
+                     <textarea type="textarea" placeholder="Text" className={styles.textInput} ref={taskRef} />
+                  </div>
+               </form>
                <div className={styles.value}>
                   <div className={styles.box}>
-                     <span className={styles.title}>Priority :</span>
+                     <span className={styles.title}>Priority</span>
                      <div className={styles.checkboxPosition}>
                         <label className={styles.optionItem}>
                            <input type="checkbox" className={styles.checkbox} />
@@ -53,7 +54,7 @@ const AddTaskModalWindow = ({ isModalOpened, onModalClose }) => {
                      </div>
                   </div>
                   <div className={styles.box}>
-                     <span className={styles.title}>State :</span>
+                     <span className={styles.title}>State</span>
                      <div className={styles.checkboxPosition}>
                         <label className={styles.optionItem}>
                            <input type="checkbox" className={styles.checkbox} />
@@ -86,11 +87,37 @@ const AddTaskModalWindow = ({ isModalOpened, onModalClose }) => {
                      </div>
                   </div>
                </div>
-               <div className={styles.NEZNAU}>
-                  <h3 className={styles.title}>NEZNAU</h3>
+               <div className={styles.labelBox}>
+                  <span className={styles.title}>Label</span>
+                  <div className={styles.labelcheckboxPosition}>
+                     <label className={styles.labelOptionItem}>
+                        <input type="checkbox" className={styles.checkbox} />
+                        <div className={styles.optionInner}>
+                           <p className={styles.firstLabelStyle}>SPACE TRAVEL PARTNERS</p>
+                        </div>
+                     </label>
+                     <label className={styles.labelOptionItem}>
+                        <input type="checkbox" className={styles.checkbox} />
+                        <div className={styles.optionInner}>
+                           <p className={styles.thirdLabelStyle}>LOCAL MARS OFFICE</p>
+                        </div>
+                     </label>
+                     <label className={styles.labelOptionItem}>
+                        <input type="checkbox" className={styles.checkbox} />
+                        <div className={styles.optionInner}>
+                           <p className={styles.secondLabelStyle}>SEESPACEEZ PLUS</p>
+                        </div>
+                     </label>
+                     <label className={styles.labelOptionItem}>
+                        <input type="checkbox" className={styles.checkbox} />
+                        <div className={styles.optionInner}>
+                           <p className={styles.fourthLabelStyle}>LARGE TEAM SUPPORT</p>
+                        </div>
+                     </label>
+                  </div>
                </div>
-               <Button buttonStyle="thirdButtonStyle" className={styles.button}>Add Card</Button>
-            </form>
+               <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+            </div>
          </div>
       </div>
    </div >

@@ -2,7 +2,7 @@
 import styles from "./Dashboards.module.scss"
 import { Button } from "../../components"
 import { TaskBoard } from "../../components"
-import BoardStore from "../../stores/BoardStore/BoardStore"
+import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 
 
@@ -26,11 +26,11 @@ const Board = ({ children, onClick }) => {
                <input type="text" className={styles.searchBoard} />
                <div className={styles.searchIcon} alt="Search Icon" />
             </div>
-            <Button ><span className={styles.filtersButton}>Quick Filters<div className={styles.arrowIcon} alt="Arrow" /></span></Button>
+            <Button ><span className={styles.filtersButton}>Quick Filters<div className={styles.chevronIcon} alt="Arrow" /></span></Button>
          </div>
       </div>
       <div className={styles.boardLists}>
-         {lists.map((data) => <TaskBoard title={data.title} cardsData={data.tasks} key={data.id} />)}
+         {lists.map((data, index) => <TaskBoard title={data.title} cardsData={data.tasks} key={index} />)}
          {/* <TaskBoard title="TO DO">
             <TaskCard priority="medium" taskState="done" label="SPACE TRAVEL PARTNERS"
                labelStyle="firstLabelStyle" userPhoto="first" alt="User Photo">Engage Jupiter Express out solar system travel</TaskCard>

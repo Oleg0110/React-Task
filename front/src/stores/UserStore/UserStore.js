@@ -7,7 +7,8 @@ class UserStore {
    constructor() {
       makeObservable(this, {
          name: observer,
-         email: observer
+         email: observer,
+         pushName: action
       })
    }
 
