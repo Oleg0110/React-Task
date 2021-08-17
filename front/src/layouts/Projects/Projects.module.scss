@@ -1,22 +1,134 @@
-hr {
-   border: 1px solid;
-   margin-top: 25px;
+.mainProjectsStyle {
+   padding: 20px;
 }
 
-.backFon {
-   background-color: #bce0bb;
-   height: 100vh;
+.mainTitle {
+   font-weight: bold;
+   font-size: 30px;
+   text-align: start;
+   padding-left: 20px;
 }
 
-.title {
-   font-size: 120px;
-   letter-spacing: 1rem;
-   font-weight: 100;
-   padding: 150px 0 60px;
-   color: #ff7979;
+.create {
+   display: flex;
+   padding: 20px 25px 0px 25px;
+   align-items: center;
+   justify-content: space-between;
 }
 
-.text {
-   font-size: 35px;
-   font-weight: 100;
+.filtersButton {
+   display: flex;
+   align-items: center;
+   position: relative;
+   font-size: 18px;
+}
+
+.filtersButton:hover {
+   color: #fb8c00;
+}
+
+.chevronIcon {
+   background-image: url(../../assets/icon/chevronDown.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 15px;
+   position: absolute;
+   right: -50%;
+   top: 22%;
+   width: 17px;
+   height: 17px;
+}
+
+.projectsBlocks {
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-around;
+   flex-wrap: wrap-reverse;
+}
+
+.accordionBlock {
+   display: flex;
+   flex-direction: column;
+   max-height: 500px;
+   overflow-y: auto;
+   margin-top: 20px;
+   background-color: #3c3c3c36;
+   border-radius: 5px;
+   width: 835px;
+}
+
+.accordionBlock::-webkit-scrollbar {
+   width: 15px;
+}
+
+.accordionBlock::-webkit-scrollbar-track {
+   background: #cccccc;
+   border-radius: 10px;
+}
+
+.accordionBlock::-webkit-scrollbar-thumb {
+   background-color: #adadad;
+   border: 4px solid #cccccc;
+   border-radius: 10px;
+}
+
+.createProjectArea {
+   background-color: #3c3c3c36;
+   border-radius: 5px;
+   height: 325px;
+   width: 300px;
+   margin-top: 20px;
+   opacity: 0;
+   transition: 0.5s;
+}
+
+.createArea {
+   margin: 10px;
+   background-color: #ffffff;
+   border-radius: 5px;
+   height: 300px;
+   width: 280px;
+   box-shadow: 3px 3px 3px 0px #aaa;
+}
+
+.createCardTitle {
+   font-weight: 600;
+   font-size: 20px;
+   margin: 10px;
+   padding: 10px;
+   border-bottom: 2px solid #d1c9c9;
+   text-align: start;
+}
+
+.descriptionProjectBlock {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.projectTitle {
+   font-weight: 500;
+   margin: 10px;
+   font-size: 15px;
+}
+
+.inputNane {
+   padding: 4px;
+   border-radius: 4px;
+   border: 1px solid #9493935c;
+   box-shadow: 1px 1px 2px 1px #aaa;
+}
+
+.inputText {
+   padding: 4px;
+   width: 250px;
+   height: 80px;
+   border-radius: 4px;
+   border: 1px solid #9493935c;
+   box-shadow: 1px 1px 2px 1px #aaa;
+   margin-bottom: 10px;
+}
+
+.opened {
+   opacity: 1;
 }

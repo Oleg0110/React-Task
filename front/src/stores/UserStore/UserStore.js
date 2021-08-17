@@ -1,13 +1,13 @@
-import { action, makeObservable } from "mobx"
-import { observer } from "mobx-react"
+import { action, makeObservable, observable } from "mobx"
 
 class UserStore {
    name = ""
    email = ""
    constructor() {
       makeObservable(this, {
-         name: observer,
-         email: observer
+         name: observable,
+         email: observable,
+         pushName: action
       })
    }
 
