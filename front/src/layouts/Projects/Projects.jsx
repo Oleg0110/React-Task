@@ -31,6 +31,7 @@ const Projects = ({ children, onClick }) => {
                   <form className={styles.descriptionProjectBlock} onSubmit={(e) => {
                      e.preventDefault()
                      ProjectsStore.pushProject(nameRef.current.value, descriptionRef.current.value)
+                     console.log(nameRef.current.value);
                   }}>
                      <h3 className={styles.projectTitle}>Project Name :</h3>
                      <input type="text" placeholder="Name" className={styles.inputNane} ref={nameRef} />

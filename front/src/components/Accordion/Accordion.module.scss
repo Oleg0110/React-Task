@@ -42,12 +42,13 @@
 .accordionContent {
    background-color: #fff;
    overflow: hidden;
-   transition: max-height 0.6s ease;
+   // transition: max-height 0.6s ease;
    width: 800px;
    border-radius: 0px 0px 10px 10px;
    box-shadow: 2px 1px 3px 1px #aaa;
    text-align: start;
    padding: 3px;
+   max-height: 0px;
 }
 
 .goTo {
@@ -68,4 +69,8 @@
    font-weight: 400;
    padding: 18px;
    text-align: start;
+}
+
+.opened {
+   max-height: 1000000px;
 }

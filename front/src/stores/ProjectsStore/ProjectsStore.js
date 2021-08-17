@@ -12,6 +12,7 @@ class ProjectsStore {
 
    pushProject(title, content) {
       this.projects.push({ title, content })
+      console.log(this.projects.length);
    }
 
 }

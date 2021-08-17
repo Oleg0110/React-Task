@@ -26,11 +26,12 @@ class BoardStore {
 
    pushList(title) {
       this.lists.push({ title })
-      console.log(title);
+      console.log(this.lists.find((data) => data.title));
    }
 
-   pushTask(text) {
-      this.lists.push({ text })
+   pushTask(text, id) {
+      console.log(this.lists.find(list => list.id === 1));
+      this.lists.push({ text, id })
    }
 }
 
