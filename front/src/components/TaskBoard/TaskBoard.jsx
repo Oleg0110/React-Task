@@ -12,9 +12,6 @@ const TaskBoard = ({ children, title, id, cardsData }) => {
 
    const { lists } = BoardStore
 
-   // const findList = lists.find((list) => list.title === 1)
-   // console.log(findList);
-
 
    return (
       <div>

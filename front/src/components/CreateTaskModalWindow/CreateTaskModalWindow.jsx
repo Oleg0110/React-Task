@@ -18,7 +18,7 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                </div>
                <form onSubmit={(e) => {
                   e.preventDefault()
-                  BoardStore.pushTask(taskRef.current.value)
+                  BoardStore.pushTask(taskRef.current.value, id)
                }}>
                   <div className={styles.cardText}>
                      <span className={styles.text}>Card Text</span>

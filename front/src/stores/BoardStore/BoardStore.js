@@ -6,11 +6,7 @@ class BoardStore {
          id: 1, title: "To Do",
          tasks: [
             { id: 1, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 2, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 3, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 4, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 5, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 6, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
+            { id: 2, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
       },
       { id: 2, title: "Done", tasks: [{ id: 1, text: "I have to something" }] }]
 
@@ -24,14 +20,14 @@ class BoardStore {
 
 
 
-   pushList(title) {
-      this.lists.push({ title })
-      console.log(this.lists.find((data) => data.title));
+   pushList(title, id) {
+      console.log(this.lists.push({ title, id }));
    }
 
    pushTask(text, id) {
-      console.log(this.lists.find(list => list.id === 1));
-      this.lists.push({ text, id })
+      this.lists.push({ text, id });
+      const foundLists = this.lists.find((data) => data.id === id)
+      console.log(foundLists);
    }
 }
 
