@@ -18,15 +18,33 @@ class BoardStore {
       })
    }
 
-
-
    pushList(title, id) {
-      console.log(this.lists.push({ title, id }));
+      // let foundId = 0
+      // for (let i = 0; i < this.lists.length; i++) {
+
+      //    if (this.lists[i].id > foundId) {
+
+      //    }
+      // }
+
+      console.log(this.lists.push({ title, id, tasks: [] }));
    }
 
    pushTask(text, id) {
-      this.lists.push({ text, id });
+      // this.lists.push({ text, id });
       const foundLists = this.lists.find((data) => data.id === id)
+      let foundId = 0
+      if (foundLists.tasks) {
+
+         for (let i = 0; i < foundLists.tasks.length; i++) {
+
+            if (foundLists.tasks[i].id > foundId) {
+               foundId = foundLists.tasks[i].id
+            }
+         }
+         foundId++
+         foundLists.tasks.push({ text, id: foundId })
+      }
       console.log(foundLists);
    }
 }
