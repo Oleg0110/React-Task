@@ -6,11 +6,7 @@ class BoardStore {
          id: 1, title: "To Do",
          tasks: [
             { id: 1, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 2, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 3, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 4, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 5, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 6, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
+            { id: 2, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
       },
       { id: 2, title: "Done", tasks: [{ id: 1, text: "I have to something" }] }]
 
@@ -22,16 +18,33 @@ class BoardStore {
       })
    }
 
+   pushList(title, id) {
+      // let foundId = 0
+      // for (let i = 0; i < this.lists.length; i++) {
 
+      //    if (this.lists[i].id > foundId) {
 
-   pushList(title) {
-      this.lists.push({ title })
-      console.log(this.lists.find((data) => data.title));
+      //    }
+      // }
+
+      console.log(this.lists.push({ title, id, tasks: [] }));
    }
 
    pushTask(text, id) {
-      console.log(this.lists.find(list => list.id === 1));
-      this.lists.push({ text, id })
+      const foundLists = this.lists.find((data) => data.id === id)
+      let foundId = 0
+      if (foundLists.tasks) {
+
+         for (let i = 0; i < foundLists.tasks.length; i++) {
+
+            if (foundLists.tasks[i].id > foundId) {
+               foundId = foundLists.tasks[i].id
+            }
+         }
+         foundId++
+         foundLists.tasks.push({ text, id: foundId })
+      }
+      console.log(foundLists);
    }
 }
 

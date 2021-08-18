@@ -1,13 +1,12 @@
 import styles from "./Accordion.module.scss"
 import { Button } from ".."
-import { Chevron } from ".."
 import { useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
 
 const Accordion = ({ title, content }) => {
 
-   const [isOpened, setIsOpened] = useState("")
+   const [isOpened, setIsOpened] = useState(false)
 
    return (
       <div className={styles.accordionSection}>
@@ -15,8 +14,7 @@ const Accordion = ({ title, content }) => {
             <Button>
                <p className={styles.accordionTitle}>{title}</p>
             </Button>
-            <Chevron icon="chevronRight" />
-            {/* <div className={`${styles.chevronRight} ${setRotate}`} alt="Arrow"></div> */}
+            <div className={`${styles.chevronRight} ${isOpened && styles.chevronDown}`} alt="Arrow"></div>
          </div>
          <div className={`${styles.accordionContent} ${isOpened && styles.opened} `}>
             <div className={styles.goTo}>

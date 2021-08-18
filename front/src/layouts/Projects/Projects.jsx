@@ -12,6 +12,7 @@ const Projects = ({ children, onClick }) => {
    const nameRef = useRef(null)
    const descriptionRef = useRef(null)
    const [isOpened, setIsOpened] = useState(false)
+   const [isChangeName, setChangeName] = useState("Create Project")
 
 
    return (
@@ -19,13 +20,16 @@ const Projects = ({ children, onClick }) => {
          <h1 className={styles.mainTitle}>Projects</h1>
          <div className={styles.create}>
             <Button ><span className={styles.filtersButton}>Filters<div className={styles.chevronIcon} alt="Arrow" /></span></Button>
-            <Button onClick={() => setIsOpened(!isOpened)} buttonStyle="thirdButtonStyle">Create Project</Button>
+            <Button onClick={() => {
+               setIsOpened(!isOpened)
+               setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
+            }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
          <div className={styles.projectsBlocks}>
-            <div className={styles.accordionBlock}>
-               {projects.map((data, index) => <Accordion title={data.title} content={data.content} key={index} />)}
+            <div className={`${styles.accordionBlock} ${isOpened && styles.accordionBlock || styles.accordionBlockMax} `} >
+               {projects.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />)}
             </div>
-            <div className={`${styles.createProjectArea} ${isOpened && styles.opened} `}>
+            <div className={`${styles.createProjectArea} ${isOpened && styles.openedCreateProjectBlock || styles.closeCreateProjectBlock} `}>
                <div className={styles.createArea}>
                   <h2 className={styles.createCardTitle}>Create Project</h2>
                   <form className={styles.descriptionProjectBlock} onSubmit={(e) => {
