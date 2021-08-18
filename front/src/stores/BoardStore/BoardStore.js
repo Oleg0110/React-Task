@@ -31,7 +31,6 @@ class BoardStore {
    }
 
    pushTask(text, id) {
-      // this.lists.push({ text, id });
       const foundLists = this.lists.find((data) => data.id === id)
       let foundId = 0
       if (foundLists.tasks) {
