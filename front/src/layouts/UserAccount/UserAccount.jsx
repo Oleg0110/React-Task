@@ -1,7 +1,6 @@
 import styles from "./UserAccount.module.scss"
 import userPhoto from "../../assets/img/me.png"
-import Button from "../../components/Button/Button"
-
+import { Button } from "../../components";
 const UserAccount = () => {
    return (<div className={styles.mainUserAccountStyle}>
       <div className={styles.userBlock}>

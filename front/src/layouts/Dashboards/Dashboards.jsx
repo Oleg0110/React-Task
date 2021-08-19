@@ -1,7 +1,6 @@
 
 import styles from "./Dashboards.module.scss"
-import { Button, CreateListModalWindow } from "../../components"
-import { TaskBoard } from "../../components"
+import { Button, CreateListModalWindow, TaskBoard } from "../../components"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useState } from "react"

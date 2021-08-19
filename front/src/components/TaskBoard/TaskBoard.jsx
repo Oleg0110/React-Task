@@ -1,7 +1,5 @@
 import styles from "./TaskBoard.module.scss"
-import { Button } from ".."
-import { CreateTaskModalWindow } from ".."
-import { TaskCard } from ".."
+import { Button, TaskCard, CreateTaskModalWindow } from ".."
 import { useState } from "react"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
@@ -9,8 +7,6 @@ import { observer } from "mobx-react"
 const TaskBoard = ({ children, title, id, cardsData }) => {
 
    const [isTaskModalOpened, setIsTaskModalOpened] = useState(false)
-
-   const { lists } = BoardStore
 
 
    return (

@@ -1,11 +1,11 @@
 import { Button } from "../../components"
 import styles from "./Header.module.scss"
 import userPhoto from "../../assets/img/me.png"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 
 
-const Header = ({ onClick, openUserForm }) => {
+const Header = ({ onClick, openUserForm, children }) => {
 
    const history = useHistory()
 
@@ -13,12 +13,13 @@ const Header = ({ onClick, openUserForm }) => {
       <Button onClick={onClick}><div className={`${styles["open-sidebar-icon"]}`} alt="Open Sidebar Icon" />
       </Button>
       <div className={styles.linkHeaderButton}>
-         <Button onClick={() => history.push("/")} buttonStyle="mainButtonStyle">Home</Button>
+         {children}
          <Button onClick={() => history.push("/projects")} buttonStyle="mainButtonStyle" >Projects</Button>
+         {/* <Button onClick={() => history.push("/")} buttonStyle="mainButtonStyle">Home</Button>
          <Button onClick={() => history.push("/dashboards")} buttonStyle="mainButtonStyle">Dashboards</Button >
          <Button onClick={() => history.push("/people")} buttonStyle="mainButtonStyle" >People</Button>
          <Button onClick={() => history.push("/settings")} buttonStyle="mainButtonStyle" >Settings</Button>
-         <Button onClick={() => history.push("create")} buttonStyle="fifthButtonStyle">Create</Button>
+         <Button onClick={() => history.push("create")} buttonStyle="fifthButtonStyle">Create</Button> */}
 
       </div >
       <div className={styles.searchHeader}>
@@ -31,7 +32,6 @@ const Header = ({ onClick, openUserForm }) => {
          <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
          <Button onClick={openUserForm}><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
       </div>
-
    </header >
    );
 
