@@ -18,16 +18,21 @@ class BoardStore {
       })
    }
 
-   pushList(title, id) {
-      // let foundId = 0
-      // for (let i = 0; i < this.lists.length; i++) {
+   pushList(title) {
+      let foundId = 0
+      if (this.lists) {
 
-      //    if (this.lists[i].id > foundId) {
 
-      //    }
-      // }
+         for (let i = 0; i < this.lists.length; i++) {
 
-      console.log(this.lists.push({ title, id, tasks: [] }));
+            if (this.lists[i].id > foundId) {
+               foundId = this.lists[i].id
+            }
+         }
+         foundId++
+         this.lists.push({ title, id: foundId, tasks: [] });
+      }
+
    }
 
    pushTask(text, id) {

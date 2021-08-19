@@ -11,12 +11,12 @@ class UserStore {
       })
    }
 
-   pushName() {
-      this.name.push()
+   pushName(value) {
+      this.name = value
    }
 
    pushEmail() {
-      this.email.push()
+
    }
 
 

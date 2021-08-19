@@ -1,0 +1,59 @@
+.searckArea {
+   display: flex;
+   width: 70%;
+}
+
+.titleSearch {
+   position: relative;
+}
+
+.contentSearch {
+   position: relative;
+   display: none;
+}
+
+.contentSearchOpened {
+   display: block;
+}
+
+.searchInput {
+   padding: 5px 35px 5px 22px;
+   border-radius: 4px;
+   border: 1px solid #9493935c;
+}
+
+.searchIcon {
+   background-image: url(../../assets/icon/searchIcon.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 11px;
+   position: absolute;
+   width: 17px;
+   height: 17px;
+   left: 2%;
+   top: 20%;
+}
+
+.delete {
+   background-image: url(../../assets/icon/plusIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 11px;
+   width: 15px;
+   height: 15px;
+   margin-right: 6px;
+   position: absolute;
+   top: 25%;
+   right: 0%;
+   transform: rotate(45deg);
+}
+
+.three-dots {
+   background-image: url(../../assets/icon/threeDots.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 20px;
+   width: 20px;
+   height: 20px;
+   margin: 0 10px;
+}

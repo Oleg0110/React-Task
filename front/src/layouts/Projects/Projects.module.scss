@@ -16,15 +16,83 @@
    justify-content: space-between;
 }
 
+.searchBlock {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 30%;
+}
+
 .filtersButton {
    display: flex;
    align-items: center;
    position: relative;
    font-size: 18px;
+   width: 150%;
 }
 
 .filtersButton:hover {
    color: #fb8c00;
+}
+
+.searckArea {
+   display: flex;
+   width: 70%;
+}
+
+.titleSearch {
+   position: relative;
+}
+
+.contentSearch {
+   position: relative;
+   display: none;
+}
+
+.contentSearchOpened {
+   display: block;
+}
+
+.searchInput {
+   padding: 5px 35px 5px 22px;
+   border-radius: 4px;
+   border: 1px solid #9493935c;
+}
+
+.searchIcon {
+   background-image: url(../../assets/icon/searchIcon.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 11px;
+   position: absolute;
+   width: 17px;
+   height: 17px;
+   left: 2%;
+   top: 20%;
+}
+
+.delete {
+   background-image: url(../../assets/icon/plusIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 11px;
+   width: 15px;
+   height: 15px;
+   margin-right: 6px;
+   position: absolute;
+   top: 25%;
+   right: 0%;
+   transform: rotate(45deg);
+}
+
+.three-dots {
+   background-image: url(../../assets/icon/threeDots.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 20px;
+   width: 20px;
+   height: 20px;
+   margin: 0 10px;
 }
 
 .chevronIcon {
@@ -33,7 +101,7 @@
    background-repeat: no-repeat;
    background-size: 15px;
    position: absolute;
-   right: -50%;
+   right: 0%;
    top: 22%;
    width: 17px;
    height: 17px;
@@ -77,26 +145,6 @@
    border-radius: 10px;
 }
 
-// .createProjectArea {
-//    background-color: #bce0bb;
-//    border-radius: 5px;
-//    height: 500px;
-//    width: 35%;
-//    margin-top: 20px;
-//    margin-right: 25px;
-//    position: absolute;
-// }
-
-// .openedCreateProjectBlock {
-//    right: 10px;
-//    transition: 0.5s;
-// }
-
-// .closeCreateProjectBlock {
-//    right: -600px;
-//    transition: 0.5s;
-// }
-
 .createProjectArea {
    background-color: #bce0bb;
    border-radius: 5px;
@@ -116,52 +164,4 @@
 .closeCreateProjectBlock {
    right: -600px;
    display: none;
-}
-
-.createArea {
-   margin: 10px;
-   background-color: #ffffff;
-   border-radius: 5px;
-   height: 475px;
-   width: 95%;
-   box-shadow: 3px 3px 3px 0px #aaa;
-}
-
-.createCardTitle {
-   font-weight: 600;
-   font-size: 20px;
-   margin: 10px 10px 20px;
-   padding: 10px;
-   border-bottom: 2px solid #d1c9c9;
-   text-align: start;
-}
-
-.descriptionProjectBlock {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-}
-
-.projectTitle {
-   font-weight: 500;
-   margin: 10px;
-   font-size: 15px;
-}
-
-.inputNane {
-   padding: 4px;
-   border-radius: 4px;
-   border: 1px solid #9493935c;
-   box-shadow: 1px 1px 2px 1px #aaa;
-   width: 90%;
-}
-
-.inputText {
-   padding: 4px;
-   width: 90%;
-   height: 225px;
-   border-radius: 4px;
-   border: 1px solid #9493935c;
-   box-shadow: 1px 1px 2px 1px #aaa;
-   margin-bottom: 30px;
 }

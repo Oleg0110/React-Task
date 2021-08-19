@@ -1,20 +1,36 @@
 import './App.scss';
 // import UserAccount from './layouts/UserAccount/UserAccount';
 import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, } from "./layouts"
-import { CreateUserAccount } from './components';
+import { Button, CreateUserAccount } from './components';
 import { useState } from 'react';
-import { Redirect, Route, Switch } from "react-router-dom"
+import { Redirect, Route, Switch, useHistory } from "react-router-dom"
+import useMediaQuery from './hooks/useMedia';
 
 function App() {
+
+   const history = useHistory()
 
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
+   const isPageWide = useMediaQuery("(min-width: 800px)")
+   console.log(isPageWide);
+
+   const buttons = [{ name: "Dashboards", link: "/dashboards" }]
+
+   const buttonsMap = buttons.map((button) => {
+
+      return <Button onClick={() => history.push(button.link)} buttonStyle="mainButtonStyle">{button.name}</Button >
+   })
 
    return (
       <div className="App">
-         <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}></Header>
-         <Sidebar isOpened={isOpened}></Sidebar>
+         <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
+            isPageWide ? buttonsMap : ""
+         }</Header>
+         <Sidebar isOpened={isOpened}>{
+            !isPageWide ? buttonsMap : ""
+         }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>
             <Route exact path="/" component={Home} />
