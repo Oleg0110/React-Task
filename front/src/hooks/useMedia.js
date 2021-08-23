@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 function useMediaQuery(query) {
-   const buttons = [{ name: "Dashboards", link: "/dashboards" }]
    const [matches, setMatches] = useState(false);
 
    useEffect(() => {

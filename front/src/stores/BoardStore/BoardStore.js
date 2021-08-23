@@ -49,7 +49,6 @@ class BoardStore {
          foundId++
          foundLists.tasks.push({ text, id: foundId })
       }
-      console.log(foundLists);
    }
 }
 

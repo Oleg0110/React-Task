@@ -14,30 +14,12 @@
    padding: 20px 25px 0px 25px;
    align-items: center;
    justify-content: space-between;
-}
-
-.searchBlock {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   width: 30%;
-}
-
-.filtersButton {
-   display: flex;
-   align-items: center;
-   position: relative;
-   font-size: 18px;
-   width: 150%;
-}
-
-.filtersButton:hover {
-   color: #fb8c00;
+   flex-wrap: wrap;
 }
 
 .searckArea {
    display: flex;
-   width: 70%;
+   flex-wrap: wrap;
 }
 
 .titleSearch {
@@ -121,7 +103,6 @@
    margin-top: 20px;
    border-radius: 5px;
    width: 60%;
-   // transition: 0.5s;
 }
 
 .accordionBlockMax {

@@ -18,7 +18,11 @@ const Projects = ({ children }) => {
    // const [deleteSearch, setDeleteSearch] = useState(searchTitle)
 
 
-   const foundTitle = projects.filter(found => found.title.toLowerCase().includes(searchTitle.toLowerCase()))
+   const foundTitle = projects.filter(found => {
+      found.content.toLowerCase().includes(searchContent.toLowerCase())
+      return found.title.toLowerCase().includes(searchTitle.toLowerCase())
+
+   })
    // const foundContent = projects.filter(found => found.content.toLowerCase().includes(searchContent.toLowerCase()))
 
 
@@ -26,28 +30,25 @@ const Projects = ({ children }) => {
       <div className={styles.mainProjectsStyle}>
          <h1 className={styles.mainTitle}>Projects</h1>
          <div className={styles.create}>
-            <div className={styles.searchBlock}>
-               <Button ><div className={styles.filtersButton}>Filters<div className={styles.chevronIcon} alt="Arrow" /></div></Button>
-               <div className={styles.searckArea}>
-                  <form className={styles.titleSearch} onChange={(e) => {
-                     e.preventDefault()
-                     setSearchTitle(searchTitleref.current.value)
-                  }}>
-                     <input type="text" placeholder="Title search..." className={styles.searchInput} ref={searchTitleref} />
-                     <div className={styles.searchIcon} alt="Search Icon" />
-                     <Button><div className={styles.delete} alt="Delete Icon" /></Button>
-                  </form>
-                  <Button onClick={() => setIsSearchOpened(!isSearchOpened)}><div className={styles["three-dots"]} alt="Dots" /></Button>
-                  <form className={`${styles.contentSearch} ${isSearchOpened && styles.contentSearchOpened}`} onChange={(e) => {
-                     e.preventDefault()
-                     setSearchTitle(searchTitleref.current.value)
-                  }}>
-                     <input type="text" placeholder="Content search..." className={styles.searchInput}
-                        onChange={(e) => setSearchContent(e.target.value)} />
-                     <div className={styles.searchIcon} alt="Search Icon" />
-                     <Button><div className={styles.delete} alt="Delete Icon" /></Button>
-                  </form>
-               </div>
+            <div className={styles.searckArea}>
+               <form className={styles.titleSearch} onChange={(e) => {
+                  e.preventDefault()
+                  setSearchTitle(searchTitleref.current.value)
+               }}>
+                  <input type="text" placeholder="Title search..." className={styles.searchInput} ref={searchTitleref} />
+                  <div className={styles.searchIcon} alt="Search Icon" />
+                  <Button><div className={styles.delete} alt="Delete Icon" /></Button>
+               </form>
+               <Button onClick={() => setIsSearchOpened(!isSearchOpened)}><div className={styles["three-dots"]} alt="Dots" /></Button>
+               <form className={`${styles.contentSearch} ${isSearchOpened && styles.contentSearchOpened}`} onChange={(e) => {
+                  e.preventDefault()
+                  setSearchTitle(searchTitleref.current.value)
+               }}>
+                  <input type="text" placeholder="Content search..." className={styles.searchInput}
+                     onChange={(e) => setSearchContent(e.target.value)} />
+                  <div className={styles.searchIcon} alt="Search Icon" />
+                  <Button><div className={styles.delete} alt="Delete Icon" /></Button>
+               </form>
             </div>
             <Button onClick={() => {
                setIsOpened(!isOpened)

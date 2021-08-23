@@ -116,7 +116,6 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                      </div>
                   </div>
                   <Button onClick={onModalClose} buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
-
                </form>
             </div>
          </div>

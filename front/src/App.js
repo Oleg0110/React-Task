@@ -13,23 +13,22 @@ function App() {
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
-   const isPageWide = useMediaQuery("(min-width: 800px)")
-   console.log(isPageWide);
+   const mediumDevices = useMediaQuery("(min-width: 768px)")
+   console.log(mediumDevices);
 
-   const buttons = [{ name: "Dashboards", link: "/dashboards" }]
+   const buttons = [{ name: "Home", link: "/" }, { name: "Projects", link: "/projects" }, { name: "Dashboards", link: "/dashboards" },
+   { name: "People", link: "/people" }, { name: "Settings", link: "/settings" }, { name: "Create", link: "/create" }]
 
-   const buttonsMap = buttons.map((button) => {
-
-      return <Button onClick={() => history.push(button.link)} buttonStyle="mainButtonStyle">{button.name}</Button >
-   })
+   const buttonsMap = buttons.map((button) =>
+      <Button onClick={() => history.push(button.link)} buttonStyle="mainButtonStyle">{button.name}</Button >)
 
    return (
       <div className="App">
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            isPageWide ? buttonsMap : ""
+            mediumDevices ? buttonsMap : ""
          }</Header>
          <Sidebar isOpened={isOpened}>{
-            !isPageWide ? buttonsMap : ""
+            !mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>

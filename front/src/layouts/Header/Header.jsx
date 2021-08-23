@@ -14,8 +14,8 @@ const Header = ({ onClick, openUserForm, children }) => {
       </Button>
       <div className={styles.linkHeaderButton}>
          {children}
-         <Button onClick={() => history.push("/projects")} buttonStyle="mainButtonStyle" >Projects</Button>
-         {/* <Button onClick={() => history.push("/")} buttonStyle="mainButtonStyle">Home</Button>
+         {/* <Button onClick={() => history.push("/projects")} buttonStyle="mainButtonStyle" >Projects</Button>
+         <Button onClick={() => history.push("/")} buttonStyle="mainButtonStyle">Home</Button>
          <Button onClick={() => history.push("/dashboards")} buttonStyle="mainButtonStyle">Dashboards</Button >
          <Button onClick={() => history.push("/people")} buttonStyle="mainButtonStyle" >People</Button>
          <Button onClick={() => history.push("/settings")} buttonStyle="mainButtonStyle" >Settings</Button>
