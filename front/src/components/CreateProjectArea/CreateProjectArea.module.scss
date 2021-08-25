@@ -3,14 +3,18 @@
    background-color: #ffffff;
    border-radius: 5px;
    height: 475px;
-   width: 95%;
+   max-width: 620px;
    box-shadow: 3px 3px 3px 0px #aaa;
+}
+
+.createAreaMedia {
+   height: 280px;
 }
 
 .createCardTitle {
    font-weight: 600;
    font-size: 20px;
-   margin: 10px 10px 20px;
+   margin: 10px 10px 10px;
    padding: 10px;
    border-bottom: 2px solid #d1c9c9;
    text-align: start;
@@ -44,4 +48,9 @@
    border: 1px solid #9493935c;
    box-shadow: 1px 1px 2px 1px #aaa;
    margin-bottom: 30px;
+}
+
+.inputTextMedia {
+   height: 75px;
+   margin-bottom: 10px;
 }

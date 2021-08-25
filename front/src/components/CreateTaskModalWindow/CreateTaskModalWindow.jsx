@@ -2,12 +2,20 @@ import styles from "./CreateTaskModalWindow.module.scss"
 import { Button } from ".."
 import { BoardStore } from "../../stores"
 import { useRef } from "react"
+import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
+import { MAIN_VALIDATION } from "../../utils/validation";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
 
-   const taskRef = useRef(null)
+   // const taskRef = useRef(null)
+
+   const { register, handleSubmit, formState: { errors } } = useForm();
+
+   const onSubmit = data => {
+      BoardStore.pushTask(data.task, id)
+   };
 
    return (<div className={`${styles.backFon} ${isModalOpened && styles.opened}`}>
       <div className={styles.createArea}>
@@ -16,7 +24,20 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                <div className={styles.closeIconPosition}>
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
-               <form onSubmit={(e) => {
+               <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className={styles.cardText}>
+                     <span className={styles.text}>Card Text</span>
+                     <br />
+                     <div className={styles.error}>
+                        <textarea {...register("task", MAIN_VALIDATION)} type="textarea" placeholder="Text" className={styles.textInput} />
+                        {errors.task && <p className={styles.errorPosition}>Required field</p>}
+                     </div>
+                  </div>
+                  <Button
+                     // onClick={onModalClose} 
+                     buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+               </form>
+               {/* <form onSubmit={(e) => {
                   e.preventDefault()
                   BoardStore.pushTask(taskRef.current.value, id)
                }}>
@@ -115,8 +136,9 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                         </label>
                      </div>
                   </div>
-                  <Button onClick={onModalClose} buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
-               </form>
+                  <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+
+               </form> */}
             </div>
          </div>
       </div>

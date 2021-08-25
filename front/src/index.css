@@ -10,6 +10,23 @@ code {
    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.fifthbuttonstyle {
+   font-weight: bold;
+   color: #fff;
+   background-color: #ffa726;
+   padding: 5px 9px 6px;
+   border-radius: 4px;
+   transition: 0.5s;
+   border: 1px solid #ffa726;
+}
+
+.fifthbuttonstyle:hover {
+   color: #ffa726;
+   background-color: rgb(252, 252, 252);
+   transition: 0.5s;
+   border: 1px solid #ffa726;
+}
+
 * {
    padding: 0;
    margin: 0;

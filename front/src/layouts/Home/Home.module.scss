@@ -5,14 +5,19 @@
 
 .backFon {
    background-color: #bce0bb;
-   // background-color: #91c78f;
-   height: 100vh;
+   height: 92vh;
 }
 
 .title {
    font-size: 70px;
    font-weight: 100;
    padding: 150px 0 50px;
+}
+
+.titleMedia {
+   font-size: 50px;
+   font-weight: 100;
+   padding: 95px 0 40px;
 }
 
 .myName {
@@ -22,4 +27,9 @@
 .projectTitle {
    font-weight: 100;
    font-size: 150px;
+}
+
+.projectTitleMedia {
+   font-weight: 100;
+   font-size: 75px;
 }

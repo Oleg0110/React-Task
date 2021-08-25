@@ -14,7 +14,12 @@ const Dashboards = ({ children, onClick }) => {
 
    const { lists } = BoardStore
 
-   // const foundBoard = 
+   // const foundBoard = lists.filter(found => Object.values(found))
+
+   // const foundBoard = lists.forEach(function (data) {
+   //    data.
+   // })
+
 
    return (<div className={styles.mainBoardStyle}>
       <CreateListModalWindow isListModalOpened={isListModalOpened} onModalClose={() => setIsListModalOpened(false)} />
@@ -27,16 +32,14 @@ const Dashboards = ({ children, onClick }) => {
       </div>
       <div className={styles.create}>
          <Button onClick={() => setIsListModalOpened(!isListModalOpened)} buttonStyle="thirdButtonStyle"><div className={styles.plus} alt="Plus Icon" />Create List</Button>
-         <div className={styles.searchQuick}>
-            <form className={styles.searchBoardArea} onChange={(e) => {
-               e.preventDefault()
-               setSearchTitle(searchValue.current.value)
-            }}>
-               <input type="text" className={styles.searchBoard} ref={searchValue} />
-               <div className={styles.searchIcon} alt="Search Icon" />
-            </form>
-            <Button ><span className={styles.filtersButton}>Quick Filters<div className={styles.chevronIcon} alt="Arrow" /></span></Button>
-         </div>
+         <form className={styles.searchBoardArea} onChange={(e) => {
+            e.preventDefault()
+            setSearchTitle(searchValue.current.value)
+         }}>
+            <input type="text" placeholder="Task search..." className={styles.searchBoard} ref={searchValue} />
+            <div className={styles.searchIcon} alt="Search Icon" />
+            <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
+         </form>
       </div>
       <div className={styles.boardLists}>
          {lists.map((data) => <TaskBoard title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}

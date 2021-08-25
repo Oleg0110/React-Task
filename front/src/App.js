@@ -8,27 +8,35 @@ import useMediaQuery from './hooks/useMedia';
 
 function App() {
 
+   const MEDIUM_DEVISCES = "(max-width: 768px)"
+
    const history = useHistory()
 
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
-   const mediumDevices = useMediaQuery("(min-width: 768px)")
-   console.log(mediumDevices);
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
-   const buttons = [{ name: "Home", link: "/" }, { name: "Projects", link: "/projects" }, { name: "Dashboards", link: "/dashboards" },
-   { name: "People", link: "/people" }, { name: "Settings", link: "/settings" }, { name: "Create", link: "/create" }]
+   const buttons = [{ id: 0, name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
+   { id: 1, name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
+   { id: 2, name: "Dashboards", link: "/dashboards", icon: "dashboardsIcon", style: "mainButtonStyle" },
+   { id: 3, name: "People", link: "/people", icon: "peopleIcon", style: "mainButtonStyle" },
+   { id: 4, name: "Settings", link: "/settings", icon: "settingsIcon", style: "mainButtonStyle" },
+   { id: 5, name: "Create", link: "/create", icon: "createIcon", style: "fifthButtonStyle" }];
 
    const buttonsMap = buttons.map((button) =>
-      <Button onClick={() => history.push(button.link)} buttonStyle="mainButtonStyle">{button.name}</Button >)
+      <Button onClick={() => history.push(button.link)} buttonStyle={mediumDevices ? "secondButtonStyle" : button.style} key={button.id}>
+         <div className={mediumDevices ? button.icon : ""} />
+         <h4>{button.name}</h4>
+      </Button >)
 
    return (
       <div className="App">
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            mediumDevices ? buttonsMap : ""
+            !mediumDevices ? buttonsMap : ""
          }</Header>
          <Sidebar isOpened={isOpened}>{
-            !mediumDevices ? buttonsMap : ""
+            mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>
