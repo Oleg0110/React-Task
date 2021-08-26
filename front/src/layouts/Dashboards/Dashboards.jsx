@@ -14,11 +14,13 @@ const Dashboards = ({ children, onClick }) => {
 
    const { lists } = BoardStore
 
-   // const foundBoard = lists.filter(found => Object.values(found))
 
-   // const foundBoard = lists.forEach(function (data) {
-   //    data.
-   // })
+   const filteredList = lists.map(data => {
+
+      const filteredTask = data.tasks.filter(neme => neme.text.includes(searchTitle))
+      return { ...data, tasks: filteredTask }
+   })
+
 
 
    return (<div className={styles.mainBoardStyle}>
@@ -42,7 +44,7 @@ const Dashboards = ({ children, onClick }) => {
          </form>
       </div>
       <div className={styles.boardLists}>
-         {lists.map((data) => <TaskBoard title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
+         {filteredList.map((data) => <TaskBoard title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
       </div>
       {children}
    </div >

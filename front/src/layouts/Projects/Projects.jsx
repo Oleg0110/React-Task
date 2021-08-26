@@ -4,11 +4,12 @@ import { useRef, useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
 import useMediaQuery from "../../hooks/useMedia"
+import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
 
 const Projects = ({ children }) => {
 
-   const smallDevices = useMediaQuery("(max-width: 576px)")
-   const mediumDevices = useMediaQuery("(max-width: 768px)")
+   const smallDevices = useMediaQuery(SMALL_DEVISCES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
    const { projects } = ProjectsStore
 
@@ -21,14 +22,15 @@ const Projects = ({ children }) => {
    const [isSearchOpened, setIsSearchOpened] = useState(false)
 
 
-   const foundTitle = projects.filter(found => found.title.toLowerCase().includes(searchTitle.toLowerCase()))
-   const foundContent = projects.filter(found => found.content.toLowerCase().includes(searchContent.toLowerCase()))
+   const projectsByTitle = projects.filter(found => found.title.toLowerCase().includes(searchTitle.toLowerCase()))
+   const projectsByContent = projects.filter(found => found.content.toLowerCase().includes(searchContent.toLowerCase()))
+
 
    return (
       <div className={styles.mainProjectsStyle}>
          <h1 className={styles.mainTitle}>Projects</h1>
-         <div className={`${styles.create} ${mediumDevices && isOpened && styles.createMedia}`}>
-            <div className={`${styles.searckArea} ${smallDevices && styles.searckAreaMedia}`}>
+         <div className={`${styles.create} ${mediumDevices && isOpened && styles.createMD}`}>
+            <div className={`${styles.searchArea} ${smallDevices && styles.searchAreaSD}`}>
                <form onChange={(e) => {
                   e.preventDefault()
                   setSearchTitle(searchTitleref.current.value,)
@@ -54,14 +56,14 @@ const Projects = ({ children }) => {
                setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
             }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
-         <div className={`${styles.projectsBlocks} ${mediumDevices && styles.projectsBlocksMedia}`}>
+         <div className={`${styles.projectsBlocks} ${mediumDevices && styles.projectsBlocksMD}`}>
             <div className={`${styles.accordionBlock} ${isOpened && styles.accordionBlock || styles.accordionBlockMax}
             ${mediumDevices && isOpened && styles.accordionBlockMax}`} >
-               {isSearchOpened && foundContent.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />) ||
-                  foundTitle.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />)}
+               {isSearchOpened && projectsByContent.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />) ||
+                  projectsByTitle.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />)}
             </div>
             <div className={`${styles.createProjectArea} ${isOpened && styles.openedCreateProjectBlock || styles.closeCreateProjectBlock} 
-            ${mediumDevices && styles.createProjectMedia}`}>
+            ${mediumDevices && styles.createProjectMD}`}>
                <CreateProjectArea />
             </div>
          </div>

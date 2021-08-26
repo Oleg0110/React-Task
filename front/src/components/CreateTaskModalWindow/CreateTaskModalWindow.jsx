@@ -4,7 +4,7 @@ import { BoardStore } from "../../stores"
 import { useRef } from "react"
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
-import { MAIN_VALIDATION } from "../../utils/validation";
+import { TITLE_VALIDATION } from "../../utils/validation";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
@@ -29,7 +29,7 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                      <span className={styles.text}>Card Text</span>
                      <br />
                      <div className={styles.error}>
-                        <textarea {...register("task", MAIN_VALIDATION)} type="textarea" placeholder="Text" className={styles.textInput} />
+                        <textarea {...register("task", TITLE_VALIDATION)} type="textarea" placeholder="Text" className={styles.textInput} />
                         {errors.task && <p className={styles.errorPosition}>Required field</p>}
                      </div>
                   </div>

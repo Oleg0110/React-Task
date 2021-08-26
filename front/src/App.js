@@ -4,11 +4,10 @@ import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, } from "./layou
 import { Button, CreateUserAccount } from './components';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
-import useMediaQuery from './hooks/useMedia';
+import { MEDIUM_DEVISCES } from './utils/constants';
+import { useMediaQuery } from './hooks';
 
 function App() {
-
-   const MEDIUM_DEVISCES = "(max-width: 768px)"
 
    const history = useHistory()
 
@@ -21,7 +20,6 @@ function App() {
    { id: 1, name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
    { id: 2, name: "Dashboards", link: "/dashboards", icon: "dashboardsIcon", style: "mainButtonStyle" },
    { id: 3, name: "People", link: "/people", icon: "peopleIcon", style: "mainButtonStyle" },
-   { id: 4, name: "Settings", link: "/settings", icon: "settingsIcon", style: "mainButtonStyle" },
    { id: 5, name: "Create", link: "/create", icon: "createIcon", style: "fifthButtonStyle" }];
 
    const buttonsMap = buttons.map((button) =>
