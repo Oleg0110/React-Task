@@ -4,7 +4,8 @@ import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, } from "./layou
 import { Button, CreateUserAccount } from './components';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
-import useMediaQuery from './hooks/useMedia';
+import { MEDIUM_DEVISCES } from './utils/constants';
+import { useMediaQuery } from './hooks';
 
 function App() {
 
@@ -13,23 +14,27 @@ function App() {
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
-   const isPageWide = useMediaQuery("(min-width: 800px)")
-   console.log(isPageWide);
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
-   const buttons = [{ name: "Dashboards", link: "/dashboards" }]
+   const buttons = [{ id: 0, name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
+   { id: 1, name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
+   { id: 2, name: "Dashboards", link: "/dashboards", icon: "dashboardsIcon", style: "mainButtonStyle" },
+   { id: 3, name: "People", link: "/people", icon: "peopleIcon", style: "mainButtonStyle" },
+   { id: 5, name: "Create", link: "/create", icon: "createIcon", style: "fifthButtonStyle" }];
 
-   const buttonsMap = buttons.map((button) => {
-
-      return <Button onClick={() => history.push(button.link)} buttonStyle="mainButtonStyle">{button.name}</Button >
-   })
+   const buttonsMap = buttons.map((button) =>
+      <Button onClick={() => history.push(button.link)} buttonStyle={mediumDevices ? "secondButtonStyle" : button.style} key={button.id}>
+         <div className={mediumDevices ? button.icon : ""} />
+         <h4>{button.name}</h4>
+      </Button >)
 
    return (
       <div className="App">
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            isPageWide ? buttonsMap : ""
+            !mediumDevices ? buttonsMap : ""
          }</Header>
          <Sidebar isOpened={isOpened}>{
-            !isPageWide ? buttonsMap : ""
+            mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>

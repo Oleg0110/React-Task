@@ -15,8 +15,18 @@ class ProjectsStore {
    }
 
    pushProject(title, content) {
-      this.projects.push({ title, content })
-      console.log(this.projects.length);
+      let foundId = 0
+      if (this.projects) {
+
+         for (let i = 0; i < this.projects.length; i++) {
+
+            if (this.projects[i].id > foundId) {
+               foundId = this.projects[i].id
+            }
+         }
+         foundId++
+         this.projects.push({ title, content, id: foundId })
+      }
    }
 
 }

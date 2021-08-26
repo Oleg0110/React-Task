@@ -1,27 +1,48 @@
-import { observer } from "mobx-react";
-import { useRef } from "react";
-import { ProjectsStore } from "../../stores";
-import Button from "../Button/Button";
 import styles from "./CreateProjectArea.module.scss";
+import { Button } from ".."
+import { ProjectsStore } from "../../stores";
+import { observer } from "mobx-react";
+import { useForm } from "react-hook-form";
+import { useMediaQuery } from "../../hooks";
+import { TITLE_VALIDATION } from "../../utils/validation";
+import { MEDIUM_DEVISCES } from "../../utils/constants";
 
 
 const CreateProjectArea = ({ onClick }) => {
 
-   const nameRef = useRef(null)
-   const descriptionRef = useRef(null)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+
+   const { register, handleSubmit, formState: { errors } } = useForm();
+
+   const onSubmit = data => {
+      ProjectsStore.pushProject(data.name, data.content)
+   };
 
    return (
-      <div className={styles.createArea}>
+      <div className={`${styles.createArea} ${mediumDevices && styles.createAreaMD}`}>
          <h2 className={styles.createCardTitle}>Create Project</h2>
-         <form className={styles.descriptionProjectBlock} onSubmit={(e) => {
-            e.preventDefault()
-            ProjectsStore.pushProject(nameRef.current.value, descriptionRef.current.value)
-            console.log(nameRef.current.value);
-         }}>
+         <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
             <h3 className={styles.projectTitle}>Project Name :</h3>
-            <input type="text" placeholder="Name" className={styles.inputNane} ref={nameRef} />
+            <input
+               {...register("name", TITLE_VALIDATION)}
+               type="text" placeholder="Name" className={styles.inputNane} />
+            {errors.name && <p>Required field</p>}
             <h3 className={styles.projectTitle}>Project Description :</h3>
-            <textarea type="textarea" placeholder="Description" className={styles.inputText} ref={descriptionRef} />
+            <textarea
+               {...register("content", {
+                  required: {
+                     value: true,
+                     message: "ERROR"
+                  },
+                  minLength: {
+                     value: 15,
+                     message: "Minimal 15 letters"
+                  },
+               })}
+               type="textarea" placeholder="Description" className={`${styles.inputText} ${mediumDevices && styles.inputTextMD}`} />
+            {/* {errors.content && <p>Required field</p>} */}
+            {errors.content?.minLength?.message && <p>{errors.content?.minLength.message}</p>}
+            {errors.content?.message && <p>{errors.content?.message}</p>}
             <Button onClick={onClick} buttonStyle="thirdButtonStyle">Create Project</Button>
          </form>
       </div>

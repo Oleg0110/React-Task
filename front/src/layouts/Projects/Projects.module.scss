@@ -14,34 +14,32 @@
    padding: 20px 25px 0px 25px;
    align-items: center;
    justify-content: space-between;
+   flex-wrap: wrap;
 }
 
-.searchBlock {
+.createMD {
+   padding-bottom: 20px;
+}
+
+.searchArea {
    display: flex;
-   align-items: center;
-   justify-content: space-between;
-   width: 30%;
 }
 
-.filtersButton {
+.searchAreaSD {
+   width: 100%;
+   margin-bottom: 20px;
+}
+
+.searchTitleArea {
    display: flex;
-   align-items: center;
-   position: relative;
-   font-size: 18px;
-   width: 150%;
-}
-
-.filtersButton:hover {
-   color: #fb8c00;
-}
-
-.searckArea {
-   display: flex;
-   width: 70%;
 }
 
 .titleSearch {
    position: relative;
+}
+
+.titleSearchClose {
+   display: none;
 }
 
 .contentSearch {
@@ -110,7 +108,10 @@
 .projectsBlocks {
    display: flex;
    justify-content: flex-start;
-   flex-wrap: wrap;
+}
+
+.projectsBlocksMD {
+   flex-direction: column-reverse;
 }
 
 .accordionBlock {
@@ -120,8 +121,7 @@
    overflow-y: auto;
    margin-top: 20px;
    border-radius: 5px;
-   width: 60%;
-   // transition: 0.5s;
+   width: 55%;
 }
 
 .accordionBlockMax {
@@ -150,10 +150,13 @@
    border-radius: 5px;
    height: 500px;
    width: 35%;
-   margin-top: 20px;
-   margin-right: 25px;
-   margin-left: 35px;
-   margin: 20px 25px 0 35px;
+   margin: 20px 25px 0 60px;
+}
+
+.createProjectMD {
+   height: 300px;
+   width: 96%;
+   margin: auto;
 }
 
 .openedCreateProjectBlock {

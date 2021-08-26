@@ -73,12 +73,30 @@
    color: rgb(117, 117, 117);
 }
 
+.error {
+   position: relative;
+}
+
+.errorPosition {
+   position: absolute;
+   padding: 3px;
+   font-size: 15px;
+   position: absolute;
+   bottom: -30%;
+   left: 3%;
+   color: #d81f1f;
+   border: 1px solid;
+   border-radius: 5px;
+}
+
 .textInput {
    padding: 5px;
    border-radius: 4px;
    font-size: 20px;
    border: 1px solid #9493935c;
    box-shadow: 1px 1px 2px 1px #aaa;
+   width: 460px;
+   height: 100px;
 }
 
 .value {

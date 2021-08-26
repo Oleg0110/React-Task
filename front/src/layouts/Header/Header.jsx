@@ -1,36 +1,38 @@
 import { Button } from "../../components"
 import styles from "./Header.module.scss"
 import userPhoto from "../../assets/img/me.png"
-import { useHistory } from "react-router-dom"
-
+import useMediaQuery from "../../hooks/useMedia"
+import { useState } from "react"
+import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
 
 
 const Header = ({ onClick, openUserForm, children }) => {
 
-   const history = useHistory()
+   const smallDevices = useMediaQuery(SMALL_DEVISCES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
-   return (<header className={styles.mainHeaderStyle}>
+   const [searchOpened, setSearchOpened] = useState(false)
+
+   return (<header className={`${styles.mainHeaderStyle} ${!mediumDevices && styles.headerUseMD}`}>
       <Button onClick={onClick}><div className={`${styles["open-sidebar-icon"]}`} alt="Open Sidebar Icon" />
       </Button>
-      <div className={styles.linkHeaderButton}>
+      <div className={`${styles.linkHeaderButton} ${mediumDevices && styles.linkHeaderMD}`}>
          {children}
-         <Button onClick={() => history.push("/projects")} buttonStyle="mainButtonStyle" >Projects</Button>
-         {/* <Button onClick={() => history.push("/")} buttonStyle="mainButtonStyle">Home</Button>
-         <Button onClick={() => history.push("/dashboards")} buttonStyle="mainButtonStyle">Dashboards</Button >
-         <Button onClick={() => history.push("/people")} buttonStyle="mainButtonStyle" >People</Button>
-         <Button onClick={() => history.push("/settings")} buttonStyle="mainButtonStyle" >Settings</Button>
-         <Button onClick={() => history.push("create")} buttonStyle="fifthButtonStyle">Create</Button> */}
-
       </div >
       <div className={styles.searchHeader}>
-         <div className={styles.searchHeaderInput}>
+         <div className={`${styles.searchHeaderInput} ${smallDevices && styles.searchHeaderInputClose} 
+         ${searchOpened && styles.searchHeaderInputOpen}`}>
             <input type="text" placeholder="Search" className={styles.searchInput} />
             <div className={styles.searchIcon} alt="Search Icon" />
          </div>
-         <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
-         <Button><div className={`${styles.icon} ${styles["question-icon"]}`} alt="Question Icon" /></Button>
-         <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
-         <Button onClick={openUserForm}><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
+         <div className={styles.headerOptions}>
+            <Button onClick={() => setSearchOpened(!searchOpened)}><div className={`${styles.searchIconArea} 
+            ${!smallDevices && styles.searchIconSD}`} alt="Search Icon" /></Button>
+            <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
+            <Button><div className={`${styles.icon} ${styles["question-icon"]}`} alt="Question Icon" /></Button>
+            <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
+            <Button onClick={openUserForm}><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
+         </div>
       </div>
    </header >
    );
