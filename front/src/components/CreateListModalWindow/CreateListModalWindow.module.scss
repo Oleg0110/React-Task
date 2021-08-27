@@ -1,0 +1,121 @@
+.backFon {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.4);
+   backdrop-filter: blur(1px);
+   display: none;
+}
+
+.opened {
+   display: block;
+   z-index: 1;
+}
+
+.createArea {
+   background-color: #c4c4c4;
+   border-radius: 5px;
+   width: 550px;
+   height: 110px;
+   position: fixed;
+   top: 45%;
+   left: 50%;
+   margin: -100px 0 0 -250px;
+   display: none;
+}
+
+.openedCreate {
+   display: block;
+   z-index: 1;
+}
+
+.createAreaMD {
+   height: 170px;
+   width: 350px;
+   margin: -100px 0 0 -200px;
+}
+
+.createAreaSD {
+   margin: -100px 0 0 -180px;
+}
+
+.modalBody {
+   max-width: 550px;
+   margin: 10px;
+   background-color: #fff;
+   padding: 25px 30px;
+   border-radius: 5px;
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   box-shadow: 3px 3px 0px 0px #aaa;
+}
+
+.modalBodyMD {
+   width: 330px;
+   height: 150px;
+   flex-direction: column;
+}
+
+.close {
+   height: 0%;
+   display: none;
+}
+
+.closeIcon {
+   background-image: url(../../assets/icon/closeIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 15px;
+   width: 25px;
+   height: 25px;
+}
+
+.closeIconPosition {
+   position: absolute;
+   top: 1%;
+   right: 0%;
+}
+
+.title {
+   font-weight: 600;
+   font-size: 22px;
+   color: rgb(117, 117, 117);
+}
+
+.form {
+   display: contents;
+}
+
+.input {
+   padding: 5px;
+   margin-left: -70px;
+   border-radius: 4px;
+   font-size: 20px;
+   border: 1px solid #9493935c;
+   box-shadow: 1px 1px 2px 1px #aaa;
+}
+
+.inputMD {
+   margin: 10px 0 20px;
+}
+
+.errorPosition {
+   width: 220px;
+   padding: 3px;
+   font-size: 10px;
+   position: absolute;
+   bottom: 6%;
+   left: 24%;
+   color: #d81f1f;
+   border-radius: 5px;
+}
+
+.errorPositionMD {
+   font-size: 10px;
+   bottom: 25%;
+   left: 17%;
+}
