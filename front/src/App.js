@@ -23,7 +23,11 @@ function App() {
    { id: 5, name: "Create", link: "/create", icon: "createIcon", style: "fifthButtonStyle" }];
 
    const buttonsMap = buttons.map((button) =>
-      <Button onClick={() => history.push(button.link)} buttonStyle={mediumDevices ? "secondButtonStyle" : button.style} key={button.id}>
+      <Button onClick={() => {
+         setIsOpened(false)
+         history.push(button.link)
+      }}
+         buttonStyle={mediumDevices ? "secondButtonStyle" : button.style} key={button.id}>
          <div className={mediumDevices ? button.icon : ""} />
          <h4>{button.name}</h4>
       </Button >)
@@ -33,7 +37,7 @@ function App() {
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
             !mediumDevices ? buttonsMap : ""
          }</Header>
-         <Sidebar isOpened={isOpened}>{
+         <Sidebar isOpened={isOpened} close={() => setIsOpened(false)} >{
             mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />

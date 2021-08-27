@@ -3,8 +3,9 @@
    background-color: #ffffff;
    border-radius: 5px;
    height: 475px;
-   max-width: 620px;
+   max-width: 660px;
    box-shadow: 3px 3px 3px 0px #aaa;
+   position: relative;
 }
 
 .createAreaMD {
@@ -38,6 +39,23 @@
    border: 1px solid #9493935c;
    box-shadow: 1px 1px 2px 1px #aaa;
    width: 90%;
+   margin-bottom: 17px;
+}
+
+.errorNamePosition {
+   padding: 3px;
+   font-size: 11px;
+   color: #d81f1f;
+   border-radius: 5px;
+   margin-top: -17px;
+}
+
+.errorNamePositionSD {
+   font-size: 11px;
+}
+
+.errorNamePositionMD {
+   font-size: 12px;
 }
 
 .inputText {
@@ -47,10 +65,32 @@
    border-radius: 4px;
    border: 1px solid #9493935c;
    box-shadow: 1px 1px 2px 1px #aaa;
-   margin-bottom: 30px;
+   margin-bottom: 25px;
+   resize: none;
 }
 
 .inputTextMD {
-   height: 75px;
-   margin-bottom: 10px;
+   height: 60px;
+   margin-bottom: 20px;
+}
+
+.errorContentPosition {
+   padding: 3px;
+   font-size: 12px;
+   color: #d81f1f;
+   border-radius: 5px;
+   margin-top: -21px;
+   margin-bottom: 5px;
+}
+
+.errorContentPositionSD {
+   font-size: 11px;
+   margin-top: -20px;
+   margin-bottom: 0px;
+}
+
+.errorContentPositionMD {
+   font-size: 14px;
+   margin-top: -20px;
+   margin-bottom: 0px;
 }

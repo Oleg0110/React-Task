@@ -4,13 +4,13 @@ import styles from "./Sidebar.module.scss"
 
 
 
-const Sidebar = ({ isOpened, children }) => {
+const Sidebar = ({ isOpened, children, close }) => {
 
    const history = useHistory()
 
-   return (<div className={`${styles.sidebar} ${isOpened && styles.opened} `}>
+   return (<div className={`${styles.sidebar} ${isOpened && styles.opened}`}>
       {children}
-      <Button onClick={() => history.push("/backlog")} buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["backlog-icon"]}`} alt="Back Log Icon" />Backlog</Button>
+      <Button onClick={close} onClick={() => history.push("/backlog")} buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["backlog-icon"]}`} alt="Back Log Icon" />Backlog</Button>
       <Button onClick={() => history.push("/reports")} buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["reports-icon"]}`} alt="Reports Icon" />Reports</Button>
       <Button onClick={() => history.push("/components")} buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["components-icon"]}`} alt="Components Icon" />Components</Button>
       <Button onClick={() => history.push("/releases")} buttonStyle="secondButtonStyle"><div className={`${styles.icon} ${styles["release-icon"]}`} alt="Release Icon" />Releases</Button>

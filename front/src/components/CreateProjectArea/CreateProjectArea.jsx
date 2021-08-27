@@ -4,13 +4,15 @@ import { ProjectsStore } from "../../stores";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "../../hooks";
-import { TITLE_VALIDATION } from "../../utils/validation";
-import { MEDIUM_DEVISCES } from "../../utils/constants";
+import { CREATE_CONTENT_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
+import { LARGE_DEVISCES, MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
 
 
 const CreateProjectArea = ({ onClick }) => {
 
+   const smallDevices = useMediaQuery(SMALL_DEVISCES)
    const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const largeDevices = useMediaQuery(LARGE_DEVISCES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -26,24 +28,19 @@ const CreateProjectArea = ({ onClick }) => {
             <input
                {...register("name", TITLE_VALIDATION)}
                type="text" placeholder="Name" className={styles.inputNane} />
-            {errors.name && <p>Required field</p>}
+            {errors.name?.message && <p className={`${styles.errorNamePosition} ${smallDevices && styles.errorNamePositionSD}
+            ${mediumDevices && styles.errorNamePositionMD} `}>
+               {errors.name?.message}
+            </p>}
             <h3 className={styles.projectTitle}>Project Description :</h3>
             <textarea
-               {...register("content", {
-                  required: {
-                     value: true,
-                     message: "ERROR"
-                  },
-                  minLength: {
-                     value: 15,
-                     message: "Minimal 15 letters"
-                  },
-               })}
+               {...register("content", CREATE_CONTENT_VALIDATION)}
                type="textarea" placeholder="Description" className={`${styles.inputText} ${mediumDevices && styles.inputTextMD}`} />
-            {/* {errors.content && <p>Required field</p>} */}
-            {errors.content?.minLength?.message && <p>{errors.content?.minLength.message}</p>}
-            {errors.content?.message && <p>{errors.content?.message}</p>}
-            <Button onClick={onClick} buttonStyle="thirdButtonStyle">Create Project</Button>
+            {errors.content?.message && <p className={`${styles.errorContentPosition}  ${smallDevices && styles.errorContentPositionSD}
+            ${mediumDevices && styles.errorContentPositionMD} ${largeDevices && styles.errorContentPositionLD}`}>
+               {errors.content?.message}
+            </p>}
+            <Button onClick={onClick} buttonStyle="fourthButtonStyle">Create Project</Button>
          </form>
       </div>
    )

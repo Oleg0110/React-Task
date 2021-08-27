@@ -5,11 +5,15 @@ import { useRef } from "react"
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
+import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
+import { useMediaQuery } from "../../hooks";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
 
    // const taskRef = useRef(null)
+   const smallDevices = useMediaQuery(SMALL_DEVISCES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -17,27 +21,33 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
       BoardStore.pushTask(data.task, id)
    };
 
-   return (<div className={`${styles.backFon} ${isModalOpened && styles.opened}`}>
-      <div className={styles.createArea}>
-         <div className={styles.modalBody}>
-            <div className={styles.form}>
-               <div className={styles.closeIconPosition}>
-                  <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
-               </div>
-               <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className={styles.cardText}>
-                     <span className={styles.text}>Card Text</span>
-                     <br />
-                     <div className={styles.error}>
-                        <textarea {...register("task", TITLE_VALIDATION)} type="textarea" placeholder="Text" className={styles.textInput} />
-                        {errors.task && <p className={styles.errorPosition}>Required field</p>}
-                     </div>
+   return (
+      <>
+         <div className={`${styles.backFon} ${isModalOpened && styles.opened}`} onClick={onModalClose}></div >
+         <div className={`${styles.createArea} ${isModalOpened && styles.openedCreate}
+         ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`}>
+            <div className={styles.modalBody}>
+               <div className={styles.form}>
+                  <div className={styles.closeIconPosition}>
+                     <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                   </div>
-                  <Button
-                     // onClick={onModalClose} 
-                     buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
-               </form>
-               {/* <form onSubmit={(e) => {
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                     <div className={styles.cardText}>
+                        <span className={styles.text}>Card Text</span>
+                        <br />
+                        <div className={styles.error}>
+                           <textarea {...register("task", TITLE_VALIDATION)} type="textarea" placeholder="Text"
+                              className={`${styles.textInput} ${mediumDevices && styles.textInputMD}`} />
+                           {errors.task?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
+                              {errors.task?.message}
+                           </p>}
+                        </div>
+                     </div>
+                     <Button
+                        // onClick={onModalClose} 
+                        buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+                  </form>
+                  {/* <form onSubmit={(e) => {
                   e.preventDefault()
                   BoardStore.pushTask(taskRef.current.value, id)
                }}>
@@ -137,12 +147,11 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                      </div>
                   </div>
                   <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
-
                </form> */}
+               </div>
             </div>
          </div>
-      </div>
-   </div >
+      </>
    )
 }
 

@@ -1,9 +1,9 @@
 import { Button } from "../../components"
 import styles from "./Header.module.scss"
 import userPhoto from "../../assets/img/me.png"
-import useMediaQuery from "../../hooks/useMedia"
 import { useState } from "react"
 import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
+import { useMediaQuery } from "../../hooks"
 
 
 const Header = ({ onClick, openUserForm, children }) => {
