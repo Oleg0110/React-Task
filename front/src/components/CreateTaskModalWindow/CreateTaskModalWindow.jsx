@@ -1,19 +1,17 @@
 import styles from "./CreateTaskModalWindow.module.scss"
 import { Button } from ".."
 import { BoardStore } from "../../stores"
-import { useRef } from "react"
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
-import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
+import { MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants";
 import { useMediaQuery } from "../../hooks";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
 
-   // const taskRef = useRef(null)
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -36,10 +34,10 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                         <span className={styles.text}>Card Text</span>
                         <br />
                         <div className={styles.error}>
-                           <textarea {...register("task", TITLE_VALIDATION)} type="textarea" placeholder="Text"
+                           <textarea {...register("title", TITLE_VALIDATION)} type="textarea" placeholder="Text"
                               className={`${styles.textInput} ${mediumDevices && styles.textInputMD}`} />
-                           {errors.task?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
-                              {errors.task?.message}
+                           {errors.title?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
+                              {errors.title?.message}
                            </p>}
                         </div>
                      </div>

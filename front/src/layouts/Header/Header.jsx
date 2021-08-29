@@ -2,14 +2,14 @@ import { Button } from "../../components"
 import styles from "./Header.module.scss"
 import userPhoto from "../../assets/img/me.png"
 import { useState } from "react"
-import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
+import { MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants"
 import { useMediaQuery } from "../../hooks"
 
 
 const Header = ({ onClick, openUserForm, children }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const [searchOpened, setSearchOpened] = useState(false)
 

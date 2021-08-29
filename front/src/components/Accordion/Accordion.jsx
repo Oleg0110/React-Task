@@ -1,7 +1,7 @@
 import styles from "./Accordion.module.scss"
 import { Button } from ".."
 import { useState } from "react"
-import { ProjectsStore } from "../../stores"
+// import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useHistory } from "react-router"
 

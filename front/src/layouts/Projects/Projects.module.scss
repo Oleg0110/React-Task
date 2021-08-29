@@ -105,12 +105,25 @@
    height: 17px;
 }
 
-.projectsBlocks {
+.projectsBlocksAnother {
+   display: flex;
+   justify-content: flex-start;
+}
+
+.projectsBlocksLD {
    display: flex;
    justify-content: flex-start;
 }
 
 .projectsBlocksMD {
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: column-reverse;
+}
+
+.projectsBlocksSD {
+   display: flex;
+   justify-content: flex-start;
    flex-direction: column-reverse;
 }
 
@@ -122,27 +135,27 @@
    margin-top: 20px;
    border-radius: 5px;
    width: 55%;
+
+   &::-webkit-scrollbar {
+      width: 15px;
+   }
+
+   &::-webkit-scrollbar-track {
+      background: #ffffff;
+      border-radius: 10px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: #adadad;
+      border: 4px solid #cccccc;
+      border-radius: 10px;
+   }
 }
 
 .accordionBlockMax {
    width: 100%;
    margin-right: 10px;
    transition: 0.5s;
-}
-
-.accordionBlock::-webkit-scrollbar {
-   width: 15px;
-}
-
-.accordionBlock::-webkit-scrollbar-track {
-   background: #cccccc;
-   border-radius: 10px;
-}
-
-.accordionBlock::-webkit-scrollbar-thumb {
-   background-color: #adadad;
-   border: 4px solid #cccccc;
-   border-radius: 10px;
 }
 
 .createProjectArea {

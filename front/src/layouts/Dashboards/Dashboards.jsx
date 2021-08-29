@@ -5,7 +5,7 @@ import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useRef, useState } from "react"
 import { useMediaQuery } from "../../hooks"
-import { SMALL_DEVISCES } from "../../utils/constants"
+import { SMALL_DEVICES } from "../../utils/constants"
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,7 +24,7 @@ const Dashboards = ({ children, onClick }) => {
       return { ...data, tasks: filteredTask }
    })
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
 
    const sorry = () => toast.error("Sorry is Empty button!", {
       position: "top-center",

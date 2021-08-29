@@ -11,29 +11,29 @@ button {
    display: flex;
    font-size: 16px;
    position: relative;
-}
 
-.mainButtonStyle:hover {
-   color: #fb8c00;
-}
+   &:hover {
+      color: #fb8c00;
+   }
 
-.mainButtonStyle:hover::before {
-   transition: 0.3s all;
-   opacity: 1;
-   transform: translateY(19.5px) rotate(0deg);
-}
+   &:hover::before {
+      transition: 0.3s all;
+      opacity: 1;
+      transform: translateY(19.5px) rotate(0deg);
+   }
 
-.mainButtonStyle::before {
-   content: "";
-   width: 100%;
-   height: 2px;
-   background-color: #fb8c00;
-   position: absolute;
-   bottom: -5%;
-   transition: 0.5s all;
-   opacity: 0;
-   transform: translateY(0px) rotate(0deg);
-   z-index: 2;
+   &::before {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background-color: #fb8c00;
+      position: absolute;
+      bottom: -5%;
+      transition: 0.5s all;
+      opacity: 0;
+      transform: translateY(0px) rotate(0deg);
+      z-index: 2;
+   }
 }
 
 .secondButtonStyle {
@@ -41,30 +41,30 @@ button {
    align-items: center;
    padding: 10px 20px 10px 10px;
    width: 150px;
-}
 
-.secondButtonStyle:hover {
-   background-color: rgba(107, 107, 107, 0.178);
-   color: #fb8c00;
-}
+   &:hover {
+      background-color: rgba(107, 107, 107, 0.178);
+      color: #fb8c00;
+   }
 
-.secondButtonStyle:hover::before {
-   transition: 0.3s all;
-   opacity: 1;
-   transform: translateX(-16px) rotate(90deg);
-}
+   &:hover::before {
+      transition: 0.3s all;
+      opacity: 1;
+      transform: translateX(-16px) rotate(90deg);
+   }
 
-.secondButtonStyle::before {
-   content: "";
-   width: 45px;
-   height: 2px;
-   background-color: #fb8c00;
-   position: absolute;
-   right: -11%;
-   transition: 0.5s all;
-   opacity: 0;
-   transform: translateX(0px) rotate(90deg);
-   z-index: 2;
+   &::before {
+      content: "";
+      width: 45px;
+      height: 2px;
+      background-color: #fb8c00;
+      position: absolute;
+      right: -11%;
+      transition: 0.5s all;
+      opacity: 0;
+      transform: translateX(0px) rotate(90deg);
+      z-index: 2;
+   }
 }
 
 .thirdButtonStyle {
@@ -73,10 +73,10 @@ button {
    border-radius: 2px;
    display: flex;
    align-items: end;
-}
 
-.thirdButtonStyle:hover {
-   background-color: #7d7d7da1;
+   &:hover {
+      background-color: #bce0bb;
+   }
 }
 
 .fourthButtonStyle {
@@ -88,13 +88,13 @@ button {
    transition: 0.5s;
    border: 1px solid #bce0bb;
    margin-top: 5px;
-}
 
-.fourthButtonStyle:hover {
-   color: #2d5826;
-   background-color: rgb(252, 252, 252);
-   transition: 0.5s;
-   border: 1px solid #2d5826;
+   &:hover {
+      color: #2d5826;
+      background-color: rgb(252, 252, 252);
+      transition: 0.5s;
+      border: 1px solid #2d5826;
+   }
 }
 
 .fifthButtonStyle {
@@ -105,11 +105,11 @@ button {
    border-radius: 4px;
    transition: 0.5s;
    border: 1px solid #ffa726;
-}
 
-.fifthButtonStyle:hover {
-   color: #ffa726;
-   background-color: rgb(252, 252, 252);
-   transition: 0.5s;
-   border: 1px solid #ffa726;
+   &:hover {
+      color: #ffa726;
+      background-color: rgb(252, 252, 252);
+      transition: 0.5s;
+      border: 1px solid #ffa726;
+   }
 }

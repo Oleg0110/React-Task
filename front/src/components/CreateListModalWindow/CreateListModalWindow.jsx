@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
-import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
+import { MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants";
 import { useMediaQuery } from "../../hooks";
 
 
 const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
    const onSubmit = data => {

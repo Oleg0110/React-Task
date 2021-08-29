@@ -1,13 +1,13 @@
 import { useHistory } from "react-router"
 import { Button } from "../../components"
 import { useMediaQuery } from "../../hooks"
-import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
+import { MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants"
 import styles from "./Home.module.scss"
 
 const Home = ({ children }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
    const history = useHistory()
 
    return (<div className={styles.backFon}>
