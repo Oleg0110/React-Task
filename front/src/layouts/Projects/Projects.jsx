@@ -4,12 +4,23 @@ import { useRef, useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
 import useMediaQuery from "../../hooks/useMedia"
-import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants"
+import { MEDIUM_DEVICES, RESPONSIVE_DESIGN, SMALL_DEVICES } from "../../utils/constants"
+import useMedia from "../../hooks/useMedia2"
+
 
 const Projects = ({ children }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
+   const columnCount = useMedia(
+      ["(max-width: 576px)", "(max-width: 768px)", "(max-width: 992px)"],
+      ["SD", "MD", "LD"],
+      "Another"
+   );
+
+   console.log(columnCount);
+
+
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const { projects } = ProjectsStore
 
@@ -56,7 +67,8 @@ const Projects = ({ children }) => {
                setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
             }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
-         <div className={`${styles.projectsBlocks} ${mediumDevices && styles.projectsBlocksMD}`}>
+         {/* {`${styles.projectsBlocks} ${mediumDevices && styles.projectsBlocksMD}`} */}
+         <div className={styles[`projectsBlocks${columnCount}`]}>
             <div className={`${styles.accordionBlock} ${isOpened && styles.accordionBlock || styles.accordionBlockMax}
             ${mediumDevices && isOpened && styles.accordionBlockMax}`} >
                {isSearchOpened && projectsByContent.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />) ||

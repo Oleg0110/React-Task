@@ -5,14 +5,14 @@ import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "../../hooks";
 import { CREATE_CONTENT_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
-import { LARGE_DEVISCES, MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
+import { LARGE_DEVICES, MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants";
 
 
 const CreateProjectArea = ({ onClick }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVISCES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
-   const largeDevices = useMediaQuery(LARGE_DEVISCES)
+   const smallDevices = useMediaQuery(SMALL_DEVICES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
+   const largeDevices = useMediaQuery(LARGE_DEVICES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -26,11 +26,11 @@ const CreateProjectArea = ({ onClick }) => {
          <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
             <h3 className={styles.projectTitle}>Project Name :</h3>
             <input
-               {...register("name", TITLE_VALIDATION)}
+               {...register("title", TITLE_VALIDATION)}
                type="text" placeholder="Name" className={styles.inputNane} />
-            {errors.name?.message && <p className={`${styles.errorNamePosition} ${smallDevices && styles.errorNamePositionSD}
+            {errors.title?.message && <p className={`${styles.errorNamePosition} ${smallDevices && styles.errorNamePositionSD}
             ${mediumDevices && styles.errorNamePositionMD} `}>
-               {errors.name?.message}
+               {errors.title?.message}
             </p>}
             <h3 className={styles.projectTitle}>Project Description :</h3>
             <textarea

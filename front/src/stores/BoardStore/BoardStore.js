@@ -6,9 +6,9 @@ class BoardStore {
          id: 1, title: "To Do",
          tasks: [
             { id: 1, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: 2, text: "I have to something", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
+            { id: 2, text: "You must work", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
       },
-      { id: 2, title: "Done", tasks: [{ id: 1, text: "I have to something" }] }]
+      { id: 2, title: "Done", tasks: [{ id: 1, text: "We are together" }] }]
 
    constructor() {
       makeObservable(this, {
