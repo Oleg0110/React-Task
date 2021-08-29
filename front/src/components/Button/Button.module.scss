@@ -79,6 +79,24 @@ button {
    background-color: #7d7d7da1;
 }
 
+.fourthButtonStyle {
+   font-weight: bold;
+   color: #000;
+   background-color: #bce0bb;
+   padding: 5px 9px 6px;
+   border-radius: 4px;
+   transition: 0.5s;
+   border: 1px solid #bce0bb;
+   margin-top: 5px;
+}
+
+.fourthButtonStyle:hover {
+   color: #2d5826;
+   background-color: rgb(252, 252, 252);
+   transition: 0.5s;
+   border: 1px solid #2d5826;
+}
+
 .fifthButtonStyle {
    font-weight: bold;
    color: #fff;

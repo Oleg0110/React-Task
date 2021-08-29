@@ -4,10 +4,14 @@ import { useForm } from "react-hook-form";
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
+import { MEDIUM_DEVISCES, SMALL_DEVISCES } from "../../utils/constants";
+import { useMediaQuery } from "../../hooks";
 
 
 const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
 
+   const smallDevices = useMediaQuery(SMALL_DEVISCES)
+   const mediumDevices = useMediaQuery(MEDIUM_DEVISCES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
    const onSubmit = data => {
@@ -15,23 +19,28 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
    }
 
    return (
-      <div className={`${styles.backFon} ${isListModalOpened && styles.opened}`}>
-         <div className={styles.createArea}>
-            <div className={styles.modalBody}>
+      <>
+         <div className={`${styles.backFon} ${isListModalOpened && styles.opened}`} onClick={onModalClose}></div>
+         <div className={`${styles.createArea} ${isListModalOpened && styles.openedCreate}
+         ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`}>
+            <div className={`${styles.modalBody} ${mediumDevices && styles.modalBodyMD}`}>
                <div className={styles.closeIconPosition}>
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
                <span className={styles.title}>List Title</span>
                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-                  <input {...register("title", TITLE_VALIDATION)} type="text" placeholder="Title" className={styles.input} />
-                  {errors.title && <p>Required field</p>}
+                  <input {...register("title", TITLE_VALIDATION)} type="text" placeholder="Title"
+                     className={`${styles.input} ${mediumDevices && styles.inputMD}`} />
+                  {errors.title?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
+                     {errors.title?.message}
+                  </p>}
                   <Button
                      // onClick={onModalClose} 
                      buttonStyle="fifthButtonStyle">Add List</Button>
                </form>
             </div>
          </div>
-      </div>
+      </>
 
    )
 }
