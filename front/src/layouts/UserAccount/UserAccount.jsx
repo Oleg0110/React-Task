@@ -4,7 +4,7 @@ import { Button } from "../../components";
 const UserAccount = () => {
    return (<div className={styles.mainUserAccountStyle}>
       <div className={styles.userBlock}>
-         <img className={styles.userPhoto} src={userPhoto} alt="User Photo"></img>
+         <img className={styles.userPhoto} src={userPhoto} alt="User"></img>
       </div>
       <div className={styles.form}>
          <input className={styles.input} type="text" placeholder="Name" />

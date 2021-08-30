@@ -6,35 +6,24 @@ import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
 import { MEDIUM_DEVICES } from './utils/constants';
 import { useMediaQuery } from './hooks';
-// import useMedia from './hooks/useMedia2';
-
-
 
 
 function App() {
+
 
    const history = useHistory()
 
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
-   // const columnCount = useMedia(
-   //    ["(max-width: 576px)", "(max-width: 768px)", "(max-width: 992px)"],
-   //    ["sd", "md", "ld"],
-   //    "another"
-   // );
-
-   // console.log(columnCount);
-
    const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
-   // console.log(mediumDevices);
+   console.log("App :", mediumDevices);
 
    const buttons = [{ id: 0, name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
    { id: 1, name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
    { id: 2, name: "Dashboards", link: "/dashboards", icon: "dashboardsIcon", style: "mainButtonStyle" },
    { id: 3, name: "People", link: "/people", icon: "peopleIcon", style: "mainButtonStyle" },
    { id: 5, name: "Create", link: "/create", icon: "createIcon", style: "fifthButtonStyle" }];
-
 
 
    const buttonsMap = buttons.map((button) =>
@@ -52,7 +41,7 @@ function App() {
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
             !mediumDevices ? buttonsMap : ""
          }</Header>
-         <Sidebar isOpened={isOpened} close={() => setIsOpened(false)} >{
+         <Sidebar isOpened={isOpened} >{
             mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />

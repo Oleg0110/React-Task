@@ -1,12 +1,12 @@
-import { useRef, useState } from "react"
-import { Button } from ".."
+// import { useRef, useState } from "react"
+// import { Button } from ".."
 import styles from "./ProjectsPageSearchArea.module.scss"
 
 
 const ProjectsPageSearchArea = ({ onChange }) => {
 
-   const searchTitleref = useRef(null)
-   const [isSearchOpened, setIsSearchOpened] = useState(false)
+   // const searchTitleref = useRef(null)
+   // const [isSearchOpened, setIsSearchOpened] = useState(false)
 
    return (
       <div className={styles.searckArea}>
