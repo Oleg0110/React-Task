@@ -15,7 +15,7 @@ const CreateProjectArea = ({ onClick }) => {
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      ProjectsStore.pushProject(data.title, data.content)
+      ProjectsStore.pushProject(data.name, data.content)
    };
 
 
@@ -25,12 +25,12 @@ const CreateProjectArea = ({ onClick }) => {
       <div className={`${styles.createArea} ${mediumDevices && styles.createAreaMD}`}>
          <h2 className={styles.createCardTitle}>Create Project</h2>
          <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
-            <h3 className={styles.projectTitle}>Project Name :</h3>
+            <h3 className={styles.projectName}>Project Name :</h3>
             <input
-               {...register("title", TITLE_VALIDATION)}
-               type="text" placeholder="Title" className={styles.inputNane} />
-            {errors.title?.message && <p className={styles.errorNamePosition}>
-               {errors.title?.message}
+               {...register("name", TITLE_VALIDATION)}
+               type="text" placeholder="Name" className={styles.inputName} />
+            {errors.name?.message && <p className={styles.errorNamePosition}>
+               {errors.name?.message}
             </p>}
             <h3 className={styles.projectTitle}>Project Description :</h3>
             <textarea

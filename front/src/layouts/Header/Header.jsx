@@ -10,6 +10,8 @@ const Header = ({ onClick, openUserForm, children }) => {
 
    const smallDevices = useMediaQuery(SMALL_DEVICES)
    const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
+   console.log(smallDevices);
+   console.log(mediumDevices);
 
    const [searchOpened, setSearchOpened] = useState(false)
 

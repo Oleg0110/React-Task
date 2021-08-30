@@ -8,11 +8,15 @@ function useMediaQuery(query) {
       if (media.matches !== matches) {
          setMatches(media.matches);
       }
+      console.log("Переподписка");
       const listener = () => {
          setMatches(media.matches);
       };
       media.addListener(listener);
-      return () => media.removeListener(listener);
+      return () => {
+         console.log("Сняли подписку");
+         media.removeListener(listener)
+      };
    }, [matches, query]);
 
    return matches;

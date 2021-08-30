@@ -1,6 +1,6 @@
 
 import styles from "./Dashboards.module.scss"
-import { Button, CreateListModalWindow, TaskBoard } from "../../components"
+import { Button, CreateListModalWindow, Columns } from "../../components"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useRef, useState } from "react"
@@ -63,7 +63,7 @@ const Dashboards = ({ children, onClick }) => {
          </form>
       </div>
       <div className={styles.boardLists}>
-         {filteredList.map((data) => <TaskBoard title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
+         {filteredList.map((data) => <Columns title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
       </div>
       {/* <DragDropContext onDragEnd={handleOnDragEnd}>
          <Droppable droppableId="dragLists">
@@ -74,7 +74,7 @@ const Dashboards = ({ children, onClick }) => {
                         <Draggable key={data.id} draggableId={data.id} index={index}>
                            {(provided) => (
                               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                 <TaskBoard title={data.title} id={data.id} cardsData={data.tasks} />
+                                 <Columns title={data.title} id={data.id} cardsData={data.tasks} />
                               </div>
                            )}
                         </Draggable>

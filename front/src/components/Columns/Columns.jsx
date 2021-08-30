@@ -1,11 +1,11 @@
-import styles from "./TaskBoard.module.scss"
-import { Button, TaskCard, CreateTaskModalWindow } from ".."
+import styles from "./Columns.module.scss"
+import { Button, Tasks, CreateTaskModalWindow } from ".."
 import { useState } from "react"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-const TaskBoard = ({ children, title, id, cardsData }) => {
+const Columns = ({ children, title, id, cardsData }) => {
 
    const [isTaskModalOpened, setIsTaskModalOpened] = useState(false)
 
@@ -33,7 +33,7 @@ const TaskBoard = ({ children, title, id, cardsData }) => {
                               <Draggable key={data.id} draggableId={data.id} index={index}>
                                  {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                       <TaskCard text={data.text} />
+                                       <Tasks text={data.text} />
                                     </div>
                                  )}
                               </Draggable>
@@ -49,4 +49,4 @@ const TaskBoard = ({ children, title, id, cardsData }) => {
 }
 
 
-export default observer(TaskBoard)
+export default observer(Columns)

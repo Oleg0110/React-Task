@@ -17,6 +17,7 @@ function App() {
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
    const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
+   console.log("App :", mediumDevices);
 
    const buttons = [{ id: 0, name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
    { id: 1, name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
@@ -40,7 +41,7 @@ function App() {
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
             !mediumDevices ? buttonsMap : ""
          }</Header>
-         <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(!isOpened)}>{
+         <Sidebar isOpened={isOpened} >{
             mediumDevices ? buttonsMap : ""
          }</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />

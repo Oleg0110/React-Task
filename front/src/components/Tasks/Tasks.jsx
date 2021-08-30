@@ -1,7 +1,7 @@
-import styles from "./TaskCard.module.scss"
+import styles from "./Tasks.module.scss"
 
 
-const TaskCard = ({ text, label, labelStyle, taskState, priority, alt, userPhoto }) => {
+const Tasks = ({ text, label, labelStyle, taskState, priority, alt, userPhoto }) => {
    return (
       <div className={styles.back}>
          <div className={styles.taskCard}>
@@ -21,4 +21,4 @@ const TaskCard = ({ text, label, labelStyle, taskState, priority, alt, userPhoto
    )
 }
 
-export default TaskCard
+export default Tasks

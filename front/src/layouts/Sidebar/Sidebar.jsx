@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useHistory } from "react-router";
 import { Button } from "../../components"
-import { useClickOutside } from "../../hooks";
+// import { useClickOutside } from "../../hooks";
 import styles from "./Sidebar.module.scss"
 
 
@@ -9,7 +9,7 @@ import styles from "./Sidebar.module.scss"
 const Sidebar = ({ isOpened, children, onClickOutside }) => {
 
    const ref = useRef(null)
-   useClickOutside(ref, onClickOutside)
+   // useClickOutside(ref, onClickOutside)
    const history = useHistory()
 
    return (<div className={`${styles.sidebar} ${isOpened && styles.opened}`} ref={ref}>
