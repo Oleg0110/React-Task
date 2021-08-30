@@ -3,35 +3,61 @@
    height: 92vh;
 }
 
-.title {
+.titleAnother {
    font-size: 50px;
    font-weight: 100;
    padding: 60px 0 20px;
 }
 
-.titleMD {
-   font-size: 35px;
+.titleSD {
+   font-weight: 100;
+   font-size: 30px;
    padding: 50px 0 15px;
 }
-.titleSD {
-   font-size: 30px;
+
+.titleMD {
+   font-size: 35px;
+   font-weight: 100;
+   padding: 50px 0 15px;
+}
+
+.titleLD {
+   font-size: 50px;
+   font-weight: 100;
+   padding: 60px 0 20px;
 }
 
 .myName {
    font-weight: 400;
 }
 
-.projectTitle {
+.projectTitleAnother {
    font-weight: 100;
-   font-size: 100px;
    color: #2d5826;
+   font-size: 100px;
+}
+
+.projectTitleLD {
+   font-weight: 100;
+   color: #2d5826;
+   font-size: 100px;
 }
 
 .projectTitleMD {
+   font-weight: 100;
+   color: #2d5826;
    font-size: 80px;
 }
 
 .projectTitleSD {
+   font-weight: 100;
+   color: #2d5826;
+   font-size: 80px;
+}
+
+.projectTitleSD {
+   font-weight: 100;
+   color: #2d5826;
    font-size: 55px;
 }
 
@@ -40,7 +66,12 @@
    margin-top: 30px;
 }
 
-.create {
+.createAnother {
+   font-size: 50px;
+   padding: 30px;
+}
+
+.createLD {
    font-size: 50px;
    padding: 30px;
 }

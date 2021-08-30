@@ -13,6 +13,11 @@ const Header = ({ onClick, openUserForm, children }) => {
 
    const [searchOpened, setSearchOpened] = useState(false)
 
+   const searchHeaderInput = () => {
+      return `${smallDevices && styles.searchHeaderInputClose} 
+   ${searchOpened && styles.searchHeaderInputOpen}`
+   }
+
    return (<header className={`${styles.mainHeaderStyle} ${!mediumDevices && styles.headerUseMD}`}>
       <Button onClick={onClick}><div className={`${styles["open-sidebar-icon"]}`} alt="Open Sidebar Icon" />
       </Button>
@@ -20,8 +25,7 @@ const Header = ({ onClick, openUserForm, children }) => {
          {children}
       </div >
       <div className={styles.searchHeader}>
-         <div className={`${styles.searchHeaderInput} ${smallDevices && styles.searchHeaderInputClose} 
-         ${searchOpened && styles.searchHeaderInputOpen}`}>
+         <div className={`${styles.searchHeaderInput} ${searchHeaderInput()}`}>
             <input type="text" placeholder="Search" className={styles.searchInput} />
             <div className={styles.searchIcon} alt="Search Icon" />
          </div>
@@ -31,7 +35,7 @@ const Header = ({ onClick, openUserForm, children }) => {
             <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
             <Button><div className={`${styles.icon} ${styles["question-icon"]}`} alt="Question Icon" /></Button>
             <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
-            <Button onClick={openUserForm}><img src={userPhoto} className={styles.userPhoto} alt="User Photo" /></Button>
+            <Button onClick={openUserForm}><img src={userPhoto} className={styles.userPhoto} alt="User" /></Button>
          </div>
       </div>
    </header >

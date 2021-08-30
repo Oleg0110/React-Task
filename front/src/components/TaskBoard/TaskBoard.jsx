@@ -3,11 +3,15 @@ import { Button, TaskCard, CreateTaskModalWindow } from ".."
 import { useState } from "react"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const TaskBoard = ({ children, title, id, cardsData }) => {
 
    const [isTaskModalOpened, setIsTaskModalOpened] = useState(false)
 
+   const handleOnDragEnd = (result) => {
+      BoardStore.dragInList(result, id)
+   }
 
    return (
       <div>
@@ -19,10 +23,27 @@ const TaskBoard = ({ children, title, id, cardsData }) => {
                   setIsTaskModalOpened(!isTaskModalOpened);
                }}><div className={styles.plus} alt="Plus Icon" /></Button>
             </div>
-            <div className={styles.scroll}>
-               {children}
-               {cardsData?.map((data) => <TaskCard text={data.text} priority={data.priority} taskState={data.taskState} label={data.label} key={data.id} />)}
-            </div>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+               <Droppable droppableId="cards">
+                  {(provided) => (
+                     <div className={styles.scroll} {...provided.droppableProps} ref={provided.innerRef}>
+                        {children}
+                        {cardsData?.map((data, index) => {
+                           return (
+                              <Draggable key={data.id} draggableId={data.id} index={index}>
+                                 {(provided) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                       <TaskCard text={data.text} />
+                                    </div>
+                                 )}
+                              </Draggable>
+                           );
+                        })}
+                        {provided.placeholder}
+                     </div>
+                  )}
+               </Droppable>
+            </DragDropContext>
          </div >
       </div>)
 }

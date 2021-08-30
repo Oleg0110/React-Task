@@ -1,11 +1,12 @@
 import styles from "./Projects.module.scss"
-import { Button, Accordion, CreateProjectArea, ProjectsPageSearchArea } from "../../components"
+import { Button, Accordion, CreateProjectArea } from "../../components"
 import { useRef, useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
-import useMediaQuery from "../../hooks/useMedia"
-import { MEDIUM_DEVICES, RESPONSIVE_DESIGN, SMALL_DEVICES } from "../../utils/constants"
-import useMedia from "../../hooks/useMedia2"
+import { MEDIUM_DEVICES } from "../../utils/constants"
+import { useMedia, useMediaQuery } from "../../hooks"
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
 
 
 const Projects = ({ children }) => {
@@ -16,10 +17,7 @@ const Projects = ({ children }) => {
       "Another"
    );
 
-   console.log(columnCount);
 
-
-   const smallDevices = useMediaQuery(SMALL_DEVICES)
    const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const { projects } = ProjectsStore
@@ -36,12 +34,21 @@ const Projects = ({ children }) => {
    const projectsByTitle = projects.filter(found => found.title.toLowerCase().includes(searchTitle.toLowerCase()))
    const projectsByContent = projects.filter(found => found.content.toLowerCase().includes(searchContent.toLowerCase()))
 
+   const handleOnDragEnd = (result) => {
+      ProjectsStore.dragProject(result)
+   }
+
+
+   const accordionBlock = () => {
+      return `${(isOpened && styles.accordionBlock) || styles.accordionBlockMax}
+      ${mediumDevices && isOpened && styles.accordionBlockMax}`
+   }
 
    return (
       <div className={styles.mainProjectsStyle}>
          <h1 className={styles.mainTitle}>Projects</h1>
          <div className={`${styles.create} ${mediumDevices && isOpened && styles.createMD}`}>
-            <div className={`${styles.searchArea} ${smallDevices && styles.searchAreaSD}`}>
+            <div className={styles[`searchArea${columnCount}`]}>
                <form onChange={(e) => {
                   e.preventDefault()
                   setSearchTitle(searchTitleref.current.value,)
@@ -67,15 +74,38 @@ const Projects = ({ children }) => {
                setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
             }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
-         {/* {`${styles.projectsBlocks} ${mediumDevices && styles.projectsBlocksMD}`} */}
          <div className={styles[`projectsBlocks${columnCount}`]}>
-            <div className={`${styles.accordionBlock} ${isOpened && styles.accordionBlock || styles.accordionBlockMax}
-            ${mediumDevices && isOpened && styles.accordionBlockMax}`} >
-               {isSearchOpened && projectsByContent.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />) ||
-                  projectsByTitle.map((data) => <Accordion title={data.title} content={data.content} key={data.id} />)}
-            </div>
-            <div className={`${styles.createProjectArea} ${isOpened && styles.openedCreateProjectBlock || styles.closeCreateProjectBlock} 
-            ${mediumDevices && styles.createProjectMD}`}>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+               <Droppable droppableId="cards">
+                  {(provided) => (
+                     <div className={`${styles.accordionBlock} ${accordionBlock()}`} {...provided.droppableProps} ref={provided.innerRef}>
+                        {(isSearchOpened && projectsByContent?.map((data, index) => {
+                           return (
+                              <Draggable key={data.id} draggableId={data.id} index={index}>
+                                 {(provided) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                       <Accordion title={data.title} content={data.content} />
+                                    </div>
+                                 )}
+                              </Draggable>
+                           );
+                        })) || projectsByTitle?.map((data, index) => {
+                           return (
+                              <Draggable key={data.id} draggableId={data.id} index={index}>
+                                 {(provided) => (
+                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                       <Accordion title={data.title} content={data.content} />
+                                    </div>
+                                 )}
+                              </Draggable>
+                           );
+                        })}
+                        {provided.placeholder}
+                     </div>
+                  )}
+               </Droppable>
+            </DragDropContext>
+            <div className={`${styles[`createProjectArea${columnCount}`]} ${(isOpened && styles.openedCreateProjectBlock) || styles.closeCreateProjectBlock}`}>
                <CreateProjectArea />
             </div>
          </div>

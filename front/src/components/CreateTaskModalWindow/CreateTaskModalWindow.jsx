@@ -16,14 +16,18 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      BoardStore.pushTask(data.task, id)
+      BoardStore.pushTask(data.text, id)
    };
+
+   const createArea = () => {
+      return `${isModalOpened && styles.openedCreate}
+${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`
+   }
 
    return (
       <>
          <div className={`${styles.backFon} ${isModalOpened && styles.opened}`} onClick={onModalClose}></div >
-         <div className={`${styles.createArea} ${isModalOpened && styles.openedCreate}
-         ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`}>
+         <div className={`${styles.createArea} ${createArea()}`}>
             <div className={styles.modalBody}>
                <div className={styles.form}>
                   <div className={styles.closeIconPosition}>
@@ -34,16 +38,14 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                         <span className={styles.text}>Card Text</span>
                         <br />
                         <div className={styles.error}>
-                           <textarea {...register("title", TITLE_VALIDATION)} type="textarea" placeholder="Text"
+                           <textarea {...register("text", TITLE_VALIDATION)} type="textarea" placeholder="Text"
                               className={`${styles.textInput} ${mediumDevices && styles.textInputMD}`} />
-                           {errors.title?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
-                              {errors.title?.message}
+                           {errors.text?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
+                              {errors.text?.message}
                            </p>}
                         </div>
                      </div>
-                     <Button
-                        // onClick={onModalClose} 
-                        buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+                     <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
                   </form>
                   {/* <form onSubmit={(e) => {
                   e.preventDefault()

@@ -18,11 +18,15 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
       BoardStore.pushList(data.title)
    }
 
+   const createArea = () => {
+      return `${isListModalOpened && styles.openedCreate} 
+      ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`
+   }
+
    return (
       <>
          <div className={`${styles.backFon} ${isListModalOpened && styles.opened}`} onClick={onModalClose}></div>
-         <div className={`${styles.createArea} ${isListModalOpened && styles.openedCreate}
-         ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`}>
+         <div className={`${styles.createArea} ${createArea()}`}>
             <div className={`${styles.modalBody} ${mediumDevices && styles.modalBodyMD}`}>
                <div className={styles.closeIconPosition}>
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
@@ -34,9 +38,7 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
                   {errors.title?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
                      {errors.title?.message}
                   </p>}
-                  <Button
-                     // onClick={onModalClose} 
-                     buttonStyle="fifthButtonStyle">Add List</Button>
+                  <Button buttonStyle="fifthButtonStyle">Add List</Button>
                </form>
             </div>
          </div>
