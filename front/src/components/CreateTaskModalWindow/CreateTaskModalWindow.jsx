@@ -3,15 +3,11 @@ import { Button } from ".."
 import { BoardStore } from "../../stores"
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
-import { TITLE_VALIDATION } from "../../utils/validation";
-import { MEDIUM_DEVICES, SMALL_DEVICES } from "../../utils/constants";
-import { useMediaQuery } from "../../hooks";
+import { TASKS_CONTENT_VALIDATION } from "../../utils/validation";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
 
-   const smallDevices = useMediaQuery(SMALL_DEVICES)
-   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -19,15 +15,11 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
       BoardStore.pushTask(data.text, id)
    };
 
-   const createArea = () => {
-      return `${isModalOpened && styles.openedCreate}
-${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`
-   }
 
    return (
       <>
          <div className={`${styles.backFon} ${isModalOpened && styles.opened}`} onClick={onModalClose}></div >
-         <div className={`${styles.createArea} ${createArea()}`}>
+         <div className={`${styles.createArea} ${isModalOpened && styles.openedCreate}`}>
             <div className={styles.modalBody}>
                <div className={styles.form}>
                   <div className={styles.closeIconPosition}>
@@ -37,13 +29,11 @@ ${mediumDevices && styles.createAreaMD} ${smallDevices && styles.createAreaSD}`
                      <div className={styles.cardText}>
                         <span className={styles.text}>Card Text</span>
                         <br />
-                        <div className={styles.error}>
-                           <textarea {...register("text", TITLE_VALIDATION)} type="textarea" placeholder="Text"
-                              className={`${styles.textInput} ${mediumDevices && styles.textInputMD}`} />
-                           {errors.text?.message && <p className={`${styles.errorPosition} ${mediumDevices && styles.errorPositionMD}`}>
-                              {errors.text?.message}
-                           </p>}
-                        </div>
+                        <textarea {...register("text", TASKS_CONTENT_VALIDATION)} type="textarea" placeholder="Text"
+                           className={styles.textInput} />
+                        {errors.text?.message && <p className={styles.errorPosition}>
+                           {errors.text?.message}
+                        </p>}
                      </div>
                      <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
                   </form>

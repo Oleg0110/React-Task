@@ -3,29 +3,45 @@ import { Button } from ".."
 import { ProjectsStore } from "../../stores";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
-import { useMediaQuery } from "../../hooks";
+import { useMedia } from "../../hooks";
 import { CREATE_CONTENT_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
-import { MEDIUM_DEVICES } from "../../utils/constants";
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants";
+import axios from "axios"
+import { useEffect } from "react";
+
+
+const asyncFunc = async () => {
+   const res = await fetch("http://localhost:5000/projects")
+   const projects = await res.json()
+   console.log(projects);
+}
 
 
 const CreateProjectArea = ({ onClick }) => {
 
-   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
+   useEffect(() => {
+      asyncFunc()
+   }, [])
+
+   const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
+      axios.post("http://localhost:5000/projects", data)
       ProjectsStore.pushProject(data.name, data.content)
    };
 
 
-
+   const load = () => {
+      ProjectsStore.loadProjects()
+   }
 
    return (
-      <div className={`${styles.createArea} ${mediumDevices && styles.createAreaMD}`}>
+      <div className={`${styles.createArea} ${styles[`createArea${responsive}`]}`}>
          <h2 className={styles.createCardTitle}>Create Project</h2>
          <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
-            <h3 className={styles.projectName}>Project Name :</h3>
+            <h3 className={styles.projectTitle}>Project Name :</h3>
             <input
                {...register("name", TITLE_VALIDATION)}
                type="text" placeholder="Name" className={styles.inputName} />
@@ -35,12 +51,13 @@ const CreateProjectArea = ({ onClick }) => {
             <h3 className={styles.projectTitle}>Project Description :</h3>
             <textarea
                {...register("content", CREATE_CONTENT_VALIDATION)}
-               type="textarea" placeholder="Description" className={`${styles.inputText} ${mediumDevices && styles.inputTextMD}`} />
+               type="textarea" placeholder="Description" className={`${styles.inputText} ${styles[`inputText${responsive}`]}`} />
             {errors.content?.message && <p className={styles.errorContentPosition}>
                {errors.content?.message}
             </p>}
             <Button onClick={onClick} buttonStyle="fourthButtonStyle">Create Project</Button>
          </form>
+         <Button onClick={load}>load</Button>
       </div>
    )
 }

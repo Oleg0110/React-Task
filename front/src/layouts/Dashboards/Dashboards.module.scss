@@ -33,10 +33,12 @@
    padding: 14px 25px 0px 25px;
    align-items: center;
    flex-wrap: wrap-reverse;
+   width: 80%;
 }
 
 .createSD {
-   width: 60%;
+   width: 50%;
+   height: 500px;
 }
 
 .plus {
@@ -57,13 +59,10 @@
    margin: 0 0 20px;
 }
 
-.searchBoard {
+.searchInput {
    padding: 5px 35px 5px 22px;
    border-radius: 4px;
    border: 1px solid #9493935c;
-}
-
-.searchBoardSD {
 }
 
 .searchIcon {
@@ -95,20 +94,79 @@
 .boardLists {
    display: flex;
    max-width: 1500px;
-   overflow-x: auto;
+   // overflow-x: auto;
 
-   &::-webkit-scrollbar {
-      width: 15px;
-   }
+   // &::-webkit-scrollbar {
+   //    width: 15px;
+   // }
 
-   &::-webkit-scrollbar-track {
-      background: #ffffff;
-      border-radius: 10px;
-   }
+   // &::-webkit-scrollbar-track {
+   //    background: #ffffff;
+   //    border-radius: 10px;
+   // }
 
-   &::-webkit-scrollbar-thumb {
-      background-color: #adadad;
-      border: 4px solid #cccccc;
-      border-radius: 10px;
+   // &::-webkit-scrollbar-thumb {
+   //    background-color: #adadad;
+   //    border: 4px solid #cccccc;
+   //    border-radius: 10px;
+   // }
+}
+
+//========================================
+.taskBoard {
+   width: 300px;
+   min-height: 90px;
+   max-height: 550px;
+   background-color: #bce0bb;
+   margin: 20px 10px;
+   border-radius: 5px;
+}
+
+.taskInfo {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.taskTitle {
+   text-align: start;
+   padding: 8px 10px;
+   font-weight: bold;
+   color: rgb(117, 117, 117);
+}
+
+.plus {
+   background-image: url(../../assets/icon/plusIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   width: 25px;
+   height: 25px;
+   margin-right: 6px;
+
+   &:hover {
+      background-color: rgba(148, 148, 148, 0.575);
+      border-radius: 50%;
    }
+}
+
+.scroll {
+   height: auto;
+}
+
+.back {
+   padding: 5px 5px;
+}
+.taskCard {
+   background-color: #fff;
+   padding: 10px;
+   border-radius: 10px;
+   box-shadow: 0px 2px 0px 0px #aaa;
+}
+
+.cardText {
+   text-align: start;
+   font-size: 15px;
+   font-weight: 500;
+   color: #848484;
+   padding-bottom: 15px;
 }

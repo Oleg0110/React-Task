@@ -3,22 +3,18 @@ import { Button, Accordion, CreateProjectArea } from "../../components"
 import { useRef, useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
-import { MEDIUM_DEVICES } from "../../utils/constants"
-import { useMedia, useMediaQuery } from "../../hooks"
+import { useMedia } from "../../hooks"
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 
 
 const Projects = ({ children }) => {
 
-   const columnCount = useMedia(
-      ["(max-width: 576px)", "(max-width: 768px)", "(max-width: 992px)"],
-      ["SD", "MD", "LD"],
-      "Another"
-   );
 
 
-   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
+   const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
+
 
    const { projects } = ProjectsStore
 
@@ -40,15 +36,19 @@ const Projects = ({ children }) => {
 
 
    const accordionBlock = () => {
-      return `${(isOpened && styles.accordionBlock) || styles.accordionBlockMax}
-      ${mediumDevices && isOpened && styles.accordionBlockMax}`
+      return `${(isOpened && styles.accordionBlock) || styles.accordionBlockMax}`
    }
+
+   const createProjectArea = () => {
+      return `${(isOpened && styles.openedCreateProjectBlock) || styles.closeCreateProjectBlock}`
+   }
+
 
    return (
       <div className={styles.mainProjectsStyle}>
          <h1 className={styles.mainTitle}>Projects</h1>
-         <div className={`${styles.create} ${mediumDevices && isOpened && styles.createMD}`}>
-            <div className={styles[`searchArea${columnCount}`]}>
+         <div className={styles.create}>
+            <div className={` ${styles.searchArea} ${styles[`searchArea${responsive}`]}`}>
                <form onChange={(e) => {
                   e.preventDefault()
                   setSearchTitle(searchTitleref.current.value,)
@@ -74,11 +74,11 @@ const Projects = ({ children }) => {
                setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
             }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
-         <div className={styles[`projectsBlocks${columnCount}`]}>
+         <div className={`${styles.projectsBlocks} ${styles[`projectsBlocks${responsive}`]}`}>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                <Droppable droppableId="cards">
                   {(provided) => (
-                     <div className={`${styles.accordionBlock} ${accordionBlock()}`} {...provided.droppableProps} ref={provided.innerRef}>
+                     <div className={`${styles.accordionBlock} ${styles[`accordionBlock${responsive}`]} ${accordionBlock()}`} {...provided.droppableProps} ref={provided.innerRef}>
                         {(isSearchOpened && projectsByContent?.map((data, index) => {
                            return (
                               <Draggable key={data.id} draggableId={data.id} index={index}>
@@ -105,7 +105,7 @@ const Projects = ({ children }) => {
                   )}
                </Droppable>
             </DragDropContext>
-            <div className={`${styles[`createProjectArea${columnCount}`]} ${(isOpened && styles.openedCreateProjectBlock) || styles.closeCreateProjectBlock}`}>
+            <div className={`${styles.createProjectArea} ${styles[`createProjectArea${responsive}`]} ${createProjectArea()}`}>
                <CreateProjectArea />
             </div>
          </div>
