@@ -20,7 +20,7 @@ class ProjectsStore {
    loadProjects = async () => {
       const res = await axios.get("http://localhost:5000/projects")
       console.log(res);
-      // this.pushProject()+++++++++++++++++++++++++++++++++++++++++++==
+      this.pushProject(res.data)
    }
 
    pushProject(title, content) {

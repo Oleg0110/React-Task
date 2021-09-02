@@ -40,7 +40,7 @@ function App() {
    return (
       <div className={styles.App}>
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            !mediumDevices ? buttonsMap : ""
+            (responsive === "LD" || responsive === "Another") && buttonsMap
          }</Header>
          <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(false)}>{
             mediumDevices ? buttonsMap : ""
