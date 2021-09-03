@@ -27,7 +27,6 @@ function App() {
 
    const buttonsMap = buttons.map((button) =>
       <Button onClick={() => {
-         setIsOpened(false)
          history.push(button.link)
       }}
          buttonStyle={(responsive === "SD" || responsive === "MD") ? "sidebarButtonStyle" : button.style}

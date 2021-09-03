@@ -9,15 +9,24 @@ const useClickOutside = (ref, handler) => {
       }
    };
    useEffect(() => {
-      document.addEventListener('click', handleClick);
-      document.addEventListener("touchstart", handleClick);
-      return () => {
-         document.removeEventListener('click', handleClick);
-         document.removeEventListener("touchstart", handleClick);
-      };
-   }, []);
-};
+      let myHandler = (e) => {
+         if (ref.current && !ref.current.contains(e.targer)) {
+            handler()
+         }
+      }
+      document.addEventListener("mousedown", myHandler)
+      document.addEventListener("touchstart", myHandler);
 
+      return () => {
+         document.removeEventListener("mousedown", myHandler)
+         document.removeEventListener("touchstart", myHandler)
+      }
+
+   }, [])
+
+   return ref
+
+};
 
 
 export default useClickOutside;
