@@ -25,7 +25,7 @@ const CreateUserAccount = ({ isOpened, onClick, onModalClose }) => {
                   <input type="text" placeholder="Name" className={styles.inputNane} ref={nameRef} />
                   <h3 className={styles.title}>User Email :</h3>
                   <input type="email" placeholder="Email" className={styles.inputText} ref={emailRef} />
-                  <Button onClick={onClick} buttonStyle="thirdButtonStyle">Create Account</Button>
+                  <Button onClick={onClick} buttonStyle="fifthButtonStyle">Create Account</Button>
                </form>
             </div>
          </div>

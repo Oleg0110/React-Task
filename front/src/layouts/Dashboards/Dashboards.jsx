@@ -4,14 +4,17 @@ import { Button, CreateListModalWindow, Columns } from "../../components"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useRef, useState } from "react"
-import { useMediaQuery } from "../../hooks"
-import { SMALL_DEVICES } from "../../utils/constants"
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useMedia } from "../../hooks"
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
 
 
 const Dashboards = ({ children, onClick }) => {
+
+   const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
+   console.log(responsive);
 
    const { lists } = BoardStore
 
@@ -25,7 +28,6 @@ const Dashboards = ({ children, onClick }) => {
       return { ...data, tasks: filteredTask }
    })
 
-   const smallDevices = useMediaQuery(SMALL_DEVICES)
 
 
    //TODO When my project is done delete it
@@ -36,9 +38,11 @@ const Dashboards = ({ children, onClick }) => {
       transition: Flip,
    });
 
-   // function handleOnDragEnd(result) {
-   //    BoardStore.dragLists(result)
-   // }
+   function handleOnDragEnd(result) {
+      BoardStore.dragLists(result)
+   }
+
+
 
 
    return (<div className={styles.mainBoardStyle}>
@@ -51,21 +55,21 @@ const Dashboards = ({ children, onClick }) => {
             <ToastContainer />
          </div>
       </div>
-      <div className={`${styles.create} ${smallDevices && styles.createSD}`}>
+      <div className={`${styles.create} ${styles[`create${responsive}`]}}`}>
          <Button onClick={() => setIsListModalOpened(!isListModalOpened)} buttonStyle="thirdButtonStyle"><div className={styles.plus} alt="Plus Icon" />Create List</Button>
-         <form className={`${styles.searchBoardArea} ${smallDevices && styles.searchBoardAreaSD}`} onChange={(e) => {
+         <form className={`${styles.searchBoardArea} ${styles[`searchBoardArea${responsive}`]}`} onChange={(e) => {
             e.preventDefault()
             setSearchTitle(searchValue.current.value)
          }}>
-            <input type="text" placeholder="Task search..." className={styles.searchBoard} ref={searchValue} />
+            <input type="text" placeholder="Task search..." className={styles.searchInput} ref={searchValue} />
             <div className={styles.searchIcon} alt="Search Icon" />
             <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
          </form>
       </div>
-      <div className={styles.boardLists}>
+      {/* <div className={styles.boardLists}>
          {filteredList.map((data) => <Columns title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
-      </div>
-      {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+      </div> */}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
          <Droppable droppableId="dragLists">
             {(provided) => (
                <div className={styles.boardLists} {...provided.droppableProps} ref={provided.innerRef}>
@@ -84,7 +88,7 @@ const Dashboards = ({ children, onClick }) => {
                </div>
             )}
          </Droppable>
-      </DragDropContext> */}
+      </DragDropContext>
       {children}
    </div >
    );

@@ -1,17 +1,18 @@
 import { action, makeObservable, observable } from "mobx"
+import axios from "axios"
 
 class BoardStore {
    lists = [
       {
          id: "0", title: "To Do",
          tasks: [
-            { id: "0", text: "000000000000000000", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "1", text: "111111111111111111", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "2", text: "222222222222222222", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "3", text: "333333333333333333", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "4", text: "444444444444444444", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
+            { id: "1", text: "000000000000000000", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
+            { id: "2", text: "111111111111111111", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
+            { id: "3", text: "222222222222222222", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
+            { id: "4", text: "333333333333333333", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
+            { id: "5", text: "444444444444444444", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
       },
-      { id: "1", title: "Done", tasks: [{ id: "0", text: "I have to something" }] }]
+      { id: "1", title: "Done", tasks: [{ id: "6", text: "I have to something" }] }]
 
    constructor() {
       makeObservable(this, {
@@ -21,6 +22,12 @@ class BoardStore {
          dragLists: action,
          dragInList: action,
       })
+      this.loadProjects()
+   }
+
+   loadProjects = async () => {
+      const res = await axios.get("http://localhost:5000/dashboards")
+      console.log(res);
    }
 
    pushList(title) {
