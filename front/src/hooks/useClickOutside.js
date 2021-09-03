@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 
+
 const useClickOutside = (ref, handler) => {
 
+   const handleClick = e => {
+      if (!ref.current || ref.current.contains(e.target)) {
+         handler();
+      }
+   };
    useEffect(() => {
       let myHandler = (e) => {
          if (ref.current && !ref.current.contains(e.targer)) {

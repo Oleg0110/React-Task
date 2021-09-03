@@ -7,6 +7,3 @@ export { default as CreateTaskModalWindow } from "./CreateTaskModalWindow/Create
 export { default as CreateUserAccount } from "./CreateUserAccount/CreateUserAccount"
 export { default as ProjectsPageSearchArea } from "./ProjectsPageSearchArea/ProjectsPageSearchArea"
 export { default as Tasks } from "./Tasks/Tasks";
-
-
-

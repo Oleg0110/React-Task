@@ -4,8 +4,8 @@ import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, } from "./layou
 import { Button, CreateUserAccount } from './components';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
-import { MEDIUM_DEVICES, RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from './utils/constants';
-import { useMedia, useMediaQuery } from './hooks';
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from './utils/constants';
+import { useMedia } from './hooks';
 
 
 function App() {
@@ -18,8 +18,6 @@ function App() {
    const [isOpened, setIsOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
 
-   const mediumDevices = useMediaQuery(MEDIUM_DEVICES)
-
    const buttons = [{ id: "0", name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
    { id: "1", name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
    { id: "2", name: "Dashboards", link: "/dashboards", icon: "dashboardsIcon", style: "mainButtonStyle" },
@@ -31,20 +29,24 @@ function App() {
       <Button onClick={() => {
          history.push(button.link)
       }}
-         buttonStyle={`${mediumDevices ? "sidebarButtonStyle" : button.style}`}
+         buttonStyle={(responsive === "SD" || responsive === "MD") ? "sidebarButtonStyle" : button.style}
          key={button.id}>
          <div className={`${styles.icon} ${styles[`icon${responsive}`] && styles[button.icon]}`} />
          <h4>{button.name}</h4>
       </Button >)
 
+
+   let buttonsInSidebar = (responsive === "SD" || responsive === "MD") ? buttonsMap : ""
+
+   let buttonsInHeader = (responsive === "LD" || responsive === "Another") ? buttonsMap : ""
+
+
    return (
       <div className={styles.App}>
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            (responsive === "LD" || responsive === "Another") && buttonsMap
+            buttonsInHeader
          }</Header>
-         <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(false)}>{
-            mediumDevices ? buttonsMap : ""
-         }</Sidebar>
+         <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(false)}>{buttonsInSidebar}</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>
             <Route exact path="/" component={Home} />

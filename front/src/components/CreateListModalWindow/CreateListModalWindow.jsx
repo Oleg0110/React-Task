@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
-import TextBox from "../TextBox/TextBox"
+// import TextBox from "../TextBox/TextBox"
 import { useEffect } from "react";
 import axios from "axios"
 
@@ -47,8 +47,7 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
                   {errors.title?.message && <p className={styles.errorPosition}>
                      {errors.title?.message}
                   </p>}
-
-                  <TextBox inputStyle="inputCreateList" placeholder="Title" type="text" innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} />
+                  {/* <TextBox inputStyle="inputCreateList" placeholder="Title" type="text" innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} /> */}
                   <Button buttonStyle="fifthButtonStyle">Add List</Button>
                </form>
                <Button onClick={load}>load</Button>
