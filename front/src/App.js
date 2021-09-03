@@ -47,7 +47,9 @@ function App() {
          <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
             buttonsInHeader
          }</Header>
-         <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(false)}>{buttonsInSidebar}</Sidebar>
+         <Sidebar isOpened={isOpened}
+         // onClickOutside={() => setIsOpened(false)}
+         >{buttonsInSidebar}</Sidebar>
          <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
          <Switch>
             <Route exact path="/" component={Home} />

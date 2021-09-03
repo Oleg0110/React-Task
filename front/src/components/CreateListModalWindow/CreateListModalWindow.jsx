@@ -47,7 +47,6 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
                   {errors.title?.message && <p className={styles.errorPosition}>
                      {errors.title?.message}
                   </p>}
-
                   {/* <TextBox inputStyle="inputCreateList" placeholder="Title" type="text" innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} /> */}
                   <Button buttonStyle="fifthButtonStyle">Add List</Button>
                </form>
