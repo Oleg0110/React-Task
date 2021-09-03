@@ -12,6 +12,10 @@
    height: 290px;
 }
 
+.createAreaSD {
+   height: 290px;
+}
+
 .createCardTitle {
    font-weight: 600;
    font-size: 20px;
@@ -27,7 +31,7 @@
    align-items: center;
 }
 
-.projectName {
+.projectTitle {
    font-weight: 500;
    margin: 10px;
    font-size: 15px;
@@ -62,6 +66,11 @@
 }
 
 .inputTextMD {
+   height: 60px;
+   margin-bottom: 20px;
+}
+
+.inputTextSD {
    height: 60px;
    margin-bottom: 20px;
 }

@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from "mobx"
+import axios from "axios"
 
 class ProjectsStore {
    projects = [{ id: "1", title: "Vova's Project", content: "I hope that this project will be the best project of all and the best in her life" },
@@ -12,7 +13,14 @@ class ProjectsStore {
          projects: observable,
          pushProject: action,
          dragProject: action,
-      })
+      });
+      this.loadProjects();
+   }
+
+   loadProjects = async () => {
+      const res = await axios.get("http://localhost:5000/projects")
+      console.log(res);
+      this.pushProject(res.data)
    }
 
    pushProject(title, content) {

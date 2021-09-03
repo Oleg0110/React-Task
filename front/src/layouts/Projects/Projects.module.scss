@@ -17,11 +17,7 @@
    flex-wrap: wrap;
 }
 
-.createMD {
-   padding-bottom: 20px;
-}
-
-.searchAreaAnother {
+.searchArea {
    display: flex;
 }
 
@@ -29,14 +25,6 @@
    display: flex;
    width: 100%;
    margin-bottom: 20px;
-}
-
-.searchAreaMD {
-   display: flex;
-}
-
-.searchAreaLD {
-   display: flex;
 }
 
 .searchTitleArea {
@@ -114,12 +102,7 @@
    height: 17px;
 }
 
-.projectsBlocksAnother {
-   display: flex;
-   justify-content: flex-start;
-}
-
-.projectsBlocksLD {
+.projectsBlocks {
    display: flex;
    justify-content: flex-start;
 }
@@ -128,12 +111,14 @@
    display: flex;
    justify-content: flex-start;
    flex-direction: column-reverse;
+   margin-top: 10px;
 }
 
 .projectsBlocksSD {
    display: flex;
    justify-content: flex-start;
    flex-direction: column-reverse;
+   margin-top: 10px;
 }
 
 .accordionBlock {
@@ -161,13 +146,23 @@
    }
 }
 
+.accordionBlockMD {
+   width: 100%;
+   margin-right: 10px;
+}
+
+.accordionBlockSD {
+   width: 100%;
+   margin-right: 10px;
+}
+
 .accordionBlockMax {
    width: 100%;
    margin-right: 10px;
    transition: 0.5s;
 }
 
-.createProjectAreaAnother {
+.createProjectArea {
    background-color: #bce0bb;
    border-radius: 5px;
    height: 500px;
@@ -176,27 +171,15 @@
 }
 
 .createProjectAreaSD {
-   background-color: #bce0bb;
-   border-radius: 5px;
    height: 310px;
    width: 96%;
    margin: auto;
 }
 
 .createProjectAreaMD {
-   background-color: #bce0bb;
-   border-radius: 5px;
    height: 310px;
    width: 96%;
    margin: auto;
-}
-
-.createProjectAreaLD {
-   background-color: #bce0bb;
-   border-radius: 5px;
-   height: 500px;
-   width: 35%;
-   margin: 20px 25px 0 40px;
 }
 
 .openedCreateProjectBlock {

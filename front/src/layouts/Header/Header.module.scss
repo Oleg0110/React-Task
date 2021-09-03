@@ -7,8 +7,8 @@
    flex-wrap: wrap;
 }
 
-.headerUseMD {
-   display: flex;
+.mainHeaderStyleSD {
+   flex-wrap: nowrap;
 }
 
 .open-sidebar-icon {
@@ -28,7 +28,7 @@
    width: 55%;
 }
 
-.linkHeaderMD {
+.linkHeaderButtonMD {
    display: none;
 }
 
@@ -50,7 +50,7 @@
    position: relative;
 }
 
-.searchHeaderInputClose {
+.searchHeaderInputSD {
    display: none;
 }
 
@@ -78,10 +78,6 @@
    top: 5px;
 }
 
-.searchIconSD {
-   display: none;
-}
-
 .headerOptions {
    padding: 2px 0px;
    display: flex;
@@ -94,6 +90,11 @@
    background-size: 18px;
    width: 25px;
    height: 25px;
+   display: none;
+}
+
+.searchIconAreaSD {
+   display: block;
 }
 
 .icon {
