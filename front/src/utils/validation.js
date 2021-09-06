@@ -19,4 +19,15 @@ export const CREATE_CONTENT_VALIDATION = {
    }
 }
 
+export const PASSWORD_VALIDATION = {
+   required: "Can't be Empty min: 8 Symbols",
+   minLength: {
+      value: 8,
+      message: "Too Short"
+   }
 
+}
+
+export const EMAIL_VALIDATION = {
+   required: "Can't be Empty"
+}

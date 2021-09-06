@@ -1,9 +1,9 @@
 // import { useRef, useState } from "react"
 // import { Button } from ".."
-import styles from "./ProjectsPageSearchArea.module.scss"
+import styles from "./ProjectsPageSearchField.module.scss"
 
 
-const ProjectsPageSearchArea = ({ onChange }) => {
+const ProjectsPageSearchField = ({ onChange }) => {
 
    // const searchTitleref = useRef(null)
    // const [isSearchOpened, setIsSearchOpened] = useState(false)
@@ -29,4 +29,4 @@ const ProjectsPageSearchArea = ({ onChange }) => {
    )
 }
 
-export default ProjectsPageSearchArea;
+export default ProjectsPageSearchField;

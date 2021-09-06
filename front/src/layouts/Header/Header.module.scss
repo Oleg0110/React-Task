@@ -3,7 +3,7 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 15px;
+   padding: 5px 10px;
    flex-wrap: wrap;
 }
 
@@ -11,13 +11,29 @@
    flex-wrap: nowrap;
 }
 
+.logoField {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
 .open-sidebar-icon {
    background-image: url(../../assets/icon/headerMenuIcon.svg);
    background-repeat: no-repeat;
    background-position: center;
    background-size: 27px;
-   width: 25px;
-   height: 25px;
+   width: 35px;
+   height: 35px;
+}
+
+.logoPosition {
+   margin-top: -3px;
+}
+
+.logo {
+   font-size: 35px;
+   letter-spacing: 15px;
+   margin-left: 20px;
 }
 
 .linkHeaderButton {
@@ -25,7 +41,7 @@
    justify-content: space-around;
    align-items: center;
    flex-wrap: wrap;
-   width: 55%;
+   width: 53%;
 }
 
 .linkHeaderButtonMD {
@@ -36,6 +52,7 @@
    display: flex;
    justify-content: space-around;
    align-items: center;
+   position: relative;
 }
 
 .searchHeader button {
@@ -48,10 +65,17 @@
 
 .searchHeaderInput {
    position: relative;
+   position: absolute;
+   top: 50px;
+   right: -16px;
+   display: none;
 }
 
-.searchHeaderInputSD {
-   display: none;
+.searchHeaderInputAnother {
+   display: block;
+   position: relative;
+   top: 0;
+   right: 0;
 }
 
 .searchHeaderInputOpen {
@@ -64,6 +88,10 @@
    border-radius: 4px;
    border: 1px solid #9493935c;
    width: 150px;
+}
+
+.searchInputAnother {
+   width: 100px;
 }
 
 .searchIcon {
@@ -90,11 +118,11 @@
    background-size: 18px;
    width: 25px;
    height: 25px;
-   display: none;
+   display: block;
 }
 
-.searchIconAreaSD {
-   display: block;
+.searchIconAreaAnother {
+   display: none;
 }
 
 .icon {
@@ -118,11 +146,10 @@
 }
 
 .userPhoto {
-   width: 25px;
-   height: 25px;
-   border-radius: 50%;
-}
-
-.user-photo {
-   background-image: url(../../assets/img/me.png);
+   background-image: url(../../assets/icon/user.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 30px;
+   width: 30px;
+   height: 30px;
 }
