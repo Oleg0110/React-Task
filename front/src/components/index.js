@@ -5,5 +5,9 @@ export { default as CreateListModalWindow } from "./CreateListModalWindow/Create
 export { default as CreateProjectArea } from "./CreateProjectArea/CreateProjectArea"
 export { default as CreateTaskModalWindow } from "./CreateTaskModalWindow/CreateTaskModalWindow";
 export { default as CreateUserAccount } from "./CreateUserAccount/CreateUserAccount"
-export { default as ProjectsPageSearchArea } from "./ProjectsPageSearchArea/ProjectsPageSearchArea"
+export { default as ProjectsPageSearchField } from "./ProjectsPageSearchField/ProjectsPageSearchField"
 export { default as Tasks } from "./Tasks/Tasks";
+export { default as TextBox } from "./TextBox/TextBox";
+export { default as LogInField } from "./LogInField/LogInField";
+export { default as SignUpField } from "./SingUpField/SingUpField";
+export { default as UserField } from "./UserField/UserField";

@@ -6,30 +6,18 @@ import { useForm } from "react-hook-form";
 import { useMedia } from "../../hooks";
 import { CREATE_CONTENT_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants";
-import axios from "axios"
-import { useEffect } from "react";
 
 
-const asyncFunc = async () => {
-   const res = await fetch("http://localhost:5000/projects")
-   const projects = await res.json()
-   console.log(projects);
-}
 
 
 const CreateProjectArea = ({ onClick }) => {
-
-   useEffect(() => {
-      asyncFunc()
-   }, [])
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      axios.post("http://localhost:5000/projects", data)
-      ProjectsStore.pushProject(data.name, data.content)
+      ProjectsStore.pushProject(data.title, data.content)
    };
 
 
@@ -43,7 +31,7 @@ const CreateProjectArea = ({ onClick }) => {
          <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
             <h3 className={styles.projectTitle}>Project Name :</h3>
             <input
-               {...register("name", TITLE_VALIDATION)}
+               {...register("title", TITLE_VALIDATION)}
                type="text" placeholder="Name" className={styles.inputName} />
             {errors.name?.message && <p className={styles.errorNamePosition}>
                {errors.name?.message}

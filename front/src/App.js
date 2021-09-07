@@ -1,11 +1,13 @@
 import styles from './App.module.scss';
 // import UserAccount from './layouts/UserAccount/UserAccount';
 import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, } from "./layouts"
-import { Button, CreateUserAccount } from './components';
+import { Button, LogInField, SignUpField, UserField } from './components';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from './utils/constants';
 import { useMedia } from './hooks';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -15,8 +17,9 @@ function App() {
 
    const history = useHistory()
 
-   const [isOpened, setIsOpened] = useState(false)
+   const [isSidebarOpened, setSidebarOpened] = useState(false)
    const [isSingUpFormOpened, setisSingUpFormOpened] = useState(false)
+   const [isLogInFormOpened, setisLogInFormOpened] = useState(false)
 
    const buttons = [{ id: "0", name: "Home", link: "/", icon: "homeIcon", style: "mainButtonStyle" },
    { id: "1", name: "Projects", link: "/projects", icon: "projectsIcon", style: "mainButtonStyle" },
@@ -43,11 +46,31 @@ function App() {
 
    return (
       <div className={styles.App}>
-         <Header onClick={() => setIsOpened(!isOpened)} openUserForm={() => setisSingUpFormOpened(!isSingUpFormOpened)}>{
-            buttonsInHeader
-         }</Header>
-         <Sidebar isOpened={isOpened} onClickOutside={() => setIsOpened(false)}>{buttonsInSidebar}</Sidebar>
-         <CreateUserAccount isOpened={isSingUpFormOpened} onModalClose={() => setisSingUpFormOpened(false)} />
+         <Header onClick={() => {
+            setSidebarOpened(!isSidebarOpened)
+            setisLogInFormOpened(false)
+            setisSingUpFormOpened(false)
+         }} openUserForm={() => {
+            setisSingUpFormOpened(!isSingUpFormOpened)
+            setisLogInFormOpened(false)
+            setSidebarOpened(false)
+         }}>{
+               buttonsInHeader
+            }</Header>
+         <Sidebar onClick={() => setSidebarOpened(false)} isOpened={isSidebarOpened} onClickOutside={() => setSidebarOpened(false)}>{buttonsInSidebar}</Sidebar>
+         <SignUpField isOpened={isSingUpFormOpened} onClick={() => {
+            setisLogInFormOpened(!isLogInFormOpened)
+            setisSingUpFormOpened(false)
+         }}
+            onClickOutside={() => setisSingUpFormOpened(false)}
+            onModalClose={() => setisSingUpFormOpened(false)} />
+         <LogInField isOpened={isLogInFormOpened} onClick={() => {
+            setisSingUpFormOpened(!isSingUpFormOpened)
+            setisLogInFormOpened(false)
+         }}
+            onClickOutside={() => setisLogInFormOpened(false)}
+            onModalClose={() => setisLogInFormOpened(false)} />
+         <UserField />
          <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/projects" component={Projects} />
@@ -63,6 +86,7 @@ function App() {
             <Redirect to="/" />
          </Switch>
          {/* <UserAccount></UserAccount> */}
+         <ToastContainer />
       </div >
    );
 }

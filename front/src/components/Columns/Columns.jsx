@@ -45,7 +45,34 @@ const Columns = ({ children, title, id, cardsData }) => {
                </Droppable>
             </DragDropContext>
          </div >
-      </div>)
+      </div>
+      //    <div>
+      //    <Droppable droppableId={id}>
+      //       {(provided) => {
+      //          return (
+      //             <div
+      //                className={styles.taskBoard}
+      //                {...provided.droppableProps}
+      //                ref={provided.innerRef}
+      //             >
+      //                <CreateTaskModalWindow id={id} isModalOpened={isTaskModalOpened} onModalClose={() => setIsTaskModalOpened(false)} />
+      //                <div className={styles.taskInfo}>
+      //                   <p className={styles.taskTitle}>{title}</p>
+      //                   <Button onClick={() => setIsTaskModalOpened(!isTaskModalOpened)}><div className={styles.plus} alt="Plus Icon" /></Button>
+      //                </div>
+      //                   {cardsData?.map((data, index) => {
+      //                      // console.log(data);
+      //                      return (
+      //                         <Tasks text={data.text} index={index} key={data.id} id={data.id} />
+      //                      )
+      //                   })}
+      //                {provided.placeholder}
+      //             </div>
+      //          )
+      //       }}
+      //    </Droppable>
+      // </div>
+   )
 }
 
 

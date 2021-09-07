@@ -1,10 +1,9 @@
 import styles from "./UserAccount.module.scss"
-import userPhoto from "../../assets/img/me.png"
 import { Button } from "../../components";
 const UserAccount = () => {
    return (<div className={styles.mainUserAccountStyle}>
       <div className={styles.userBlock}>
-         <img className={styles.userPhoto} src={userPhoto} alt="User"></img>
+         <img className={styles.userPhoto} alt="User"></img>
       </div>
       <div className={styles.form}>
          <input className={styles.input} type="text" placeholder="Name" />

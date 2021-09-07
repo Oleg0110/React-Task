@@ -13,6 +13,8 @@ app.use("/projects", require("./routes/projects"))
 
 app.use("/dashboards", require("./routes/dashboards"))
 
+// app.use("/people", require("./routes/user"))
+
 app.listen(5000, () => {
    console.log("Start on port 5000.....");
 })

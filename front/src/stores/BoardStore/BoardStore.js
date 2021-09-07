@@ -1,18 +1,11 @@
-import { action, makeObservable, observable } from "mobx"
+import { action, makeObservable, observable, runInAction, toJS } from "mobx"
 import axios from "axios"
+import { toast } from 'react-toastify';
+import { LINK_DASHBOARD_LIST, LINK_DASHBOARD_TASK } from "../../utils/httpLinks";
 
 class BoardStore {
    lists = [
-      {
-         id: "0", title: "To Do",
-         tasks: [
-            { id: "1", text: "000000000000000000", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "2", text: "111111111111111111", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "3", text: "222222222222222222", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "4", text: "333333333333333333", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" },
-            { id: "5", text: "444444444444444444", priority: "medium", taskState: "done", label: "SPACE TRAVEL PARTNERS" }]
-      },
-      { id: "1", title: "Done", tasks: [{ id: "6", text: "I have to something" }] }]
+      { id: "0", title: "Done", tasks: [{ id: "0", text: "I have to something" }] }]
 
    constructor() {
       makeObservable(this, {
@@ -22,47 +15,92 @@ class BoardStore {
          dragLists: action,
          dragInList: action,
       })
-      this.loadProjects()
+      // this.loadProjects()
    }
 
-   loadProjects = async () => {
-      const res = await axios.get("http://localhost:5000/dashboards")
-      console.log(res);
-   }
+   pushList = async (title) => {
+      try {
+         const res = await axios.post(LINK_DASHBOARD_LIST, { title })
+         const list = toJS(res.data)
+         console.log(2, list);
+         runInAction(() => {
+            this.lists.push(list)
+         })
 
-   pushList(title) {
-      let foundId = 0
-      if (this.lists) {
-
-
-         for (let i = 0; i < this.lists.length; i++) {
-
-            if (this.lists[i].id > foundId) {
-               foundId = this.lists[i].id
-            }
-         }
-         foundId++
-         this.lists.push({ title, id: foundId.toString(), tasks: [] });
-      }
-
-   }
-
-   pushTask(text, id) {
-      const foundLists = this.lists.find((data) => data.id === id)
-
-      let foundId = 0
-      if (foundLists.tasks) {
-
-         for (let i = 0; i < foundLists.tasks.length; i++) {
-            console.log(foundLists.tasks.length);
-            if (foundLists.tasks[i].id > foundId) {
-               foundId = foundLists.tasks[i].id
-            }
-         }
-         foundId++
-         foundLists.tasks.push({ text, id: foundId.toString() })
+      } catch (error) {
+         runInAction(() => {
+            toast.error("invalid data")
+         })
       }
    }
+
+   pushTask = async (text, id) => {
+      try {
+         const res = await axios.post(LINK_DASHBOARD_TASK, { text, id })
+         const task = toJS(res.data)
+         console.log('task:', task);
+         runInAction(() => {
+            this.lists[id].tasks.push(task);
+         })
+      } catch (error) {
+         runInAction(() => {
+            toast.error("invalid data")
+         })
+      }
+      // const foundLists = this.lists.find((data) => data.id === id)
+      // console.log(2, foundLists);
+      // let foundId = 0
+      // if (foundLists.tasks) {
+
+      //    for (let i = 0; i < foundLists.tasks.length; i++) {
+      //       console.log(foundLists.tasks.length);
+      //       if (foundLists.tasks[i].id > foundId) {
+      //          foundId = foundLists.tasks[i].id
+      //       }
+      //    }
+      //    foundId++
+      //    foundLists.tasks.push({ text, id: foundId.toString() })
+      // }
+   }
+
+   // loadProjects = async () => {
+   //    const res = await axios.get("http://localhost:5000/dashboards")
+   //    console.log(res);
+   // }
+
+   // pushList(title) {
+   //    let foundId = 0
+   //    if (this.lists) {
+
+
+   //       for (let i = 0; i < this.lists.length; i++) {
+
+   //          if (this.lists[i].id > foundId) {
+   //             foundId = this.lists[i].id
+   //          }
+   //       }
+   //       foundId++
+   //       this.lists.push({ title, id: foundId.toString(), tasks: [] });
+   //    }
+
+   // }
+
+   // pushTask(text, id) {
+   //    const foundLists = this.lists.find((data) => data.id === id)
+   //    console.log(2, foundLists);
+   //    let foundId = 0
+   //    if (foundLists.tasks) {
+
+   //       for (let i = 0; i < foundLists.tasks.length; i++) {
+   //          console.log(foundLists.tasks.length);
+   //          if (foundLists.tasks[i].id > foundId) {
+   //             foundId = foundLists.tasks[i].id
+   //          }
+   //       }
+   //       foundId++
+   //       foundLists.tasks.push({ text, id: foundId.toString() })
+   //    }
+   // }
 
    dragInList(result, idList) {
       if (this.lists.length) {
