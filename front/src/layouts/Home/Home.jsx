@@ -21,7 +21,9 @@ const Home = ({ children }) => {
       </h1>
       <hr className={styles.line} />
       <p className={`${styles.create} ${styles[`create${responsive}`]}`}>Create your first Project</p>
-      <Button onClick={() => history.push("/projects")} buttonStyle="fifthButtonStyle"><span className={styles.buttonName}>Let's Go</span></Button>
+      <div className={styles.buttonPosition}>
+         <Button onClick={() => history.push("/sing-up")} buttonStyle="fifthButtonStyle"><span className={styles.buttonName}>Let's Go</span></Button>
+      </div>
       {children}
    </div >
 

@@ -1,47 +1,84 @@
 const { Router } = require("express")
 const router = Router()
 
-const lists = [{
-   tasks: [{ id: "", text: '' }]
-}]
+const lists = []
 
-let listId = 0
-let taskId = 0
+let Id = 0
 
 router.get("/", async (req, res) => {
-   res.status(200).json(lists)
+   try {
+      res.status(200).json(lists)
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
 })
 
 router.post("/list", async (req, res) => {
-   const { title } = req.body
-   console.log(3, title);
-   if (title) {
-      const confirmedList = { id: String(++listId), title, tasks: [] }
-      lists.push(confirmedList)
-      console.log(1, confirmedList);
-      res.status(200).json(confirmedList)
+   try {
+      const { title } = req.body
+
+      if (title) {
+         const confirmedList = { id: String(++Id), title, tasks: [] }
+
+         lists.push(confirmedList)
+         res.status(201).json(confirmedList)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
    }
-   res.status(400).json({ error: "invalid input" })
 })
 
 router.patch("/list", async (req, res) => {
-   const { title } = res.body
+   try {
+      const { title, id } = res.body
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.get("/list", async (req, res) => {
+   try {
+      res.status(200).json(lists.tasks)
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
 })
 
 router.post("/task", async (req, res) => {
-   const { text, id } = req.body
-   console.log(4, text, id);
-   if (text && id) {
-      const confirmedList = { text: text, id: String(++taskId) }
-      lists[id].tasks.push(confirmedList)
-      res.status(200).json(confirmedList)
+   try {
+      const { text, id } = req.body
+
+      if (text && id) {
+
+         const confirmedList = { text: text, id: String(++Id) }
+         const foundListId = lists.find(find => find.id === id)
+         foundListId.tasks.push(confirmedList)
+         res.status(201).json(confirmedList)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
    }
-   res.status(400).json({ error: "invalid input" })
 })
 
 router.patch("/task", async (req, res) => {
-   const { title } = res.body
+   try {
+      const { title, id } = res.body
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
 })
 
 
-module.exports = router
+module.exports = router;

@@ -8,7 +8,7 @@ import { TITLE_VALIDATION } from "../../utils/validation";
 
 
 
-const CreateListModalWindow = ({ isListModalOpened, onModalClose, onClickOutside }) => {
+const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
 
 
    const { register, handleSubmit, formState: { errors } } = useForm();

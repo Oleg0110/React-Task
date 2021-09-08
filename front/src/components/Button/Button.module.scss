@@ -28,7 +28,7 @@ button {
       height: 2px;
       background-color: #fb8c00;
       position: absolute;
-      bottom: -17%;
+      bottom: 8%;
       transition: 0.5s all;
       opacity: 0;
       transform: translateY(0px) rotate(0deg);
@@ -142,5 +142,38 @@ button {
       background-color: rgb(252, 252, 252);
       transition: 0.5s;
       border: 1px solid #ffa726;
+   }
+}
+
+.userFieldButtonStyle {
+   margin-left: -11px;
+   display: flex;
+   align-items: center;
+   padding: 5px 20px 5px 10px;
+   width: 225px;
+   text-align: start;
+
+   &:hover {
+      background-color: rgba(107, 107, 107, 0.178);
+      color: #fb8c00;
+   }
+
+   &:hover::before {
+      transition: 0.3s all;
+      opacity: 1;
+      transform: translateX(-16px) rotate(90deg);
+   }
+
+   &::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background-color: #fb8c00;
+      position: absolute;
+      right: -9%;
+      transition: 0.5s all;
+      opacity: 0;
+      transform: translateX(0px) rotate(90deg);
+      z-index: 2;
    }
 }

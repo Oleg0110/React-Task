@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction, toJS } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import axios from "axios"
 import { toast } from 'react-toastify';
 
@@ -11,19 +11,15 @@ class UserStore {
       })
    }
 
-   pushUser(name, email, password) {
+   pushUser = async (email, name, password) => {
       try {
-         //await
-         const res = axios.post("http://localhost:5000/people", { name, email, password })
-         const user = toJS(res.data)
-         runInAction(() => {
-            this.user.push(user)
-            toast("Acount was Created")
-         })
+         const res = await axios.post("http://localhost:5000/sign-up", { email, name, password })
+         const user = res.data
+         console.log(9, user);
+         this.user.push(user)
+         toast.success("Acount was Created")
       } catch (error) {
-         runInAction(() => {
-            toast.error("invalid data")
-         })
+         toast.error("invalid data")
       }
    }
 
@@ -31,4 +27,4 @@ class UserStore {
 
 }
 
-export default new UserStore
+export default new UserStore()

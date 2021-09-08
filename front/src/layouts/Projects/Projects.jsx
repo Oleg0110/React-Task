@@ -1,17 +1,26 @@
 import styles from "./Projects.module.scss"
 import { Button, Accordion, CreateProjectArea } from "../../components"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ProjectsStore } from "../../stores"
 import { observer } from "mobx-react"
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import axios from "axios"
+import { LINK_PROJECTS } from "../../utils/httpLinks"
 
 
+const asyncFunc = async () => {
+   const res = await axios.get(LINK_PROJECTS)
+   const projects = res.data
+   console.log(projects);
+}
 
 const Projects = ({ children }) => {
 
-
+   useEffect(() => {
+      asyncFunc();
+   }, []);
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
@@ -67,7 +76,7 @@ const Projects = ({ children }) => {
                </form>
                <Button onClick={() => {
                   setIsSearchOpened(!isSearchOpened)
-               }}><div className={styles["three-dots"]} alt="Dots" /></Button>
+               }}><div className={styles.change} alt="Arrow" /></Button>
             </div>
             <Button onClick={() => {
                setIsOpened(!isOpened)
@@ -84,7 +93,7 @@ const Projects = ({ children }) => {
                               <Draggable key={data.id} draggableId={data.id} index={index}>
                                  {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                       <Accordion title={data.title} content={data.content} />
+                                       <Accordion title={data.title} content={data.content} id={data.id} />
                                     </div>
                                  )}
                               </Draggable>
@@ -94,7 +103,7 @@ const Projects = ({ children }) => {
                               <Draggable key={data.id} draggableId={data.id} index={index}>
                                  {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                       <Accordion title={data.title} content={data.content} />
+                                       <Accordion title={data.title} content={data.content} id={data.id} />
                                     </div>
                                  )}
                               </Draggable>
