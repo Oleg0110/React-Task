@@ -46,7 +46,7 @@ const Columns = ({ children, title, id, cardsData }) => {
             </DragDropContext>
          </div >
       </div>
-      //    <div>
+      // <div>
       //    <Droppable droppableId={id}>
       //       {(provided) => {
       //          return (
@@ -60,12 +60,12 @@ const Columns = ({ children, title, id, cardsData }) => {
       //                   <p className={styles.taskTitle}>{title}</p>
       //                   <Button onClick={() => setIsTaskModalOpened(!isTaskModalOpened)}><div className={styles.plus} alt="Plus Icon" /></Button>
       //                </div>
-      //                   {cardsData?.map((data, index) => {
-      //                      // console.log(data);
-      //                      return (
-      //                         <Tasks text={data.text} index={index} key={data.id} id={data.id} />
-      //                      )
-      //                   })}
+      //                {cardsData?.map((data, index) => {
+      //                   // console.log(data);
+      //                   return (
+      //                      <Tasks text={data.text} index={index} key={data.id} id={data.id} />
+      //                   )
+      //                })}
       //                {provided.placeholder}
       //             </div>
       //          )

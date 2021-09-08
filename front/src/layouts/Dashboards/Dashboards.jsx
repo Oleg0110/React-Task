@@ -55,7 +55,7 @@ const Dashboards = ({ children }) => {
    const { lists } = BoardStore
 
 
-   const searchValue = useRef("null")
+   const searchValue = useRef(null)
    const [isListModalOpened, setIsListModalOpened] = useState(false)
    const [searchTitle, setSearchTitle] = useState('')
 
@@ -99,10 +99,10 @@ const Dashboards = ({ children }) => {
       </div>
       {/* <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
          <div className={styles.boardLists}>
-            {Object.entries(columns).map(([columnId, column]) => {
+            {Object.entries(columns).map(([columnId, column], index) => {
                // console.log("Column", column);
                return (
-                  <Columns cardsData={column.tasks} title={column.title} key={column.id} id={column.id} />
+                  <Columns cardsData={column.tasks} title={column.title} key={column.id} id={column.id} index={index} />
                )
             })}
          </div>

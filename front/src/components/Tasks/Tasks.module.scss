@@ -6,6 +6,7 @@
    padding: 10px;
    border-radius: 10px;
    box-shadow: 0px 2px 0px 0px #aaa;
+   position: relative;
 }
 
 .cardText {
@@ -119,31 +120,14 @@
    display: flex;
 }
 
-.userPhoto {
+.delete {
+   background-image: url(../../assets/icon/trashIcon.svg);
    background-position: center;
    background-repeat: no-repeat;
+   background-size: 15px;
    width: 30px;
-   background-size: 45px;
    height: 30px;
-   border-radius: 50%;
-}
-
-.userPhoto-first {
-   background-image: url(../../assets/img/person.png);
-}
-
-.userPhoto-second {
-   background-image: url(../../assets/img/person2.png);
-}
-
-.userPhoto-third {
-   background-image: url(../../assets/img/person3.png);
-}
-
-.userPhoto-fourth {
-   background-image: url(../../assets/img/person4.png);
-}
-
-.userPhoto-fifth {
-   background-image: url(../../assets/img/person5.png);
+   right: 0px;
+   bottom: 0px;
+   position: absolute;
 }

@@ -1,12 +1,12 @@
 import styles from "./Header.module.scss"
 import { Button } from "../../components"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
-import { useClickOutside, useMedia } from "../../hooks"
+import { useMedia } from "../../hooks"
 import { useHistory } from "react-router"
 
 
-const Header = ({ onClick, openUserForm, children }) => {
+const Header = ({ onClick, children, userField }) => {
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
    const history = useHistory()
@@ -17,8 +17,6 @@ const Header = ({ onClick, openUserForm, children }) => {
       return `${styles[`searchHeaderInput${responsive}`]} ${searchOpened && styles.searchHeaderInputOpen}`
    }
 
-   const ref = useRef(null)
-   useClickOutside(ref, () => setSearchOpened(false))
 
    return (
       <header className={`${styles.mainHeaderStyle} ${styles[`mainHeaderStyle${responsive}`]}`}>
@@ -33,7 +31,7 @@ const Header = ({ onClick, openUserForm, children }) => {
             {children}
          </div >
          <div className={styles.searchHeader}>
-            <div className={`${styles.searchHeaderInput} ${searchHeaderInput()} `} ref={ref}>
+            <div className={`${styles.searchHeaderInput} ${searchHeaderInput()} `} >
                <input type="text" placeholder="Search" className={`${styles.searchInput} ${styles[`searchInput${responsive}`]}`} />
                <div className={styles.searchIcon} alt="Search Icon" />
             </div>
@@ -41,8 +39,8 @@ const Header = ({ onClick, openUserForm, children }) => {
                <Button onClick={() => setSearchOpened(!searchOpened)}><div className={`${styles.searchIconArea} 
                ${styles[`searchIconArea${responsive}`]}`} alt="Search Icon" /></Button>
                <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
-               <Button><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
-               <Button onClick={openUserForm}><div className={styles.userPhoto} alt="User" /></Button>
+               <Button onClick={() => history.push("/settings")}><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
+               <Button onClick={userField}><div className={styles.userPhoto} alt="User" /></Button>
             </div>
          </div>
       </header >

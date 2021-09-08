@@ -5,24 +5,70 @@ let id = 0;
 const projects = []
 
 router.get("/", async (req, res) => {
-   res.status(200).json(projects)
+   try {
+      res.status(200).json(projects)
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
 })
 
 router.post("/", async (req, res) => {
-   const { title, content } = req.body
-   if (title && content) {
-      const confirmedProject = { title, content, id: String(++id) }
-      projects.push(confirmedProject)
-      console.log(confirmedProject);
-      res.status(200).json(confirmedProject)
+   try {
+      const { title, content } = req.body
+
+      if (title && content) {
+
+         const confirmedProject = { title, content, id: String(++id) }
+         projects.push(confirmedProject)
+         console.log(confirmedProject);
+         res.status(201).json(confirmedProject)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
    }
-   res.status(400).json({ error: "invalid input" })
+})
+
+router.delete("/", async (req, res) => {
+   try {
+      const { id } = req.body
+      console.log(3, id);
+      if (id) {
+         const foundProject = projects.find(found => found.id === id)
+         console.log(1, foundProject);
+         const changedProject = projects.splice(foundProject, 1)
+         res.status(200).json(changedProject)
+         console.log("mozhe");
+         return
+      }
+      console.log("tyt");
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
 })
 
 router.patch("/", async (req, res) => {
-   const { title } = req.body
-   if (title) {
-      const changedTitle = { title }
+   try {
+      const { content, id } = req.body
+
+      if (content) {
+         const foundProject = projects.find(found => found.id === id)
+         const changedProject = { ...projects, content: content }
+         projects.push(changedProject)
+         res.status(201).json(confirmedProject)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
    }
 })
 

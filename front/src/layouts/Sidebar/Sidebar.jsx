@@ -1,25 +1,30 @@
 import styles from "./Sidebar.module.scss"
-import { useRef } from "react";
 import { useHistory } from "react-router";
 import { Button } from "../../components"
-import { useClickOutside } from "../../hooks";
+
+const buttons = [
+   { id: "0", name: "Backlog", link: "/backlog", icon: "backlogIcon", alt: "Backlog Icon", style: "sidebarButtonStyle" },
+   { id: "1", name: "Reports", link: "/reports", icon: "reportsIcon", alt: "Reports Icon", style: "sidebarButtonStyle" },
+   { id: "2", name: "Components", link: "/components", icon: "componentsIcon", alt: "Components Icon", style: "sidebarButtonStyle" },
+   { id: "3", name: "Releases", link: "/releases", icon: "releaseIcon", alt: "Releases Icon", style: "sidebarButtonStyle" },
+   { id: "5", name: "Add-item", link: "/add-item", icon: "addItemIcon", alt: "Add-item Icon", style: "sidebarButtonStyle" }
+];
 
 
-const Sidebar = ({ isOpened, children, onClickOutside, onClick }) => {
+const Sidebar = ({ isOpened, children, onClick }) => {
 
-   const ref = useRef(null)
-   useClickOutside(ref, onClickOutside)
    const history = useHistory()
 
    return (
-      <div className={`${styles.sidebar} ${isOpened && styles.opened}`} ref={ref}>
+      <div className={`${styles.sidebar} ${isOpened && styles.opened}`}>
          <div onClick={onClick}>
             {children}
-            <Button onClick={() => history.push("/backlog")} buttonStyle="sidebarButtonStyle"><div className={`${styles.icon} ${styles["backlog-icon"]}`} alt="Back Log Icon" />Backlog</Button>
-            <Button onClick={() => history.push("/reports")} buttonStyle="sidebarButtonStyle"><div className={`${styles.icon} ${styles["reports-icon"]}`} alt="Reports Icon" />Reports</Button>
-            <Button onClick={() => history.push("/components")} buttonStyle="sidebarButtonStyle"><div className={`${styles.icon} ${styles["components-icon"]}`} alt="Components Icon" />Components</Button>
-            <Button onClick={() => history.push("/releases")} buttonStyle="sidebarButtonStyle"><div className={`${styles.icon} ${styles["release-icon"]}`} alt="Release Icon" />Releases</Button>
-            <Button onClick={() => history.push("/add-item")} buttonStyle="sidebarButtonStyle"><div className={`${styles.icon} ${styles["add-item-icon"]}`} alt="Add Item Icon" />Add item</Button>
+            {buttons.map(data =>
+               <Button key={data.id} onClick={() => history.push(data.link)} buttonStyle={data.style}>
+                  <div className={`${styles.icon} ${styles[data.icon]}`} alt={data.alt} />
+                  {data.name}
+               </Button>
+            )}
          </div>
       </div>
    );

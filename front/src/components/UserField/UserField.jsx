@@ -1,34 +1,44 @@
 import styles from "./UserField.module.scss"
 import { Button } from '..';
-import { useClickOutside } from "../../hooks";
-import { useRef } from "react";
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react"
+import { useHistory } from "react-router";
 
-const UserField = ({ isOpened, onModalClose, onClick, onClickOutside }) => {
+const UserField = ({ isOpened, onModalClose }) => {
 
 
    const { user } = UserStore
-
-   const ref = useRef(null)
-
-   useClickOutside(ref, onClickOutside)
+   const history = useHistory()
 
    return (
-      <div className={isOpened ? styles.sidebar : styles.opened} ref={ref}>
+      <div className={isOpened ? styles.sidebar : styles.opened}>
          <div className={styles.content}>
-            <div className={styles.logoPosition}>
-               <h1 className={styles.logo}>DILA</h1>
+            <h1 className={styles.title}>Acount</h1>
+            <Button onClick={onModalClose}>
+               <div className={styles.closeIcon} alt="Close" />
+            </Button>
+            <div className={styles.infoField}>
+               <div className={styles.userPhoto} alt="User" />
+               {user.map((data) => <div className={styles.userInfo} key={data.id}>
+                  <p className={styles.name}>{data.name}</p>
+                  <p className={styles.email}>{data.email}</p>
+               </div>)}
             </div>
-            {user.map((data) => <p>{data.name}</p>)}
-            <div className={styles.closeIconPosition}>
-               <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
-            </div>
-            <div>
-               <Button onClick={onClick}>
-                  <span className={styles.buttonStyle}>Sign up</span>
-               </Button>
-            </div>
+         </div>
+         <div className={styles.buttonField}>
+            <Button onClick={() => {
+               history.push("/sing-up")
+               onModalClose()
+            }} buttonStyle="userFieldButtonStyle">
+               <span className={styles.buttonSing}>Sign up</span>
+            </Button>
+            <Button onClick={() => {
+               history.push("/log-in")
+               onModalClose()
+            }} buttonStyle="userFieldButtonStyle">
+               <span className={styles.buttonLog}>Log In</span>
+            </Button>
+            <Button buttonStyle="userFieldButtonStyle"><p className={styles.buttonExit}>Exit</p></Button>
          </div>
       </div>
    )

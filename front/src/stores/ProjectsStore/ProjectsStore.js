@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction, toJS } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import axios from "axios"
 import { toast } from 'react-toastify';
 import { LINK_PROJECTS } from "../../utils/httpLinks"
@@ -10,6 +10,9 @@ class ProjectsStore {
          projects: observable,
          pushProject: action,
          dragProject: action,
+         deleteProject: action,
+         changeProjecTitle: action,
+         changeProjecContent: action,
       });
       // this.loadProjects();
    }
@@ -17,38 +20,44 @@ class ProjectsStore {
    pushProject = async (title, content) => {
       try {
          const res = await axios.post(LINK_PROJECTS, { title, content })
-         const project = toJS(res.data)
+         const project = res.data
          // console.log(project);
-         runInAction(() => {
-            this.projects.push(project)
-         })
+         this.projects.push(project)
 
       } catch (error) {
-         runInAction(() => {
-            toast.error("invalid data")
-         })
+         toast.error("invalid data")
       }
+   }
+
+   deleteProject = async (id) => {
+
+      try {
+         console.log("tyt");
+         const res = await axios.delete(LINK_PROJECTS, { id })
+         const deleteProject = res.data
+         console.log(deleteProject);
+         this.projects.splice(deleteProject, 1)
+
+      } catch (error) {
+         toast.error("invalid data")
+      }
+   }
+
+   changeProjecTitle = async (content, id) => {
+      const res = await axios.patch(LINK_PROJECTS, { content, id })
+      const changedTitle = res.data
+      console.log(changedTitle);
+      this.projects.push(changedTitle)
+   }
+
+   changeProjecContent = async (content) => {
+
    }
 
    // loadProjects = async () => {
    //    const res = await axios.get("http://localhost:5000/projects")
    //    const project = res.data
    //    this.pushProject(res.data)
-   // }
-
-   // pushProject(title, content) {
-   //    let foundId = 0
-   //    if (this.projects) {
-
-   //       for (let i = 0; i < this.projects.length; i++) {
-
-   //          if (this.projects[i].id > foundId) {
-   //             foundId = this.projects[i].id
-   //          }
-   //       }
-   //       foundId++
-   //       this.projects.unshift({ title, content, id: foundId.toString() })
-   //    }
    // }
 
 

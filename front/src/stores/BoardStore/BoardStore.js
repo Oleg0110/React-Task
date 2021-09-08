@@ -1,11 +1,10 @@
-import { action, makeObservable, observable, runInAction, toJS } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import axios from "axios"
 import { toast } from 'react-toastify';
 import { LINK_DASHBOARD_LIST, LINK_DASHBOARD_TASK } from "../../utils/httpLinks";
 
 class BoardStore {
-   lists = [
-      { id: "0", title: "Done", tasks: [{ id: "0", text: "I have to something" }] }]
+   lists = []
 
    constructor() {
       makeObservable(this, {
@@ -21,46 +20,25 @@ class BoardStore {
    pushList = async (title) => {
       try {
          const res = await axios.post(LINK_DASHBOARD_LIST, { title })
-         const list = toJS(res.data)
+         const list = res.data
          console.log(2, list);
-         runInAction(() => {
-            this.lists.push(list)
-         })
+         this.lists.push(list)
 
       } catch (error) {
-         runInAction(() => {
-            toast.error("invalid data")
-         })
+         toast.error("invalid data")
       }
    }
 
    pushTask = async (text, id) => {
       try {
          const res = await axios.post(LINK_DASHBOARD_TASK, { text, id })
-         const task = toJS(res.data)
-         console.log('task:', task);
-         runInAction(() => {
-            this.lists[id].tasks.push(task);
-         })
+         const task = res.data
+         const foundListId = this.lists.find(find => find.id === id)
+         console.log(5, foundListId);
+         foundListId.tasks.push(task);
       } catch (error) {
-         runInAction(() => {
-            toast.error("invalid data")
-         })
+         toast.error("invalid data")
       }
-      // const foundLists = this.lists.find((data) => data.id === id)
-      // console.log(2, foundLists);
-      // let foundId = 0
-      // if (foundLists.tasks) {
-
-      //    for (let i = 0; i < foundLists.tasks.length; i++) {
-      //       console.log(foundLists.tasks.length);
-      //       if (foundLists.tasks[i].id > foundId) {
-      //          foundId = foundLists.tasks[i].id
-      //       }
-      //    }
-      //    foundId++
-      //    foundLists.tasks.push({ text, id: foundId.toString() })
-      // }
    }
 
    // loadProjects = async () => {
@@ -103,6 +81,42 @@ class BoardStore {
    // }
 
    dragInList(result, idList) {
+      // if (!result.destination) return;
+      // const { source, destination } = result;
+
+      // if (source.droppableId !== destination.droppableId) {
+      //    const sourceColumn = this.lists[source.droppableId];
+      //    const destColumn = this.lists[destination.droppableId];
+      //    const sourceTasks = [...sourceColumn.tasks];
+      //    const destTasks = [...destColumn.tasks];
+      //    const [removed] = sourceTasks.splice(source.index, 1);
+      //    destTasks.splice(destination.index, 0, removed);
+      //    setColumns({
+      //       ...this.lists,
+      //       [source.droppableId]: {
+      //          ...sourceColumn,
+      //          tasks: sourceTasks
+      //       },
+      //       [destination.droppableId]: {
+      //          ...destColumn,
+      //          tasks: destTasks
+      //       }
+      //    });
+      // } else {
+      //    const column = columns[source.droppableId];
+      //    console.log(column);
+      //    const copiedTasks = [...column.tasks];
+      //    const [removed] = copiedTasks.splice(source.index, 1);
+      //    copiedTasks.splice(destination.index, 0, removed);
+      //    setColumns({
+      //       ...columns,
+      //       [source.droppableId]: {
+      //          ...column,
+      //          tasks: copiedTasks
+      //       }
+      //    });
+      // }
+
       if (this.lists.length) {
          const list = this.lists.find((data) => data.id === idList);
 

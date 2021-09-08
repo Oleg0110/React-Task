@@ -32,7 +32,7 @@ const CreateProjectArea = ({ onClick }) => {
             <h3 className={styles.projectTitle}>Project Name :</h3>
             <input
                {...register("title", TITLE_VALIDATION)}
-               type="text" placeholder="Name" className={styles.inputName} />
+               type="text" placeholder="Title" className={styles.inputName} />
             {errors.name?.message && <p className={styles.errorNamePosition}>
                {errors.name?.message}
             </p>}

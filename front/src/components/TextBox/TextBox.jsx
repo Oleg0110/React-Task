@@ -8,7 +8,7 @@ const TextBox = ({ inputStyle, error, innerRef, placeholder, type }) => {
       <div>
          <input className={styles[inputStyle]} ref={innerRef}
             placeholder={placeholder} type={type} />
-         {{ error } && <p className={styles.errorPosition}>{error}</p>}
+         {error && <p className={styles.errorPosition}>{error}</p>}
       </div>
    )
 }
