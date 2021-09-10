@@ -1,10 +1,11 @@
 const { Router } = require("express")
+const idGenerator = require("../utils/idGenerator")
 const router = Router()
 let id = 0
 
 const users = []
 
-router.get("/", async (req, res) => {
+router.get("/sign-up", async (req, res) => {
    try {
       res.status(200).json(users)
 
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
    }
 })
 
-router.post("/", async (req, res) => {
+router.post("/sign-up", async (req, res) => {
    try {
       const { name, email, password } = req.body
       const candidate = users.find(find => find.email === email)
@@ -25,7 +26,7 @@ router.post("/", async (req, res) => {
          } else {
             const confirmedUser = {
                email: email, name: name,
-               password: password, id: String(++id)
+               password: password, id: idGenerator()
             }
 
             users.push(confirmedUser)

@@ -6,27 +6,18 @@ import { observer } from "mobx-react"
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import axios from "axios"
-import { LINK_PROJECTS } from "../../utils/httpLinks"
 
-
-const asyncFunc = async () => {
-   const res = await axios.get(LINK_PROJECTS)
-   const projects = res.data
-   console.log(projects);
-}
 
 const Projects = ({ children }) => {
 
    useEffect(() => {
-      asyncFunc();
+      ProjectsStore.setProjects();
    }, []);
+
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
-
    const { projects } = ProjectsStore
-
    const searchTitleref = useRef(null)
    const searchContentref = useRef(null)
    const [isOpened, setIsOpened] = useState(false)
@@ -35,14 +26,12 @@ const Projects = ({ children }) => {
    const [searchContent, setSearchContent] = useState('')
    const [isSearchOpened, setIsSearchOpened] = useState(false)
 
-
    const projectsByTitle = projects.filter(found => found.title.toLowerCase().includes(searchTitle.toLowerCase()))
    const projectsByContent = projects.filter(found => found.content.toLowerCase().includes(searchContent.toLowerCase()))
 
    const handleOnDragEnd = (result) => {
       ProjectsStore.dragProject(result)
    }
-
 
    const accordionBlock = () => {
       return `${(isOpened && styles.accordionBlock) || styles.accordionBlockMax}`

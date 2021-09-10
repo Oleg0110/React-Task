@@ -8,7 +8,6 @@ import { CREATE_CONTENT_VALIDATION } from "../../utils/validation";
 
 
 const ChangetProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
-   console.log(id);
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 

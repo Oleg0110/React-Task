@@ -3,52 +3,18 @@ import styles from "./Dashboards.module.scss"
 import { Button, CreateListModalWindow, Columns } from "../../components"
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
-import { useRef, useState } from "react"
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useEffect, useRef, useState } from "react"
+import { DragDropContext } from 'react-beautiful-dnd';
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
-
-const onDragEnd = (result, columns, setColumns) => {
-   if (!result.destination) return;
-   const { source, destination } = result;
-
-   if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
-      const sourceTasks = [...sourceColumn.tasks];
-      const destTasks = [...destColumn.tasks];
-      const [removed] = sourceTasks.splice(source.index, 1);
-      destTasks.splice(destination.index, 0, removed);
-      setColumns({
-         ...columns,
-         [source.droppableId]: {
-            ...sourceColumn,
-            tasks: sourceTasks
-         },
-         [destination.droppableId]: {
-            ...destColumn,
-            tasks: destTasks
-         }
-      });
-   } else {
-      const column = columns[source.droppableId];
-      console.log(column);
-      const copiedTasks = [...column.tasks];
-      const [removed] = copiedTasks.splice(source.index, 1);
-      copiedTasks.splice(destination.index, 0, removed);
-      setColumns({
-         ...columns,
-         [source.droppableId]: {
-            ...column,
-            tasks: copiedTasks
-         }
-      });
-   }
-}
 
 
 
 const Dashboards = ({ children }) => {
+
+   useEffect(() => {
+      BoardStore.setLists()
+   }, []);
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
@@ -64,11 +30,10 @@ const Dashboards = ({ children }) => {
       return { ...data, tasks: filteredTask }
    })
 
-   // const [columns, setColumns] = useState(filteredList)
 
-   // function handleOnDragEnd(result) {
-   //    BoardStore.dragLists(result)
-   // }
+   function handleOnDragEnd(result) {
+      BoardStore.dragLists(result)
+   }
 
 
    return (<div className={styles.mainBoardStyle}>
@@ -94,19 +59,15 @@ const Dashboards = ({ children }) => {
             <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
          </form>
       </div>
-      <div className={styles.boardLists}>
-         {filteredList.map((data) => <Columns title={data.title} id={data.id} cardsData={data.tasks} key={data.id} />)}
-      </div>
-      {/* <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
          <div className={styles.boardLists}>
-            {Object.entries(columns).map(([columnId, column], index) => {
-               // console.log("Column", column);
+            {filteredList.map((data, index) => {
                return (
-                  <Columns cardsData={column.tasks} title={column.title} key={column.id} id={column.id} index={index} />
+                  <Columns cardsData={data.tasks} title={data.title} key={data.id} id={data.id} index={index} />
                )
             })}
          </div>
-      </DragDropContext> */}
+      </DragDropContext>
       {children}
    </div >
    );

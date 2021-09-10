@@ -6,7 +6,7 @@ button {
 
 .mainButtonStyle {
    font-weight: bold;
-   transition: 0.3s;
+   transition: 0.2s;
    align-items: center;
    display: flex;
    font-size: 16px;
@@ -17,7 +17,7 @@ button {
    }
 
    &:hover::before {
-      transition: 0.3s all;
+      transition: 0.2s all;
       opacity: 1;
       transform: translateY(19.5px) rotate(0deg);
    }
@@ -29,7 +29,7 @@ button {
       background-color: #fb8c00;
       position: absolute;
       bottom: 8%;
-      transition: 0.5s all;
+      transition: 0.2s all;
       opacity: 0;
       transform: translateY(0px) rotate(0deg);
       z-index: 2;
@@ -59,7 +59,7 @@ button {
       height: 2px;
       background-color: #fb8c00;
       position: absolute;
-      right: -11%;
+      right: -10%;
       transition: 0.5s all;
       opacity: 0;
       transform: translateX(0px) rotate(90deg);

@@ -1,27 +1,28 @@
-import styles from "./SingUpField.module.scss"
+import styles from "./SignUpField.module.scss"
 import { useForm } from "react-hook-form";
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
 import { Button } from "../../components";
 import { useHistory } from "react-router";
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react";
+import { toast } from "react-toastify";
+import { ROUTS } from "../../utils/constants";
 
 
 
-const SingUpField = () => {
+const SignUpField = () => {
 
    const { register, handleSubmit, formState: { errors } } = useForm();
    const history = useHistory()
 
    const { user } = UserStore
-   console.log(6, user);
+
 
    const onSubmit = (data) => {
       UserStore.pushUser(data.email, data.name, data.password)
-      // if (user) {
-      //    history.push("/projects")
-      // }
    }
+
+   // const goToProjects = () => !user.length ? toast.error("some problems") : history.push(ROUTS.projects);
 
 
    return (
@@ -45,7 +46,9 @@ const SingUpField = () => {
                   {errors.password?.message}
                </p>}
                <div className={styles.buttonPosition}>
-                  <Button buttonStyle="fifthButtonStyle">
+                  <Button buttonStyle="fifthButtonStyle"
+                  // onClick={() => goToProjects()}
+                  >
                      <span className={styles.buttonName}>Sign up</span>
                   </Button>
                </div>
@@ -55,7 +58,7 @@ const SingUpField = () => {
          </div>
          <div className={styles.changeField}>
             <p className={styles.changeSign}>{"Have an account?   "}
-               <Button onClick={() => history.push("/log-in")}>
+               <Button onClick={() => history.push("/user/log-in")}>
                   <span className={styles.buttonStyle}>Log In</span>
                </Button>
             </p>
@@ -65,4 +68,4 @@ const SingUpField = () => {
 
 }
 
-export default observer(SingUpField)
+export default observer(SignUpField)

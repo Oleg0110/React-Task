@@ -3,12 +3,17 @@ import { Button } from '..';
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react"
 import { useHistory } from "react-router";
+import { useEffect } from "react";
 
 const UserField = ({ isOpened, onModalClose }) => {
 
 
    const { user } = UserStore
    const history = useHistory()
+
+   useEffect(() => {
+      UserStore.setUser()
+   }, [])
 
    return (
       <div className={isOpened ? styles.sidebar : styles.opened}>
@@ -27,13 +32,13 @@ const UserField = ({ isOpened, onModalClose }) => {
          </div>
          <div className={styles.buttonField}>
             <Button onClick={() => {
-               history.push("/sing-up")
+               history.push("/user/sign-up")
                onModalClose()
             }} buttonStyle="userFieldButtonStyle">
-               <span className={styles.buttonSing}>Sign up</span>
+               <span className={styles.buttonSign}>Sign up</span>
             </Button>
             <Button onClick={() => {
-               history.push("/log-in")
+               history.push("/user/log-in")
                onModalClose()
             }} buttonStyle="userFieldButtonStyle">
                <span className={styles.buttonLog}>Log In</span>

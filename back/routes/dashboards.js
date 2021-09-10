@@ -1,4 +1,5 @@
 const { Router } = require("express")
+const idGenerator = require("../utils/idGenerator")
 const router = Router()
 
 const lists = []
@@ -19,7 +20,7 @@ router.post("/list", async (req, res) => {
       const { title } = req.body
 
       if (title) {
-         const confirmedList = { id: String(++Id), title, tasks: [] }
+         const confirmedList = { id: idGenerator(), title, tasks: [] }
 
          lists.push(confirmedList)
          res.status(201).json(confirmedList)
@@ -57,7 +58,7 @@ router.post("/task", async (req, res) => {
 
       if (text && id) {
 
-         const confirmedList = { text: text, id: String(++Id) }
+         const confirmedList = { text: text, id: idGenerator() }
          const foundListId = lists.find(find => find.id === id)
          foundListId.tasks.push(confirmedList)
          res.status(201).json(confirmedList)
