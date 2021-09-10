@@ -42,7 +42,7 @@ const LogInField = () => {
          </div>
          <div className={styles.changeField}>
             <p className={styles.changeSign}>{"Don't have an account? "}
-               <Button onClick={() => history.push("/sing-up")}>
+               <Button onClick={() => history.push("/user/sign-up")}>
                   <span className={styles.buttonStyle}>Sign up</span>
                </Button>
             </p>

@@ -21,10 +21,6 @@ const CreateProjectArea = ({ onClick }) => {
    };
 
 
-   const load = () => {
-      ProjectsStore.loadProjects()
-   }
-
    return (
       <div className={`${styles.createArea} ${styles[`createArea${responsive}`]}`}>
          <h2 className={styles.createCardTitle}>Create Project</h2>
@@ -33,8 +29,8 @@ const CreateProjectArea = ({ onClick }) => {
             <input
                {...register("title", TITLE_VALIDATION)}
                type="text" placeholder="Title" className={styles.inputName} />
-            {errors.name?.message && <p className={styles.errorNamePosition}>
-               {errors.name?.message}
+            {errors.title?.message && <p className={styles.errorNamePosition}>
+               {errors.title?.message}
             </p>}
             <h3 className={styles.projectTitle}>Project Description :</h3>
             <textarea
@@ -45,7 +41,6 @@ const CreateProjectArea = ({ onClick }) => {
             </p>}
             <Button onClick={onClick} buttonStyle="fourthButtonStyle">Create Project</Button>
          </form>
-         <Button onClick={load}>load</Button>
       </div>
    )
 }

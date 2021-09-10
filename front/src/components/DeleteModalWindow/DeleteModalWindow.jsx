@@ -1,7 +1,11 @@
 import { Button } from ".."
+import { ProjectsStore } from "../../stores"
 import styles from "./DeleteModalWindow.module.scss"
 
-const DeleteModalWindow = ({ isModalOpened, onModalClose }) => {
+const DeleteModalWindow = ({ isModalOpened, onModalClose, id }) => {
+   const onClick = () => {
+      ProjectsStore.deleteProject(id)
+   }
 
    return (
       <>
@@ -12,7 +16,7 @@ const DeleteModalWindow = ({ isModalOpened, onModalClose }) => {
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
                <span className={styles.title}>Are You sure?</span>
-               <Button onClick={onModalClose} buttonStyle="fifthButtonStyle">Delete</Button>
+               <Button onClick={() => onClick()} buttonStyle="fifthButtonStyle">Delete</Button>
             </div>
          </div>
       </>

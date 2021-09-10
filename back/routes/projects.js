@@ -1,17 +1,17 @@
 const { Router } = require("express");
+const idGenerator = require("../utils/idGenerator");
 const router = Router();
-let id = 0;
 
 const projects = []
 
 router.get("/", async (req, res) => {
    try {
       res.status(200).json(projects)
-
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
 })
+
 
 router.post("/", async (req, res) => {
    try {
@@ -19,10 +19,28 @@ router.post("/", async (req, res) => {
 
       if (title && content) {
 
-         const confirmedProject = { title, content, id: String(++id) }
-         projects.push(confirmedProject)
-         console.log(confirmedProject);
+         const confirmedProject = { title, content, id: idGenerator() }
+         projects.unshift(confirmedProject)
          res.status(201).json(confirmedProject)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.patch("/", async (req, res) => {
+   try {
+      const { title, id } = req.body
+      if (title) {
+         const foundProjectIndex = projects.findIndex(found => found.id === 1)
+         const foundProject = projects.find(found => found.id === id)
+         const changedProject = { ...foundProject, title, }
+         projects.splice(foundProjectIndex, 1, changedProject)
+         res.status(200).json(projects)
          return
       }
 
@@ -36,16 +54,12 @@ router.post("/", async (req, res) => {
 router.delete("/", async (req, res) => {
    try {
       const { id } = req.body
-      console.log(3, id);
       if (id) {
-         const foundProject = projects.find(found => found.id === id)
-         console.log(1, foundProject);
+         const foundProject = projects.findIndex(found => found.id === id)
          const changedProject = projects.splice(foundProject, 1)
          res.status(200).json(changedProject)
-         console.log("mozhe");
          return
       }
-      console.log("tyt");
       res.status(400).json({ error: "invalid input" })
 
    } catch (error) {
@@ -53,24 +67,7 @@ router.delete("/", async (req, res) => {
    }
 })
 
-router.patch("/", async (req, res) => {
-   try {
-      const { content, id } = req.body
 
-      if (content) {
-         const foundProject = projects.find(found => found.id === id)
-         const changedProject = { ...projects, content: content }
-         projects.push(changedProject)
-         res.status(201).json(confirmedProject)
-         return
-      }
-
-      res.status(400).json({ error: "invalid input" })
-
-   } catch (error) {
-      res.status(500).json({ error: "internal server error" })
-   }
-})
 
 
 module.exports = router;

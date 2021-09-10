@@ -6,4 +6,4 @@ export { default as Projects } from "./Projects/Projects";
 export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as UserAccount } from "./UserAccount/UserAccount"
 export { default as LogInField } from "./LogInField/LogInField";
-export { default as SignUpField } from "./SingUpField/SingUpField";
+export { default as SignUpField } from "./SignUpField/SignUpField";

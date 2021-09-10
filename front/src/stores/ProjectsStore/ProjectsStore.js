@@ -13,15 +13,22 @@ class ProjectsStore {
          deleteProject: action,
          changeProjecTitle: action,
          changeProjecContent: action,
+         setProjects: action,
       });
       // this.loadProjects();
    }
+
+   setProjects = async () => {
+      const res = await axios.get(LINK_PROJECTS)
+      const projects = res.data
+      this.projects = projects
+   }
+
 
    pushProject = async (title, content) => {
       try {
          const res = await axios.post(LINK_PROJECTS, { title, content })
          const project = res.data
-         // console.log(project);
          this.projects.push(project)
 
       } catch (error) {
@@ -29,37 +36,28 @@ class ProjectsStore {
       }
    }
 
+   changeProjecTitle = async (title, id) => {
+      const res = await axios.patch(LINK_PROJECTS, { title, id })
+      const changedTitle = res.data
+      this.projects = changedTitle
+   }
+
    deleteProject = async (id) => {
 
       try {
-         console.log("tyt");
          const res = await axios.delete(LINK_PROJECTS, { id })
          const deleteProject = res.data
-         console.log(deleteProject);
-         this.projects.splice(deleteProject, 1)
-
+         this.projects = deleteProject
       } catch (error) {
          toast.error("invalid data")
       }
    }
 
-   changeProjecTitle = async (content, id) => {
-      const res = await axios.patch(LINK_PROJECTS, { content, id })
-      const changedTitle = res.data
-      console.log(changedTitle);
-      this.projects.push(changedTitle)
-   }
+
 
    changeProjecContent = async (content) => {
 
    }
-
-   // loadProjects = async () => {
-   //    const res = await axios.get("http://localhost:5000/projects")
-   //    const project = res.data
-   //    this.pushProject(res.data)
-   // }
-
 
    dragProject(result) {
       if (!result.destination) return;

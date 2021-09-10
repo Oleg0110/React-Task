@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss"
 import { Button } from "../../components"
 import { useState } from "react"
-import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTS } from "../../utils/constants"
 import { useMedia } from "../../hooks"
 import { useHistory } from "react-router"
 
@@ -39,7 +39,7 @@ const Header = ({ onClick, children, userField }) => {
                <Button onClick={() => setSearchOpened(!searchOpened)}><div className={`${styles.searchIconArea} 
                ${styles[`searchIconArea${responsive}`]}`} alt="Search Icon" /></Button>
                <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
-               <Button onClick={() => history.push("/settings")}><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
+               <Button onClick={() => history.push(ROUTS.settings)}><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
                <Button onClick={userField}><div className={styles.userPhoto} alt="User" /></Button>
             </div>
          </div>

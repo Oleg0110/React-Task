@@ -11,11 +11,16 @@ class UserStore {
       })
    }
 
+   setUser = async () => {
+      const res = await axios.get("http://localhost:5000/user/sign-up")
+      const user = res.data
+      this.user = user
+   }
+
    pushUser = async (email, name, password) => {
       try {
-         const res = await axios.post("http://localhost:5000/sign-up", { email, name, password })
+         const res = await axios.post("http://localhost:5000/user/sign-up", { email, name, password })
          const user = res.data
-         console.log(9, user);
          this.user.push(user)
          toast.success("Acount was Created")
       } catch (error) {

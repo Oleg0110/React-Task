@@ -7,12 +7,11 @@ import { TITLE_VALIDATION } from "../../utils/validation";
 
 
 
-const ChangeProjectTitleModal = ({ isModalOpened, onModalClose }) => {
-
+const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      ProjectsStore.pushProject(data.title, data.content)
+      ProjectsStore.changeProjecTitle(data.title, id)
    };
 
    return (
@@ -26,11 +25,12 @@ const ChangeProjectTitleModal = ({ isModalOpened, onModalClose }) => {
                <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
                   <input
                      {...register("title", TITLE_VALIDATION)}
-                     type="text" placeholder="Title" className={styles.inputName} />
-                  {errors.name?.message && <p className={styles.errorNamePosition}>
-                     {errors.name?.message}
+                     type="text" placeholder="Title" className={styles.input} />
+                  {errors.title?.message && <p className={styles.errorPosition}>
+                     {errors.title?.message}
                   </p>}
                   <Button buttonStyle="fifthButtonStyle">Change Title</Button>
+
                </form>
             </div>
          </div>

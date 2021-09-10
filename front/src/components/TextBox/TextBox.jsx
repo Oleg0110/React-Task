@@ -2,7 +2,6 @@ import styles from "./TextBox.module.scss"
 
 
 const TextBox = ({ inputStyle, error, innerRef, placeholder, type }) => {
-   // console.log(innerRef);
 
    return (
       <div>
