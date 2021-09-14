@@ -1,14 +1,14 @@
 import styles from "./Sidebar.module.scss"
 import { useHistory } from "react-router";
 import { Button } from "../../components"
-import { ROUTS } from "../../utils/constants";
+import { ROUTES } from "../../utils/constants";
 
 const buttons = [
-   { id: "0", name: "Backlog", link: ROUTS.backlog, icon: "backlogIcon", alt: "Backlog Icon", style: "sidebarButtonStyle" },
-   { id: "1", name: "Reports", link: ROUTS.reports, icon: "reportsIcon", alt: "Reports Icon", style: "sidebarButtonStyle" },
-   { id: "2", name: "Components", link: ROUTS.components, icon: "componentsIcon", alt: "Components Icon", style: "sidebarButtonStyle" },
-   { id: "3", name: "Releases", link: ROUTS.releases, icon: "releaseIcon", alt: "Releases Icon", style: "sidebarButtonStyle" },
-   { id: "5", name: "Add-item", link: ROUTS.addItem, icon: "addItemIcon", alt: "Add-item Icon", style: "sidebarButtonStyle" }
+   { id: "0", name: "Backlog", link: ROUTES.backlog, icon: "backlogIcon", alt: "Backlog Icon", style: "sidebarButtonStyle" },
+   { id: "1", name: "Reports", link: ROUTES.reports, icon: "reportsIcon", alt: "Reports Icon", style: "sidebarButtonStyle" },
+   { id: "2", name: "Components", link: ROUTES.components, icon: "componentsIcon", alt: "Components Icon", style: "sidebarButtonStyle" },
+   { id: "3", name: "Releases", link: ROUTES.releases, icon: "releaseIcon", alt: "Releases Icon", style: "sidebarButtonStyle" },
+   { id: "5", name: "Add-item", link: ROUTES.addItem, icon: "addItemIcon", alt: "Add-item Icon", style: "sidebarButtonStyle" }
 ];
 
 

@@ -20,7 +20,8 @@ router.post("/", async (req, res) => {
       if (title && content) {
 
          const confirmedProject = { title, content, id: idGenerator() }
-         projects.unshift(confirmedProject)
+
+         projects.push(confirmedProject)
          res.status(201).json(confirmedProject)
          return
       }
@@ -32,15 +33,18 @@ router.post("/", async (req, res) => {
    }
 })
 
-router.patch("/", async (req, res) => {
+router.patch("/title", async (req, res) => {
    try {
       const { title, id } = req.body
       if (title) {
-         const foundProjectIndex = projects.findIndex(found => found.id === 1)
+
+         const foundProjectIndex = projects.findIndex(found => found.id === id)
          const foundProject = projects.find(found => found.id === id)
-         const changedProject = { ...foundProject, title, }
+         const changedProject = { ...foundProject, title }
+
          projects.splice(foundProjectIndex, 1, changedProject)
-         res.status(200).json(projects)
+
+         res.status(200).json(changedProject)
          return
       }
 
@@ -51,13 +55,51 @@ router.patch("/", async (req, res) => {
    }
 })
 
-router.delete("/", async (req, res) => {
+router.patch("/content", async (req, res) => {
    try {
-      const { id } = req.body
-      if (id) {
-         const foundProject = projects.findIndex(found => found.id === id)
-         const changedProject = projects.splice(foundProject, 1)
+      const { content, id } = req.body
+      if (content) {
+         const foundProjectIndex = projects.findIndex(found => found.id === id)
+         const foundProject = projects.find(found => found.id === id)
+         const changedProject = { ...foundProject, content, }
+
+         projects.splice(foundProjectIndex, 1, changedProject)
+
          res.status(200).json(changedProject)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.patch("/position", async (req, res) => {
+   try {
+      const { result } = req.body
+      if (!result.destination) return;
+
+      const [reorderedItem] = projects.splice(result.source.index, 1);
+      projects.splice(result.destination.index, 0, reorderedItem);
+
+      res.status(200).json(projects)
+      return
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.delete("/:id", async (req, res) => {
+   try {
+      const { id } = req.params
+      if (id) {
+         const foundProjectIndex = projects.findIndex(found => found.id === id)
+
+         projects.splice(foundProjectIndex, 1)
+
+         res.status(200).json(foundProjectIndex)
          return
       }
       res.status(400).json({ error: "invalid input" })

@@ -4,17 +4,17 @@ import { Dashboards, EmptyPage, Header, Home, Projects, Sidebar, LogInField, Sig
 import { Button, UserField } from './components';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
-import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTS } from './utils/constants';
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from './utils/constants';
 import { useMedia } from './hooks';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { UserStore } from './stores';
 
 const buttons = [
-   { id: "0", name: "Home", link: ROUTS.home, icon: "homeIcon", alt: "Home Icon", style: "mainButtonStyle" },
-   { id: "1", name: "Projects", link: ROUTS.projects, icon: "projectsIcon", alt: "Projects Icon", style: "mainButtonStyle" },
-   { id: "2", name: "Dashboards", link: ROUTS.dashboard, icon: "dashboardsIcon", alt: "Dashboard Icon", style: "mainButtonStyle" },
-   { id: "3", name: "People", link: ROUTS.people, icon: "peopleIcon", alt: "People Icon", style: "fifthButtonStyle" },
+   { id: "0", name: "Home", link: ROUTES.home, icon: "homeIcon", alt: "Home Icon", style: "mainButtonStyle" },
+   { id: "1", name: "Projects", link: ROUTES.projects, icon: "projectsIcon", alt: "Projects Icon", style: "mainButtonStyle" },
+   { id: "2", name: "Dashboards", link: ROUTES.dashboard, icon: "dashboardsIcon", alt: "Dashboard Icon", style: "mainButtonStyle" },
+   { id: "3", name: "People", link: ROUTES.people, icon: "peopleIcon", alt: "People Icon", style: "fifthButtonStyle" },
 ];
 
 function App() {
@@ -62,18 +62,18 @@ function App() {
             onClickOutside={() => setSidebarOpened(false)}>{buttonsInSidebar}</Sidebar>
          <UserField isOpened={isUserFieldOpened} onModalClose={() => setUserFieldOpened(false)} />
          <Switch>
-            <Route exact path={ROUTS.home} component={Home} />
-            <Route path={ROUTS.projects} component={Projects} />
-            <Route path={ROUTS.dashboard} component={Dashboards} />
-            <Route path={ROUTS.people} component={EmptyPage} />
-            <Route path={ROUTS.backlog} component={EmptyPage} />
-            <Route path={ROUTS.reports} component={EmptyPage} />
-            <Route path={ROUTS.components} component={EmptyPage} />
-            <Route path={ROUTS.releases} component={EmptyPage} />
-            <Route path={ROUTS.addItem} component={EmptyPage} />
-            <Route path={ROUTS.settings} component={EmptyPage} />
-            <Route path="/user/log-in" component={LogInField} />
-            <Route path="/user/sign-up" component={SignUpField} />
+            <Route exact path={ROUTES.home} component={Home} />
+            <Route path={ROUTES.projects} component={Projects} />
+            <Route path={ROUTES.dashboard} component={Dashboards} />
+            <Route path={ROUTES.people} component={EmptyPage} />
+            <Route path={ROUTES.backlog} component={EmptyPage} />
+            <Route path={ROUTES.reports} component={EmptyPage} />
+            <Route path={ROUTES.components} component={EmptyPage} />
+            <Route path={ROUTES.releases} component={EmptyPage} />
+            <Route path={ROUTES.addItem} component={EmptyPage} />
+            <Route path={ROUTES.settings} component={EmptyPage} />
+            <Route path={ROUTES.userSignUp} component={SignUpField} />
+            <Route path={ROUTES.userLogIn} component={LogInField} />
             <Redirect to="/" />
          </Switch>
          {/* <UserAccount></UserAccount> */}

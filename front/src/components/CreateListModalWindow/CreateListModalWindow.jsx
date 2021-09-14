@@ -17,10 +17,6 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
       BoardStore.pushList(data.title)
    }
 
-   // const load = () => {
-   //    BoardStore.loadProjects()
-   // }
-
 
    return (
       <>

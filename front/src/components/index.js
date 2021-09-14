@@ -9,6 +9,9 @@ export { default as ProjectsPageSearchField } from "./ProjectsPageSearchField/Pr
 export { default as Tasks } from "./Tasks/Tasks";
 export { default as TextBox } from "./TextBox/TextBox";
 export { default as UserField } from "./UserField/UserField";
-export { default as DeleteModalWindow } from "./DeleteModalWindow/DeleteModalWindow";
+export { default as DeleteProjectModal } from "./DeleteProjectModal/DeleteProjectModal";
+export { default as DeleteListModal } from "./DeleteListModal/DeleteListModal";
+export { default as DeleteTaskModal } from "./DeleteTaskModal/DeleteTaskModal";
 export { default as ChangeProjectTitleModal } from "./ChangeProjectTitleModal/ChangeProjectTitleModal";
-export { default as ChangetProjectContentModal } from "./ChangetProjectContentModal/ChangetProjectContentModal";
+export { default as ChangeProjectContentModal } from "./ChangeProjectContentModal/ChangeProjectContentModal";
+export { default as ChangeTaskModal } from "./ChangeTaskModal/ChangeTaskModal";

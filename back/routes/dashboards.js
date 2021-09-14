@@ -4,8 +4,6 @@ const router = Router()
 
 const lists = []
 
-let Id = 0
-
 router.get("/", async (req, res) => {
    try {
       res.status(200).json(lists)
@@ -18,7 +16,6 @@ router.get("/", async (req, res) => {
 router.post("/list", async (req, res) => {
    try {
       const { title } = req.body
-
       if (title) {
          const confirmedList = { id: idGenerator(), title, tasks: [] }
 
@@ -36,17 +33,55 @@ router.post("/list", async (req, res) => {
 
 router.patch("/list", async (req, res) => {
    try {
-      const { title, id } = res.body
+      const { title, id } = req.body
+
+      if (title) {
+         const foundListIndex = lists.findIndex(found => found.id === id)
+         const foundList = lists.find(found => found.id === id)
+         const chengedList = { ...foundList, title }
+
+         lists.splice(foundListIndex, 1, chengedList)
+         res.status(200).json(chengedList)
+         return
+      }
+      res.status(400).json({ error: "invalid input" })
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
 })
 
-router.get("/list", async (req, res) => {
+router.delete("/list/:id", async (req, res) => {
    try {
-      res.status(200).json(lists.tasks)
+      const { id } = req.params
+      if (id) {
+         const foundListIndex = lists.findIndex(found => found.id === id)
 
+         lists.splice(foundListIndex, 1)
+
+         res.status(200).json(foundListIndex)
+         return
+      }
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.patch("/task-position", async (req, res) => {
+   try {
+      const { result } = req.body
+      if (!result.destination) return;
+
+      const source = lists.find(found => found.id === result.source.droppableId)
+      const destination = lists.find(found => found.id === result.destination.droppableId)
+
+      const [reorderedItem] = source.tasks.splice(result.source.index, 1);
+      destination.tasks.splice(result.destination.index, 0, reorderedItem);
+
+      res.status(200).json(lists)
+      return
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
@@ -74,12 +109,47 @@ router.post("/task", async (req, res) => {
 
 router.patch("/task", async (req, res) => {
    try {
-      const { title, id } = res.body
+      const { text, id, listId } = req.body
+
+      if (text, id, listId) {
+
+         const foundList = lists.find(found => found.id === listId)
+         const foundTask = foundList.tasks.findIndex(found => found.id === id)
+
+         const changedTask = { ...foundTask, text }
+
+         foundList.tasks.splice(foundTask, 1, changedTask)
+
+         res.status(200).json(changedTask)
+         return
+      }
+
+      res.status(400).json({ error: "invalid input" })
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
 })
 
+router.delete("/task/:id/:listId", async (req, res) => {
+   try {
+      const { listId, id } = req.params
+
+      if (listId, id) {
+         const foundListId = lists.find(found => found.id === listId)
+
+         const foundTask = foundListId.tasks.findIndex(found => found.id === id)
+
+         foundListId.tasks.splice(foundTask, 1)
+
+         res.status(200).json(foundTask)
+         return
+      }
+      res.status(400).json({ error: "invalid input" })
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
 
 module.exports = router;

@@ -2,15 +2,19 @@ export const RESPONSIVE_SIZES = ["(max-width: 576px)", "(max-width: 768px)", "(m
 export const RESPONSIVE_VALUE = ["SD", "MD", "LD"]
 export const RESPONSIVE_WHITHOUT_VALUE = "Another"
 
-export const ROUTS = {
+export const ROUTES = {
    home: "/",
    projects: "/projects",
    dashboard: "/dashboards",
+   dashboardLists: "/dashboards/list",
+   dashboardTasks: "/dashboards/task",
    people: "/people",
    backlog: "/backlog",
    reports: "/reports",
    components: "/components",
    releases: "/releases",
    addItem: "/add-item",
-   settings: "/settings"
+   settings: "/settings",
+   userSignUp: "/user/sign-up",
+   userLogIn: "/user/log-in",
 }

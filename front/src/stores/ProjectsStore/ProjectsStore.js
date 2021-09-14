@@ -10,15 +10,15 @@ class ProjectsStore {
          projects: observable,
          pushProject: action,
          dragProject: action,
-         deleteProject: action,
-         changeProjecTitle: action,
+         deletedProject: action,
+         changedProjecTitle: action,
          changeProjecContent: action,
-         setProjects: action,
+         asyncGetProjects: action,
       });
       // this.loadProjects();
    }
 
-   setProjects = async () => {
+   asyncGetProjects = async () => {
       const res = await axios.get(LINK_PROJECTS)
       const projects = res.data
       this.projects = projects
@@ -36,34 +36,52 @@ class ProjectsStore {
       }
    }
 
-   changeProjecTitle = async (title, id) => {
-      const res = await axios.patch(LINK_PROJECTS, { title, id })
-      const changedTitle = res.data
-      this.projects = changedTitle
+   changedProjecTitle = async (title, id) => {
+      try {
+         const res = await axios.patch(`${LINK_PROJECTS}${"/title"}`, { title, id })
+
+         const foundProjectIndex = this.projects.findIndex(found => found.id === id)
+         const changedProjectTitle = res.data
+
+         this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
+      } catch (error) {
+         toast.error("invalid data")
+      }
    }
 
-   deleteProject = async (id) => {
-
+   changeProjecContent = async (content, id) => {
       try {
-         const res = await axios.delete(LINK_PROJECTS, { id })
-         const deleteProject = res.data
-         this.projects = deleteProject
+         const res = await axios.patch(`${LINK_PROJECTS}${"/content"}`, { content, id })
+
+         const foundProjectIndex = this.projects.findIndex(found => found.id === id)
+         const changedProjectContent = res.data
+
+         this.projects.splice(foundProjectIndex, 1, changedProjectContent)
+      } catch (error) {
+         toast.error("invalid data")
+      }
+   }
+
+   deletedProject = async (id) => {
+      try {
+         const res = await axios.delete(`${LINK_PROJECTS}/${id}`)
+         const deletedProject = res.data
+         this.projects.splice(deletedProject, 1)
       } catch (error) {
          toast.error("invalid data")
       }
    }
 
 
+   dragProject = async (result) => {
 
-   changeProjecContent = async (content) => {
-
-   }
-
-   dragProject(result) {
-      if (!result.destination) return;
-
-      const [reorderedItem] = this.projects.splice(result.source.index, 1);
-      this.projects.splice(result.destination.index, 0, reorderedItem);
+      try {
+         const res = await axios.patch(`${LINK_PROJECTS}${"/position"}`, { result })
+         const changedProjectPosition = res.data
+         this.projects = changedProjectPosition
+      } catch (error) {
+         toast.error("invalid data")
+      }
    }
 
 }

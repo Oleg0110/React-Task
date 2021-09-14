@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { PASSWORD_VALIDATION, TITLE_VALIDATION } from "../../utils/validation";
 import { Button } from "../../components";
 import { useHistory } from "react-router";
+import { ROUTES } from "../../utils/constants";
 
 const LogInField = () => {
 
@@ -42,7 +43,7 @@ const LogInField = () => {
          </div>
          <div className={styles.changeField}>
             <p className={styles.changeSign}>{"Don't have an account? "}
-               <Button onClick={() => history.push("/user/sign-up")}>
+               <Button onClick={() => history.push(ROUTES.userSignUp)}>
                   <span className={styles.buttonStyle}>Sign up</span>
                </Button>
             </p>

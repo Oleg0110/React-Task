@@ -1,10 +1,10 @@
 import styles from "./Accordion.module.scss"
-import { Button, DeleteModalWindow, ChangeProjectTitleModal, ChangetProjectContentModal } from ".."
+import { Button, DeleteProjectModal, ChangeProjectTitleModal, ChangeProjectContentModal } from ".."
 import { useState } from "react"
 import { observer } from "mobx-react"
 import { useHistory } from "react-router"
 import { ProjectsStore } from "../../stores"
-import { ROUTS } from "../../utils/constants"
+import { ROUTES } from "../../utils/constants"
 
 const Accordion = ({ title, content, id }) => {
 
@@ -19,9 +19,9 @@ const Accordion = ({ title, content, id }) => {
 
    return (
       <div className={styles.accordionSection}>
-         <DeleteModalWindow id={id} onModalClose={() => setIsDeleteOpened(false)} isModalOpened={isDeleteOpened} />
+         <DeleteProjectModal id={id} onModalClose={() => setIsDeleteOpened(false)} isModalOpened={isDeleteOpened} />
          <ChangeProjectTitleModal id={id} onModalClose={() => setIsChangeTitleOpened(false)} isModalOpened={isChangeTitleOpened} />
-         <ChangetProjectContentModal id={id} onModalClose={() => setIsContentTitleOpened(false)} isModalOpened={isContentTitleOpened} />
+         <ChangeProjectContentModal id={id} onModalClose={() => setIsContentTitleOpened(false)} isModalOpened={isContentTitleOpened} />
          <div className={`${styles.accordion} `} onClick={() => setIsOpened(!isOpened)}>
             <Button>
                <p className={styles.accordionTitle}>{title}</p>
@@ -32,7 +32,7 @@ const Accordion = ({ title, content, id }) => {
             <div className={styles.goTo}>
                <p className={styles.contentTitle}>{title}</p>
                <div className={styles.buttonsField}>
-                  <Button onClick={() => history.push(ROUTS.dashboard)} buttonStyle="fifthButtonStyle">Go to Project</Button>
+                  <Button onClick={() => history.push(ROUTES.dashboard)} buttonStyle="fifthButtonStyle">Go to Project</Button>
                   <Button onClick={() => setIsOptionsOpened(!isOptionsOpened)}><div className={styles.threeDots} alt="Dots" /></Button>
                </div>
                <div className={`${styles.infoButtonsBackFon} ${isOptionsOpened && styles.infoButtonsOpened}`}>

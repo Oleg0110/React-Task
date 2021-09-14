@@ -13,7 +13,7 @@ import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from ".
 const Dashboards = ({ children }) => {
 
    useEffect(() => {
-      BoardStore.setLists()
+      BoardStore.asyncGetLists()
    }, []);
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
