@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
-import { ROUTS } from "../../utils/constants";
+import { ROUTES, ROUTS } from "../../utils/constants";
 
 
 
@@ -58,7 +58,7 @@ const SignUpField = () => {
          </div>
          <div className={styles.changeField}>
             <p className={styles.changeSign}>{"Have an account?   "}
-               <Button onClick={() => history.push("/user/log-in")}>
+               <Button onClick={() => history.push(ROUTES.userLogIn)}>
                   <span className={styles.buttonStyle}>Log In</span>
                </Button>
             </p>

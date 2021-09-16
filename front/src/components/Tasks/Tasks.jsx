@@ -1,15 +1,20 @@
 import styles from "./Tasks.module.scss"
 import { Draggable } from 'react-beautiful-dnd';
-import { Button, DeleteModalWindow } from "..";
+import { Button, DeleteTaskModal, ChangeTaskModal } from "..";
 import { useState } from "react";
+import { BoardStore } from "../../stores";
 
 
-const Tasks = ({ text, label, labelStyle, taskState, priority, index, id }) => {
+const Tasks = ({ text, label, labelStyle, taskState, priority, index, id, listId }) => {
 
    const [isOpened, setIsOpened] = useState(false)
+   const [isModalOpened, setIsModalOpened] = useState(false)
+
 
    return (
       <>
+         <ChangeTaskModal id={id} listId={listId} onModalClose={() => setIsModalOpened(false)} isModalOpened={isModalOpened} />
+         <DeleteTaskModal id={id} listId={listId} onModalClose={() => setIsOpened(false)} isModalOpened={isOpened} />
          <Draggable draggableId={id} index={index} key={id}>
             {(provided, snapshot) => {
                return (
@@ -18,11 +23,10 @@ const Tasks = ({ text, label, labelStyle, taskState, priority, index, id }) => {
                      {...provided.draggableProps}
                      {...provided.dragHandleProps}
                   >
-                     <DeleteModalWindow onModalClose={() => setIsOpened(false)} isModalOpened={isOpened} />
                      <div className={styles.taskCard} style={{
                         background: snapshot.isDragging ? "#f2ca90" : "#fff",
                      }}>
-                        <p className={styles.cardText}>{text}</p>
+                        <p className={styles.cardText} onClick={() => setIsModalOpened(!isModalOpened)}>{text}</p>
                         <p className={styles[labelStyle]}>{label}</p>
                         <div className={styles.taskInfo}>
                            <div className={styles.stateTable}>

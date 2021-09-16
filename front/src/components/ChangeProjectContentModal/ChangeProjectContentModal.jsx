@@ -1,4 +1,4 @@
-import styles from "./ChangetProjectContentModal.module.scss"
+import styles from "./ChangeProjectContentModal.module.scss"
 import { Button } from ".."
 import { ProjectsStore } from "../../stores";
 import { observer } from "mobx-react";
@@ -7,7 +7,7 @@ import { CREATE_CONTENT_VALIDATION } from "../../utils/validation";
 
 
 
-const ChangetProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
+const ChangeProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -27,7 +27,7 @@ const ChangetProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
                   <textarea
                      {...register("content", CREATE_CONTENT_VALIDATION)}
                      type="textarea" placeholder="Description" className={styles.inputText} />
-                  {errors.content?.message && <p className={styles.errorContentPosition}>
+                  {errors.content?.message && <p className={styles.errorPosition}>
                      {errors.content?.message}
                   </p>}
                   <Button buttonStyle="fifthButtonStyle">Change Title</Button>
@@ -39,4 +39,4 @@ const ChangetProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
 }
 
 
-export default observer(ChangetProjectContentModal)
+export default observer(ChangeProjectContentModal)

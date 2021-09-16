@@ -1,10 +1,10 @@
 import { Button } from ".."
-import { ProjectsStore } from "../../stores"
-import styles from "./DeleteModalWindow.module.scss"
+import { BoardStore } from "../../stores"
+import styles from "./DeleteTaskModal.module.scss"
 
-const DeleteModalWindow = ({ isModalOpened, onModalClose, id }) => {
+const DeleteTaskModal = ({ isModalOpened, onModalClose, id, listId }) => {
    const onClick = () => {
-      ProjectsStore.deleteProject(id)
+      BoardStore.deleteTask(id, listId)
    }
 
    return (
@@ -16,11 +16,11 @@ const DeleteModalWindow = ({ isModalOpened, onModalClose, id }) => {
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
                <span className={styles.title}>Are You sure?</span>
-               <Button onClick={() => onClick()} buttonStyle="fifthButtonStyle">Delete</Button>
+               <Button onClick={onClick} buttonStyle="fifthButtonStyle">Delete</Button>
             </div>
          </div>
       </>
    )
 }
 
-export default DeleteModalWindow
+export default DeleteTaskModal

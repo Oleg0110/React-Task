@@ -2,7 +2,7 @@ import styles from "./Home.module.scss"
 import { useHistory } from "react-router"
 import { Button } from "../../components"
 import { useMedia } from "../../hooks"
-import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
+import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from "../../utils/constants"
 import { UserStore } from "../../stores"
 
 const Home = ({ children }) => {
@@ -15,7 +15,7 @@ const Home = ({ children }) => {
 
    const attention = !user.length ? "If you wont to make project, please register" : "Create your first Project"
    const attentionButton = !user.length ? "Sign up" : "Let's Go"
-   const attentionLink = !user.length ? "/user/sign-up" : "projects"
+   const attentionLink = !user.length ? ROUTES.userSignUp : ROUTES.projects
 
    return (<div className={styles.backFon}>
       <div className={styles.logoPosition}>

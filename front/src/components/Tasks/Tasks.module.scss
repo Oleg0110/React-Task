@@ -14,7 +14,6 @@
    font-size: 15px;
    font-weight: 500;
    color: #848484;
-   padding-bottom: 15px;
 }
 
 .firstLabelStyle {
@@ -130,4 +129,9 @@
    right: 0px;
    bottom: 0px;
    position: absolute;
+
+   &:hover {
+      background-color: rgba(148, 148, 148, 0.575);
+      border-radius: 50%;
+   }
 }

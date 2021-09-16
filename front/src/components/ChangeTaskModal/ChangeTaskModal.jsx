@@ -1,18 +1,18 @@
-import styles from "./ChangeProjectTitleModal.module.scss"
+import styles from "./ChangeTaskModal.module.scss"
 import { Button } from ".."
-import { ProjectsStore } from "../../stores";
+import { BoardStore } from "../../stores";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
-import { TITLE_VALIDATION } from "../../utils/validation";
+import { CREATE_CONTENT_VALIDATION } from "../../utils/validation";
 
 
 
-const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
+const ChangeTaskModal = ({ isModalOpened, onModalClose, id, listId }) => {
    const { register, handleSubmit, formState: { errors } } = useForm();
 
-   const onSubmit = data => {
-      ProjectsStore.changedProjecTitle(data.title, id)
-   };
+   const onSubmit = (data) => {
+      BoardStore.changeTask(data.text, id, listId)
+   }
 
    return (
       <>
@@ -23,14 +23,13 @@ const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
                <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
-                  <input
-                     {...register("title", TITLE_VALIDATION)}
-                     type="text" placeholder="Title" className={styles.input} />
-                  {errors.title?.message && <p className={styles.errorPosition}>
-                     {errors.title?.message}
+                  <textarea
+                     {...register("text", CREATE_CONTENT_VALIDATION)}
+                     type="textarea" placeholder="Description" className={styles.inputText} />
+                  {errors.text?.message && <p className={styles.errorPosition}>
+                     {errors.text?.message}
                   </p>}
-                  <Button buttonStyle="fifthButtonStyle">Change Title</Button>
-
+                  <Button buttonStyle="fifthButtonStyle">Change Task</Button>
                </form>
             </div>
          </div>
@@ -39,4 +38,4 @@ const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
 }
 
 
-export default observer(ChangeProjectTitleModal)
+export default observer(ChangeTaskModal)

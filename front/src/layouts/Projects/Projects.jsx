@@ -11,7 +11,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 const Projects = ({ children }) => {
 
    useEffect(() => {
-      ProjectsStore.setProjects();
+      ProjectsStore.asyncGetProjects();
    }, []);
 
 
