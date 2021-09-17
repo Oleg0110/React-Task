@@ -25,10 +25,10 @@ const Dashboards = ({ children }) => {
    const [isListModalOpened, setIsListModalOpened] = useState(false)
    const [searchTitle, setSearchTitle] = useState('')
 
-   const filteredList = lists.map(data => {
-      const filteredTask = data.tasks.filter(name => name.text.includes(searchTitle))
-      return { ...data, tasks: filteredTask }
-   })
+   // const filteredList = lists.map(data => {
+   //    const filteredTask = data.tasks.filter(name => name.text.includes(searchTitle))
+   //    return { ...data, tasks: filteredTask }
+   // })
 
 
    function handleOnDragEnd(result) {
@@ -61,9 +61,9 @@ const Dashboards = ({ children }) => {
       </div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
          <div className={styles.boardLists}>
-            {filteredList.map((data, index) => {
+            {lists.map((data, index) => {
                return (
-                  <Columns cardsData={data.tasks} title={data.title} key={data.id} id={data.id} index={index} />
+                  <Columns cardsData={data.tasks} title={data.title} key={data._id} id={data._id} index={index} />
                )
             })}
          </div>

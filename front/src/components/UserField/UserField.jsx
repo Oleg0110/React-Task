@@ -3,7 +3,6 @@ import { Button } from '..';
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react"
 import { useHistory } from "react-router";
-import { useEffect } from "react";
 import { ROUTES } from "../../utils/constants";
 
 const UserField = ({ isOpened, onModalClose }) => {
@@ -11,10 +10,6 @@ const UserField = ({ isOpened, onModalClose }) => {
 
    const { user } = UserStore
    const history = useHistory()
-
-   // useEffect(() => {
-   //    UserStore.setUser()
-   // }, [])
 
    return (
       <div className={isOpened ? styles.sidebar : styles.opened}>

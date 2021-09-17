@@ -24,10 +24,12 @@ class BoardStore {
 
 
    asyncGetLists = async () => {
-      const res = await axios.get(LINK_DASHBOARD)
+      const res = await axios.get(LINK_DASHBOARD_LISTS)
       const lists = res.data
       this.lists = lists
    }
+
+
 
    pushList = async (title) => {
       try {
@@ -43,9 +45,12 @@ class BoardStore {
    changeList = async (title, id) => {
       try {
          const res = await axios.patch(LINK_DASHBOARD_LISTS, { title, id })
-         const chengedList = res.data
+         const changedList = res.data
+
          const foundListIndex = this.lists.findIndex(found => found.id === id)
-         this.lists.splice(foundListIndex, 1, chengedList)
+
+         this.lists.splice(foundListIndex, 1, changedList)
+
       } catch (error) {
          toast.error("invalid data")
       }
@@ -55,7 +60,11 @@ class BoardStore {
       try {
          const res = await axios.delete(`${LINK_DASHBOARD_LISTS}/${id}`)
          const deletedList = res.data
-         this.lists.splice(deletedList, 1)
+
+         const foundListIndex = this.lists.findIndex(found => found._id === id)
+
+         this.lists.splice(foundListIndex, 1)
+
       } catch (error) {
          toast.error("invalid data")
       }
@@ -65,7 +74,9 @@ class BoardStore {
       try {
          const res = await axios.post(LINK_DASHBOARD_TASKS, { text, id })
          const task = res.data
-         const foundListId = this.lists.find(find => find.id === id)
+
+         const foundListId = this.lists.find(find => find._id === id)
+
          foundListId.tasks.push(task);
       } catch (error) {
          toast.error("invalid data")

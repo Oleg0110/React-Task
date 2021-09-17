@@ -2,7 +2,6 @@ import styles from "./Tasks.module.scss"
 import { Draggable } from 'react-beautiful-dnd';
 import { Button, DeleteTaskModal, ChangeTaskModal } from "..";
 import { useState } from "react";
-import { BoardStore } from "../../stores";
 
 
 const Tasks = ({ text, label, labelStyle, taskState, priority, index, id, listId }) => {
