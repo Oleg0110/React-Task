@@ -3,7 +3,6 @@ import { Button, DeleteProjectModal, ChangeProjectTitleModal, ChangeProjectConte
 import { useState } from "react"
 import { observer } from "mobx-react"
 import { useHistory } from "react-router"
-import { ProjectsStore } from "../../stores"
 import { ROUTES } from "../../utils/constants"
 
 const Accordion = ({ title, content, id }) => {

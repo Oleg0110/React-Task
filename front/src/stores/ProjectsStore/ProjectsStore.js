@@ -29,6 +29,7 @@ class ProjectsStore {
       try {
          const res = await axios.post(LINK_PROJECTS, { title, content })
          const project = res.data
+
          this.projects.push(project)
 
       } catch (error) {
@@ -39,9 +40,9 @@ class ProjectsStore {
    changedProjecTitle = async (title, id) => {
       try {
          const res = await axios.patch(`${LINK_PROJECTS}${"/title"}`, { title, id })
-
-         const foundProjectIndex = this.projects.findIndex(found => found.id === id)
          const changedProjectTitle = res.data
+
+         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
 
          this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
       } catch (error) {
@@ -52,9 +53,9 @@ class ProjectsStore {
    changeProjecContent = async (content, id) => {
       try {
          const res = await axios.patch(`${LINK_PROJECTS}${"/content"}`, { content, id })
-
-         const foundProjectIndex = this.projects.findIndex(found => found.id === id)
          const changedProjectContent = res.data
+
+         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
 
          this.projects.splice(foundProjectIndex, 1, changedProjectContent)
       } catch (error) {
@@ -66,7 +67,10 @@ class ProjectsStore {
       try {
          const res = await axios.delete(`${LINK_PROJECTS}/${id}`)
          const deletedProject = res.data
-         this.projects.splice(deletedProject, 1)
+
+         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
+
+         this.projects.splice(foundProjectIndex, 1)
       } catch (error) {
          toast.error("invalid data")
       }
@@ -78,6 +82,7 @@ class ProjectsStore {
       try {
          const res = await axios.patch(`${LINK_PROJECTS}${"/position"}`, { result })
          const changedProjectPosition = res.data
+
          this.projects = changedProjectPosition
       } catch (error) {
          toast.error("invalid data")

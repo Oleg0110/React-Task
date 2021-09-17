@@ -18,8 +18,10 @@ const Projects = ({ children }) => {
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
    const { projects } = ProjectsStore
+
    const searchTitleref = useRef(null)
    const searchContentref = useRef(null)
+
    const [isOpened, setIsOpened] = useState(false)
    const [isChangeName, setChangeName] = useState("Create Project")
    const [searchTitle, setSearchTitle] = useState('')
@@ -79,20 +81,20 @@ const Projects = ({ children }) => {
                      <div className={`${styles.accordionBlock} ${styles[`accordionBlock${responsive}`]} ${accordionBlock()}`} {...provided.droppableProps} ref={provided.innerRef}>
                         {(isSearchOpened && projectsByContent?.map((data, index) => {
                            return (
-                              <Draggable key={data.id} draggableId={data.id} index={index}>
+                              <Draggable key={data._id} draggableId={data._id} index={index}>
                                  {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                       <Accordion title={data.title} content={data.content} id={data.id} />
+                                       <Accordion title={data.title} content={data.content} id={data._id} />
                                     </div>
                                  )}
                               </Draggable>
                            );
                         })) || projectsByTitle?.map((data, index) => {
                            return (
-                              <Draggable key={data.id} draggableId={data.id} index={index}>
+                              <Draggable key={data._id} draggableId={data._id} index={index}>
                                  {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                       <Accordion title={data.title} content={data.content} id={data.id} />
+                                       <Accordion title={data.title} content={data.content} id={data._id} />
                                     </div>
                                  )}
                               </Draggable>

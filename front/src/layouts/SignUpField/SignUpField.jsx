@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react";
 import { toast } from "react-toastify";
-import { ROUTES, ROUTS } from "../../utils/constants";
+import { ROUTES } from "../../utils/constants";
 
 
 

@@ -1,12 +1,14 @@
 const { Router } = require("express");
 const idGenerator = require("../utils/idGenerator");
 const router = Router();
+const Project = require("../models/project")
 
 const projects = []
 
 router.get("/", async (req, res) => {
    try {
-      res.status(200).json(projects)
+      res.status(200).json(await Project.find({}))
+
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
@@ -17,16 +19,19 @@ router.post("/", async (req, res) => {
    try {
       const { title, content } = req.body
 
-      if (title && content) {
-
-         const confirmedProject = { title, content, id: idGenerator() }
-
-         projects.push(confirmedProject)
-         res.status(201).json(confirmedProject)
-         return
+      if (!title && !content) {
+         return res.status(400).json({ error: "invalid input" })
       }
 
-      res.status(400).json({ error: "invalid input" })
+      const project = new Project({
+         title,
+         content,
+      })
+
+      await project.save()
+
+      res.status(201).json(project)
+      return
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -36,19 +41,19 @@ router.post("/", async (req, res) => {
 router.patch("/title", async (req, res) => {
    try {
       const { title, id } = req.body
+
       if (title) {
-
-         const foundProjectIndex = projects.findIndex(found => found.id === id)
-         const foundProject = projects.find(found => found.id === id)
-         const changedProject = { ...foundProject, title }
-
-         projects.splice(foundProjectIndex, 1, changedProject)
-
-         res.status(200).json(changedProject)
-         return
+         return res.status(400).json({ error: "invalid input" })
       }
 
-      res.status(400).json({ error: "invalid input" })
+      const changedProject = await Project.findOneAndUpdate(
+         { _id: id },
+         { $set: { title } },
+         { new: true }
+      )
+
+      res.status(200).json(changedProject)
+      return
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -58,18 +63,19 @@ router.patch("/title", async (req, res) => {
 router.patch("/content", async (req, res) => {
    try {
       const { content, id } = req.body
-      if (content) {
-         const foundProjectIndex = projects.findIndex(found => found.id === id)
-         const foundProject = projects.find(found => found.id === id)
-         const changedProject = { ...foundProject, content, }
 
-         projects.splice(foundProjectIndex, 1, changedProject)
-
-         res.status(200).json(changedProject)
-         return
+      if (!content) {
+         return res.status(400).json({ error: "invalid input" })
       }
 
-      res.status(400).json({ error: "invalid input" })
+      const changedProject = await Project.findOneAndUpdate(
+         { _id: id },
+         { $set: { content } },
+         { new: true }
+      )
+
+      res.status(200).json(changedProject)
+      return
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -94,15 +100,17 @@ router.patch("/position", async (req, res) => {
 router.delete("/:id", async (req, res) => {
    try {
       const { id } = req.params
-      if (id) {
-         const foundProjectIndex = projects.findIndex(found => found.id === id)
 
-         projects.splice(foundProjectIndex, 1)
-
-         res.status(200).json(foundProjectIndex)
-         return
+      if (!id) {
+         return res.status(400).json({ error: "invalid input" })
       }
-      res.status(400).json({ error: "invalid input" })
+
+      const deletedProject = await Project.findOneAndDelete(
+         { _id: id }
+      )
+
+      res.status(200).json(deletedProject)
+      return
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })

@@ -8,16 +8,15 @@ import { Droppable } from 'react-beautiful-dnd';
 import { TITLE_VALIDATION } from "../../utils/validation";
 
 const Columns = ({ title, id, cardsData }) => {
-
    const [isTaskModalOpened, setIsTaskModalOpened] = useState(false)
    const [isInputOpened, setIsInputOpened] = useState(false)
    const [isDeleteOpened, setIsDeleteOpened] = useState(false)
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
-   const handleOnDragEnd = (result) => {
-      BoardStore.dragInList(result, id)
-   }
+   // const handleOnDragEnd = (result) => {
+   //    BoardStore.dragInList(result, id)
+   // }
 
    const onSubmit = (data) => {
       BoardStore.changeList(data.title, id)
@@ -62,7 +61,7 @@ const Columns = ({ title, id, cardsData }) => {
                      {
                         cardsData?.map((data, index) => {
                            return (
-                              <Tasks text={data.text} index={index} key={data.id} id={data.id} listId={id} />
+                              <Tasks text={data.text} index={index} key={data._id} id={data._id} listId={id} />
                            )
                         })
                      }
