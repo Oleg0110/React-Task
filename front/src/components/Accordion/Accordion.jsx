@@ -31,7 +31,7 @@ const Accordion = ({ title, content, id }) => {
             <div className={styles.goTo}>
                <p className={styles.contentTitle}>{title}</p>
                <div className={styles.buttonsField}>
-                  <Button onClick={() => history.push(ROUTES.dashboard)} buttonStyle="fifthButtonStyle">Go to Project</Button>
+                  <Button onClick={() => history.push(`${ROUTES.dashboard}/${id}`)} buttonStyle="fifthButtonStyle">Go to Project</Button>
                   <Button onClick={() => setIsOptionsOpened(!isOptionsOpened)}><div className={styles.threeDots} alt="Dots" /></Button>
                </div>
                <div className={`${styles.infoButtonsBackFon} ${isOptionsOpened && styles.infoButtonsOpened}`}>

@@ -5,24 +5,28 @@ import { Button } from "../../components";
 import { useHistory } from "react-router";
 import { UserStore } from "../../stores";
 import { observer } from "mobx-react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+// import { useAuth } from "../../hooks";
 import { ROUTES } from "../../utils/constants";
+import { useState } from "react";
 
 
 
 const SignUpField = () => {
 
+
    const { register, handleSubmit, formState: { errors } } = useForm();
    const history = useHistory()
+   const [isPassword, setIsPassword] = useState("password")
 
-   const { user } = UserStore
-
+   // const { token } = useAuth()
+   // const isAuthenticated = !!token
 
    const onSubmit = (data) => {
-      UserStore.pushUser(data.email, data.name, data.password)
+      UserStore.registerUser(data.email, data.name, data.password)
    }
 
-   // const goToProjects = () => !user.length ? toast.error("some problems") : history.push(ROUTS.projects);
+   // const goToProjects = () => !isAuthenticated ? toast.error("some problems") : history.push(ROUTES.projects);
 
 
    return (
@@ -41,7 +45,7 @@ const SignUpField = () => {
                {errors.name?.message && <p className={styles.errorPosition}>
                   {errors.name?.message}
                </p>}
-               <input type="password" placeholder="Password" className={styles.input} {...register("password", PASSWORD_VALIDATION)} />
+               <input type={isPassword} placeholder="Password" className={styles.input} {...register("password", PASSWORD_VALIDATION)} />
                {errors.password?.message && <p className={styles.errorPosition}>
                   {errors.password?.message}
                </p>}
@@ -53,12 +57,15 @@ const SignUpField = () => {
                   </Button>
                </div>
             </form>
+            <Button onClick={() => setIsPassword(isPassword === "password" ? "text" : "password")}>
+               <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
+            </Button>
             <p className={styles.attention}>By signing up, you agree to our
                <span className={styles.ourTerms}> Terms</span> and <span className={styles.ourTerms}>Data Policy</span>.</p>
          </div>
          <div className={styles.changeField}>
             <p className={styles.changeSign}>{"Have an account?   "}
-               <Button onClick={() => history.push(ROUTES.userLogIn)}>
+               <Button onClick={() => history.push(ROUTES.userAauthLogIn)}>
                   <span className={styles.buttonStyle}>Log In</span>
                </Button>
             </p>

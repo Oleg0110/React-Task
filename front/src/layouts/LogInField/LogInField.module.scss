@@ -14,6 +14,7 @@
    flex-direction: column;
    align-items: center;
    margin-bottom: 10px;
+   position: relative;
 }
 
 .logoPosition {
@@ -48,6 +49,25 @@
    color: #d81f1f;
    border-radius: 5px;
    margin-top: -15px;
+}
+
+.type {
+   background-repeat: no-repeat;
+   background-position: center;
+   position: absolute;
+   background-size: 18px;
+   top: 130px;
+   right: 65px;
+   width: 25px;
+   height: 25px;
+}
+
+.type-password {
+   background-image: url(../../assets/icon/eye.svg);
+}
+
+.type-text {
+   background-image: url(../../assets/icon/clouseEye.svg);
 }
 
 .buttonPosition {

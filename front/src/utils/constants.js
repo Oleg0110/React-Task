@@ -17,4 +17,13 @@ export const ROUTES = {
    settings: "/settings",
    userSignUp: "/user/sign-up",
    userLogIn: "/user/log-in",
+   userAuth: "/user-auth",
+   userAuthSignUp: "/user-auth/sign-up",
+   userAauthLogIn: "/user-auth/login",
+   userAauthPeople: "/user-auth/people",
+   userAauthUser: "/user-auth/user",
 }
+
+// const id = localStorage.getItem("userData")
+// const user = JSON.parse(id)
+// export const USER_ID = user.userId

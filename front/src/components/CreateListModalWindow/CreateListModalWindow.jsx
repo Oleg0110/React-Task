@@ -1,5 +1,8 @@
 import styles from "./CreateListModalWindow.module.scss"
-import { Button, TextBox } from ".."
+import {
+   Button,
+   // TextBox 
+} from ".."
 import { useForm } from "react-hook-form";
 import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
@@ -13,9 +16,13 @@ const CreateListModalWindow = ({ isListModalOpened, onModalClose }) => {
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
+   const projectId = window.location.href.split("dashboards/")[1];
+
    const onSubmit = data => {
-      BoardStore.pushList(data.title)
+      BoardStore.pushList(data.title, projectId)
    }
+
+
 
 
    return (

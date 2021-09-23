@@ -43,10 +43,13 @@ const Projects = ({ children }) => {
       return `${(isOpened && styles.openedCreateProjectBlock) || styles.closeCreateProjectBlock}`
    }
 
+   const projectsCount = () => {
+      return `${ProjectsStore.projects.length === 0 ? styles.countNone : styles.count}`
+   }
 
    return (
       <div className={styles.mainProjectsStyle}>
-         <h1 className={styles.mainTitle}>Projects</h1>
+         <h1 className={styles.mainTitle}>Projects <span className={projectsCount()}>{ProjectsStore.projects.length}</span> </h1>
          <div className={styles.create}>
             <div className={` ${styles.searchArea} ${styles[`searchArea${responsive}`]}`}>
                <form onChange={(e) => {

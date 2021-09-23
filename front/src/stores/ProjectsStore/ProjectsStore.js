@@ -14,20 +14,33 @@ class ProjectsStore {
          changedProjecTitle: action,
          changeProjecContent: action,
          asyncGetProjects: action,
+         setProjects: action,
+         setDragProject: action,
       });
-      // this.loadProjects();
    }
 
    asyncGetProjects = async () => {
-      const res = await axios.get(LINK_PROJECTS)
+      const id = localStorage.getItem("userData")
+      const userJsonId = JSON.parse(id)
+      const userId = userJsonId.userId
+
+      const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
       const projects = res.data
+      this.setProjects(projects)
+   }
+
+   setProjects = (projects) => {
       this.projects = projects
    }
 
 
    pushProject = async (title, content) => {
       try {
-         const res = await axios.post(LINK_PROJECTS, { title, content })
+         const id = localStorage.getItem("userData")
+         const user = JSON.parse(id)
+         const userId = user.userId
+
+         const res = await axios.post(LINK_PROJECTS, { title, content, userId })
          const project = res.data
 
          this.projects.push(project)
@@ -83,10 +96,14 @@ class ProjectsStore {
          const res = await axios.patch(`${LINK_PROJECTS}${"/position"}`, { result })
          const changedProjectPosition = res.data
 
-         this.projects = changedProjectPosition
+         this.setDragProject(changedProjectPosition)
       } catch (error) {
          toast.error("invalid data")
       }
+   }
+
+   setDragProject = (drag) => {
+      this.projects = drag
    }
 
 }

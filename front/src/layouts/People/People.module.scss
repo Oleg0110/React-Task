@@ -1,0 +1,46 @@
+.mainBlock {
+   padding: 20px;
+}
+
+.title {
+   font-weight: bold;
+   font-size: 30px;
+   text-align: start;
+   padding: 0px 15px 30px;
+}
+
+.backFon {
+   background-color: #bce0bb;
+   height: 500px;
+   border-radius: 5px;
+   width: 65%;
+   margin: auto;
+}
+
+.backFonMD {
+   width: 80%;
+}
+
+.backFonSD {
+   width: 100%;
+}
+
+.scroll {
+   overflow: auto;
+   max-height: 493px;
+
+   &::-webkit-scrollbar {
+      width: 15px;
+   }
+
+   &::-webkit-scrollbar-track {
+      background: #bce0bb;
+      border-radius: 10px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: #adadad;
+      border: 4px solid #cccccc;
+      border-radius: 10px;
+   }
+}

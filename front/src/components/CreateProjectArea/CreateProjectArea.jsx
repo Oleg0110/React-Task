@@ -16,6 +16,7 @@ const CreateProjectArea = ({ onClick }) => {
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
+
    const onSubmit = data => {
       ProjectsStore.pushProject(data.title, data.content)
    };
