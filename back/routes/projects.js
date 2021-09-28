@@ -1,13 +1,19 @@
 const { Router } = require("express");
-const idGenerator = require("../utils/idGenerator");
 const router = Router();
 const Project = require("../models/project")
+const auth = require("../middleware/auth.middleware")
 
 const projects = []
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
    try {
-      res.status(200).json(await Project.find({}))
+      const { id } = req.params
+
+      if (!id) {
+         return res.status(400).json({ error: "invalid data" })
+      }
+
+      res.status(200).json(await Project.find({ userOwner: id }))
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -17,15 +23,16 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
    try {
-      const { title, content } = req.body
+      const { title, content, userId } = req.body
 
-      if (!title && !content) {
+      if (!title && !content && !userId) {
          return res.status(400).json({ error: "invalid input" })
       }
 
       const project = new Project({
          title,
          content,
+         userOwner: userId
       })
 
       await project.save()
@@ -42,7 +49,7 @@ router.patch("/title", async (req, res) => {
    try {
       const { title, id } = req.body
 
-      if (title) {
+      if (!title) {
          return res.status(400).json({ error: "invalid input" })
       }
 

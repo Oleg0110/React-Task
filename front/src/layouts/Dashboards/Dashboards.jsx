@@ -12,9 +12,14 @@ import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from ".
 
 const Dashboards = ({ children }) => {
 
+   const projectId = window.location.href.split("dashboards/")[1];
+
+
+
    useEffect(() => {
-      BoardStore.asyncGetLists()
+      BoardStore.asyncGetLists(projectId)
    }, []);
+
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 

@@ -1,21 +1,20 @@
 import styles from "./Home.module.scss"
 import { useHistory } from "react-router"
 import { Button } from "../../components"
-import { useMedia } from "../../hooks"
+import { useAuth, useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from "../../utils/constants"
-import { UserStore } from "../../stores"
 
 const Home = ({ children }) => {
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
    const history = useHistory()
+   const { token } = useAuth()
+   const isAuthenticated = !!token
 
-   const { user } = UserStore
-
-   const attention = !user.length ? "If you wont to make project, please register" : "Create your first Project"
-   const attentionButton = !user.length ? "Sign up" : "Let's Go"
-   const attentionLink = !user.length ? ROUTES.userSignUp : ROUTES.projects
+   const attention = !isAuthenticated ? "If you wont to make project, please Sign up or Log In" : "Create your first Project"
+   const attentionSignUpButton = !isAuthenticated ? "Let's Go" : "Make Project"
+   const attentionLink = !isAuthenticated ? ROUTES.userAauthLogIn : ROUTES.projects
 
    return (<div className={styles.backFon}>
       <div className={styles.logoPosition}>
@@ -28,7 +27,7 @@ const Home = ({ children }) => {
       <hr className={styles.line} />
       <p className={`${styles.create} ${styles[`create${responsive}`]}`}>{attention}</p>
       <Button onClick={() => history.push(attentionLink)} buttonStyle="fifthButtonStyle">
-         <span className={styles.buttonName}>{attentionButton}
+         <span className={styles.buttonName}>{attentionSignUpButton}
          </span>
       </Button>
       {children}

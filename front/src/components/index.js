@@ -15,3 +15,4 @@ export { default as DeleteTaskModal } from "./DeleteTaskModal/DeleteTaskModal";
 export { default as ChangeProjectTitleModal } from "./ChangeProjectTitleModal/ChangeProjectTitleModal";
 export { default as ChangeProjectContentModal } from "./ChangeProjectContentModal/ChangeProjectContentModal";
 export { default as ChangeTaskModal } from "./ChangeTaskModal/ChangeTaskModal";
+export { default as UserCard } from "./UserCard/UserCard";

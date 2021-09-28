@@ -9,7 +9,15 @@ const UserField = ({ isOpened, onModalClose }) => {
 
 
    const { user } = UserStore
+   const { name, email } = user
+
    const history = useHistory()
+
+   const logout = () => {
+      localStorage.removeItem("userData");
+      onModalClose()
+      window.location.reload()
+   }
 
    return (
       <div className={isOpened ? styles.sidebar : styles.opened}>
@@ -20,26 +28,26 @@ const UserField = ({ isOpened, onModalClose }) => {
             </Button>
             <div className={styles.infoField}>
                <div className={styles.userPhoto} alt="User" />
-               {user.map((data) => <div className={styles.userInfo} key={data.id}>
-                  <p className={styles.name}>{data.name}</p>
-                  <p className={styles.email}>{data.email}</p>
-               </div>)}
+               <div className={styles.userInfo}>
+                  <p className={styles.name}>{name}</p>
+                  <p className={styles.email}>{email}</p>
+               </div>
             </div>
          </div>
          <div className={styles.buttonField}>
             <Button onClick={() => {
-               history.push(ROUTES.userSignUp)
+               history.push(ROUTES.userAuthSignUp)
                onModalClose()
             }} buttonStyle="userFieldButtonStyle">
                <span className={styles.buttonSign}>Sign up</span>
             </Button>
             <Button onClick={() => {
-               history.push(ROUTES.userLogIn)
+               history.push(ROUTES.userAauthLogIn)
                onModalClose()
             }} buttonStyle="userFieldButtonStyle">
                <span className={styles.buttonLog}>Log In</span>
             </Button>
-            <Button buttonStyle="userFieldButtonStyle"><p className={styles.buttonExit}>Exit</p></Button>
+            <Button buttonStyle="userFieldButtonStyle" onClick={logout}><p className={styles.buttonExit}>Exit</p></Button>
          </div>
       </div>
    )

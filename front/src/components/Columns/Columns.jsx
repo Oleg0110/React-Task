@@ -8,6 +8,9 @@ import { Droppable } from 'react-beautiful-dnd';
 import { TITLE_VALIDATION } from "../../utils/validation";
 
 const Columns = ({ title, id, cardsData }) => {
+
+
+
    const [isTaskModalOpened, setIsTaskModalOpened] = useState(false)
    const [isInputOpened, setIsInputOpened] = useState(false)
    const [isDeleteOpened, setIsDeleteOpened] = useState(false)

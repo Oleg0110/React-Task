@@ -1,14 +1,30 @@
 const { Router } = require("express")
-const idGenerator = require("../utils/idGenerator")
 const List = require("../models/dashboard-list")
 const Task = require("../models/dshboard-task")
 const router = Router()
 
 const lists = []
 
-router.get("/list", async (req, res) => {
+router.get("/list/:projectId", async (req, res) => {
    try {
-      res.status(200).json(await List.find({}))
+      const { projectId } = req.params
+
+      const result = await List.find({ projectOwner: projectId })
+
+      res.status(200).json(result)
+
+   } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+   }
+})
+
+router.get("/task/:listId", async (req, res) => {
+   try {
+      const { listId } = req.params
+
+      const task = await Task.find({ listOwner: listId })
+
+      res.status(200).json(task)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -17,14 +33,15 @@ router.get("/list", async (req, res) => {
 
 router.post("/list", async (req, res) => {
    try {
-      const { title } = req.body
+      const { title, projectId } = req.body
 
-      if (!title) {
+      if (!title && !projectId) {
          return res.status(400).json({ error: "invalid input" })
       }
 
       const list = new List({
          title,
+         projectOwner: projectId
       })
       await list.save()
 
@@ -104,8 +121,10 @@ router.post("/task", async (req, res) => {
       }
 
       const task = new Task({
-         text
+         text,
+         listOwner: id
       })
+
       await task.save()
 
       res.status(201).json(task)
@@ -122,12 +141,11 @@ router.patch("/task", async (req, res) => {
 
       if (text, id, listId) {
 
-         const foundList = lists.find(found => found.id === listId)
-         const foundTask = foundList.tasks.findIndex(found => found.id === id)
-
-         const changedTask = { ...foundTask, text }
-
-         foundList.tasks.splice(foundTask, 1, changedTask)
+         const changedTask = await Task.findOneAndUpdate(
+            { _id: id },
+            { $set: { text } },
+            { new: true }
+         )
 
          res.status(200).json(changedTask)
          return
@@ -140,21 +158,19 @@ router.patch("/task", async (req, res) => {
    }
 })
 
-router.delete("/task/:id/:listId", async (req, res) => {
+router.delete("/task/:id", async (req, res) => {
    try {
-      const { listId, id } = req.params
+      const { id } = req.params
 
-      if (listId, id) {
-         const foundListId = lists.find(found => found.id === listId)
-
-         const foundTask = foundListId.tasks.findIndex(found => found.id === id)
-
-         foundListId.tasks.splice(foundTask, 1)
-
-         res.status(200).json(foundTask)
-         return
+      if (!id) {
+         return res.status(400).json({ error: "invalid input" })
       }
-      res.status(400).json({ error: "invalid input" })
+
+      const deletedList = await Task.findOneAndDelete(
+         { _id: id }
+      )
+
+      res.status(200).json(deletedList)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
