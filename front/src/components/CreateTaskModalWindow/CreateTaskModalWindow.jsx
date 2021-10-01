@@ -4,15 +4,19 @@ import { BoardStore } from "../../stores"
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react"
 import { TASKS_CONTENT_VALIDATION } from "../../utils/validation";
+import { useTranslation } from "react-i18next";
 
 
 const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
 
+   const { t } = useTranslation();
+
+   const projectId = window.location.href.split("dashboards/")[1];
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      BoardStore.pushTask(data.text, id)
+      BoardStore.pushTask(data.text, id, projectId)
    };
 
 
@@ -27,15 +31,15 @@ const CreateTaskModalWindow = ({ isModalOpened, onModalClose, id }) => {
                   </div>
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <div className={styles.cardText}>
-                        <span className={styles.text}>Card Text</span>
+                        <span className={styles.text}>{t("modal.taskTitle")}</span>
                         <br />
-                        <textarea {...register("text", TASKS_CONTENT_VALIDATION)} type="textarea" placeholder="Text"
+                        <textarea {...register("text", TASKS_CONTENT_VALIDATION)} type="textarea" placeholder={t("modal.contentPlaceholder")}
                            className={styles.textInput} />
                         {errors.text?.message && <p className={styles.errorPosition}>
                            {errors.text?.message}
                         </p>}
                      </div>
-                     <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
+                     <Button buttonStyle="fifthButtonStyle" className={styles.button}>{t("modal.addTask")}</Button>
                   </form>
                   {/* <form onSubmit={(e) => {
                   e.preventDefault()

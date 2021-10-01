@@ -8,8 +8,8 @@ import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES }
 import { useAuth, useMedia } from './hooks';
 import { toast, ToastContainer } from 'react-toastify';
 import { observer } from 'mobx-react';
-import useRoutes from './utils/routes';
 import { AuthContext } from './context/AuthContext';
+import useRoutes from './utils/routes';
 import 'react-toastify/dist/ReactToastify.css';
 
 const buttons = [
@@ -30,7 +30,7 @@ function App() {
 
    const { token, login, logout, userId } = useAuth()
    const isAuthenticated = !!token
-   const routes = useRoutes(isAuthenticated)
+   const routes = useRoutes()
 
    const onButtonClick = (links) => {
       !isAuthenticated ? toast.error("please sign up or log in") : history.push(links)
@@ -69,21 +69,6 @@ function App() {
          <AuthContext.Provider value={{ token, login, logout, userId, isAuthenticated }}>
             {routes}
          </AuthContext.Provider >
-         {/* <Switch>
-            <Route exact path={ROUTES.home} component={Home} />
-            <Route path={ROUTES.projects} component={Projects} />
-            <Route path={ROUTES.dashboard} component={Dashboards} />
-            <Route path={ROUTES.people} component={People} />
-            <Route path={ROUTES.backlog} component={EmptyPage} />
-            <Route path={ROUTES.reports} component={EmptyPage} />
-            <Route path={ROUTES.components} component={EmptyPage} />
-            <Route path={ROUTES.releases} component={EmptyPage} />
-            <Route path={ROUTES.addItem} component={EmptyPage} />
-            <Route path={ROUTES.settings} component={EmptyPage} />
-            <Route path={ROUTES.userAuthSignUp} component={SignUpField} />
-            <Route path={ROUTES.userAauthLogIn} component={LogInField} />
-            <Redirect to="/" />
-         </Switch> */}
          {/* <UserAccount></UserAccount> */}
          <ToastContainer />
       </div >

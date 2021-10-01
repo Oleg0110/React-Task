@@ -4,6 +4,7 @@ import { useState } from "react"
 import { observer } from "mobx-react"
 import { useHistory } from "react-router"
 import { ROUTES } from "../../utils/constants"
+import { useTranslation } from "react-i18next";
 
 const Accordion = ({ title, content, id }) => {
 
@@ -14,7 +15,7 @@ const Accordion = ({ title, content, id }) => {
    const [isContentTitleOpened, setIsContentTitleOpened] = useState(false)
    const history = useHistory()
 
-
+   const { t } = useTranslation();
 
    return (
       <div className={styles.accordionSection}>
@@ -31,19 +32,19 @@ const Accordion = ({ title, content, id }) => {
             <div className={styles.goTo}>
                <p className={styles.contentTitle}>{title}</p>
                <div className={styles.buttonsField}>
-                  <Button onClick={() => history.push(`${ROUTES.dashboard}/${id}`)} buttonStyle="fifthButtonStyle">Go to Project</Button>
+                  <Button onClick={() => history.push(`${ROUTES.dashboard}/${id}`)} buttonStyle="fifthButtonStyle">{t("accordion.go")}</Button>
                   <Button onClick={() => setIsOptionsOpened(!isOptionsOpened)}><div className={styles.threeDots} alt="Dots" /></Button>
                </div>
                <div className={`${styles.infoButtonsBackFon} ${isOptionsOpened && styles.infoButtonsOpened}`}>
                   <div className={styles.infoButtons}>
                      <Button onClick={() => setIsChangeTitleOpened(!isChangeTitleOpened)}>
-                        <span className={styles.buttonStyle}>Change Title</span>
+                        <span className={styles.buttonStyle}>{t("accordion.changeTitle")}</span>
                      </Button>
                      <Button onClick={() => setIsContentTitleOpened(!isContentTitleOpened)}>
-                        <span className={styles.buttonStyle}>Change Content</span>
+                        <span className={styles.buttonStyle}>{t("accordion.changeContent")}</span>
                      </Button>
                      <Button onClick={() => setIsDeleteOpened(!isDeleteOpened)}>
-                        <span className={styles.buttonStyle}>Delete Project</span>
+                        <span className={styles.buttonStyle}>{t("accordion.delete")}</span>
                      </Button>
                   </div>
                </div>

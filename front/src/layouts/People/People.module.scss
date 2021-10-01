@@ -2,6 +2,11 @@
    padding: 20px;
 }
 
+.peopleField {
+   margin: auto;
+   width: 65%;
+}
+
 .title {
    font-weight: bold;
    font-size: 30px;
@@ -9,12 +14,18 @@
    padding: 0px 15px 30px;
 }
 
+.count {
+   color: #6b9b6c;
+}
+
+.countNone {
+   display: none;
+}
+
 .backFon {
    background-color: #bce0bb;
    height: 500px;
    border-radius: 5px;
-   width: 65%;
-   margin: auto;
 }
 
 .backFonMD {

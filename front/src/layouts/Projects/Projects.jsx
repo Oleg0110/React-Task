@@ -6,6 +6,7 @@ import { observer } from "mobx-react"
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useTranslation } from "react-i18next";
 
 
 const Projects = ({ children }) => {
@@ -14,6 +15,8 @@ const Projects = ({ children }) => {
       ProjectsStore.asyncGetProjects();
    }, []);
 
+
+   const { t } = useTranslation();
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
@@ -49,7 +52,7 @@ const Projects = ({ children }) => {
 
    return (
       <div className={styles.mainProjectsStyle}>
-         <h1 className={styles.mainTitle}>Projects <span className={projectsCount()}>{ProjectsStore.projects.length}</span> </h1>
+         <h1 className={styles.mainTitle}>{t("projects.title")} <span className={projectsCount()}>{ProjectsStore.projects.length}</span> </h1>
          <div className={styles.create}>
             <div className={` ${styles.searchArea} ${styles[`searchArea${responsive}`]}`}>
                <form onChange={(e) => {
@@ -58,12 +61,14 @@ const Projects = ({ children }) => {
                   setSearchContent(searchContentref.current.value)
                }}>
                   <div className={`${styles.titleSearch} ${isSearchOpened && styles.titleSearchClose}`}>
-                     <input type="text" placeholder="Title search..." className={styles.searchInput} ref={searchTitleref} />
+                     <input type="text" placeholder={t("projects.titlePlaceholder")}
+                        className={styles.searchInput}
+                        ref={searchTitleref} />
                      <div className={styles.searchIcon} alt="Search Icon" />
                      <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
                   </div>
                   <div className={`${styles.contentSearch} ${isSearchOpened && styles.contentSearchOpened}`}>
-                     <input type="text" placeholder="Content search..." className={styles.searchInput} ref={searchContentref} />
+                     <input type="text" placeholder={t("projects.contentPlaceholder")} className={styles.searchInput} ref={searchContentref} />
                      <div className={styles.searchIcon} alt="Search Icon" />
                      <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
                   </div>
@@ -74,7 +79,7 @@ const Projects = ({ children }) => {
             </div>
             <Button onClick={() => {
                setIsOpened(!isOpened)
-               setChangeName(isChangeName === "Create Project" ? "Hide Block" : "Create Project")
+               setChangeName(isChangeName === `${t("projects.create")}` ? `${t("projects.hide")}` : `${t("projects.create")}`)
             }} buttonStyle="thirdButtonStyle">{isChangeName}</Button>
          </div>
          <div className={`${styles.projectsBlocks} ${styles[`projectsBlocks${responsive}`]}`}>

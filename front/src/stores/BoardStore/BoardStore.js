@@ -1,7 +1,9 @@
 import { action, makeObservable, observable } from "mobx"
-import axios from "axios"
 import { toast } from 'react-toastify';
 import { LINK_DASHBOARD, LINK_DASHBOARD_LISTS, LINK_DASHBOARD_TASKS } from "../../utils/httpLinks";
+import { change, deleted, getLists, push } from "../../services/dashboardsLists";
+import { getTasks, taskChanged, taskDelete, taskPush } from "../../services/dashboardsTasks";
+import axiosWrraper from "../../services/axiosWrapper";
 
 class BoardStore {
    lists = []
@@ -11,7 +13,7 @@ class BoardStore {
          lists: observable,
          pushList: action,
          changeList: action,
-         deleteList: action,
+         deletedList: action,
          asyncGetTasks: action,
          pushTask: action,
          changeTask: action,
@@ -28,12 +30,24 @@ class BoardStore {
 
 
    asyncGetLists = async (projectId) => {
-      const res = await axios.get(`${LINK_DASHBOARD_LISTS}/${projectId}`)
-      const lists = res.data
-      this.setLists(lists)
-      this.lists.map(element => {
-         this.asyncGetTasks(element._id);
-      })
+      // const lists = await getLists(projectId)
+
+      // this.setLists(lists)
+      // this.lists.map(element => {
+      //    this.asyncGetTasks(element._id);
+      // })
+
+      try {
+         const res = await axiosWrraper.get(`${LINK_DASHBOARD_LISTS}/${projectId}`)
+         const lists = res.data
+
+         this.setLists(lists)
+         this.lists.map(element => {
+            this.asyncGetTasks(element._id);
+         })
+      } catch (error) {
+         toast.error("invalid data")
+      }
    }
 
    setLists = (lists) => {
@@ -41,52 +55,48 @@ class BoardStore {
    }
 
    pushList = async (title, projectId) => {
-      try {
-         const res = await axios.post(LINK_DASHBOARD_LISTS, { title, projectId })
-         const list = res.data
-         this.lists.push(list)
 
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      const list = await push(title, projectId)
+      this.lists.push(list)
    }
 
    changeList = async (title, id) => {
-      try {
-         const res = await axios.patch(LINK_DASHBOARD_LISTS, { title, id })
-         const changedList = res.data
 
-         const foundListIndex = this.lists.findIndex(found => found.id === id)
+      const changedList = await change(title, id)
+      const foundListIndex = this.lists.findIndex(found => found.id === id)
 
-         this.lists.splice(foundListIndex, 1, changedList)
-
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      this.lists.splice(foundListIndex, 1, changedList)
    }
 
-   deleteList = async (id) => {
-      try {
-         const res = await axios.delete(`${LINK_DASHBOARD_LISTS}/${id}`)
-         const deletedList = res.data
+   deletedList = async (id) => {
 
-         const foundListIndex = this.lists.findIndex(found => found._id === id)
+      await deleted(id)
+      const foundListIndex = this.lists.findIndex(found => found._id === id)
 
-         this.lists.splice(foundListIndex, 1)
+      this.lists.splice(foundListIndex, 1)
 
-      } catch (error) {
-         toast.error("invalid data")
-      }
    }
 
    asyncGetTasks = async (listId) => {
-      const res = await axios.get(`${LINK_DASHBOARD_TASKS}/${listId}`)
-      const tasks = res.data
 
-      const foundList = this.lists.find((found) => found._id === listId)
+      // const tasks = await getTasks(listId)
+      // const foundList = this.lists.find((found) => found._id === listId)
 
-      if (foundList) {
-         this.setTasks(tasks, foundList)
+      // if (foundList) {
+      //    this.setTasks(tasks, foundList)
+      // }
+
+      try {
+         const res = await axiosWrraper.get(`${LINK_DASHBOARD_TASKS}/${listId}`)
+         const tasks = res.data
+         const foundList = this.lists.find((found) => found._id === listId)
+
+         if (foundList) {
+            this.setTasks(tasks, foundList)
+         }
+
+      } catch (error) {
+         toast.error("invalid data")
       }
    }
 
@@ -94,45 +104,34 @@ class BoardStore {
       foundList.tasks = tasks;
    }
 
-   pushTask = async (text, id) => {
-      try {
-         const res = await axios.post(LINK_DASHBOARD_TASKS, { text, id })
-         const task = res.data
+   pushTask = async (text, id, projectId) => {
 
-         const foundListId = this.lists.find(find => find._id === id)
-         const foundListIndex = this.lists.findIndex(found => found._id === id)
-         foundListId.tasks.push(task);
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      const task = await taskPush(text, id, projectId)
+
+      const foundListId = this.lists.find(find => find._id === id)
+      const foundListIndex = this.lists.findIndex(found => found._id === id)
+
+      foundListId.tasks.push(task);
    }
 
    changeTask = async (text, id, listId) => {
-      try {
-         const res = await axios.patch(LINK_DASHBOARD_TASKS, { text, id })
-         const changedTask = res.data
 
-         const foundList = this.lists.find(found => found._id === listId)
-         const foundTask = foundList.tasks.findIndex(found => found._id === id)
+      const changedTask = await taskChanged(text, id)
 
-         foundList.tasks.splice(foundTask, 1, changedTask)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      const foundList = this.lists.find(found => found._id === listId)
+      const foundTask = foundList.tasks.findIndex(found => found._id === id)
+
+      foundList.tasks.splice(foundTask, 1, changedTask)
    }
 
    deleteTask = async (id, listId) => {
-      try {
-         const res = await axios.delete(`${LINK_DASHBOARD_TASKS}/${id}`)
-         const deletedTask = res.data
 
-         const foundList = this.lists.find(found => found._id === listId)
-         const foundTask = foundList.tasks.findIndex(found => found._id === id)
+      await taskDelete(id)
 
-         foundList.tasks.splice(foundTask, 1)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      const foundList = this.lists.find(found => found._id === listId)
+      const foundTask = foundList.tasks.findIndex(found => found._id === id)
+
+      foundList.tasks.splice(foundTask, 1)
    }
 
 
@@ -152,7 +151,7 @@ class BoardStore {
 
    dragLists = async (result) => {
       try {
-         const res = await axios.patch(`${LINK_DASHBOARD}${"/task-position"}`, { result })
+         const res = await axiosWrraper.patch(`${LINK_DASHBOARD}${"/task-position"}`, { result })
          const changedProjectPosition = res.data
          this.lists = changedProjectPosition
       } catch (error) {

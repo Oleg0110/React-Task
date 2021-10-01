@@ -8,7 +8,7 @@ export const ROUTES = {
    dashboard: "/dashboards",
    dashboardLists: "/dashboards/list",
    dashboardTasks: "/dashboards/task",
-   people: "/people",
+   people: "/peoples",
    backlog: "/backlog",
    reports: "/reports",
    components: "/components",

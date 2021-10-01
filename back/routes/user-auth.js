@@ -24,6 +24,7 @@ router.get("/user/:id", async (req, res) => {
 
 router.get("/people", async (req, res) => {
    try {
+      const { page, count } = req.query
       const user = await User.find({})
       res.status(200).json(user)
 

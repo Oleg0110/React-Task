@@ -1,7 +1,8 @@
+import axios from "axios";
 import { action, makeObservable, observable } from "mobx"
-import axios from "axios"
-import { toast } from 'react-toastify';
-import { LINK_PROJECTS } from "../../utils/httpLinks"
+import { toast } from "react-toastify";
+import { changedContent, changedTitle, deleted, drag, getProjects, push } from "../../services/projects";
+import { LINK_PROJECTS } from "../../utils/httpLinks";
 
 class ProjectsStore {
    projects = []
@@ -12,7 +13,7 @@ class ProjectsStore {
          dragProject: action,
          deletedProject: action,
          changedProjecTitle: action,
-         changeProjecContent: action,
+         changedProjecContent: action,
          asyncGetProjects: action,
          setProjects: action,
          setDragProject: action,
@@ -20,13 +21,20 @@ class ProjectsStore {
    }
 
    asyncGetProjects = async () => {
-      const id = localStorage.getItem("userData")
-      const userJsonId = JSON.parse(id)
-      const userId = userJsonId.userId
+      // const projects = await getProjects()
+      // console.log(projects);
+      // this.setProjects(projects)
+      try {
+         const id = localStorage.getItem("userData")
+         const userJsonId = JSON.parse(id)
+         const userId = userJsonId.userId
 
-      const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
-      const projects = res.data
-      this.setProjects(projects)
+         const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
+         const projects = res.data
+         this.setProjects(projects)
+      } catch (error) {
+         toast.error("invalid data")
+      }
    }
 
    setProjects = (projects) => {
@@ -35,71 +43,40 @@ class ProjectsStore {
 
 
    pushProject = async (title, content) => {
-      try {
-         const id = localStorage.getItem("userData")
-         const user = JSON.parse(id)
-         const userId = user.userId
-
-         const res = await axios.post(LINK_PROJECTS, { title, content, userId })
-         const project = res.data
-
-         this.projects.push(project)
-
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      const project = await push(title, content)
+      this.projects.push(project)
    }
 
    changedProjecTitle = async (title, id) => {
-      try {
-         const res = await axios.patch(`${LINK_PROJECTS}${"/title"}`, { title, id })
-         const changedProjectTitle = res.data
 
-         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
+      const changedProjectTitle = await changedTitle(title, id)
+      const foundProjectIndex = this.projects.findIndex(found => found._id === id)
 
-         this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
    }
 
-   changeProjecContent = async (content, id) => {
-      try {
-         const res = await axios.patch(`${LINK_PROJECTS}${"/content"}`, { content, id })
-         const changedProjectContent = res.data
+   changedProjecContent = async (content, id) => {
 
-         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
+      const changedProjectContent = await changedContent(content, id)
+      const foundProjectIndex = this.projects.findIndex(found => found._id === id)
 
-         this.projects.splice(foundProjectIndex, 1, changedProjectContent)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      this.projects.splice(foundProjectIndex, 1, changedProjectContent)
    }
 
    deletedProject = async (id) => {
-      try {
-         const res = await axios.delete(`${LINK_PROJECTS}/${id}`)
-         const deletedProject = res.data
 
-         const foundProjectIndex = this.projects.findIndex(found => found._id === id)
+      await deleted(id)
+      const foundProjectIndex = this.projects.findIndex(found => found._id === id)
 
-         this.projects.splice(foundProjectIndex, 1)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      this.projects.splice(foundProjectIndex, 1)
    }
 
 
    dragProject = async (result) => {
 
-      try {
-         const res = await axios.patch(`${LINK_PROJECTS}${"/position"}`, { result })
-         const changedProjectPosition = res.data
+      const changedProjectPosition = await drag(result)
 
-         this.setDragProject(changedProjectPosition)
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      this.setDragProject(changedProjectPosition)
    }
 
    setDragProject = (drag) => {

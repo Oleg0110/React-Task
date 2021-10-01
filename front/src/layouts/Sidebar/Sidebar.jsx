@@ -2,6 +2,8 @@ import styles from "./Sidebar.module.scss"
 import { useHistory } from "react-router";
 import { Button } from "../../components"
 import { ROUTES } from "../../utils/constants";
+import { useAuth } from "../../hooks";
+import { toast } from "react-toastify";
 
 const buttons = [
    { id: "0", name: "Backlog", link: ROUTES.backlog, icon: "backlogIcon", alt: "Backlog Icon", style: "sidebarButtonStyle" },
@@ -14,14 +16,21 @@ const buttons = [
 
 const Sidebar = ({ isOpened, children, onClick }) => {
 
+   const { token } = useAuth()
+   const isAuthenticated = !!token
    const history = useHistory()
+
+   const onButtonClick = (links) => {
+      !isAuthenticated ? toast.error("please sign up or log in") : history.push(links)
+   }
+
 
    return (
       <div className={`${styles.sidebar} ${isOpened && styles.opened}`}>
          <div onClick={onClick}>
             {children}
             {buttons.map(data =>
-               <Button key={data.id} onClick={() => history.push(data.link)} buttonStyle={data.style}>
+               <Button key={data.id} onClick={() => { onButtonClick(data.link) }} buttonStyle={data.style}>
                   <div className={`${styles.icon} ${styles[data.icon]}`} alt={data.alt} />
                   {data.name}
                </Button>

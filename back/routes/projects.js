@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const router = Router();
+const List = require("../models/dashboard-list")
+const Task = require("../models/dshboard-task")
 const Project = require("../models/project")
-const auth = require("../middleware/auth.middleware")
+const auth = require("../middleware/auth.middleware");
 
 const projects = []
 
@@ -111,6 +113,9 @@ router.delete("/:id", async (req, res) => {
       if (!id) {
          return res.status(400).json({ error: "invalid input" })
       }
+
+      await List.deleteMany({ projectOwner: id })
+      await Task.deleteMany({ projectOwner: id })
 
       const deletedProject = await Project.findOneAndDelete(
          { _id: id }
