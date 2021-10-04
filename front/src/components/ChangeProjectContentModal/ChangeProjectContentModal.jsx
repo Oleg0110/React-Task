@@ -4,14 +4,18 @@ import { ProjectsStore } from "../../stores";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
 import { CREATE_CONTENT_VALIDATION } from "../../utils/validation";
+import { useTranslation } from "react-i18next";
 
 
 
 const ChangeProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
+
+   const { t } = useTranslation();
+
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
-      ProjectsStore.changeProjecContent(data.content, id)
+      ProjectsStore.changedProjecContent(data.content, id)
    };
 
    return (
@@ -25,11 +29,11 @@ const ChangeProjectContentModal = ({ isModalOpened, onModalClose, id }) => {
                <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
                   <textarea
                      {...register("content", CREATE_CONTENT_VALIDATION)}
-                     type="textarea" placeholder="Description" className={styles.inputText} />
+                     type="textarea" placeholder={t("modal.descriptionPlaceholder")} className={styles.inputText} />
                   {errors.content?.message && <p className={styles.errorPosition}>
                      {errors.content?.message}
                   </p>}
-                  <Button buttonStyle="fifthButtonStyle">Change Title</Button>
+                  <Button buttonStyle="fifthButtonStyle">{t("modal.changeContent")}</Button>
                </form>
             </div>
          </div>

@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE } from "../../utils/constants"
+import { useTranslation } from "react-i18next";
 
 
 
@@ -14,17 +15,16 @@ const Dashboards = ({ children }) => {
 
    const projectId = window.location.href.split("dashboards/")[1];
 
-
+   const { t } = useTranslation();
 
    useEffect(() => {
       BoardStore.asyncGetLists(projectId)
-   }, []);
+   }, [projectId]);
 
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
    const { lists } = BoardStore
-
 
    const searchValue = useRef(null)
    const [isListModalOpened, setIsListModalOpened] = useState(false)
@@ -44,22 +44,22 @@ const Dashboards = ({ children }) => {
    return (<div className={styles.mainBoardStyle}>
       <CreateListModalWindow isListModalOpened={isListModalOpened} onModalClose={() => setIsListModalOpened(false)} />
       <div className={styles.boardStyle}>
-         <h2 className={styles.mainTitle}>Board</h2>
+         <h2 className={styles.mainTitle}>{t("dashboards.title")}</h2>
          <div className={styles.release}>
-            <Button buttonStyle="thirdButtonStyle">Release</Button>
+            <Button buttonStyle="thirdButtonStyle">{t("dashboards.release")}</Button>
             <Button><div className={styles["three-dots"]} alt="Dots" /></Button>
          </div>
       </div>
       <div className={`${styles.create} ${styles[`create${responsive}`]}}`}>
          <div className={`${styles.createButtonPosition} ${styles[`createButtonPosition${responsive}`]}`}>
             <Button onClick={() => setIsListModalOpened(!isListModalOpened)} buttonStyle="thirdButtonStyle">
-               <div className={styles.plus} alt="Plus Icon" />Create List</Button>
+               <div className={styles.plus} alt="Plus Icon" />{t("dashboards.create")}</Button>
          </div>
          <form className={styles.searchBoardArea} onChange={(e) => {
             e.preventDefault()
             setSearchTitle(searchValue.current.value)
          }}>
-            <input type="text" placeholder="Task search..." className={styles.searchInput} ref={searchValue} />
+            <input type="text" placeholder={t("dashboards.taskPlaceholder")} className={styles.searchInput} ref={searchValue} />
             <div className={styles.searchIcon} alt="Search Icon" />
             <Button onClick={(e) => e.preventDefault()}><div className={styles.delete} alt="Delete Icon" /></Button>
          </form>

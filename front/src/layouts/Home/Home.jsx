@@ -3,18 +3,22 @@ import { useHistory } from "react-router"
 import { Button } from "../../components"
 import { useAuth, useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from "../../utils/constants"
+import { useTranslation } from "react-i18next";
 
 const Home = ({ children }) => {
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 
+   const { t } = useTranslation();
+
    const history = useHistory()
    const { token } = useAuth()
    const isAuthenticated = !!token
 
-   const attention = !isAuthenticated ? "If you wont to make project, please Sign up or Log In" : "Create your first Project"
-   const attentionSignUpButton = !isAuthenticated ? "Let's Go" : "Make Project"
+   const attention = !isAuthenticated ? `${t("home.wont")}` : `${t("home.create")}`
+   const attentionSignUpButton = !isAuthenticated ? `${t("home.go")}` : `${t("home.makeProject")}`
    const attentionLink = !isAuthenticated ? ROUTES.userAauthLogIn : ROUTES.projects
+
 
    return (<div className={styles.backFon}>
       <div className={styles.logoPosition}>
@@ -22,7 +26,7 @@ const Home = ({ children }) => {
          <hr className={`${styles.underLine} ${styles[`underLine${responsive}`]}`} />
       </div>
       <h1 className={` ${styles.title} ${styles[`title${responsive}`]}`}>
-         My <span className={`${styles.projectTitle} ${styles[`projectTitle${responsive}`]}`}>React project</span>
+         {t("home.title")} <span className={`${styles.projectTitle} ${styles[`projectTitle${responsive}`]}`}>React {t("home.projectTitle")}</span>
       </h1>
       <hr className={styles.line} />
       <p className={`${styles.create} ${styles[`create${responsive}`]}`}>{attention}</p>

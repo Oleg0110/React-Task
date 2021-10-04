@@ -6,9 +6,22 @@
    padding: 15px 20px;
    background-color: #ffffff;
    z-index: 1;
-   height: 245px;
+   height: 130px;
    width: 250px;
 }
+
+.sidebarHeight {
+   position: absolute;
+   top: 60px;
+   right: 5px;
+   border: 2px solid #d1c9c9;
+   padding: 15px 20px;
+   background-color: #ffffff;
+   z-index: 1;
+   height: 165px;
+   width: 250px;
+}
+
 .content {
    display: flex;
    flex-direction: column;
@@ -47,11 +60,25 @@
    padding-bottom: 16px;
 }
 
-.userPhoto {
+.infoFieldNone {
+   display: none;
+}
+
+.empty {
    background-image: url(../../assets/icon/user.svg);
    background-repeat: no-repeat;
    background-position: center;
    background-size: 37px;
+   width: 37px;
+   height: 37px;
+}
+
+.userPhoto {
+   background-image: url(../../assets/img/person.png);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 55px;
+   border-radius: 50%;
    width: 37px;
    height: 37px;
 }
@@ -80,12 +107,28 @@
    align-items: flex-start;
 }
 
+.buttons {
+   display: block;
+}
+
+.buttonsNone {
+   display: none;
+}
+
 .buttonSign {
    font-size: 18px;
 }
 
 .buttonLog {
    font-size: 18px;
+}
+
+.exit {
+   display: block;
+}
+
+.exitNone {
+   display: none;
 }
 
 .buttonExit {

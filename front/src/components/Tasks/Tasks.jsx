@@ -1,8 +1,8 @@
 import styles from "./Tasks.module.scss"
 import { Draggable } from 'react-beautiful-dnd';
 import { Button, DeleteTaskModal, ChangeTaskModal } from "..";
-import { useEffect, useState } from "react";
-import { BoardStore } from "../../stores";
+import { useState } from "react";
+import { observer } from "mobx-react";
 
 
 const Tasks = ({ text, label, labelStyle, taskState, priority, index, id, listId }) => {
@@ -48,4 +48,4 @@ const Tasks = ({ text, label, labelStyle, taskState, priority, index, id, listId
    )
 }
 
-export default Tasks
+export default observer(Tasks);

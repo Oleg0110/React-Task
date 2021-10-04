@@ -1,8 +1,12 @@
 import { toast } from "react-toastify";
 import styles from "./UserCard.module.scss"
+import { useTranslation } from "react-i18next";
+import { observer } from "mobx-react";
 
 
 const UserCard = ({ name, email }) => {
+
+   const { t } = useTranslation();
 
    const copyEmail = async (copyMe) => {
       if (copyMe === undefined) {
@@ -24,10 +28,12 @@ const UserCard = ({ name, email }) => {
                   <p className={styles.userEmail}>{email}</p>
                </div>
             </div>
-            {/* <Button onClick={() => copyEmail(email)} buttonStyle="thirdButtonStyle">Copy Email</Button> */}
+            <div className={styles.copy}>
+               <p>{t("people.click")}</p>
+            </div>
          </div>
       </div>
    )
 }
 
-export default UserCard
+export default observer(UserCard)

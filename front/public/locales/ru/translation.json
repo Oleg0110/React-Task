@@ -1,0 +1,91 @@
+{
+   "header": {
+      "searchPlaceholder": "Поиск",
+      "home": "Дом"
+   },
+   "userField": {
+      "title": "Аккаунт",
+      "signUp": "Зарегистрируйтесь",
+      "logIn": "Войти",
+      "exit": "Выход"
+   },
+   "home": {
+      "title": "Мой",
+      "projectTitle": "проект",
+      "wont": "Если вы собираетесь создавать проект, пожалуйста, зарегистрируйтесь или войдите",
+      "create": "Создайте свой первый проект",
+      "go": "Пойдем",
+      "makeProject": "Создать Проект"
+   },
+   "projects": {
+      "title": "Проекты",
+      "titlePlaceholder": "Поиск по названию ...",
+      "contentPlaceholder": "Поиск данных ...",
+      "create": "Создать Проект",
+      "hide": "Скрыть блок"
+   },
+   "accordion": {
+      "go": "Перейти",
+      "changeTitle": "Изменить Название",
+      "changeContent": "Изменить Текст",
+      "delete": "Видалити Проект"
+   },
+   "createProject": {
+      "title": "Создать Проект",
+      "name": "Название проекта :",
+      "titlePlaceholder": "Заголовок",
+      "description": "Описание проекта :",
+      "descriptionPlaceholder": "Описание",
+      "create": "Создать Проект"
+   },
+   "dashboards": {
+      "title": "Доска",
+      "release": "Выпуск",
+      "create": "Создать Список",
+      "taskPlaceholder": "Поиск Задач ..."
+   },
+   "people": {
+      "title": "Пользователи ",
+      "click": "Нажмите карту, чтобы скопировать письмо!"
+   },
+   "logIn": {
+      "emailPlaceholder": "Электронная почта",
+      "passwordPlaceholder": "Пароль",
+      "logIn": "Войти",
+      "or": "ИЛИ",
+      "forgot": "Забыли пароль?",
+      "doNot": "Нет аккаунта? ",
+      "signUp": "Зарегистрируйтесь"
+   },
+   "signUp": {
+      "title": "Зарегистрируйтесь, чтобы создать свой первый проект",
+      "emailPlaceholder": "Электронная почта",
+      "namePlaceholder": "Имя",
+      "passwordPlaceholder": "Пароль",
+      "signUp": "Зарегистрируйтесь",
+      "by": "Регистрируясь, вы принимаете наши",
+      "terms": "Условия",
+      "and": "и ",
+      "policy": " Политику использования данных",
+      "have": "У вас есть аккаунт? ",
+      "logIn": "Войти"
+   },
+   "modal": {
+      "listTitle": "Заголовок списка",
+      "titlePlaceholder": "Заголовок",
+      "addList": "Добавить Список",
+      "taskTitle": "Текст Задания",
+      "contentPlaceholder": "Текст",
+      "addTask": "Добавить Задание",
+      "sure": "Вы уверены?",
+      "delete": "Удалить",
+      "changeContent": "Изменить Текст",
+      "descriptionPlaceholder": "Описание",
+      "changeTitle": "Изменить Название",
+      "projectTitle": "Заголовок"
+   },
+   "empty": {
+      "title": "Извиняюсь!",
+      "text": "Страница разрабатывается в будущем будет содержание"
+   }
+}

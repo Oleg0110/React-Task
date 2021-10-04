@@ -41,7 +41,7 @@
    justify-content: space-around;
    align-items: center;
    flex-wrap: wrap;
-   width: 53%;
+   width: 49%;
 }
 
 .linkHeaderButtonMD {
@@ -145,11 +145,30 @@
    background-image: url(../../assets/icon/settings.svg);
 }
 
-.userPhoto {
+.empty {
    background-image: url(../../assets/icon/user.svg);
    background-repeat: no-repeat;
    background-position: center;
    background-size: 30px;
    width: 30px;
    height: 30px;
+}
+
+.userPhoto {
+   background-image: url(../../assets/img/person.png);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 45px;
+   border-radius: 50%;
+   width: 30px;
+   height: 30px;
+}
+
+.language {
+   cursor: pointer;
+}
+
+.option {
+   background-color: #ffa726;
+   color: #fff;
 }

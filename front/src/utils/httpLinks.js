@@ -1,6 +1,6 @@
 import { ROUTES } from "./constants"
 
-const BASIC_URL = "http://localhost:5000"
+export const BASIC_URL = "http://localhost:5000"
 
 export const LINK_PROJECTS = `${BASIC_URL}${ROUTES.projects}`
 export const LINK_DASHBOARD = `${BASIC_URL}${ROUTES.dashboard}`

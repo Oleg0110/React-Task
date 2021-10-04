@@ -2,8 +2,10 @@ import styles from "./Header.module.scss"
 import { Button } from "../../components"
 import { useState } from "react"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from "../../utils/constants"
-import { useMedia } from "../../hooks"
+import { useAuth, useMedia } from "../../hooks"
 import { useHistory } from "react-router"
+import { useTranslation } from "react-i18next";
+import "../../utils/i18next"
 
 
 const Header = ({ onClick, children, userField }) => {
@@ -15,6 +17,19 @@ const Header = ({ onClick, children, userField }) => {
 
    const searchHeaderInput = () => {
       return `${styles[`searchHeaderInput${responsive}`]} ${searchOpened && styles.searchHeaderInputOpen}`
+   }
+
+   const { t, i18n } = useTranslation();
+
+   const changeLanguage = (event) => {
+      i18n.changeLanguage(event.target.value);
+   };
+
+   const { token } = useAuth()
+   const isAuthenticated = !!token
+
+   const userPhoto = () => {
+      return !isAuthenticated ? styles.empty : styles.userPhoto
    }
 
 
@@ -32,7 +47,7 @@ const Header = ({ onClick, children, userField }) => {
          </div >
          <div className={styles.searchHeader}>
             <div className={`${styles.searchHeaderInput} ${searchHeaderInput()} `} >
-               <input type="text" placeholder="Search" className={`${styles.searchInput} ${styles[`searchInput${responsive}`]}`} />
+               <input type="text" placeholder={t("header.searchPlaceholder")} className={`${styles.searchInput} ${styles[`searchInput${responsive}`]}`} />
                <div className={styles.searchIcon} alt="Search Icon" />
             </div>
             <div className={styles.headerOptions}>
@@ -40,7 +55,12 @@ const Header = ({ onClick, children, userField }) => {
                ${styles[`searchIconArea${responsive}`]}`} alt="Search Icon" /></Button>
                <Button><div className={`${styles.icon} ${styles["bell-icon"]}`} alt="Bell Icon" /></Button>
                <Button onClick={() => history.push(ROUTES.settings)}><div className={`${styles.icon} ${styles["setting-icon"]}`} alt="Setting Icon" /></Button>
-               <Button onClick={userField}><div className={styles.userPhoto} alt="User" /></Button>
+               <Button onClick={userField}><div className={userPhoto()} alt="User" /></Button>
+               <select className={styles.language} onChange={changeLanguage}>
+                  <option className={styles.option} value="en" >EN</option>
+                  <option className={styles.option} value="ua" >UA</option>
+                  <option className={styles.option} value="ru" >RU</option>
+               </select>
             </div>
          </div>
       </header >

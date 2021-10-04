@@ -4,10 +4,14 @@ import { ProjectsStore } from "../../stores";
 import { observer } from "mobx-react";
 import { useForm } from "react-hook-form";
 import { TITLE_VALIDATION } from "../../utils/validation";
+import { useTranslation } from "react-i18next";
 
 
 
 const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
+
+   const { t } = useTranslation();
+
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const onSubmit = data => {
@@ -25,11 +29,11 @@ const ChangeProjectTitleModal = ({ isModalOpened, onModalClose, id }) => {
                <form className={styles.descriptionProjectBlock} onSubmit={handleSubmit(onSubmit)}>
                   <input
                      {...register("title", TITLE_VALIDATION)}
-                     type="text" placeholder="Title" className={styles.input} />
+                     type="text" placeholder={t("modal.projectTitle")} className={styles.input} />
                   {errors.title?.message && <p className={styles.errorPosition}>
                      {errors.title?.message}
                   </p>}
-                  <Button buttonStyle="fifthButtonStyle">Change Title</Button>
+                  <Button buttonStyle="fifthButtonStyle">{t("modal.changeTitle")}</Button>
 
                </form>
             </div>

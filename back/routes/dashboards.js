@@ -2,6 +2,7 @@ const { Router } = require("express")
 const List = require("../models/dashboard-list")
 const Task = require("../models/dshboard-task")
 const router = Router()
+const auth = require("../middleware/auth.middleware");
 
 const lists = []
 
@@ -82,6 +83,8 @@ router.delete("/list/:id", async (req, res) => {
          return res.status(400).json({ error: "invalid input" })
       }
 
+      await Task.deleteMany({ listOwner: id })
+
       const deletedList = await List.findOneAndDelete(
          { _id: id }
       )
@@ -114,15 +117,16 @@ router.patch("/task-position", async (req, res) => {
 
 router.post("/task", async (req, res) => {
    try {
-      const { text, id } = req.body
+      const { text, id, projectId } = req.body
 
-      if (!text && !id) {
+      if (!text && !id && !projectId) {
          return res.status(400).json({ error: "invalid input" })
       }
 
       const task = new Task({
          text,
-         listOwner: id
+         listOwner: id,
+         projectOwner: projectId
       })
 
       await task.save()
@@ -137,21 +141,20 @@ router.post("/task", async (req, res) => {
 
 router.patch("/task", async (req, res) => {
    try {
-      const { text, id, listId } = req.body
+      const { text, id } = req.body
 
-      if (text, id, listId) {
-
-         const changedTask = await Task.findOneAndUpdate(
-            { _id: id },
-            { $set: { text } },
-            { new: true }
-         )
-
-         res.status(200).json(changedTask)
-         return
+      if (!text && !id) {
+         return res.status(400).json({ error: "invalid input" })
       }
 
-      res.status(400).json({ error: "invalid input" })
+      const changedTask = await Task.findOneAndUpdate(
+         { _id: id },
+         { $set: { text } },
+         { new: true }
+      )
+
+      res.status(200).json(changedTask)
+      return
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })

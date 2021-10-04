@@ -1,11 +1,14 @@
 import { Button } from ".."
 import { BoardStore } from "../../stores"
 import styles from "./DeleteListModal.module.scss"
+import { useTranslation } from "react-i18next";
 
 const DeleteListModal = ({ isModalOpened, onModalClose, id }) => {
 
+   const { t } = useTranslation();
+
    const onClick = () => {
-      BoardStore.deleteList(id)
+      BoardStore.deletedList(id)
    }
 
    return (
@@ -16,8 +19,8 @@ const DeleteListModal = ({ isModalOpened, onModalClose, id }) => {
                <div className={styles.closeIconPosition}>
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
-               <span className={styles.title}>Are You sure?</span>
-               <Button onClick={onClick} buttonStyle="fifthButtonStyle">Delete</Button>
+               <span className={styles.title}>{t("modal.sure")}</span>
+               <Button onClick={onClick} buttonStyle="fifthButtonStyle">{t("modal.delete")}</Button>
             </div>
          </div>
       </>

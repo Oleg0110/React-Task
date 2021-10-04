@@ -1,8 +1,11 @@
 import { Button } from ".."
 import { ProjectsStore } from "../../stores"
 import styles from "./DeleteProjectModal.module.scss"
+import { useTranslation } from "react-i18next";
 
 const DeleteProjectModal = ({ isModalOpened, onModalClose, id }) => {
+
+   const { t } = useTranslation();
 
    const onClick = () => {
       ProjectsStore.deletedProject(id)
@@ -16,8 +19,8 @@ const DeleteProjectModal = ({ isModalOpened, onModalClose, id }) => {
                <div className={styles.closeIconPosition}>
                   <Button onClick={onModalClose}><div className={styles.closeIcon} /></Button>
                </div>
-               <span className={styles.title}>Are You sure?</span>
-               <Button onClick={onClick} buttonStyle="fifthButtonStyle">Delete</Button>
+               <span className={styles.title}>{t("modal.sure")}</span>
+               <Button onClick={onClick} buttonStyle="fifthButtonStyle">{t("modal.delete")}</Button>
             </div>
          </div>
       </>

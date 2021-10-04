@@ -9,11 +9,13 @@ import { observer } from "mobx-react";
 // import { useAuth } from "../../hooks";
 import { ROUTES } from "../../utils/constants";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 
 
 const SignUpField = () => {
 
+   const { t } = useTranslation();
 
    const { register, handleSubmit, formState: { errors } } = useForm();
    const history = useHistory()
@@ -35,38 +37,41 @@ const SignUpField = () => {
             <div className={styles.logoPosition}>
                <h1 className={styles.logo}>DILA</h1>
             </div>
-            <h2 className={styles.title}>Sing up to make your first Project</h2>
+            <h2 className={styles.title}>{t("signUp.title")}</h2>
             <form className={styles.infoAccountBlock} onSubmit={handleSubmit(onSubmit)}>
-               <input type="email" placeholder="Email" className={styles.input} {...register("email", EMAIL_VALIDATION)} />
+               <input type="email" placeholder={t("signUp.emailPlaceholder")} className={styles.input} {...register("email", EMAIL_VALIDATION)} />
                {errors.email?.message && <p className={styles.errorPosition}>
                   {errors.email?.message}
                </p>}
-               <input type="text" placeholder="Name" className={styles.input} {...register("name", TITLE_VALIDATION)} />
+               <input type="text" placeholder={t("signUp.namePlaceholder")} className={styles.input} {...register("name", TITLE_VALIDATION)} />
                {errors.name?.message && <p className={styles.errorPosition}>
                   {errors.name?.message}
                </p>}
-               <input type={isPassword} placeholder="Password" className={styles.input} {...register("password", PASSWORD_VALIDATION)} />
-               {errors.password?.message && <p className={styles.errorPosition}>
-                  {errors.password?.message}
-               </p>}
+               <div className={styles.passwordField} >
+                  <input type={isPassword} placeholder={t("signUp.passwordPlaceholder")} className={styles.input} {...register("password", PASSWORD_VALIDATION)} />
+                  {errors.password?.message && <p className={styles.errorPosition}>
+                     {errors.password?.message}
+                  </p>}
+                  <Button onClick={() => setIsPassword(isPassword === "password" ? "text" : "password")}>
+                     <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
+                  </Button>
+               </div>
                <div className={styles.buttonPosition}>
                   <Button buttonStyle="fifthButtonStyle"
                   // onClick={() => goToProjects()}
                   >
-                     <span className={styles.buttonName}>Sign up</span>
+                     <span className={styles.buttonName}>{t("signUp.signUp")}</span>
                   </Button>
                </div>
             </form>
-            <Button onClick={() => setIsPassword(isPassword === "password" ? "text" : "password")}>
-               <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
-            </Button>
-            <p className={styles.attention}>By signing up, you agree to our
-               <span className={styles.ourTerms}> Terms</span> and <span className={styles.ourTerms}>Data Policy</span>.</p>
+            <p className={styles.attention}>{t("signUp.by")}
+               <span className={styles.ourTerms}> {t("signUp.terms")}</span> {t("signUp.and")}
+               <span className={styles.ourTerms}> {t("signUp.policy")}</span>.</p>
          </div>
          <div className={styles.changeField}>
-            <p className={styles.changeSign}>{"Have an account?   "}
+            <p className={styles.changeSign}>{t("signUp.have")}
                <Button onClick={() => history.push(ROUTES.userAauthLogIn)}>
-                  <span className={styles.buttonStyle}>Log In</span>
+                  <span className={styles.buttonStyle}>{t("signUp.logIn")}</span>
                </Button>
             </p>
          </div>
