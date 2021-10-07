@@ -14,6 +14,8 @@ const CreateUserAccount = ({ isOpened, onClick, onModalClose }) => {
       console.log("yes");
    }
 
+   // !!! ToDO Delete this file
+
    return (
       <>
          <div className={`${styles.backFon} ${isOpened && styles.opened}`} onClick={onModalClose}></div>

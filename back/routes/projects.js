@@ -7,7 +7,7 @@ const auth = require("../middleware/auth.middleware");
 
 const projects = []
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
    try {
       const { id } = req.params
 
@@ -15,7 +15,9 @@ router.get("/:id", async (req, res) => {
          return res.status(400).json({ error: "invalid data" })
       }
 
-      res.status(200).json(await Project.find({ userOwner: id }))
+      const projects = await Project.find({ userOwner: id })
+
+      res.status(200).json(projects)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -23,7 +25,7 @@ router.get("/:id", async (req, res) => {
 })
 
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
    try {
       const { title, content, userId } = req.body
 
@@ -47,7 +49,7 @@ router.post("/", async (req, res) => {
    }
 })
 
-router.patch("/title", async (req, res) => {
+router.patch("/title", auth, async (req, res) => {
    try {
       const { title, id } = req.body
 
@@ -69,7 +71,7 @@ router.patch("/title", async (req, res) => {
    }
 })
 
-router.patch("/content", async (req, res) => {
+router.patch("/content", auth, async (req, res) => {
    try {
       const { content, id } = req.body
 
@@ -100,13 +102,14 @@ router.patch("/position", async (req, res) => {
       projects.splice(result.destination.index, 0, reorderedItem);
 
       res.status(200).json(projects)
+
       return
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
    try {
       const { id } = req.params
 

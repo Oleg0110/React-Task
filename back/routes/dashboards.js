@@ -6,7 +6,7 @@ const auth = require("../middleware/auth.middleware");
 
 const lists = []
 
-router.get("/list/:projectId", async (req, res) => {
+router.get("/list/:projectId", auth, async (req, res) => {
    try {
       const { projectId } = req.params
 
@@ -19,7 +19,7 @@ router.get("/list/:projectId", async (req, res) => {
    }
 })
 
-router.get("/task/:listId", async (req, res) => {
+router.get("/task/:listId", auth, async (req, res) => {
    try {
       const { listId } = req.params
 
@@ -32,7 +32,7 @@ router.get("/task/:listId", async (req, res) => {
    }
 })
 
-router.post("/list", async (req, res) => {
+router.post("/list", auth, async (req, res) => {
    try {
       const { title, projectId } = req.body
 
@@ -54,7 +54,7 @@ router.post("/list", async (req, res) => {
    }
 })
 
-router.patch("/list", async (req, res) => {
+router.patch("/list", auth, async (req, res) => {
    try {
       const { title, id } = req.body
 
@@ -76,7 +76,7 @@ router.patch("/list", async (req, res) => {
    }
 })
 
-router.delete("/list/:id", async (req, res) => {
+router.delete("/list/:id", auth, async (req, res) => {
    try {
       const { id } = req.params
       if (!id) {
@@ -115,7 +115,7 @@ router.patch("/task-position", async (req, res) => {
    }
 })
 
-router.post("/task", async (req, res) => {
+router.post("/task", auth, async (req, res) => {
    try {
       const { text, id, projectId } = req.body
 
@@ -139,7 +139,7 @@ router.post("/task", async (req, res) => {
    }
 })
 
-router.patch("/task", async (req, res) => {
+router.patch("/task", auth, async (req, res) => {
    try {
       const { text, id } = req.body
 
@@ -161,7 +161,7 @@ router.patch("/task", async (req, res) => {
    }
 })
 
-router.delete("/task/:id", async (req, res) => {
+router.delete("/task/:id", auth, async (req, res) => {
    try {
       const { id } = req.params
 

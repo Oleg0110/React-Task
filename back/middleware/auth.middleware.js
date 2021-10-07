@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const jwtSecret = "oleg react project"
 
 module.exports = (req, res, next) => {
+   // console.log(1, req.method);
    if (req.method === 'OPTIONS') {
       return next()
    }

@@ -1,7 +1,17 @@
 {
    "header": {
       "searchPlaceholder": "Поиск",
-      "home": "Дом"
+      "home": "Дом",
+      "projects": "Проекты",
+      "dashboards": "Доска",
+      "people": "Пользователи"
+   },
+   "sidebar": {
+      "backlog": "Отставание",
+      "reports": "Отчеты",
+      "components": "Компоненты",
+      "releases": "Релизы",
+      "addItem": "Добавьте предмет"
    },
    "userField": {
       "title": "Аккаунт",

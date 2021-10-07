@@ -25,8 +25,27 @@ router.get("/user/:id", async (req, res) => {
 router.get("/people", async (req, res) => {
    try {
       const { page, count } = req.query
-      const user = await User.find({})
-      res.status(200).json(user)
+      const users = await User.find({})
+
+      const lastUserIndex = page * count
+      const firsUserIndex = lastUserIndex - count
+      const currentUser = users.slice(firsUserIndex, lastUserIndex)
+
+      const pageNumbers = []
+
+      for (let i = 1; i <= Math.ceil(users.length / count); i++) {
+         pageNumbers.push(i)
+      }
+
+      const userData = {
+         pageNumbers,
+         currentUser,
+         allUsers: users.length
+      }
+
+      console.log(typeof userData.allUsers);
+
+      res.status(200).json(userData)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -53,9 +72,23 @@ router.post("/sign-up", async (req, res) => {
          password: hashedPassword
       })
 
+
       await user.save()
 
-      return res.status(201).json(user)
+      const currentUser = await User.findOne({ email })
+
+      const token = jwt.sign(
+         { userId: currentUser.id },
+         jwtSecret,
+         { expiresIn: "1h" }
+      )
+
+      const userData = {
+         token,
+         currentUser
+      }
+
+      return res.status(201).json(userData)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
