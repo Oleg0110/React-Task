@@ -1,7 +1,17 @@
 {
    "header": {
       "searchPlaceholder": "Search",
-      "home": "Home"
+      "home": "Home",
+      "projects": "Projects",
+      "dashboards": "Dashboards",
+      "people": "People"
+   },
+   "sidebar": {
+      "backlog": "Backlog",
+      "reports": "Reports",
+      "components": "Components",
+      "releases": "Releases",
+      "addItem": "Add-Item"
    },
    "userField": {
       "title": "Acount",

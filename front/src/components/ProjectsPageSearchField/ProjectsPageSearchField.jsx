@@ -8,6 +8,8 @@ const ProjectsPageSearchField = ({ onChange }) => {
    // const searchTitleref = useRef(null)
    // const [isSearchOpened, setIsSearchOpened] = useState(false)
 
+   // !!! ToDo delete this file
+
    return (
       <div className={styles.searckArea}>
          {/* <form className={styles.titleSearch} onChange={onChange}>

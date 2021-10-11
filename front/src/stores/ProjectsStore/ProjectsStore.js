@@ -1,6 +1,7 @@
 import axios from "axios";
 import { action, makeObservable, observable } from "mobx"
 import { toast } from "react-toastify";
+import { UserStore } from "..";
 import { changedContent, changedTitle, deleted, drag, getProjects, push } from "../../services/projects";
 import { LINK_PROJECTS } from "../../utils/httpLinks";
 
@@ -21,20 +22,26 @@ class ProjectsStore {
    }
 
    asyncGetProjects = async () => {
-      // const projects = await getProjects()
-      // console.log(projects);
-      // this.setProjects(projects)
       try {
-         const id = localStorage.getItem("userData")
-         const userJsonId = JSON.parse(id)
-         const userId = userJsonId.userId
+         const userId = await UserStore.userId
 
-         const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
-         const projects = res.data
+         const projects = await getProjects(userId)
+
          this.setProjects(projects)
       } catch (error) {
-         toast.error("invalid data")
+         console.log(555555555555555);
       }
+      // try {
+      //    const id = localStorage.getItem("userData")
+      //    const userJsonId = JSON.parse(id)
+      //    const userId = userJsonId.userId
+
+      //    const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
+      //    const projects = res.data
+      //    this.setProjects(projects)
+      // } catch (error) {
+      //    toast.error("invalid data")
+      // }
    }
 
    setProjects = (projects) => {
@@ -43,7 +50,9 @@ class ProjectsStore {
 
 
    pushProject = async (title, content) => {
-      const project = await push(title, content)
+      const user = UserStore.userId
+
+      const project = await push(title, content, user)
       this.projects.push(project)
    }
 
@@ -73,7 +82,7 @@ class ProjectsStore {
 
 
    dragProject = async (result) => {
-
+      console.log(result);
       const changedProjectPosition = await drag(result)
 
       this.setDragProject(changedProjectPosition)

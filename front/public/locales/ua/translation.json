@@ -1,7 +1,17 @@
 {
    "header": {
       "searchPlaceholder": "Пошук",
-      "home": "Дім"
+      "home": "Дім",
+      "projects": "Проекти",
+      "dashboards": "Дошка",
+      "people": "Користувачі"
+   },
+   "sidebar": {
+      "backlog": "Відставання",
+      "reports": "Звіти",
+      "components": "Компоненти",
+      "releases": "Випуски",
+      "addItem": "Додати предмет"
    },
    "userField": {
       "title": "Обліковий Запис",

@@ -3,25 +3,20 @@ import { toast } from "react-toastify"
 import { LINK_PROJECTS } from "../utils/httpLinks"
 import axiosWrraper from "./axiosWrapper"
 
-export const getProjects = async () => {
+export const getProjects = async (userId) => {
    try {
-      const id = localStorage.getItem("userData")
-      const userJsonId = JSON.parse(id)
-      const userId = userJsonId.userId
-
       const res = await axiosWrraper.get(`${LINK_PROJECTS}/${userId}`)
       const project = res.data
+
       return project
+
    } catch (error) {
       toast.error("invalid data")
    }
 }
 
-export const push = async (title, content) => {
+export const push = async (title, content, userId) => {
    try {
-      const id = localStorage.getItem("userData")
-      const user = JSON.parse(id)
-      const userId = user.userId
 
       const res = await axiosWrraper.post(LINK_PROJECTS, { title, content, userId })
       return res.data

@@ -24,34 +24,34 @@ class BoardStore {
          setLists: action,
          setTasks: action,
       })
-      // this.loadProjects()
 
    }
 
 
    asyncGetLists = async (projectId) => {
-      // const lists = await getLists(projectId)
+      const lists = await getLists(projectId)
 
-      // this.setLists(lists)
-      // this.lists.map(element => {
-      //    this.asyncGetTasks(element._id);
-      // })
+      this.setLists(lists)
+      this.lists.map(element => {
+         this.asyncGetTasks(element._id);
+      })
 
-      try {
-         const res = await axiosWrraper.get(`${LINK_DASHBOARD_LISTS}/${projectId}`)
-         const lists = res.data
+      // try {
+      //    const res = await axiosWrraper.get(`${LINK_DASHBOARD_LISTS}/${projectId}`)
+      //    const lists = res.data
 
-         this.setLists(lists)
-         this.lists.map(element => {
-            this.asyncGetTasks(element._id);
-         })
-      } catch (error) {
-         toast.error("invalid data")
-      }
+      //    this.setLists(lists)
+      //    this.lists.map(element => {
+      //       this.asyncGetTasks(element._id);
+      //    })
+      // } catch (error) {
+      //    toast.error("invalid data")
+      // }
    }
 
    setLists = (lists) => {
       this.lists = lists
+      console.log(this.lists);
    }
 
    pushList = async (title, projectId) => {
@@ -79,25 +79,25 @@ class BoardStore {
 
    asyncGetTasks = async (listId) => {
 
-      // const tasks = await getTasks(listId)
-      // const foundList = this.lists.find((found) => found._id === listId)
+      const tasks = await getTasks(listId)
+      const foundList = this.lists.find((found) => found._id === listId)
 
-      // if (foundList) {
-      //    this.setTasks(tasks, foundList)
-      // }
-
-      try {
-         const res = await axiosWrraper.get(`${LINK_DASHBOARD_TASKS}/${listId}`)
-         const tasks = res.data
-         const foundList = this.lists.find((found) => found._id === listId)
-
-         if (foundList) {
-            this.setTasks(tasks, foundList)
-         }
-
-      } catch (error) {
-         toast.error("invalid data")
+      if (foundList) {
+         this.setTasks(tasks, foundList)
       }
+
+      // try {
+      //    const res = await axiosWrraper.get(`${LINK_DASHBOARD_TASKS}/${listId}`)
+      //    const tasks = res.data
+      //    const foundList = this.lists.find((found) => found._id === listId)
+
+      //    if (foundList) {
+      //       this.setTasks(tasks, foundList)
+      //    }
+
+      // } catch (error) {
+      //    toast.error("invalid data")
+      // }
    }
 
    setTasks = (tasks, foundList) => {
