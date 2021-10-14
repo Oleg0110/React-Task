@@ -8,28 +8,27 @@ import { BoardStore } from "../../stores"
 import { observer } from "mobx-react"
 import { TITLE_VALIDATION } from "../../utils/validation";
 import { useTranslation } from "react-i18next";
-import styles from "./CreateListModalWindow.module.scss"
+import { urlValue } from "utils/functions";
+import styles from "./CreateColumnModalWindow.module.scss"
 
-interface ICreateListModalWindow {
+interface ICreateColumnModalWindowProps {
    isModalOpened: boolean,
    onModalClose?: () => void,
 }
 
-interface IData {
+interface IOnSubmitProps {
    title: string,
 }
 
-const CreateListModalWindow: React.FC<ICreateListModalWindow> = ({ isModalOpened, onModalClose }) => {
+const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({ isModalOpened, onModalClose }) => {
 
    const { t } = useTranslation();
 
    const { register, handleSubmit, formState: { errors } } = useForm();
 
-   const projectId: string = window.location.href.split("dashboards/")[1];
+   const projectId = urlValue(window.location.href).projectId
 
-   const onSubmit = (data: IData) => {
-      BoardStore.pushList(data.title, projectId)
-   }
+   const onSubmit = (data: IOnSubmitProps) => BoardStore.pushColumn(data.title, projectId)
 
    return (
       <>
@@ -41,15 +40,15 @@ const CreateListModalWindow: React.FC<ICreateListModalWindow> = ({ isModalOpened
                      <div className={styles.closeIcon} />
                   </Button>
                </div>
-               <span className={styles.title}>{t("modal.listTitle")}</span>
+               <span className={styles.title}>{t("modal.columnTitle")}</span>
                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                   <input {...register("title", TITLE_VALIDATION)} type="text" placeholder={t("modal.titlePlaceholder")}
                      className={styles.input} />
                   {errors.title?.message && <p className={styles.errorPosition}>
                      {errors.title?.message}
                   </p>}
-                  {/* <TextBox inputStyle="inputCreateList" placeholder="Title" type="text" innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} /> */}
-                  <Button buttonStyle="fifthButtonStyle">{t("modal.addList")}</Button>
+                  {/* <TextBox inputStyle="inputCreateColumn" placeholder="Title" type="text" innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} /> */}
+                  <Button buttonStyle="fifthButtonStyle">{t("modal.addColumn")}</Button>
                </form>
             </div>
          </div>
@@ -59,4 +58,4 @@ const CreateListModalWindow: React.FC<ICreateListModalWindow> = ({ isModalOpened
 }
 
 
-export default observer(CreateListModalWindow)
+export default observer(CreateColumnModalWindow)

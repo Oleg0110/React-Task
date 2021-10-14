@@ -2,7 +2,7 @@ const { Schema, model, Types } = require("mongoose")
 
 const taskSchema = new Schema({
    text: { type: String, required: true },
-   listOwner: { type: Types.ObjectId, ref: "List" },
+   columnOwner: { type: Types.ObjectId, ref: "Column" },
    projectOwner: { type: Types.ObjectId, ref: "Project" }
 })
 

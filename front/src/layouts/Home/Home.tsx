@@ -1,5 +1,5 @@
 import React from "react"
-import { useHistory } from "react-router"
+import { RouteComponentProps, useHistory } from "react-router"
 import { Button } from "../../components"
 import { useMedia } from "../../hooks"
 import { RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE, ROUTES } from "../../utils/constants"
@@ -8,7 +8,7 @@ import { UserStore } from "../../stores"
 import styles from "./Home.module.scss"
 import { observer } from "mobx-react"
 
-const Home: React.FC = ({ children }) => {
+const Home: React.FC<RouteComponentProps<any>> = ({ children }) => {
 
    const responsive = useMedia(RESPONSIVE_SIZES, RESPONSIVE_VALUE, RESPONSIVE_WHITHOUT_VALUE);
 

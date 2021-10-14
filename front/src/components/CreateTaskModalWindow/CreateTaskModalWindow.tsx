@@ -6,48 +6,48 @@ import { observer } from "mobx-react"
 import { TASKS_CONTENT_VALIDATION } from "../../utils/validation";
 import { useTranslation } from "react-i18next";
 import styles from "./CreateTaskModalWindow.module.scss"
+import { urlValue } from "utils/functions";
+import { IModalWindowProps } from "utils/interFace";
 
-interface IData {
-   text: string,
+interface IOnSubmitProps {
+  text: string,
 }
 
-const CreateTaskModalWindow: React.FC<IModalWindow> = ({ isModalOpened, onModalClose, id }) => {
+const CreateTaskModalWindow: React.FC<IModalWindowProps> = ({ isModalOpened, onModalClose, id }) => {
 
-   const { t } = useTranslation();
+  const { t } = useTranslation();
 
-   const projectId: string = window.location.href.split("dashboards/")[1];
+  const projectId = urlValue(window.location.href).projectId
 
-   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-   const onSubmit = (data: IData) => {
-      BoardStore.pushTask(data.text, id, projectId)
-   };
+  const onSubmit = (data: IOnSubmitProps) => BoardStore.pushTask(data.text, id, projectId)
 
 
-   return (
-      <>
-         <div className={`${styles.backFon} ${isModalOpened && styles.opened}`} onClick={onModalClose} />
-         <div className={`${styles.createArea} ${isModalOpened && styles.openedCreate}`}>
-            <div className={styles.modalBody}>
-               <div className={styles.form}>
-                  <div className={styles.closeIconPosition}>
-                     <Button onClick={onModalClose}>
-                        <div className={styles.closeIcon} />
-                     </Button>
-                  </div>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                     <div className={styles.cardText}>
-                        <span className={styles.text}>{t("modal.taskTitle")}</span>
-                        <br />
-                        <textarea {...register("text", TASKS_CONTENT_VALIDATION)} placeholder={t("modal.contentPlaceholder")}
-                           className={styles.textInput} />
-                        {errors.text?.message && <p className={styles.errorPosition}>
-                           {errors.text?.message}
-                        </p>}
-                     </div>
-                     <Button buttonStyle="fifthButtonStyle" ><span className={styles.button}>{t("modal.addTask")}</span></Button>
-                  </form>
-                  {/* <form onSubmit={(e) => {
+  return (
+    <>
+      <div className={`${styles.backFon} ${isModalOpened && styles.opened}`} onClick={onModalClose} />
+      <div className={`${styles.createArea} ${isModalOpened && styles.openedCreate}`}>
+        <div className={styles.modalBody}>
+          <div className={styles.form}>
+            <div className={styles.closeIconPosition}>
+              <Button onClick={onModalClose}>
+                <div className={styles.closeIcon} />
+              </Button>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className={styles.cardText}>
+                <span className={styles.text}>{t("modal.taskTitle")}</span>
+                <br />
+                <textarea {...register("text", TASKS_CONTENT_VALIDATION)} placeholder={t("modal.contentPlaceholder")}
+                  className={styles.textInput} />
+                {errors.text?.message && <p className={styles.errorPosition}>
+                  {errors.text?.message}
+                </p>}
+              </div>
+              <Button buttonStyle="fifthButtonStyle" ><span className={styles.button}>{t("modal.addTask")}</span></Button>
+            </form>
+            {/* <form onSubmit={(e) => {
                   e.preventDefault()
                   BoardStore.pushTask(taskRef.current.value, id)
                }}>
@@ -148,11 +148,11 @@ const CreateTaskModalWindow: React.FC<IModalWindow> = ({ isModalOpened, onModalC
                   </div>
                   <Button buttonStyle="fifthButtonStyle" className={styles.button}>Add Card</Button>
                </form> */}
-               </div>
-            </div>
-         </div>
-      </>
-   )
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./TextBox.module.scss"
 
-interface ITextBox {
+interface ITextBoxProps {
    inputStyle?: string,
    error?: string
    placeholder?: string,
@@ -9,7 +9,7 @@ interface ITextBox {
    type?: string,
 }
 
-const TextBox: React.FC<ITextBox> = ({ inputStyle, error, innerRef, placeholder, type }) => {
+const TextBox: React.FC<ITextBoxProps> = ({ inputStyle, error, innerRef, placeholder, type }) => {
 
    return (
       <div>

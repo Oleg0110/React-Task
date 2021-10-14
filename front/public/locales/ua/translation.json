@@ -81,9 +81,9 @@
       "logIn": "Увійти"
    },
    "modal": {
-      "listTitle": "Заголовок списку",
+      "columnTitle": "Заголовок списку",
       "titlePlaceholder": "Заголовок",
-      "addList": "Додати Список",
+      "addColumn": "Додати Список",
       "taskTitle": "Текст Завдання",
       "contentPlaceholder": "Текст",
       "addTask": "Додати Завдання",

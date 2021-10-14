@@ -67,37 +67,37 @@ button {
    }
 }
 
-.sidebarButtonStyleLD {
-   font-weight: bold;
-   transition: 0.3s;
-   align-items: center;
-   display: flex;
-   font-size: 16px;
-   position: relative;
+// .sidebarButtonStyleLD {
+//    font-weight: bold;
+//    transition: 0.3s;
+//    align-items: center;
+//    display: flex;
+//    font-size: 16px;
+//    position: relative;
 
-   &:hover {
-      color: #fb8c00;
-   }
+//    &:hover {
+//       color: #fb8c00;
+//    }
 
-   &:hover::before {
-      transition: 0.3s all;
-      opacity: 1;
-      transform: translateY(19.5px) rotate(0deg);
-   }
+//    &:hover::before {
+//       transition: 0.3s all;
+//       opacity: 1;
+//       transform: translateY(19.5px) rotate(0deg);
+//    }
 
-   &::before {
-      content: "";
-      width: 100%;
-      height: 2px;
-      background-color: #fb8c00;
-      position: absolute;
-      bottom: -5%;
-      transition: 0.5s all;
-      opacity: 0;
-      transform: translateY(0px) rotate(0deg);
-      z-index: 2;
-   }
-}
+//    &::before {
+//       content: "";
+//       width: 100%;
+//       height: 2px;
+//       background-color: #fb8c00;
+//       position: absolute;
+//       bottom: -5%;
+//       transition: 0.5s all;
+//       opacity: 0;
+//       transform: translateY(0px) rotate(0deg);
+//       z-index: 2;
+//    }
+// }
 
 .thirdButtonStyle {
    padding: 8px 10px;

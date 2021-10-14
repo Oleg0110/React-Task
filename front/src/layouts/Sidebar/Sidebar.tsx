@@ -7,32 +7,31 @@ import { useTranslation } from "react-i18next";
 import { UserStore } from "../../stores";
 import styles from "./Sidebar.module.scss"
 
-interface ISidebar {
+interface ISidebarProps {
    isOpened: boolean,
    onClick: () => void
 }
 
-interface IButton {
+interface IButtonProps {
    id: string,
    name: string,
    link: string,
    icon: string,
-   alt: string,
    style: string
 }
 
-const buttons: Array<IButton> = [
-   { id: "0", name: "sidebar.backlog", link: ROUTES.backlog, icon: "backlogIcon", alt: "Backlog Icon", style: "sidebarButtonStyle" },
-   { id: "1", name: "sidebar.reports", link: ROUTES.reports, icon: "reportsIcon", alt: "Reports Icon", style: "sidebarButtonStyle" },
-   { id: "2", name: "sidebar.components", link: ROUTES.components, icon: "componentsIcon", alt: "Components Icon", style: "sidebarButtonStyle" },
-   { id: "3", name: "sidebar.releases", link: ROUTES.releases, icon: "releaseIcon", alt: "Releases Icon", style: "sidebarButtonStyle" },
-   { id: "5", name: "sidebar.addItem", link: ROUTES.addItem, icon: "addItemIcon", alt: "Add-item Icon", style: "sidebarButtonStyle" }
+const buttons: Array<IButtonProps> = [
+   { id: "0", name: "sidebar.backlog", link: ROUTES.backlog, icon: "backlogIcon", style: "sidebarButtonStyle" },
+   { id: "1", name: "sidebar.reports", link: ROUTES.reports, icon: "reportsIcon", style: "sidebarButtonStyle" },
+   { id: "2", name: "sidebar.components", link: ROUTES.components, icon: "componentsIcon", style: "sidebarButtonStyle" },
+   { id: "3", name: "sidebar.releases", link: ROUTES.releases, icon: "releaseIcon", style: "sidebarButtonStyle" },
+   { id: "5", name: "sidebar.addItem", link: ROUTES.addItem, icon: "addItemIcon", style: "sidebarButtonStyle" }
 ];
 
 
-const Sidebar: React.FC<ISidebar> = ({ isOpened, children, onClick }) => {
+const Sidebar: React.FC<ISidebarProps> = ({ isOpened, children, onClick }) => {
 
-   const isAuth: boolean = !!UserStore.userToken
+   const isAuth = !!UserStore.userToken
 
    const history = useHistory()
 
@@ -40,17 +39,14 @@ const Sidebar: React.FC<ISidebar> = ({ isOpened, children, onClick }) => {
 
    const onButtonClick = (links: string) => isAuth ? history.push(links) : toast.error("please sign up or log in")
 
-   // !!! ToDo ALT
 
    return (
       <div className={`${styles.sidebar} ${isOpened && styles.opened}`}>
          <div onClick={onClick}>
             {children}
             {buttons.map(data => {
-               <Button key={data.id} onClick={() => { onButtonClick(data.link) }} buttonStyle={data.style}>
-                  <div className={`${styles.icon} ${styles[data.icon]}`}
-                  // alt={data.alt} 
-                  />
+               return <Button key={data.id} onClick={() => { onButtonClick(data.link) }} buttonStyle={data.style}>
+                  <div className={`${styles.icon} ${styles[data.icon]}`} />
                   {t(data.name)}
                </Button>
             }
