@@ -43,8 +43,6 @@ router.get("/people", async (req, res) => {
          allUsers: users.length
       }
 
-      console.log(typeof userData.allUsers);
-
       res.status(200).json(userData)
 
    } catch (error) {

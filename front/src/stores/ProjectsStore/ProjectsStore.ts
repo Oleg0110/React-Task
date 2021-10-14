@@ -1,12 +1,17 @@
-import axios from "axios";
 import { action, makeObservable, observable } from "mobx"
-import { toast } from "react-toastify";
 import { UserStore } from "..";
 import { changedContent, changedTitle, deleted, drag, getProjects, push } from "../../services/projects";
-import { LINK_PROJECTS } from "../../utils/httpLinks";
+
+interface IProjectsStore {
+   _id: string
+   title: string
+   content: string
+   userOwner: string
+   __v: number
+}
 
 class ProjectsStore {
-   projects = []
+   projects: Array<IProjectsStore> = []
    constructor() {
       makeObservable(this, {
          projects: observable,
@@ -22,41 +27,28 @@ class ProjectsStore {
    }
 
    asyncGetProjects = async () => {
-      try {
-         const userId = await UserStore.userId
 
-         const projects = await getProjects(userId)
+      const userId = UserStore.userId
 
-         this.setProjects(projects)
-      } catch (error) {
-         console.log(555555555555555);
-      }
-      // try {
-      //    const id = localStorage.getItem("userData")
-      //    const userJsonId = JSON.parse(id)
-      //    const userId = userJsonId.userId
+      const projects = await getProjects(userId)
 
-      //    const res = await axios.get(`${LINK_PROJECTS}/${userId}`)
-      //    const projects = res.data
-      //    this.setProjects(projects)
-      // } catch (error) {
-      //    toast.error("invalid data")
-      // }
+      this.setProjects(projects)
    }
 
-   setProjects = (projects) => {
+   setProjects = (projects: Array<IProjectsStore>) => {
       this.projects = projects
    }
 
 
-   pushProject = async (title, content) => {
+   pushProject = async (title: string, content: string) => {
+
       const user = UserStore.userId
 
       const project = await push(title, content, user)
       this.projects.push(project)
    }
 
-   changedProjecTitle = async (title, id) => {
+   changedProjecTitle = async (title: string, id: string) => {
 
       const changedProjectTitle = await changedTitle(title, id)
       const foundProjectIndex = this.projects.findIndex(found => found._id === id)
@@ -64,7 +56,7 @@ class ProjectsStore {
       this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
    }
 
-   changedProjecContent = async (content, id) => {
+   changedProjecContent = async (content: string, id: string) => {
 
       const changedProjectContent = await changedContent(content, id)
       const foundProjectIndex = this.projects.findIndex(found => found._id === id)
@@ -72,7 +64,7 @@ class ProjectsStore {
       this.projects.splice(foundProjectIndex, 1, changedProjectContent)
    }
 
-   deletedProject = async (id) => {
+   deletedProject = async (id: string) => {
 
       await deleted(id)
       const foundProjectIndex = this.projects.findIndex(found => found._id === id)
@@ -81,14 +73,14 @@ class ProjectsStore {
    }
 
 
-   dragProject = async (result) => {
-      console.log(result);
+   dragProject = async (result: object) => {
+
       const changedProjectPosition = await drag(result)
 
       this.setDragProject(changedProjectPosition)
    }
 
-   setDragProject = (drag) => {
+   setDragProject = (drag: Array<IProjectsStore>) => {
       this.projects = drag
    }
 

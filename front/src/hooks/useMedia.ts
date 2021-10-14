@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 
-function useMedia(queries, values, defaultValue) {
+function useMedia(queries: string[], values: string[], defaultValue: string) {
    const mediaQueryLists = queries.map((q) => window.matchMedia(q));
    const getValue = useCallback(() => {
       const index = mediaQueryLists.findIndex((mql) => mql.matches);
       return typeof values[index] !== "undefined" ? values[index] : defaultValue;
-   }, [defaultValue, values, mediaQueryLists]);
+   }, []);
    const [value, setValue] = useState(getValue);
    useEffect(() => {
       const handler = () => setValue(getValue);
@@ -13,7 +13,7 @@ function useMedia(queries, values, defaultValue) {
       return () =>
          mediaQueryLists.forEach((mql) => mql.removeListener(handler));
    },
-      [getValue, mediaQueryLists]
+      []
    );
    return value;
 }

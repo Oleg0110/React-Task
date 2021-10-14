@@ -1,17 +1,19 @@
 import React from "react";
 import styles from "./Button.module.scss"
 
-interface IButton {
-   onClick?: (e: React.MouseEvent<HTMLElement>) => void,
-   buttonStyle?: string
+type ButtonStyleTypes = "mainButtonStyle" | "sidebarButtonStyle" | "thirdButtonStyle" | "fourthButtonStyle" | "fifthButtonStyle" | "userFieldButtonStyle"
+
+interface IButtonProps {
+  onClick?: (arg0: any) => void,
+  buttonStyle?: string
 }
 
-const Button: React.FC<IButton> = ({ children, buttonStyle, onClick }) => {
-   return (
-      <button
-         className={!!buttonStyle ? styles[buttonStyle] : ''}
-         onClick={onClick}>{children}
-      </button >)
+const Button: React.FC<IButtonProps> = ({ children, onClick, buttonStyle }) => {
+  return (
+    <button className={!!buttonStyle ? styles[buttonStyle] : ''}
+      onClick={onClick}>
+      {children}
+    </button >)
 }
 
 export default Button

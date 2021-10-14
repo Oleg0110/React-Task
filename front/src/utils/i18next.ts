@@ -3,21 +3,23 @@ import Backend from "i18next-http-backend"
 import LanguageDetector from "i18next-browser-languagedetector"
 import { initReactI18next } from "react-i18next"
 
+const initItems = {
+   fallbackLng: "en",
+   whitelist: ["en", "ua", "ru"],
+   debug: false,
+   detection: {
+      order: ["localStorage"],
+      caches: ["localStorage"]
+   },
+   interpolation: {
+      escapeValue: false
+   }
+}
+
 i18n
    .use(Backend)
    .use(LanguageDetector)
    .use(initReactI18next)
-   .init({
-      fallbackLng: "en",
-      whitelist: ["en", "ua", "ru"],
-      debug: false,
-      detection: {
-         order: ["localStorage"],
-         caches: ["localStorage"]
-      },
-      interpolation: {
-         escapeValue: false
-      }
-   })
+   .init(initItems)
 
 export default i18n

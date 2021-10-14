@@ -7,6 +7,12 @@ import { ROUTES } from "../../utils/constants";
 import { UserStore } from "../../stores";
 import { useTranslation } from "react-i18next";
 import styles from "./LogInField.module.scss"
+import { observer } from "mobx-react";
+
+interface IOnSubmitProps {
+   email: string,
+   password: string
+}
 
 const LogInField: React.FC = () => {
 
@@ -17,13 +23,13 @@ const LogInField: React.FC = () => {
    const { register, handleSubmit, formState: { errors } } = useForm();
    const history = useHistory()
 
-   const isAuth: boolean = !!UserStore.userToken
+   const isAuth = !!UserStore.userToken
 
    useEffect(() => {
       isAuth ? history.push(ROUTES.home) : history.push(ROUTES.userAauthLogIn)
-   }, [isAuth])
+   }, [isAuth, history])
 
-   const onSubmit = (data: object) => UserStore.loginUser(data)
+   const onSubmit = (data: IOnSubmitProps) => UserStore.loginUser(data.email, data.password)
 
    return (
       <div className={styles.contentPosition} >
@@ -72,4 +78,4 @@ const LogInField: React.FC = () => {
 
 }
 
-export default LogInField
+export default observer(LogInField)

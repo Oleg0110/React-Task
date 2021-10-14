@@ -2,20 +2,16 @@ import React from "react";
 import { Button } from ".."
 import { BoardStore } from "../../stores"
 import { useTranslation } from "react-i18next";
-import styles from "./DeleteTaskModal.module.scss"
+import styles from "./DeleteColumnModal.module.scss"
 import { observer } from "mobx-react";
 import { IModalWindowProps } from "utils/interFace";
 
-interface IDeleteTaskModalProps extends IModalWindowProps {
-  columnId: string,
-}
 
-
-const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({ isModalOpened, onModalClose, id, columnId }) => {
+const DeleteColumnModal: React.FC<IModalWindowProps> = ({ isModalOpened, onModalClose, id }) => {
 
   const { t } = useTranslation();
 
-  const onClick = () => BoardStore.deleteTask(id, columnId)
+  const onClick = () => BoardStore.deletedColumn(id)
 
   return (
     <>
@@ -35,4 +31,4 @@ const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({ isModalOpened, onMod
   )
 }
 
-export default observer(DeleteTaskModal)
+export default observer(DeleteColumnModal)

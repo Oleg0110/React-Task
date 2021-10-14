@@ -1,10 +1,10 @@
 const { Schema, model, Types } = require("mongoose")
 
-const listSchema = new Schema({
+const columnSchema = new Schema({
    title: { type: String, required: true },
    // tasks: [{ type: Types.ObjectId, ref: "Task" }],
    projectOwner: { type: Types.ObjectId, ref: "Project" }
 })
 
 
-module.exports = model("List", listSchema)
+module.exports = model("Column", columnSchema)
