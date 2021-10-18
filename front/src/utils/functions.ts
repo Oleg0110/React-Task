@@ -1,34 +1,30 @@
+// !!! ToDO
+// interface IUrlValue {
+//   page?: string | number
+//   count?: string | number
+//   projectId?: string
+// }
 
-interface urlValue {
-   page?: string | number,
-   count?: string | number,
-   projectId?: string
+const urlValue = (string: string) => {
+  const value = {
+    page: '',
+    count: '',
+    projectId: '',
+  }
+
+  if (string.includes('?')) {
+    const page = string.split('?')[1].split('&')[0].split('=')[1]
+    value.page = page
+
+    const count = string.split('?')[1].split('&')[1].split('=')[1]
+    value.count = count
+
+    return value
+  }
+  const projectId = string.split('dashboards/')[1]
+  value.projectId = projectId
+
+  return value
 }
 
-
-export const urlValue = (string: string) => {
-
-   const urlValue = {
-      page: "",
-      count: "",
-      projectId: ""
-   }
-
-   if (string.includes("?")) {
-
-      const page = string.split("?")[1].split("&")[0].split("=")[1]
-      urlValue.page = page
-
-      const count = string.split("?")[1].split("&")[1].split("=")[1]
-      urlValue.count = count
-
-      return urlValue
-   }
-   else {
-      const projectId = string.split("dashboards/")[1]
-      urlValue.projectId = projectId
-
-      return urlValue
-   }
-
-}
+export default urlValue

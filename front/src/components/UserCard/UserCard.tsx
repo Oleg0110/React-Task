@@ -1,32 +1,30 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import { observer } from 'mobx-react';
-import styles from './UserCard.module.scss';
+import React from 'react'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { observer } from 'mobx-react'
+import styles from './UserCard.module.scss'
 
 interface IUserCardProps {
-  name: string,
+  name: string
   email: string
 }
 
-// !!! ToDo
-
 const UserCard: React.FC<IUserCardProps> = ({ name, email }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const copyEmail = async () => {
     if (email === undefined) {
-      toast.error('Failed to copy!');
+      toast.error('Failed to copy!')
     } else {
-      await navigator.clipboard.writeText(email);
-      toast.success(`Copied ${email}`);
+      await navigator.clipboard.writeText(email)
+      toast.success(`Copied ${email}`)
     }
-  };
+  }
 
   return (
     <>
       <div className={styles.back}>
-        <button type="button" onClick={copyEmail} className={styles.userCard}>
+        <button type='button' onClick={copyEmail} className={styles.userCard}>
           <div className={styles.userBlock}>
             <div className={styles.userPhoto} />
             <div className={styles.infoField}>
@@ -40,7 +38,7 @@ const UserCard: React.FC<IUserCardProps> = ({ name, email }) => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default observer(UserCard);
+export default observer(UserCard)

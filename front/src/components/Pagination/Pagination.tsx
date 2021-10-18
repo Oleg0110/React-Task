@@ -1,141 +1,161 @@
-import React, { useEffect, useState } from "react"
-import { observer } from "mobx-react"
-import { ROUTES } from "../../utils/constants"
-import { useHistory } from "react-router"
-import { Button } from ".."
-import { toast } from "react-toastify"
-import { UserStore } from "../../stores"
-import { urlValue } from "../../utils/functions"
-import styles from "./Pagination.module.scss"
-
+import React from 'react'
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { useForm } from 'react-hook-form'
+import { CHOOSE_VALIDATION } from 'utils/validation'
+import { UserStore } from '../../stores'
+// import urlValue from '../../utils/functions'
+import { Button } from '..'
+import { ROUTES } from '../../utils/constants'
+import styles from './Pagination.module.scss'
 
 interface IPaginationProps {
-  usersOnPage: number,
-  setCurrentPage: (number: number) => void,
-  currentPage: number,
+  usersOnPage: number
+  setCurrentPage: (number: number) => void
+  currentPage: number
 }
 
+interface IOnSubmitProps {
+  number: number
+}
 
-const Pagination: React.FC<IPaginationProps> = ({ usersOnPage, setCurrentPage, currentPage }) => {
-
+const Pagination: React.FC<IPaginationProps> = ({
+  usersOnPage,
+  setCurrentPage,
+  currentPage,
+}) => {
   const history = useHistory()
 
-  const onPageChanged = (number: number) => {
+  const { t } = useTranslation()
 
-    number && setCurrentPage(number)
+  const { register, handleSubmit } = useForm()
 
-    UserStore.asyncGetUsers(number, usersOnPage)
+  const { users } = UserStore
 
-    history.push(`${ROUTES.people}?page=${number}&count=${usersOnPage}`)
-  }
-
-  const page = (): number => history.location.search ? +urlValue(history.location.search).page : 1
-
-  // !!! ToDo any
-
-  const { users } = UserStore as any
-
-  const pageNumbers: number[] = users.pageNumbers || []
+  const pageNumbers: number[] = users?.pageNumbers || []
 
   const nextPage = () => {
-
     if (pageNumbers.length !== currentPage) {
+      const nextCurrentPage = +currentPage + 1
 
-      const page = +currentPage + 1
+      UserStore.asyncGetUsers(nextCurrentPage, usersOnPage)
+      history.push(
+        `${ROUTES.people}?page=${nextCurrentPage}&count=${usersOnPage}`,
+      )
 
-      UserStore.asyncGetUsers(page, usersOnPage)
-      history.push(`${ROUTES.people}?page=${page}&count=${usersOnPage}`)
-
-      setCurrentPage(page)
+      setCurrentPage(nextCurrentPage)
     } else {
-      toast.error("last page")
+      toast.error('last page')
 
-      const page = pageNumbers.length
+      const currentNextPage = pageNumbers.length
 
-      UserStore.asyncGetUsers(page, usersOnPage)
-      history.push(`${ROUTES.people}?page=${page}&count=${usersOnPage}`)
+      UserStore.asyncGetUsers(currentNextPage, usersOnPage)
+      history.push(
+        `${ROUTES.people}?page=${currentNextPage}&count=${usersOnPage}`,
+      )
 
-      setCurrentPage(page)
+      setCurrentPage(currentNextPage)
     }
   }
 
   const prevPage = () => {
     if (currentPage > 1) {
+      const prevCurrentPage = currentPage - 1
 
-      const page = currentPage - 1
+      UserStore.asyncGetUsers(prevCurrentPage, usersOnPage)
+      history.push(
+        `${ROUTES.people}?page=${prevCurrentPage}&count=${usersOnPage}`,
+      )
 
-      UserStore.asyncGetUsers(page, usersOnPage)
-      history.push(`${ROUTES.people}?page=${page}&count=${usersOnPage}`)
-
-      setCurrentPage(page)
+      setCurrentPage(prevCurrentPage)
     } else {
-      toast.error("first page")
+      toast.error('first page')
 
-      const page = 1
+      const currentPrevPage = 1
 
-      UserStore.asyncGetUsers(page, usersOnPage)
-      history.push(`${ROUTES.people}?page=${page}&count=${usersOnPage}`)
+      UserStore.asyncGetUsers(currentPrevPage, usersOnPage)
+      history.push(
+        `${ROUTES.people}?page=${currentPrevPage}&count=${usersOnPage}`,
+      )
 
-      setCurrentPage(page)
+      setCurrentPage(currentPrevPage)
     }
   }
 
-  const [visibleButtons, setVisibleButtons] = useState<any>([]);
+  const onSubmit = (data: IOnSubmitProps) => {
+    if (data.number <= pageNumbers.length && data.number > 0) {
+      setCurrentPage(data.number)
 
+      UserStore.asyncGetUsers(data.number, usersOnPage)
 
-  useEffect(() => {
-    // !!! ToDo 
-    const dots = "..."
-
-    let visiblePages = [...visibleButtons];
-
-    if (pageNumbers.length < 6) {
-      visiblePages = pageNumbers
+      return history.push(
+        `${ROUTES.people}?page=${data.number}&count=${usersOnPage}`,
+      )
     }
-    else if (currentPage >= 1 && currentPage <= 3) {
-      visiblePages = [1, 2, 3, 4, dots, pageNumbers.length]
-    }
-    else if (currentPage === 4) {
-      let sliced = pageNumbers.slice(0, 5)
-      visiblePages = [...sliced, dots, pageNumbers.length]
-    }
-    else if (currentPage > 4 && currentPage < pageNumbers.length - 2) {
-      let sliced1 = pageNumbers.slice(currentPage - 2, currentPage)
-      let sliced2 = pageNumbers.slice(currentPage, currentPage + 1)
-      visiblePages = ([1, dots, ...sliced1, ...sliced2, dots, pageNumbers.length])
-    }
-    else if (currentPage > pageNumbers.length - 3) {
-      let sliced = pageNumbers.slice(pageNumbers.length - 4)
-      visiblePages = ([1, dots, ...sliced])
-    }
+    return toast.error('Sorry page not found')
+  }
 
-    setVisibleButtons(visiblePages)
-  }, [users, currentPage, pageNumbers])
+  const inputData = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const number = +event.target.value
 
+    if (number) {
+      setCurrentPage(number)
+      UserStore.asyncGetUsers(number, usersOnPage)
 
+      return history.push(
+        `${ROUTES.people}?page=${number}&count=${usersOnPage}`,
+      )
+    }
+    return toast.error('Sorry')
+  }
 
   return (
     <div className={styles.numberField}>
-      <div className={styles.backFon}>
-        <ul className={styles.pagination}>
-          {visibleButtons.map((number: any, index: any) => {
-            return <span key={index} className={page() === number ? styles.currentNumber : styles.number}
-              onClick={() => onPageChanged(number)}
-            >
-              {number}
-            </span>
-          })}
-        </ul>
-      </div >
-      <div className={styles.arrowBack}>
-        <div className={styles.arrowField}>
-          <div className={styles.buttonsField}>
-            <Button onClick={prevPage}>
-              <div className={styles.prev} />
-            </Button>
-            <Button onClick={nextPage} >
-              <div className={styles.next} />
-            </Button>
+      <div className={styles.chooseField}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.backInputFon}>
+            <span className={styles.choose}>{t('people.choose')}</span>
+            <input
+              className={styles.chooseInput}
+              type='text'
+              autoComplete='off'
+              pattern='^-?[0-9]\d*\.?\d*$'
+              min={1}
+              {...register('number', CHOOSE_VALIDATION)}
+            />
+          </div>
+        </form>
+        <div className={styles.backFon}>
+          <span className={styles.choose}>Choose page:</span>
+          <select
+            size={2}
+            className={styles.numbers}
+            onChange={(event) => inputData(event)}
+          >
+            {pageNumbers.map((number) => (
+              <option className={styles.option} key={number} value={number}>
+                {number}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.arrowBack}>
+          <div className={styles.arrowField}>
+            <div className={styles.buttonsField}>
+              <Button onClick={prevPage}>
+                <div className={styles.prev} />
+              </Button>
+              <div className={styles.pages}>
+                <span className={styles.currentPage}>{currentPage}</span>
+                <span className={styles.of}>{t('people.of')}</span>
+                <span className={styles.numberPage}>{pageNumbers.length}</span>
+              </div>
+              <Button onClick={nextPage}>
+                <div className={styles.next} />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

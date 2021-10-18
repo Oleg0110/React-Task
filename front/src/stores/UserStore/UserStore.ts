@@ -1,33 +1,17 @@
-import { action, makeObservable, observable } from 'mobx';
-import { ICurrentUsersProps } from 'utils/interFace';
-import {
-  getUser, getUsers, login, register,
-} from '../../services/user';
-import { storageDataName } from '../../utils/constants';
-
-interface IUsers {
-  currentUser: ICurrentUsersProps[],
-  pageNumbers: number[],
-  allUsers: number
-}
-
-// !!! ToDo check this Interface
-interface IUser {
-  _id: string
-  email: string
-  name: string
-  password: string
-  __v: number
-}
+import { action, makeObservable, observable } from 'mobx'
+import { IUserType } from 'utils/types'
+import { IUsers } from '../../utils/interface'
+import { getUser, getUsers, login, register } from '../../services/user'
+import { storageDataName } from '../../utils/constants'
 
 class UserStore {
-  users: IUsers[] | null = null;
+  users: IUsers | null = null
 
-  user: IUser | null = null;
+  user: IUserType | null = null
 
-  userId = '';
+  userId = ''
 
-  userToken = '';
+  userToken = ''
 
   constructor() {
     makeObservable(this, {
@@ -45,74 +29,76 @@ class UserStore {
       setUserId: action,
       getUserToken: action,
       setUserToken: action,
-    });
-    this.getUserToken();
-    this.getUserId();
-    this.asyncGetUser();
+    })
+    this.getUserToken()
+    this.getUserId()
+    this.asyncGetUser()
   }
 
   getUserId = () => {
-    const userId = localStorage.getItem(storageDataName);
+    const userId = localStorage.getItem(storageDataName)
 
     if (userId) {
-      const userJson = JSON.parse(userId);
+      const userJson = JSON.parse(userId)
 
-      this.setUserId(userJson.userId);
+      this.setUserId(userJson.userId)
     }
-  };
+  }
 
   setUserId = (id: string) => {
-    this.userId = id;
-  };
+    this.userId = id
+  }
 
   getUserToken = () => {
-    const userToken = localStorage.getItem(storageDataName);
+    const userToken = localStorage.getItem(storageDataName)
 
     if (userToken) {
-      const userJson = JSON.parse(userToken);
-      const { token } = userJson;
+      const userJson = JSON.parse(userToken)
+      const { token } = userJson
 
-      this.setUserToken(token);
+      this.setUserToken(token)
     }
-  };
+  }
 
   setUserToken = (token: string) => {
-    this.userToken = token;
-  };
+    this.userToken = token
+  }
+
   // !!! ToDO any
   asyncGetUsers = async (number: number, usersOnPage: number) => {
-    const users: any = await getUsers(number, usersOnPage);
-    this.setUsers(users);
-  };
+    const users: IUsers | null = await getUsers(number, usersOnPage)
 
-  setUsers = (user: IUsers[]) => {
-    this.users = user;
-  };
+    this.setUsers(users)
+  }
+
+  setUsers = (user: IUsers) => {
+    this.users = user
+  }
 
   asyncGetUser = async () => {
-    await this.getUserToken();
-    await this.getUserId();
+    await this.getUserToken()
+    await this.getUserId()
 
     if (this.userId) {
-      const user = await getUser(this.userId);
+      const user = await getUser(this.userId)
 
-      this.setUser(user);
+      this.setUser(user)
     }
-  };
+  }
 
-  setUser = (user: IUser | null) => {
-    this.user = user;
-  };
+  setUser = (user: IUserType | null) => {
+    this.user = user
+  }
 
   registerUser = async (email: string, name: string, password: string) => {
-    await register(email, name, password);
-    await this.asyncGetUser();
-  };
+    await register(email, name, password)
+    await this.asyncGetUser()
+  }
 
   loginUser = async (email: string, password: string) => {
-    await login(email, password);
-    await this.asyncGetUser();
-  };
+    await login(email, password)
+    await this.asyncGetUser()
+  }
 }
 
-export default new UserStore();
+export default new UserStore()

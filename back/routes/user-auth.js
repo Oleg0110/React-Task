@@ -25,7 +25,8 @@ router.get("/user/:id", async (req, res) => {
 router.get("/people", async (req, res) => {
    try {
       const { page, count } = req.query
-      const users = await User.find({})
+
+     const users = await User.find({})
 
       const lastUserIndex = page * count
       const firsUserIndex = lastUserIndex - count
@@ -96,7 +97,7 @@ router.post("/sign-up", async (req, res) => {
 router.post("/login", async (req, res) => {
    try {
       const { email, password } = req.body
-
+      
       if (!email && !password) {
          return res.status(400).json({ error: "invalid data" })
       }
