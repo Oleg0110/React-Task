@@ -1,15 +1,7 @@
+import React from 'react'
+import { observer } from 'mobx-react'
 // import styles from "./Settings.module.scss"
-import { observer } from "mobx-react"
 
-
-const Settings = () => {
-
-
-   return (
-      <div>
-
-      </div>
-   )
-}
+const Settings = () => <div />
 
 export default observer(Settings)

@@ -1,19 +1,52 @@
 .numberField {
    display: flex;
-   justify-content: space-between;
+   justify-content: end;
    align-items: center;
+   margin-top: 5px;
+}
+
+.chooseInput{
+  padding: 4px 0px 4px 5px;
+  border-radius: 4px;
+  border: 1px solid #9493935c;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.chooseField{
+  display: flex;
+    align-items: center;
 }
 
 .backFon {
-   background-color: #bce0bb;
-   margin-top: 10px;
-   height: 35px;
-   border-radius: 5px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 85%;
-   margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.choose{
+  padding: 0 5px 2px 5px;
+    font-size: 15px;
+}
+
+.numbers {
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #6b9b6c;
+    border-radius: 5px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
+
+.option {
+  background-color: #ffa726;
+  color: #fff;
+  &:not(:checked){
+    background-color: #6b9b6c;
+  }
 }
 
 .pagination {
@@ -39,24 +72,25 @@
    }
 }
 
-.currentNumber {
-   color: #ffa726;
-   font-size: 17px;
-   font-weight: 700;
-   padding: 0px 5px;
-   border-radius: 50%;
-   cursor: pointer;
+
+.backInputFon{
+  background-color: #bce0bb;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .arrowBack {
    background-color: #bce0bb;
-   margin-top: 10px;
+   margin-left: 20px;
    height: 35px;
    border-radius: 5px;
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 13%;
+   width: 125px;
 }
 
 .arrowField {
@@ -103,4 +137,26 @@
    &:hover {
       background-color: #ffa726;
    }
+}
+
+.pages{
+  display: flex;
+    align-items: center;
+    padding-bottom: 2px;
+}
+
+.currentPage{
+  font-weight: 600;
+  font-size: 19px;
+  color: #ffa726;
+}
+
+.numberPage{
+  font-weight: 600;
+  font-size: 19px;
+  color: #6b9b6c;
+}
+
+.of{
+  padding: 0 5px 0 5px;
 }

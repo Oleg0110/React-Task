@@ -1,101 +1,103 @@
 {
-   "header": {
-      "searchPlaceholder": "Search",
-      "home": "Home",
-      "projects": "Projects",
-      "dashboards": "Dashboards",
-      "people": "People"
-   },
-   "sidebar": {
-      "backlog": "Backlog",
-      "reports": "Reports",
-      "components": "Components",
-      "releases": "Releases",
-      "addItem": "Add-Item"
-   },
-   "userField": {
-      "title": "Acount",
-      "signUp": "Sign up",
-      "logIn": "Log In",
-      "exit": "Exit"
-   },
-   "home": {
-      "title": "My",
-      "projectTitle": "project",
-      "wont": "If you wont to make project, please Sign up or Log In",
-      "create": "Create your first Project",
-      "go": "Let's Go",
-      "makeProject": "Make Project"
-   },
-   "projects": {
-      "title": "Projects",
-      "titlePlaceholder": "Title search...",
-      "contentPlaceholder": "Content search...",
-      "create": "Create Project",
-      "hide": "Hide Block"
-   },
-   "accordion": {
-      "go": "Go To Project",
-      "changeTitle": "Change Title",
-      "changeContent": "Change Content",
-      "delete": "Delete Project"
-   },
-   "createProject": {
-      "title": "Create Project",
-      "name": "Project Name :",
-      "titlePlaceholder": "Title",
-      "description": "Project Description :",
-      "descriptionPlaceholder": "Description",
-      "create": "Create Project"
-   },
-   "dashboards": {
-      "title": "Board",
-      "release": "Release",
-      "create": "Create Column",
-      "taskPlaceholder": "Task search..."
-   },
-   "people": {
-      "title": "Users ",
-      "click": "Click card to copy email !"
-   },
-   "logIn": {
-      "emailPlaceholder": "Email",
-      "passwordPlaceholder": "Password",
-      "logIn": "Log In",
-      "or": "OR",
-      "forgot": "Forgot password?",
-      "doNot": "Don't have an account? ",
-      "signUp": "Sign up"
-   },
-   "signUp": {
-      "title": "Sign up to make your first Project",
-      "emailPlaceholder": "Email",
-      "namePlaceholder": "Name",
-      "passwordPlaceholder": "Password",
-      "signUp": "Sign up",
-      "by": "By signing up, you agree to our",
-      "terms": "Terms",
-      "and": "and",
-      "policy": "Data Policy",
-      "have": "Have an account?",
-      "logIn": "Log In"
-   },
-   "modal": {
-      "columnTitle": "Column Title",
-      "titlePlaceholder": "Title",
-      "addColumn": "Add Column",
-      "taskTitle": "Task Text",
-      "contentPlaceholder": "Text",
-      "addTask": "Add Task",
-      "sure": "Are You sure?",
-      "delete": "Delete",
-      "changeContent": "Change Content",
-      "descriptionPlaceholder": "Description",
-      "changeTitle": "Change Title",
-      "projectTitle": "Title"
-   },
-   "empty": {
-      "title": "Sorry!",
-      "text": "The page is being developed in the future there will be content"
-   }
+  "header": {
+    "searchPlaceholder": "Search",
+    "home": "Home",
+    "projects": "Projects",
+    "dashboards": "Dashboards",
+    "people": "People"
+  },
+  "sidebar": {
+    "backlog": "Backlog",
+    "reports": "Reports",
+    "components": "Components",
+    "releases": "Releases",
+    "addItem": "Add-Item"
+  },
+  "userField": {
+    "title": "Acount",
+    "signUp": "Sign up",
+    "logIn": "Log In",
+    "exit": "Exit"
+  },
+  "home": {
+    "title": "My",
+    "projectTitle": "project",
+    "wont": "If you wont to make project, please Sign up or Log In",
+    "create": "Create your first Project",
+    "go": "Let's Go",
+    "makeProject": "Make Project"
+  },
+  "projects": {
+    "title": "Projects ",
+    "titlePlaceholder": "Title search...",
+    "contentPlaceholder": "Content search...",
+    "create": "Create Project",
+    "hide": "Hide Block"
+  },
+  "accordion": {
+    "go": "Go To Project",
+    "changeTitle": "Change Title",
+    "changeContent": "Change Content",
+    "delete": "Delete Project"
+  },
+  "createProject": {
+    "title": "Create Project",
+    "name": "Project Name :",
+    "titlePlaceholder": "Title",
+    "description": "Project Description :",
+    "descriptionPlaceholder": "Description",
+    "create": "Create Project"
+  },
+  "dashboards": {
+    "title": "Board",
+    "release": "Release",
+    "create": "Create Column",
+    "taskPlaceholder": "Task search..."
+  },
+  "people": {
+    "title": "Users ",
+    "click": "Click card to copy email !",
+    "of": " of ",
+    "choose": "Choose page:"
+  },
+  "logIn": {
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "logIn": "Log In",
+    "or": "OR",
+    "forgot": "Forgot password?",
+    "doNot": "Don't have an account? ",
+    "signUp": "Sign up"
+  },
+  "signUp": {
+    "title": "Sign up to make your first Project",
+    "emailPlaceholder": "Email",
+    "namePlaceholder": "Name",
+    "passwordPlaceholder": "Password",
+    "signUp": "Sign up",
+    "by": "By signing up, you agree to our",
+    "terms": "Terms",
+    "and": "and",
+    "policy": "Data Policy",
+    "have": "Have an account?",
+    "logIn": "Log In"
+  },
+  "modal": {
+    "columnTitle": "Column Title",
+    "titlePlaceholder": "Title",
+    "addColumn": "Add Column",
+    "taskTitle": "Task Text",
+    "contentPlaceholder": "Text",
+    "addTask": "Add Task",
+    "sure": "Are You sure?",
+    "delete": "Delete",
+    "changeContent": "Change Content",
+    "descriptionPlaceholder": "Description",
+    "changeTitle": "Change Title",
+    "projectTitle": "Title"
+  },
+  "empty": {
+    "title": "Sorry!",
+    "text": "The page is being developed in the future there will be content"
+  }
 }
