@@ -123,12 +123,13 @@ const Pagination: React.FC<IPaginationProps> = ({
               autoComplete='off'
               pattern='^-?[0-9]\d*\.?\d*$'
               min={1}
+              maxLength={3}
               {...register('number', CHOOSE_VALIDATION)}
             />
           </div>
         </form>
         <div className={styles.backFon}>
-          <span className={styles.choose}>Choose page:</span>
+          <span className={styles.choose}>{t('people.choose')}</span>
           <select
             size={2}
             className={styles.numbers}

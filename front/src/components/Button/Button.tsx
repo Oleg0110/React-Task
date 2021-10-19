@@ -22,7 +22,7 @@ const Button: React.FC<IButtonProps> = ({
   onSubmit,
 }) => (
   <button
-    type='button'
+    type='submit'
     className={!!buttonStyle ? styles[buttonStyle] : ''}
     onClick={onClick}
     onSubmit={onSubmit}

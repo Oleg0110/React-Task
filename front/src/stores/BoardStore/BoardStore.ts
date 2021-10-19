@@ -39,7 +39,7 @@ class BoardStore {
 
     this.setColumn(column)
 
-    this.column.map((element) => this.asyncGetTasks(element._id))
+    this.column.map((element) => this.asyncGetTasks(element.id))
   }
 
   setColumn = (column: IColumnType[]) => {
@@ -53,21 +53,21 @@ class BoardStore {
 
   changeColumn = async (title: string, id: string) => {
     const changedColumn = await change(title, id)
-    const foundColumnIndex = this.column.findIndex((found) => found._id === id)
+    const foundColumnIndex = this.column.findIndex((found) => found.id === id)
 
     this.column.splice(foundColumnIndex, 1, changedColumn)
   }
 
   deletedColumn = async (id: string) => {
     await deleted(id)
-    const foundColumnIndex = this.column.findIndex((found) => found._id === id)
+    const foundColumnIndex = this.column.findIndex((found) => found.id === id)
 
     this.column.splice(foundColumnIndex, 1)
   }
 
   asyncGetTasks = async (columnId: string) => {
     const tasks = await getTasks(columnId)
-    const foundColumn = this.column.find((found) => found._id === columnId)
+    const foundColumn = this.column.find((found) => found.id === columnId)
 
     if (foundColumn) {
       this.setTasks(tasks, foundColumn)
@@ -81,8 +81,8 @@ class BoardStore {
   pushTask = async (text: string, id: string, projectId: string) => {
     const task = await taskPush(text, id, projectId)
     // !!! ToDo any
-    const foundColumnId: any = this.column.find((find) => find._id === id)
-    // const foundColumnIndex = this.column.findIndex(found => found._id === id)
+    const foundColumnId: any = this.column.find((find) => find.id === id)
+    console.log(foundColumnId)
 
     foundColumnId.tasks.push(task)
   }
@@ -90,9 +90,9 @@ class BoardStore {
   changeTask = async (text: string, id: string, columnId: string) => {
     const changedTask = await taskChanged(text, id)
 
-    const foundColumn: any = this.column.find((found) => found._id === columnId)
+    const foundColumn: any = this.column.find((found) => found.id === columnId)
     const foundTask = foundColumn.tasks.findIndex(
-      (found: { _id: string }) => found._id === id,
+      (found: { id: string }) => found.id === id,
     )
 
     foundColumn.tasks.splice(foundTask, 1, changedTask)
@@ -101,9 +101,9 @@ class BoardStore {
   deleteTask = async (id: string, columnId: string) => {
     await taskDelete(id)
 
-    const foundColumn: any = this.column.find((found) => found._id === columnId)
+    const foundColumn: any = this.column.find((found) => found.id === columnId)
     const foundTask = foundColumn.tasks.findIndex(
-      (found: { _id: string }) => found._id === id,
+      (found: { id: string }) => found.id === id,
     )
 
     foundColumn.tasks.splice(foundTask, 1)
@@ -112,7 +112,7 @@ class BoardStore {
   // dragInColumn(result:object, idColumn:string) {
 
   //    if (this.column.length) {
-  //       const column = this.column.find((data) => data._id === idColumn);
+  //       const column = this.column.find((data) => data.id === idColumn);
 
   //       if (!result.destination) return;
 

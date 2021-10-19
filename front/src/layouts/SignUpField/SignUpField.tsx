@@ -8,7 +8,7 @@ import {
   PASSWORD_VALIDATION,
   TITLE_VALIDATION,
 } from '../../utils/validation'
-import { Button } from '../../components'
+import { Button, TextBox } from '../../components'
 import { UserStore } from '../../stores'
 import { ROUTES } from '../../utils/constants'
 import styles from './SignUpField.module.scss'
@@ -57,43 +57,37 @@ const SignUpField: React.FC = () => {
           className={styles.infoAccountBlock}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <input
-            type='email'
+          <TextBox
+            inputStyle='inputAuth'
             placeholder={t('signUp.emailPlaceholder')}
-            className={styles.input}
-            {...register('email', EMAIL_VALIDATION)}
+            type='email'
+            label='email'
+            register={register}
+            error={errors?.email?.message}
+            errorPosition='errorAuth'
+            required={EMAIL_VALIDATION}
           />
-          {errors.email?.message && (
-            <p className={styles.errorPosition}>{errors.email?.message}</p>
-          )}
-          <input
-            type='text'
+          <TextBox
+            inputStyle='inputAuth'
             placeholder={t('signUp.namePlaceholder')}
-            className={styles.input}
-            {...register('name', TITLE_VALIDATION)}
+            type='text'
+            label='name'
+            register={register}
+            error={errors?.name?.message}
+            errorPosition='errorAuth'
+            required={TITLE_VALIDATION}
           />
-          {errors.name?.message && (
-            <p className={styles.errorPosition}>{errors.name?.message}</p>
-          )}
           <div className={styles.passwordField}>
-            <input
-              type={isPassword}
+            <TextBox
+              inputStyle='inputAuth'
               placeholder={t('signUp.passwordPlaceholder')}
-              className={styles.input}
-              {...register('password', PASSWORD_VALIDATION)}
+              type={isPassword}
+              label='password'
+              register={register}
+              error={errors?.password?.message}
+              errorPosition='errorAuth'
+              required={PASSWORD_VALIDATION}
             />
-            {errors.password?.message && (
-              <p className={styles.errorPosition}>{errors.password?.message}</p>
-            )}
-            <Button
-              onClick={() => {
-                setIsPassword(isPassword === 'password' ? 'text' : 'password')
-              }}
-            >
-              <div
-                className={`${styles.type} ${styles[`type-${isPassword}`]}`}
-              />
-            </Button>
           </div>
           <div className={styles.buttonPosition}>
             <Button buttonStyle='fifthButtonStyle'>
@@ -101,6 +95,13 @@ const SignUpField: React.FC = () => {
             </Button>
           </div>
         </form>
+        <Button
+          onClick={() => {
+            setIsPassword(isPassword === 'password' ? 'text' : 'password')
+          }}
+        >
+          <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
+        </Button>
         <p className={styles.attention}>
           {t('signUp.by')}
           <span className={styles.ourTerms}>{t('signUp.terms')}</span>

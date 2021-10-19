@@ -9,7 +9,8 @@ import styles from './Sidebar.module.scss'
 
 interface ISidebarProps {
   isOpened: boolean
-  onClick: () => void
+  // onClick: () => void
+  setSidebarOpened: (boolean: boolean) => void
 }
 
 interface IButtonProps {
@@ -58,7 +59,11 @@ const buttons: IButtonProps[] = [
   },
 ]
 
-const Sidebar: React.FC<ISidebarProps> = ({ isOpened, children, onClick }) => {
+const Sidebar: React.FC<ISidebarProps> = ({
+  isOpened,
+  children,
+  setSidebarOpened,
+}) => {
   const isAuth = !!UserStore.userToken
 
   const history = useHistory()
@@ -67,25 +72,24 @@ const Sidebar: React.FC<ISidebarProps> = ({ isOpened, children, onClick }) => {
 
   const onButtonClick = (links: string) => {
     isAuth ? history.push(links) : toast.error('please sign up or log in')
+    setSidebarOpened(false)
   }
 
   return (
     <div className={`${styles.sidebar} ${isOpened && styles.opened}`}>
-      <button type='button' onClick={onClick}>
-        {children}
-        {buttons.map((data) => (
-          <Button
-            key={data.id}
-            onClick={() => {
-              onButtonClick(data.link)
-            }}
-            buttonStyle={data.style}
-          >
-            <div className={`${styles.icon} ${styles[data.icon]}`} />
-            {t(data.name)}
-          </Button>
-        ))}
-      </button>
+      {children}
+      {buttons.map((data) => (
+        <Button
+          key={data.id}
+          onClick={() => {
+            onButtonClick(data.link)
+          }}
+          buttonStyle={data.style}
+        >
+          <div className={`${styles.icon} ${styles[data.icon]}`} />
+          {t(data.name)}
+        </Button>
+      ))}
     </div>
   )
 }

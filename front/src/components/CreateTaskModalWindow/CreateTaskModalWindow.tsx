@@ -7,7 +7,7 @@ import { IModalWindowProps } from 'utils/interface'
 import styles from './CreateTaskModalWindow.module.scss'
 import { TASKS_CONTENT_VALIDATION } from '../../utils/validation'
 import { BoardStore } from '../../stores'
-import { Button } from '..'
+import { Button, TextBox } from '..'
 
 interface IOnSubmitProps {
   text: string
@@ -56,14 +56,15 @@ const CreateTaskModalWindow: React.FC<IModalWindowProps> = ({
               <div className={styles.cardText}>
                 <span className={styles.text}>{t('modal.taskTitle')}</span>
                 <br />
-                <textarea
-                  {...register('text', TASKS_CONTENT_VALIDATION)}
+                <TextBox
+                  inputStyle='textInput'
                   placeholder={t('modal.contentPlaceholder')}
-                  className={styles.textInput}
+                  label='text'
+                  register={register}
+                  error={errors?.text?.message}
+                  errorPosition='errorContentPosition'
+                  required={TASKS_CONTENT_VALIDATION}
                 />
-                {errors.text?.message && (
-                  <p className={styles.errorPosition}>{errors.text?.message}</p>
-                )}
               </div>
               <Button buttonStyle='fifthButtonStyle'>
                 <span className={styles.button}>{t('modal.addTask')}</span>
@@ -76,7 +77,8 @@ const CreateTaskModalWindow: React.FC<IModalWindowProps> = ({
                   <div className={styles.cardText}>
                      <span className={styles.text}>Card Text</span>
                      <br />
-                     <textarea type="textarea" placeholder="Text" className={styles.textInput} ref={taskRef} />
+                     <textarea type="textarea" placeholder="Text"
+                      className={styles.textInput} ref={taskRef} />
                   </div>
                   <div className={styles.value}>
                      <div className={styles.box}>

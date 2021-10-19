@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { IModalWindowProps } from 'utils/interface'
-import { Button } from '..'
+import { Button, TextBox } from '..'
 import { ProjectsStore } from '../../stores'
 import { CREATE_CONTENT_VALIDATION } from '../../utils/validation'
 import styles from './ChangeProjectContentModal.module.scss'
@@ -51,14 +51,15 @@ const ChangeProjectContentModal: React.FC<IModalWindowProps> = ({
             className={styles.descriptionProjectBlock}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <textarea
-              {...register('content', CREATE_CONTENT_VALIDATION)}
+            <TextBox
+              inputStyle='changeProjectContent'
               placeholder={t('modal.descriptionPlaceholder')}
-              className={styles.inputText}
+              label='content'
+              register={register}
+              error={errors.content?.message}
+              errorPosition='changeContenterror'
+              required={CREATE_CONTENT_VALIDATION}
             />
-            {errors.content?.message && (
-              <p className={styles.errorPosition}>{errors.content?.message}</p>
-            )}
             <Button buttonStyle='fifthButtonStyle'>
               {t('modal.changeContent')}
             </Button>

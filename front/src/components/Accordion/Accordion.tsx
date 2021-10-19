@@ -26,7 +26,7 @@ const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
   const history = useHistory()
 
   const { t } = useTranslation()
-  // !!! ToDo button
+
   return (
     <div className={styles.accordionSection}>
       <DeleteProjectModal
@@ -49,9 +49,7 @@ const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
         className={`${styles.accordion} `}
         onClick={() => setIsOpened(!isOpened)}
       >
-        <Button>
-          <p className={styles.accordionTitle}>{title}</p>
-        </Button>
+        <p className={styles.accordionTitle}>{title}</p>
         <div
           className={`${styles.chevronRight} ${isOpened && styles.chevronDown}`}
         />

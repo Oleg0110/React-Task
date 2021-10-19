@@ -16,7 +16,7 @@ router.get("/:id", auth, async (req, res) => {
       }
 
       const projects = await Project.find({ userOwner: id })
-
+      
       res.status(200).json(projects)
 
    } catch (error) {

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import urlValue from 'utils/functions'
-import { ITaskType } from 'utils/types'
+import { IColumnType } from 'utils/types'
 import { Button, CreateColumnModalWindow, Column } from '../../components'
 import { BoardStore } from '../../stores'
 import useMedia from '../../hooks/useMedia'
@@ -13,12 +13,6 @@ import {
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
 import styles from './Dashboards.module.scss'
-
-interface IColumnProps {
-  title: string
-  tasks: ITaskType[]
-  _id: string
-}
 
 const Dashboards: React.FC = ({ children }) => {
   // const projectId = urlValue(window.location.href).projectId
@@ -36,7 +30,7 @@ const Dashboards: React.FC = ({ children }) => {
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const { column }: { column: IColumnProps[] } = BoardStore
+  const { column }: { column: IColumnType[] } = BoardStore
 
   const searchValue = useRef<HTMLInputElement>(null)
   const [isModalOpened, setIsModalOpened] = useState(false)
@@ -115,8 +109,8 @@ const Dashboards: React.FC = ({ children }) => {
             <Column
               taskData={data.tasks}
               title={data.title}
-              key={data._id}
-              columnId={data._id}
+              key={data.id}
+              columnId={data.id}
               index={index}
             />
           ))}

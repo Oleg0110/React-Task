@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { IModalWindowProps } from 'utils/interface'
-import { Button } from '..'
+import { Button, TextBox } from '..'
 import { ProjectsStore } from '../../stores'
 import { TITLE_VALIDATION } from '../../utils/validation'
 import styles from './ChangeProjectTitleModal.module.scss'
@@ -51,18 +51,21 @@ const ChangeProjectTitleModal: React.FC<IModalWindowProps> = ({
             className={styles.descriptionProjectBlock}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <input
-              {...register('title', TITLE_VALIDATION)}
-              type='text'
+            <TextBox
+              inputStyle='inputCreate'
               placeholder={t('modal.projectTitle')}
-              className={styles.input}
+              type='text'
+              label='title'
+              register={register}
+              error={errors.title?.message}
+              errorPosition='errorTitlePosition'
+              required={TITLE_VALIDATION}
             />
-            {errors.title?.message && (
-              <p className={styles.errorPosition}>{errors.title?.message}</p>
-            )}
-            <Button buttonStyle='fifthButtonStyle'>
-              {t('modal.changeTitle')}
-            </Button>
+            <div className={styles.buttonPosition}>
+              <Button buttonStyle='fifthButtonStyle'>
+                {t('modal.changeTitle')}
+              </Button>
+            </div>
           </form>
         </div>
       </div>

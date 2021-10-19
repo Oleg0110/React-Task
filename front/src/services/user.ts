@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 import { IUsers } from 'utils/interface'
-import { IUserType } from 'utils/types'
+import { ILoginType, IRegisterType, IUserType } from 'utils/types'
 import { storageDataName } from '../utils/constants'
 import {
   LINK_USER_AUTH_LOG_IN,
@@ -32,7 +32,7 @@ export const register = async (
   email: string,
   name: string,
   password: string,
-): Promise<Omit<IUserType, 'password' | '__v'>> => {
+): Promise<IRegisterType> => {
   const res = await api.doFetch('post', LINK_USER_AUTH_SING_UP, {
     email,
     name,
@@ -45,7 +45,7 @@ export const register = async (
     localStorage.setItem(
       storageDataName,
       JSON.stringify({
-        userId: currentUser._id,
+        userId: currentUser.id,
         // token: token,
         token,
       }),
@@ -58,13 +58,18 @@ export const register = async (
   throw toast.success('Acount was not Created')
 }
 
-export const login = async (email: string, password: string) => {
+export const login = async (
+  email: string,
+  password: string,
+): Promise<ILoginType | void> => {
   const res = await api.doFetch('post', LINK_USER_AUTH_LOG_IN, {
     email,
     password,
   })
 
   if (res) {
+    console.log(res.data)
+
     const user = res.data
 
     localStorage.setItem(
@@ -78,29 +83,3 @@ export const login = async (email: string, password: string) => {
     toast.success('Welcome')
   }
 }
-
-// export const login = async (
-//   email: string,
-//   password: string,
-// ): Promise<Omit<IUserType, 'password' | '__v'>> => {
-//   const res = await api.doFetch('post', LINK_USER_AUTH_LOG_IN, {
-//     email,
-//     password,
-//   })
-
-//   if (res) {
-//     const user = res.data
-
-//     localStorage.setItem(
-//       storageDataName,
-//       JSON.stringify({
-//         userId: user.userId,
-//         token: user.token,
-//       }),
-//     )
-
-//     throw toast.success('Welcome')
-//   }
-
-//   throw toast.error('invalid data')
-// }

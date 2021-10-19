@@ -43,7 +43,7 @@
       }
     ],
     // --------------
-
+    "no-shadow": 0,
     // --------------
     "no-underscore-dangle": "warn",
     "jsx-quotes": 0,
@@ -97,7 +97,7 @@
     "quotes": [2, "single", "avoid-escape"],
     "use-isnan": 2,
     "max-depth": ["error", 5],
-    "max-len": ["error", 100],
+    "max-len": ["error", 110],
     "camelcase": 2,
     "no-var": 2,
     "semi": ["error", "never"],
