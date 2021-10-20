@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { UserStore } from '../../stores'
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from '../../utils/validation'
-import { Button } from '../../components'
+import { Button, TextBox } from '../../components'
 import { ROUTES } from '../../utils/constants'
 import styles from './LogInField.module.scss'
 
@@ -34,10 +34,7 @@ const LogInField: React.FC = () => {
   }, [isAuth, history])
 
   const onSubmit = (data: IOnSubmitProps) => {
-    if (data) {
-      return UserStore.loginUser(data.email, data.password)
-    }
-    return false
+    UserStore.loginUser(data.email, data.password)
   }
 
   return (
@@ -48,26 +45,28 @@ const LogInField: React.FC = () => {
         </div>
         <form
           className={styles.infoAccountBlock}
-          onSubmit={() => handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
-          <input
-            type='email'
+          <TextBox
+            inputStyle='inputAuth'
             placeholder={t('logIn.emailPlaceholder')}
-            className={styles.input}
-            {...register('email', EMAIL_VALIDATION)}
+            type='email'
+            label='email'
+            register={register}
+            error={errors?.email?.message}
+            errorPosition='errorAuth'
+            required={EMAIL_VALIDATION}
           />
-          {errors.email?.message && (
-            <p className={styles.errorPosition}>{errors.email?.message}</p>
-          )}
-          <input
-            type={isPassword}
+          <TextBox
+            inputStyle='inputAuth'
             placeholder={t('logIn.passwordPlaceholder')}
-            className={styles.input}
-            {...register('password', PASSWORD_VALIDATION)}
+            type={isPassword}
+            label='password'
+            register={register}
+            error={errors?.password?.message}
+            errorPosition='errorAuth'
+            required={PASSWORD_VALIDATION}
           />
-          {errors.password?.message && (
-            <p className={styles.errorPosition}>{errors.password?.message}</p>
-          )}
           <div className={styles.buttonPosition}>
             <Button buttonStyle='fifthButtonStyle'>
               <span className={styles.buttonName}>{t('logIn.logIn')}</span>

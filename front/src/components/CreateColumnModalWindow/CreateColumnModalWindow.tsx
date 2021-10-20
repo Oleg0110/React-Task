@@ -5,10 +5,7 @@ import { useTranslation } from 'react-i18next'
 import urlValue from 'utils/functions'
 import { TITLE_VALIDATION } from '../../utils/validation'
 import { BoardStore } from '../../stores'
-import {
-  Button,
-  // TextBox
-} from '..'
+import { Button, TextBox } from '..'
 import styles from './CreateColumnModalWindow.module.scss'
 
 interface ICreateColumnModalWindowProps {
@@ -59,7 +56,7 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
           </div>
           <span className={styles.title}>{t('modal.columnTitle')}</span>
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <input
+            {/* <input
               {...register('title', TITLE_VALIDATION)}
               type='text'
               placeholder={t('modal.titlePlaceholder')}
@@ -67,9 +64,17 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
             />
             {errors.title?.message && (
               <p className={styles.errorPosition}>{errors.title?.message}</p>
-            )}
-            {/* <TextBox inputStyle="inputCreateColumn" placeholder="Title" type="text"
-            innerRef={register("title", TITLE_VALIDATION)} error={errors?.title?.message} /> */}
+            )} */}
+            <TextBox
+              inputStyle='inputCreate'
+              placeholder={t('modal.titlePlaceholder')}
+              type='text'
+              label='title'
+              register={register}
+              error={errors?.title?.message}
+              errorPosition='errorTitlePosition'
+              required={TITLE_VALIDATION}
+            />
             <Button buttonStyle='fifthButtonStyle'>
               {t('modal.addColumn')}
             </Button>

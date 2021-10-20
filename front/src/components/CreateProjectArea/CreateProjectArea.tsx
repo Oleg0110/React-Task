@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-import { Button } from '..'
+import { Button, TextBox } from '..'
 import { ProjectsStore } from '../../stores'
 import useMedia from '../../hooks/useMedia'
 import {
@@ -50,29 +50,28 @@ const CreateProjectArea: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3 className={styles.projectTitle}>{t('createProject.name')}</h3>
-        <input
-          {...register('title', TITLE_VALIDATION)}
-          type='text'
+        <TextBox
+          inputStyle='inputCreateProject'
           placeholder={t('createProject.titlePlaceholder')}
-          className={styles.inputName}
+          type='text'
+          label='title'
+          register={register}
+          error={errors.title?.message}
+          errorPosition='errorTitlePosition'
+          required={TITLE_VALIDATION}
         />
-        {errors.title?.message && (
-          <p className={styles.errorNamePosition}>{errors.title?.message}</p>
-        )}
         <h3 className={styles.projectTitle}>
           {t('createProject.description')}
         </h3>
-        <textarea
-          {...register('content', CREATE_CONTENT_VALIDATION)}
+        <TextBox
+          inputStyle='createProjectContent'
           placeholder={t('createProject.descriptionPlaceholder')}
-          className={`${styles.inputText} 
-             ${styles[`inputText${responsive}`]}`}
+          label='content'
+          register={register}
+          error={errors.content?.message}
+          errorPosition='errorContentPosition'
+          required={CREATE_CONTENT_VALIDATION}
         />
-        {errors.content?.message && (
-          <p className={styles.errorContentPosition}>
-            {errors.content?.message}
-          </p>
-        )}
         <Button buttonStyle='fourthButtonStyle'>
           {t('createProject.create')}
         </Button>

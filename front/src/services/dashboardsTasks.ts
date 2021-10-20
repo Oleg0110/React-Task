@@ -21,10 +21,13 @@ export const taskPush = async (
 
   return res?.data
 }
-// : Promise<Omit<ITaskType, '_id', 'listOwner', 'projectOwner', '__v'>>
-export const taskChanged = async (text: string, id: string) => {
-  const res = await api.doFetch('patch', LINK_DASHBOARD_TASKS, { text, id })
 
+export const taskChanged = async (
+  text: string,
+  id: string,
+): Promise<ITaskType> => {
+  const res = await api.doFetch('patch', LINK_DASHBOARD_TASKS, { text, id })
+  console.log(res?.data)
   return res?.data
 }
 

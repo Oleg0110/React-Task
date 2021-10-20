@@ -110,8 +110,8 @@ const Column: React.FC<IColumnProps> = ({ title, columnId, taskData }) => {
               <Task
                 text={data.text}
                 index={index}
-                key={data._id}
-                id={data._id}
+                key={data.id}
+                id={data.id}
                 columnId={columnId}
               />
             ))}

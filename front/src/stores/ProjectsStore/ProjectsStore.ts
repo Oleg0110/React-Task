@@ -50,7 +50,7 @@ class ProjectsStore {
   changedProjecTitle = async (title: string, id: string) => {
     const changedProjectTitle = await changedTitle(title, id)
     const foundProjectIndex = this.projects.findIndex(
-      (found) => found._id === id,
+      (found) => found.id === id,
     )
 
     this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
@@ -59,7 +59,7 @@ class ProjectsStore {
   changedProjecContent = async (content: string, id: string) => {
     const changedProjectContent = await changedContent(content, id)
     const foundProjectIndex = this.projects.findIndex(
-      (found) => found._id === id,
+      (found) => found.id === id,
     )
 
     this.projects.splice(foundProjectIndex, 1, changedProjectContent)
@@ -68,7 +68,7 @@ class ProjectsStore {
   deletedProject = async (id: string) => {
     await deleted(id)
     const foundProjectIndex = this.projects.findIndex(
-      (found) => found._id === id,
+      (found) => found.id === id,
     )
 
     this.projects.splice(foundProjectIndex, 1)

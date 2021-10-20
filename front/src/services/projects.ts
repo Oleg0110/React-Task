@@ -21,8 +21,11 @@ export const push = async (
 
   return res?.data
 }
-// : Promise<Omit<IProjectType,"content","_id", "__v","userOwner">>
-export const changedTitle = async (title: string, id: string) => {
+
+export const changedTitle = async (
+  title: string,
+  id: string,
+): Promise<IProjectType> => {
   const res = await api.doFetch('patch', `${LINK_PROJECTS}${'/title'}`, {
     title,
     id,
@@ -30,8 +33,11 @@ export const changedTitle = async (title: string, id: string) => {
 
   return res?.data
 }
-// : Promise<Omit<IProjectType,"title","_id", "__v","userOwner">>
-export const changedContent = async (content: string, id: string) => {
+
+export const changedContent = async (
+  content: string,
+  id: string,
+): Promise<IProjectType> => {
   const res = await api.doFetch('patch', `${LINK_PROJECTS}${'/content'}`, {
     content,
     id,

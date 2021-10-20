@@ -61,7 +61,7 @@ const People: React.FC = () => {
         <div className={`${styles.backFon} ${styles[`backFon${responsive}`]}`}>
           <div className={styles.scroll}>
             {currentUser.map((data) => (
-              <UserCard name={data.name} email={data.email} key={data._id} />
+              <UserCard name={data.name} email={data.email} key={data.id} />
             ))}
           </div>
         </div>

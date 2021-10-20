@@ -1,31 +1,37 @@
 export type IUserType = {
-  _id: string
+  id: string
   email: string
   name: string
   password: string
-  __v: number
+}
+
+export type IRegisterType = {
+  token: string
+  currentUser: IUserType
+}
+
+export type ILoginType = {
+  userId: string
+  token: string
 }
 
 export type IProjectType = {
   content: string
   title: string
   userOwner: string
-  __v: number
-  _id: string
+  id: string
 }
 
 export type ITaskType = {
-  _id: string
+  id: string
   text: string
-  listOwner: string
+  columnOwner: string
   projectOwner: string
-  __v: number
 }
 
 export type IColumnType = {
-  _id: string
+  id: string
   title: string
   projectOwner: string
-  __v: number
-  tasks: ITaskType[]
+  tasks?: ITaskType[]
 }

@@ -122,10 +122,7 @@ const App: React.FC = () => {
       >
         {buttonsInHeader}
       </Header>
-      <Sidebar
-        onClick={() => setSidebarOpened(false)}
-        isOpened={isSidebarOpened}
-      >
+      <Sidebar setSidebarOpened={setSidebarOpened} isOpened={isSidebarOpened}>
         {buttonsInSidebar}
       </Sidebar>
       <UserField
