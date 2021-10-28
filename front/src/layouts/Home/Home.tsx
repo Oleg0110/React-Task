@@ -14,23 +14,22 @@ import { UserStore } from '../../stores'
 import styles from './Home.module.scss'
 
 const Home: React.FC<RouteComponentProps<any>> = ({ children }) => {
+  const { t } = useTranslation()
+  const history = useHistory()
+
   const responsive = useMedia(
     RESPONSIVE_SIZES,
     RESPONSIVE_VALUE,
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const { t } = useTranslation()
-
-  const history = useHistory()
-
   const isAuth = !!UserStore.userToken
 
-  const attention: string = isAuth ? `${t('home.create')}` : `${t('home.wont')}`
-  const attentionSignUpButton: string = isAuth
+  const attention = isAuth ? `${t('home.create')}` : `${t('home.wont')}`
+  const attentionSignUpButton = isAuth
     ? `${t('home.makeProject')}`
     : `${t('home.go')}`
-  const attentionLink: string = isAuth ? ROUTES.projects : ROUTES.userAauthLogIn
+  const attentionLink = isAuth ? ROUTES.projects : ROUTES.userAauthLogIn
 
   return (
     <div className={styles.backFon}>

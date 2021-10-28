@@ -5,7 +5,7 @@ const schema = new Schema({
    email: { type: String, required: true, unique: true },
    name: { type: String, required: true, max: 25 },
    password: { type: String, required: true, min: 8 },
-   // projects: [{ type: Types.ObjectId, ref: "Project" }]
+   projects: [{projectId:{ type: Types.ObjectId, ref: "Project" },state: {type:String}}],
 })
 
 schema.plugin(normalize)

@@ -31,8 +31,7 @@ export const EMAIL_VALIDATION = {
   required: "Can't be Empty",
 }
 
-export const CHOOSE_VALIDATION = {
+export const NO_EMPTY_VALIDATION = {
   required: "Can't be Empty",
   minLength: 1,
-  // min: 1,
 }

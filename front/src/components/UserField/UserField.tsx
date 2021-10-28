@@ -13,12 +13,13 @@ interface IUserFieldProps {
 }
 
 const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
-  const { t } = useTranslation()
+  const { user } = UserStore
 
+  const { t } = useTranslation()
   const history = useHistory()
 
   const isAuth = !!UserStore.userToken
-  const { user } = UserStore
+  const logoName = user?.name.toLocaleUpperCase().split('')[0]
 
   const logout = () => {
     localStorage.removeItem(storageDataName)
@@ -27,27 +28,27 @@ const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
     window.location.reload()
   }
 
-  const userInfo = (): string => {
+  const userInfo = () => {
     const info = isAuth ? styles.infoField : styles.infoFieldNone
     return info
   }
 
-  const userPhoto = (): string => {
+  const userPhoto = () => {
     const photo = isAuth ? styles.userPhoto : styles.empty
     return photo
   }
 
-  const authentication = (): string => {
+  const authentication = () => {
     const auth = !isAuth ? styles.buttons : styles.buttonsNone
     return auth
   }
 
-  const exit = (): string => {
+  const exit = () => {
     const onClick = isAuth ? styles.exit : styles.exitNone
     return onClick
   }
 
-  const sidebarHeight = (): string => {
+  const sidebarHeight = () => {
     const sidebar = isAuth ? styles.sidebarHeight : styles.sidebar
     return sidebar
   }
@@ -60,7 +61,7 @@ const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
           <div className={styles.closeIcon} />
         </Button>
         <div className={userInfo()}>
-          <div className={userPhoto()} />
+          <div className={userPhoto()}>{logoName}</div>
           <div className={styles.userInfo}>
             <p className={styles.name}>{user?.name}</p>
             <p className={styles.email}>{user?.email}</p>

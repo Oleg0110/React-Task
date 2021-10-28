@@ -1,19 +1,22 @@
 import { toast } from 'react-toastify'
-import { IUsers } from 'utils/interface'
-import { ILoginType, IRegisterType, IUserType } from 'utils/types'
+import { IUsers } from '../utils/interface'
+import { ILoginType, IRegisterType, IUserType } from '../utils/types'
 import { storageDataName } from '../utils/constants'
 import {
+  LINK_MANAGE_PROJECT,
+  LINK_USER_AUTH,
   LINK_USER_AUTH_LOG_IN,
   LINK_USER_AUTH_PEOPLE,
   LINK_USER_AUTH_SING_UP,
   LINK_USER_AUTH_USER,
+  LINK_USER_MANAGE_PROJECT,
 } from '../utils/httpLinks'
 import api from './ApiProvider'
 
 export const getUsers = async (
   number: number,
   usersOnPage: number,
-): Promise<IUsers> => {
+): Promise<Omit<IUsers, 'password'>> => {
   const res = await api.doFetch(
     'get',
     `${LINK_USER_AUTH_PEOPLE}?page=${number}&count=${usersOnPage}`,
@@ -68,8 +71,6 @@ export const login = async (
   })
 
   if (res) {
-    console.log(res.data)
-
     const user = res.data
 
     localStorage.setItem(
@@ -82,4 +83,53 @@ export const login = async (
 
     toast.success('Welcome')
   }
+}
+
+export const search = async (
+  text: string,
+): Promise<Omit<IUserType[], 'password'>> => {
+  const res = await api.doFetch('get', `${LINK_USER_MANAGE_PROJECT}/${text}`)
+
+  return res?.data
+}
+
+export const onProject = async (
+  projectId: string,
+): Promise<IUserType[] | null> => {
+  const res = await api.doFetch(
+    'get',
+    `${LINK_USER_AUTH}/${'all-on-project'}/${projectId}`,
+  )
+
+  return res?.data
+}
+
+export const addUser = async (
+  userId: string,
+  projectId: string,
+  state: string,
+) => {
+  const res = await api.doFetch(
+    'post',
+    `${LINK_MANAGE_PROJECT}/${'add-to-project'}`,
+    { userId, projectId, state },
+  )
+
+  return res?.data
+}
+
+export const removeUser = async (userId: string, projectId: string) => {
+  await api.doFetch('delete', `${LINK_MANAGE_PROJECT}/${userId}/${projectId}`)
+}
+
+export const asigneeUserSearch = async (
+  text: string,
+  projectId: string,
+): Promise<Omit<IUserType[], 'password'>> => {
+  const res = await api.doFetch(
+    'get',
+    `${LINK_USER_AUTH}/${'asignee-user'}/${text}/${projectId}`,
+  )
+
+  return res?.data
 }

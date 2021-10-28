@@ -19,6 +19,7 @@ export const ROUTES = {
   releases: '/releases',
   addItem: '/add-item',
   settings: '/settings',
+  userSearch: 'user-search',
   userSignUp: '/user/sign-up',
   userLogIn: '/user/log-in',
   userAuth: '/user-auth',
@@ -26,6 +27,7 @@ export const ROUTES = {
   userAauthLogIn: '/user-auth/login',
   userAauthPeople: '/user-auth/people',
   userAauthUser: '/user-auth/user',
+  manageProject: '/manage-project',
 }
 
 export const storageDataName = 'userData'

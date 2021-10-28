@@ -1,28 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
-import urlValue from 'utils/functions'
-import { IColumnType } from 'utils/types'
+import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
+import urlValue from '../../utils/functions'
+import { IColumnType } from '../../utils/types'
 import { Button, CreateColumnModalWindow, Column } from '../../components'
-import { BoardStore } from '../../stores'
+import { BoardStore, ProjectsStore, UserStore } from '../../stores'
 import useMedia from '../../hooks/useMedia'
 import {
   RESPONSIVE_SIZES,
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
+  ROUTES,
 } from '../../utils/constants'
 import styles from './Dashboards.module.scss'
 
 const Dashboards: React.FC = ({ children }) => {
-  // const projectId = urlValue(window.location.href).projectId
+  const { user } = UserStore
+  const { projects } = ProjectsStore
+  const { column }: { column: IColumnType[] } = BoardStore
   const { projectId } = urlValue(window.location.href)
-
-  const { t } = useTranslation()
 
   useEffect(() => {
     BoardStore.asyncGetColumn(projectId)
+    ProjectsStore.asyncGetProjects()
   }, [projectId])
+
+  const { t } = useTranslation()
+  const history = useHistory()
 
   const responsive = useMedia(
     RESPONSIVE_SIZES,
@@ -30,21 +37,41 @@ const Dashboards: React.FC = ({ children }) => {
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const { column }: { column: IColumnType[] } = BoardStore
+  const foundProject = projects.find((found) => found.id === projectId)
 
   const searchValue = useRef<HTMLInputElement>(null)
   const [isModalOpened, setIsModalOpened] = useState(false)
   const [searchTitle, setSearchTitle] = useState('')
-  console.log(searchTitle)
 
   // const filteredColumn = column.map(data => {
   //    const filteredTask = data.tasks.filter(name => name.text.includes(searchTitle))
   //    return { ...data, tasks: filteredTask }
   // })
 
-  const handleOnDragEnd = (result: object) => {
+  const handleOnDragEnd = (result: DropResult) => {
     // BoardStore.dragColumn(result)
     console.log(result)
+  }
+
+  const owner = user?.projects.find(
+    (found: any) => found.projectId === projectId,
+  )
+
+  const userState = () => {
+    if (owner.state !== 'owner' && owner.state !== 'manager') {
+      toast.error('Sorry you are not owner')
+    } else {
+      setIsModalOpened(!isModalOpened)
+    }
+  }
+
+  // const da = owner.state
+
+  const userStat = () => {
+    // if (owner.state !== 'owner' && owner.state !== 'manager') {
+    //   return styles.none
+    // }
+    // return styles.block
   }
 
   return (
@@ -55,28 +82,25 @@ const Dashboards: React.FC = ({ children }) => {
       />
       <div className={styles.boardStyle}>
         <h2 className={styles.mainTitle}>{t('dashboards.title')}</h2>
-        <div className={styles.release}>
-          <Button buttonStyle='thirdButtonStyle'>
-            {t('dashboards.release')}
-          </Button>
-          <Button>
-            <div className={styles['three-dots']} />
-          </Button>
+        <div className={styles.ownerField}>
+          <p className={styles.owner}>
+            {t('dashboards.owner')}
+            <span className={styles.ownerEmail}>{foundProject?.userEmail}</span>
+          </p>
         </div>
       </div>
       <div className={`${styles.create} ${styles[`create${responsive}`]}}`}>
-        <div
-          className={`${styles.createButtonPosition} ${
-            styles[`createButtonPosition${responsive}`]
-          }`}
-        >
-          <Button
-            onClick={() => setIsModalOpened(!isModalOpened)}
-            buttonStyle='thirdButtonStyle'
+        <div>
+          <div
+            className={`${styles.createButtonPosition} ${
+              styles[`createButtonPosition${responsive}`]
+            }`}
           >
-            <div className={styles.plus} />
-            {t('dashboards.create')}
-          </Button>
+            <Button onClick={userState} buttonStyle='thirdButtonStyle'>
+              <div className={styles.plus} />
+              {t('dashboards.create')}
+            </Button>
+          </div>
         </div>
         <form
           className={styles.searchBoardArea}
@@ -102,6 +126,18 @@ const Dashboards: React.FC = ({ children }) => {
             <div className={styles.delete} />
           </Button>
         </form>
+        <div className={styles.buttonPosition}>
+          <Button
+            onClick={() => {
+              history.push(
+                `${ROUTES.manageProject}${ROUTES.dashboard}/${projectId}`,
+              )
+            }}
+            tooltipContent={t('tooltip.manageProject')}
+          >
+            <div className={styles.team} />
+          </Button>
+        </div>
       </div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <div className={styles.boardColumn}>

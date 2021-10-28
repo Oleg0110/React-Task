@@ -1,10 +1,3 @@
-// !!! ToDO
-// interface IUrlValue {
-//   page?: string | number
-//   count?: string | number
-//   projectId?: string
-// }
-
 const urlValue = (string: string) => {
   const value = {
     page: '',

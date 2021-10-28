@@ -2,12 +2,12 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import urlValue from 'utils/functions'
-import { IModalWindowProps } from 'utils/interface'
-import styles from './CreateTaskModalWindow.module.scss'
+import urlValue from '../../utils/functions'
+import { IModalWindowProps } from '../../utils/interface'
 import { TASKS_CONTENT_VALIDATION } from '../../utils/validation'
 import { BoardStore } from '../../stores'
 import { Button, TextBox } from '..'
+import styles from './CreateTaskModalWindow.module.scss'
 
 interface IOnSubmitProps {
   text: string
@@ -18,10 +18,9 @@ const CreateTaskModalWindow: React.FC<IModalWindowProps> = ({
   onModalClose,
   id,
 }) => {
-  const { t } = useTranslation()
-
   const { projectId } = urlValue(window.location.href)
-  // const projectId = urlValue(window.location.href).projectId
+
+  const { t } = useTranslation()
 
   const {
     register,
@@ -52,10 +51,37 @@ const CreateTaskModalWindow: React.FC<IModalWindowProps> = ({
                 <div className={styles.closeIcon} />
               </Button>
             </div>
+            {/* <div className={styles.searchArea}>
+              <span className={styles.text}>Asignee someone</span>
+              <div className={styles.inputPositon}>
+                <UserSearch onSubmit={search} />
+              </div>
+              <div className={styles.foundUserField}>
+                <div className={styles.scroll}>
+                  {userSearch?.map((data) => (
+                    <FindAsigneeUser
+                      id={data.id}
+                      name={data.name}
+                      email={data.email}
+                      key={data.id}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className={styles.asigneeInfo}>
+                <p className={styles.asignee}>
+                  Asignee:
+                  <span> bebe@gmail.com</span>
+                </p>
+                <Button>
+                  <span className={styles.me}>Asignee to me</span>
+                </Button>
+              </div>
+            </div>
+            <hr className={styles.line} /> */}
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.cardText}>
                 <span className={styles.text}>{t('modal.taskTitle')}</span>
-                <br />
                 <TextBox
                   inputStyle='textInput'
                   placeholder={t('modal.contentPlaceholder')}

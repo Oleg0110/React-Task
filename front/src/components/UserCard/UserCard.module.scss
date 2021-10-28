@@ -24,13 +24,14 @@
 }
 
 .userPhoto {
-   background-image: url(../../assets/img/person.png);
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: 60px;
-   border-radius: 50%;
-   width: 40px;
-   height: 40px;
+  background-color: #7d7d7d87;
+  border: 1px solid #fff;
+  color: black;
+  border-radius: 50%;
+  font-size: 27px;
+  font-weight: 500;
+  width: 40px;
+  height: 40px;
 }
 
 .infoField {

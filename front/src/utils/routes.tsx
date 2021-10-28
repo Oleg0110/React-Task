@@ -9,6 +9,7 @@ import {
   Projects,
   Settings,
   SignUpField,
+  ManageProject,
 } from '../layouts'
 import { ROUTES } from './constants'
 
@@ -18,6 +19,7 @@ const useRoutes = () => (
     <Route path={ROUTES.projects} component={Projects} />
     <Route path={ROUTES.dashboard} component={Dashboards} />
     <Route path={ROUTES.people} component={People} />
+    <Route path={ROUTES.manageProject} component={ManageProject} />
     <Route path={ROUTES.backlog} component={EmptyPage} />
     <Route path={ROUTES.reports} component={EmptyPage} />
     <Route path={ROUTES.components} component={EmptyPage} />

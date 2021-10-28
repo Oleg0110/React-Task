@@ -1,11 +1,10 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IProjectType } from 'utils/types'
+import { IProjectType } from '../../utils/types'
 import { UserStore } from '..'
 import {
   changedContent,
   changedTitle,
   deleted,
-  drag,
   getProjects,
   push,
 } from '../../services/projects'
@@ -17,18 +16,19 @@ class ProjectsStore {
     makeObservable(this, {
       projects: observable,
       pushProject: action,
-      dragProject: action,
       deletedProject: action,
       changedProjecTitle: action,
       changedProjecContent: action,
       asyncGetProjects: action,
       setProjects: action,
-      setDragProject: action,
+      setProject: action,
+      setChangeTitle: action,
+      setChangeContent: action,
+      setDeleteProject: action,
     })
   }
 
   asyncGetProjects = async () => {
-    // const userId = UserStore.userId
     const { userId } = UserStore
 
     const projects = await getProjects(userId)
@@ -41,9 +41,14 @@ class ProjectsStore {
   }
 
   pushProject = async (title: string, content: string) => {
-    const user = UserStore.userId
+    const idUser = UserStore.userId
+    const userEmail = UserStore.user?.email
 
-    const project = await push(title, content, user)
+    const project = await push(title, content, idUser, userEmail)
+    this.setProject(project)
+  }
+
+  setProject = (project: IProjectType) => {
     this.projects.push(project)
   }
 
@@ -53,6 +58,13 @@ class ProjectsStore {
       (found) => found.id === id,
     )
 
+    this.setChangeTitle(foundProjectIndex, changedProjectTitle)
+  }
+
+  setChangeTitle = (
+    foundProjectIndex: number,
+    changedProjectTitle: IProjectType,
+  ) => {
     this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
   }
 
@@ -62,6 +74,13 @@ class ProjectsStore {
       (found) => found.id === id,
     )
 
+    this.setChangeContent(foundProjectIndex, changedProjectContent)
+  }
+
+  setChangeContent = (
+    foundProjectIndex: number,
+    changedProjectContent: IProjectType,
+  ) => {
     this.projects.splice(foundProjectIndex, 1, changedProjectContent)
   }
 
@@ -70,18 +89,11 @@ class ProjectsStore {
     const foundProjectIndex = this.projects.findIndex(
       (found) => found.id === id,
     )
+    this.setDeleteProject(foundProjectIndex)
+  }
 
+  setDeleteProject = (foundProjectIndex: number) => {
     this.projects.splice(foundProjectIndex, 1)
-  }
-
-  dragProject = async (result: object) => {
-    const changedProjectPosition = await drag(result)
-
-    this.setDragProject(changedProjectPosition)
-  }
-
-  setDragProject = (result: IProjectType[]) => {
-    this.projects = result
   }
 }
 

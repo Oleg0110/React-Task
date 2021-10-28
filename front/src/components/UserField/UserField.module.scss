@@ -74,15 +74,15 @@
 }
 
 .userPhoto {
-   background-image: url(../../assets/img/person.png);
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: 55px;
-   border-radius: 50%;
-   width: 37px;
-   height: 37px;
+  background-color: #7d7d7d87;
+  border: 1px solid #fff;
+  color: black;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 500;
+  width: 30px;
+  height: 30px;
 }
-
 .userInfo {
    display: flex;
    flex-direction: column;

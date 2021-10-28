@@ -18,15 +18,7 @@ import useRoutes from './utils/routes'
 import styles from './App.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
-interface IButtonProps {
-  id: string
-  name: string
-  link: string
-  icon: string
-  style: string
-}
-
-const buttons: IButtonProps[] = [
+const buttons = [
   {
     id: '0',
     name: 'header.home',
@@ -58,22 +50,20 @@ const buttons: IButtonProps[] = [
 ]
 
 const App: React.FC = () => {
+  const { t } = useTranslation()
+  const history = useHistory()
+  const routes = useRoutes()
+
   const responsive = useMedia(
     RESPONSIVE_SIZES,
     RESPONSIVE_VALUE,
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const history = useHistory()
-
   const [isSidebarOpened, setSidebarOpened] = useState(false)
   const [isUserFieldOpened, setUserFieldOpened] = useState(false)
 
-  const routes = useRoutes()
-
   const isAuth = !!UserStore.userToken
-
-  const { t } = useTranslation()
 
   const onButtonClick = (links: string) => {
     const click = isAuth
@@ -85,7 +75,10 @@ const App: React.FC = () => {
 
   const buttonsMap = buttons.map((button) => (
     <Button
-      onClick={() => onButtonClick(button.link)}
+      onClick={() => {
+        setSidebarOpened(false)
+        onButtonClick(button.link)
+      }}
       buttonStyle={
         responsive === 'SD' || responsive === 'MD'
           ? 'sidebarButtonStyle'

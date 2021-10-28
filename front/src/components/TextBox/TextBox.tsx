@@ -9,6 +9,7 @@ interface IFormValues {
   name?: string
   text?: string
   content?: string
+  manager?: string
 }
 
 type IStyleType =
@@ -18,6 +19,7 @@ type IStyleType =
   | 'textInput'
   | 'changeProjectContent'
   | 'createProjectContent'
+  | 'inputSearchUser'
 
 type IErrorType =
   | 'changeContenterror'
@@ -35,6 +37,9 @@ interface ITextBoxProps {
   required?: object
   label: Path<IFormValues>
   defaultValue?: string
+  autoComplete?: 'off'
+  pattern?: string
+  disabled?: boolean
 }
 
 const TextBox = ({
@@ -47,25 +52,31 @@ const TextBox = ({
   required,
   label,
   defaultValue,
+  autoComplete,
+  pattern,
+  disabled,
 }: ITextBoxProps) => (
   <>
     {(!!type && (
       <input
         {...register(label, required)}
-        className={!!inputStyle ? styles[inputStyle] : ''}
+        className={inputStyle ? styles[inputStyle] : ''}
         placeholder={placeholder}
         defaultValue={defaultValue}
         type={type}
+        autoComplete={autoComplete}
+        pattern={pattern}
+        disabled={disabled}
       />
     )) || (
       <textarea
         {...register(label, required)}
         placeholder={placeholder}
-        className={!!inputStyle ? styles[inputStyle] : ''}
+        className={inputStyle ? styles[inputStyle] : ''}
       />
     )}
     {error && (
-      <p className={!!errorPosition ? styles[errorPosition] : ''}>{error}</p>
+      <p className={errorPosition ? styles[errorPosition] : ''}>{error}</p>
     )}
   </>
 )

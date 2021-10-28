@@ -68,6 +68,15 @@
   resize: none;
 }
 
+.inputSearchUser{
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #9493935c;
+  box-shadow: 1px 1px 2px 1px #aaa;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
 .errorContentPosition {
   padding: 3px;
   font-size: 12px;
@@ -105,3 +114,4 @@
    color: #d81f1f;
    border-radius: 5px;
 }
+

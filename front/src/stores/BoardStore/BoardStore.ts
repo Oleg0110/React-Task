@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IColumnType, ITaskType } from 'utils/types'
+import { IColumnType, ITaskType } from '../../utils/types'
 import {
   change,
   deleted,
@@ -7,7 +7,9 @@ import {
   push,
 } from '../../services/dashboardsColumn'
 import {
+  deleteAsignee,
   getTasks,
+  setAsignee,
   taskChanged,
   taskDelete,
   taskPush,
@@ -31,6 +33,8 @@ class BoardStore {
       asyncGetColumn: action,
       setColumn: action,
       setTasks: action,
+      setAsigneeUser: action,
+      deleteAsigneeUser: action,
     })
   }
 
@@ -75,38 +79,43 @@ class BoardStore {
   }
 
   setTasks = (tasks: ITaskType[], foundColumn: IColumnType) => {
-    foundColumn.tasks = tasks
+    const column = foundColumn
+
+    column.tasks = tasks
   }
 
   pushTask = async (text: string, id: string, projectId: string) => {
     const task = await taskPush(text, id, projectId)
-    // !!! ToDo any
-    const foundColumnId: any = this.column.find((find) => find.id === id)
-    console.log(foundColumnId)
 
-    foundColumnId.tasks.push(task)
+    const foundColumnId = this.column.find((find) => find.id === id)
+
+    foundColumnId?.tasks.push(task)
   }
 
   changeTask = async (text: string, id: string, columnId: string) => {
     const changedTask = await taskChanged(text, id)
 
-    const foundColumn: any = this.column.find((found) => found.id === columnId)
-    const foundTask = foundColumn.tasks.findIndex(
-      (found: { id: string }) => found.id === id,
-    )
+    const foundColumn = this.column.find((found) => found.id === columnId)
+    if (foundColumn) {
+      const foundTask = foundColumn.tasks.findIndex(
+        (found: { id: string }) => found.id === id,
+      )
 
-    foundColumn.tasks.splice(foundTask, 1, changedTask)
+      foundColumn.tasks.splice(foundTask, 1, changedTask)
+    }
   }
 
   deleteTask = async (id: string, columnId: string) => {
     await taskDelete(id)
 
-    const foundColumn: any = this.column.find((found) => found.id === columnId)
-    const foundTask = foundColumn.tasks.findIndex(
-      (found: { id: string }) => found.id === id,
-    )
+    const foundColumn = this.column.find((found) => found.id === columnId)
+    if (foundColumn) {
+      const foundTask = foundColumn.tasks.findIndex(
+        (found: { id: string }) => found.id === id,
+      )
 
-    foundColumn.tasks.splice(foundTask, 1)
+      foundColumn.tasks.splice(foundTask, 1)
+    }
   }
 
   // dragInColumn(result:object, idColumn:string) {
@@ -131,6 +140,14 @@ class BoardStore {
   //       toast.error("invalid data")
   //    }
   // }
+
+  setAsigneeUser = async (id: string, taskId: string) => {
+    await setAsignee(id, taskId)
+  }
+
+  deleteAsigneeUser = async (noAsignee: string, taskId: string) => {
+    await deleteAsignee(noAsignee, taskId)
+  }
 }
 
 export default new BoardStore()

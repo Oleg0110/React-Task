@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { useHistory } from 'react-router'
-import { IUserType } from 'utils/types'
+import { IUserType } from '../../utils/types'
 import { Pagination, UserCard } from '../../components'
 import useMedia from '../../hooks/useMedia'
 import {
@@ -15,10 +15,13 @@ import urlValue from '../../utils/functions'
 import styles from './People.module.scss'
 
 const People: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [usersOnPage] = useState(2)
+  const { usersPagination } = UserStore
 
+  const { t } = useTranslation()
   const history = useHistory()
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [usersOnPage] = useState(10)
 
   const local = history.location.search
 
@@ -34,23 +37,20 @@ const People: React.FC = () => {
     }
   }, [currentPage, usersOnPage, local])
 
-  const { users } = UserStore
-
-  const currentUser: IUserType[] = users?.currentUser || []
-  const allUsers = users?.allUsers
-
-  const { t } = useTranslation()
-
   const responsive = useMedia(
     RESPONSIVE_SIZES,
     RESPONSIVE_VALUE,
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const projectsCount = (): string => {
+  const currentUser: IUserType[] = usersPagination?.currentUser || []
+  const allUsers = usersPagination?.allUsers
+
+  const projectsCount = () => {
     const count = `${allUsers === 0 ? styles.countNone : styles.count}`
     return count
   }
+
   return (
     <div className={styles.mainBlock}>
       <h1 className={styles.title}>

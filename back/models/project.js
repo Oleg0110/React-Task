@@ -4,8 +4,10 @@ const normalize = require('normalize-mongoose')
 const schema = new Schema({
    title: { type: String, max: 25, required: true },
    content: { type: String, required: true },
+   userOwner: { type: Types.ObjectId, ref: "User" },
+   userEmail:{type:String, required:true},
    // column: [{ type: Types.ObjectId, ref: "Column" }],
-   userOwner: { type: Types.ObjectId, ref: "User" }
+   //  addUsers: [{"id": String}],
 })
 
 schema.plugin(normalize)
