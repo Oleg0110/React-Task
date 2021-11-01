@@ -9,6 +9,7 @@ import {
   ChangeProjectTitleModal,
   ChangeProjectContentModal,
 } from '../index'
+import { UserStore } from '../../stores'
 import styles from './Accordion.module.scss'
 
 interface IAccordionProps {
@@ -18,14 +19,25 @@ interface IAccordionProps {
 }
 
 const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
+  const { user } = UserStore
+
+  const history = useHistory()
+  const { t } = useTranslation()
+
   const [isOpened, setIsOpened] = useState(false)
   const [isOptionsOpened, setIsOptionsOpened] = useState(false)
   const [isDeleteOpened, setIsDeleteOpened] = useState(false)
   const [isChangeTitleOpened, setIsChangeTitleOpened] = useState(false)
   const [isContentTitleOpened, setIsContentTitleOpened] = useState(false)
-  const history = useHistory()
 
-  const { t } = useTranslation()
+  const owner = user?.projects.find((found: any) => found.projectId === id)
+
+  const userState = () => {
+    if (owner?.state !== 'owner') {
+      return styles.none
+    }
+    return styles.block
+  }
 
   return (
     <div className={styles.accordionSection}>
@@ -66,9 +78,14 @@ const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
             >
               {t('accordion.go')}
             </Button>
-            <Button onClick={() => setIsOptionsOpened(!isOptionsOpened)}>
-              <div className={styles.threeDots} />
-            </Button>
+            <div className={userState()}>
+              <Button
+                tooltipContent={t('tooltip.settings')}
+                onClick={() => setIsOptionsOpened(!isOptionsOpened)}
+              >
+                <div className={styles.threeDots} />
+              </Button>
+            </div>
           </div>
           <div
             className={`${styles.infoButtonsBackFon} ${

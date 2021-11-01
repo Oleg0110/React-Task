@@ -16,15 +16,6 @@ interface IOnSubmitProps {
 
 const LogInField: React.FC = () => {
   const { t } = useTranslation()
-
-  const [isPassword, setIsPassword] = useState('password')
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-
   const history = useHistory()
 
   const isAuth = !!UserStore.userToken
@@ -32,6 +23,14 @@ const LogInField: React.FC = () => {
   useEffect(() => {
     isAuth ? history.push(ROUTES.home) : history.push(ROUTES.userAauthLogIn)
   }, [isAuth, history])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const [isPassword, setIsPassword] = useState('password')
 
   const onSubmit = (data: IOnSubmitProps) => {
     UserStore.loginUser(data.email, data.password)

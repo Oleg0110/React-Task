@@ -21,16 +21,13 @@ interface IOnSubmitProps {
 
 const SignUpField: React.FC = () => {
   const { t } = useTranslation()
+  const history = useHistory()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-
-  const history = useHistory()
-
-  const [isPassword, setIsPassword] = useState('password')
 
   const isAuth = !!UserStore.userToken
 
@@ -41,6 +38,8 @@ const SignUpField: React.FC = () => {
       history.push(ROUTES.userAuthSignUp)
     }
   }, [isAuth, history])
+
+  const [isPassword, setIsPassword] = useState('password')
 
   const onSubmit = (data: IOnSubmitProps) => {
     UserStore.registerUser(data.email, data.name, data.password)

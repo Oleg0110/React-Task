@@ -1,11 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 const Column = require("../models/dashboard-column")
-const Task = require("../models/dshboard-task")
+const Task = require("../models/dashboard-task")
 const Project = require("../models/project")
+const User = require("../models/user")
 const auth = require("../middleware/auth.middleware");
-
-const projects = []
 
 router.get("/:id", auth, async (req, res) => {
    try {
@@ -15,7 +14,13 @@ router.get("/:id", auth, async (req, res) => {
          return res.status(400).json({ error: "invalid data" })
       }
 
-      const projects = await Project.find({ userOwner: id })
+      const user = await User.findOne({_id:id})
+
+      const projectsId = user.projects.map((data)=>{
+        return data.projectId
+      })
+
+      const projects = await Project.find({ _id: projectsId})
       
       res.status(200).json(projects)
 
@@ -27,21 +32,28 @@ router.get("/:id", auth, async (req, res) => {
 
 router.post("/", auth, async (req, res) => {
    try {
-      const { title, content, userId } = req.body
+      const { title, content, idUser,userEmail } = req.body
 
-      if (!title && !content && !userId) {
+      if (!title && !content && !idUser && !userEmail) {
          return res.status(400).json({ error: "invalid input" })
       }
 
       const project = new Project({
-         title,
-         content,
-         userOwner: userId
+        title,
+        content,
+        userOwner: idUser,
+        userEmail: userEmail,
       })
+      
+      const pro =  await project.save()
+      const projectId = pro._id
 
-      await project.save()
-
-      res.status(201).json(project)
+      await User.findOneAndUpdate(
+        {_id:idUser},
+        {$addToSet:{projects: [{projectId,state:'owner'}]}}
+      )
+   
+      res.status(201).json(pro)
       return
 
    } catch (error) {
@@ -93,30 +105,31 @@ router.patch("/content", auth, async (req, res) => {
    }
 })
 
-router.patch("/position", async (req, res) => {
-   try {
-      const { result } = req.body
-      if (!result.destination) return;
+// router.patch("/position", async (req, res) => {
+//    try {
+//       const { result } = req.body
+//       if (!result.destination) return;
 
-      const [reorderedItem] = projects.splice(result.source.index, 1);
-      projects.splice(result.destination.index, 0, reorderedItem);
+//       const [reorderedItem] = projects.splice(result.source.index, 1);
+//       projects.splice(result.destination.index, 0, reorderedItem);
 
-      res.status(200).json(projects)
+//       res.status(200).json(projects)
 
-      return
-   } catch (error) {
-      res.status(500).json({ error: "internal server error" })
-   }
-})
+//       return
+//    } catch (error) {
+//       res.status(500).json({ error: "internal server error" })
+//    }
+// })
 
 router.delete("/:id", auth, async (req, res) => {
    try {
-      const { id } = req.params
-
+      const { id} = req.params
+      
       if (!id) {
          return res.status(400).json({ error: "invalid input" })
       }
 
+      await User.updateMany({'projects.projectId': id},{$pull:{projects:{projectId:id}}})
       await Column.deleteMany({ projectOwner: id })
       await Task.deleteMany({ projectOwner: id })
 

@@ -12,6 +12,8 @@ interface IUserCardProps {
 const UserCard: React.FC<IUserCardProps> = ({ name, email }) => {
   const { t } = useTranslation()
 
+  const logoName = name.toLocaleUpperCase().split('')[0]
+
   const copyEmail = async () => {
     if (email === undefined) {
       toast.error('Failed to copy!')
@@ -26,7 +28,7 @@ const UserCard: React.FC<IUserCardProps> = ({ name, email }) => {
       <div className={styles.back}>
         <button type='button' onClick={copyEmail} className={styles.userCard}>
           <div className={styles.userBlock}>
-            <div className={styles.userPhoto} />
+            <div className={styles.userPhoto}>{logoName}</div>
             <div className={styles.infoField}>
               <p className={styles.userName}>{name}</p>
               <p className={styles.userEmail}>{email}</p>

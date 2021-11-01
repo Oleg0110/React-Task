@@ -14,18 +14,20 @@
    font-size: 30px;
 }
 
-.release {
-   display: flex;
+.ownerField {
+  border-radius: 5px;
+    background-color: #7d7d7d36;
+    padding: 10px;
 }
 
-.three-dots {
-   background-image: url(../../assets/icon/threeDots.svg);
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: 27px;
-   width: 25px;
-   height: 25px;
-   margin-left: 25px;
+.owner {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ownerEmail{
+  margin-left: 10px;
+  font-weight: 400;
 }
 
 .create {
@@ -47,6 +49,14 @@
 
 .createButtonPositionSD {
    margin-top: 30px;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
 }
 
 .plus {
@@ -92,6 +102,19 @@
    top: 25%;
    right: 0%;
    transform: rotate(45deg);
+}
+
+.buttonPosition{
+  margin-left: 15px;
+}
+
+.team{
+  background-image: url(../../assets/icon/team.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25px;
+    width: 30px;
+    height: 30px;
 }
 
 .boardColumn {

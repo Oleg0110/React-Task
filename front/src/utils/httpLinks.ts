@@ -11,3 +11,6 @@ export const LINK_USER_AUTH_LOG_IN = `${BASIC_URL}${ROUTES.userAauthLogIn}`
 export const LINK_USER_AUTH_PEOPLE = `${BASIC_URL}${ROUTES.userAauthPeople}`
 export const LINK_USER_AUTH_USER = `${BASIC_URL}${ROUTES.userAauthUser}`
 export const LINK_USER_AUTH = `${BASIC_URL}${ROUTES.userAuth}`
+export const LINK_USER_SEARCH = `${BASIC_URL}${ROUTES.userAuth}/${ROUTES.userSearch}`
+export const LINK_USER_MANAGE_PROJECT = `${BASIC_URL}${ROUTES.userAuth}${ROUTES.manageProject}`
+export const LINK_MANAGE_PROJECT = `${BASIC_URL}${ROUTES.manageProject}`

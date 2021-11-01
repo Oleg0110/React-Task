@@ -1,24 +1,39 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IUserType } from 'utils/types'
+import { IUserState, IUserType } from '../../utils/types'
 import { IUsers } from '../../utils/interface'
-import { getUser, getUsers, login, register } from '../../services/user'
+import {
+  addUser,
+  onProject,
+  getUser,
+  getUsers,
+  login,
+  register,
+  search,
+  removeUser,
+  asigneeUserSearch,
+} from '../../services/user'
 import { storageDataName } from '../../utils/constants'
 
 class UserStore {
-  users: IUsers | null = null
+  usersPagination: IUsers | null = null
 
   user: IUserType | null = null
+
+  usersOnProject: IUserType[] | null = null
 
   userId = ''
 
   userToken = ''
 
+  userSearch: Omit<IUserType[], 'password'> | null = null
+
   constructor() {
     makeObservable(this, {
-      users: observable,
+      usersPagination: observable,
       user: observable,
       userId: observable,
       userToken: observable,
+      userSearch: observable,
       registerUser: action,
       loginUser: action,
       setUsers: action,
@@ -28,7 +43,14 @@ class UserStore {
       getUserId: action,
       setUserId: action,
       getUserToken: action,
+      getUsersOnProject: action,
       setUserToken: action,
+      searchUser: action,
+      setUserSearch: action,
+      addToProject: action,
+      deleteUser: action,
+      searchAsigneeUser: action,
+      setAsigneeUserSearch: action,
     })
     this.getUserToken()
     this.getUserId()
@@ -64,7 +86,6 @@ class UserStore {
     this.userToken = token
   }
 
-  // !!! ToDO any
   asyncGetUsers = async (number: number, usersOnPage: number) => {
     const users: IUsers | null = await getUsers(number, usersOnPage)
 
@@ -72,7 +93,7 @@ class UserStore {
   }
 
   setUsers = (user: IUsers) => {
-    this.users = user
+    this.usersPagination = user
   }
 
   asyncGetUser = async () => {
@@ -98,6 +119,38 @@ class UserStore {
   loginUser = async (email: string, password: string) => {
     await login(email, password)
     await this.asyncGetUser()
+  }
+
+  searchUser = async (text: string) => {
+    const found = await search(text)
+    this.setUserSearch(found)
+  }
+
+  setUserSearch = (found: Omit<IUserType[], 'password'>) => {
+    this.userSearch = found
+  }
+
+  getUsersOnProject = async (projectId: string) => {
+    const all = await onProject(projectId)
+
+    this.usersOnProject = all
+  }
+
+  addToProject = async (userId: string, projectId: string, state: string) => {
+    await addUser(userId, projectId, state)
+  }
+
+  deleteUser = async (userId: string, projectId: string) => {
+    await removeUser(userId, projectId)
+  }
+
+  searchAsigneeUser = async (text: string, projectId: string) => {
+    const asignee = await asigneeUserSearch(text, projectId)
+    this.setUserSearch(asignee)
+  }
+
+  setAsigneeUserSearch = (asignee: Omit<IUserType[], 'password'>) => {
+    this.userSearch = asignee
   }
 }
 

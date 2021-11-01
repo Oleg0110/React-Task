@@ -1,6 +1,7 @@
 const { Router } = require("express")
 const Column = require("../models/dashboard-column")
-const Task = require("../models/dshboard-task")
+const Task = require("../models/dashboard-task")
+const User = require("../models/user")
 const router = Router()
 const auth = require("../middleware/auth.middleware");
 
@@ -126,7 +127,7 @@ router.post("/task", auth, async (req, res) => {
       const task = new Task({
          text,
          columnOwner: id,
-         projectOwner: projectId
+         projectOwner: projectId,
       })
 
       await task.save()
@@ -178,6 +179,52 @@ router.delete("/task/:id", auth, async (req, res) => {
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
    }
+})
+
+router.post("/asignee-user", auth, async (req, res) => {
+  try {
+      const { id,taskId } = req.body
+      
+      if (!id && !taskId) {
+        return res.status(400).json({ error: "invalid input" })
+     }
+
+     const asigneeUser = await User.findOne({_id:id})
+     
+      await Task.findOneAndUpdate(
+        {_id:taskId},
+        {$set:{asigneeUser:asigneeUser.email }}
+     )
+
+
+  
+      res.status(201).json(asigneeUser.email)
+      return
+
+  } catch (error) {
+     res.status(500).json({ error: "internal server error" })
+  }
+})
+
+router.post("/no-asignee", auth, async (req, res) => {
+  try {
+      const { noAsignee,taskId } = req.body
+      
+      if (!noAsignee && !taskId) {
+        return res.status(400).json({ error: "invalid input" })
+     }
+
+      await Task.findOneAndUpdate(
+        {_id:taskId},
+        {$set:{asigneeUser:noAsignee }}
+     )
+
+      res.status(201).json(noAsignee)
+      return
+
+  } catch (error) {
+     res.status(500).json({ error: "internal server error" })
+  }
 })
 
 module.exports = router;

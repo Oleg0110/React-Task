@@ -9,19 +9,10 @@ import styles from './Sidebar.module.scss'
 
 interface ISidebarProps {
   isOpened: boolean
-  // onClick: () => void
   setSidebarOpened: (boolean: boolean) => void
 }
 
-interface IButtonProps {
-  id: string
-  name: string
-  link: string
-  icon: string
-  style: string
-}
-
-const buttons: IButtonProps[] = [
+const buttons = [
   {
     id: '0',
     name: 'sidebar.backlog',
@@ -64,11 +55,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
   children,
   setSidebarOpened,
 }) => {
-  const isAuth = !!UserStore.userToken
-
+  const { t } = useTranslation()
   const history = useHistory()
 
-  const { t } = useTranslation()
+  const isAuth = !!UserStore.userToken
 
   const onButtonClick = (links: string) => {
     isAuth ? history.push(links) : toast.error('please sign up or log in')

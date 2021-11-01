@@ -1,4 +1,4 @@
-import { IColumnType } from 'utils/types'
+import { IColumnType } from '../utils/types'
 import { LINK_DASHBOARD_COLUMN } from '../utils/httpLinks'
 import api from './ApiProvider'
 
@@ -13,7 +13,7 @@ export const getColumn = async (
 export const push = async (
   title: string,
   projectId: string,
-): Promise<Omit<IColumnType, 'tasks'>> => {
+): Promise<IColumnType> => {
   const res = await api.doFetch('post', LINK_DASHBOARD_COLUMN, {
     title,
     projectId,
@@ -25,9 +25,9 @@ export const push = async (
 export const change = async (
   title: string,
   id: string,
-): Promise<Omit<IColumnType, 'tasks'>> => {
+): Promise<IColumnType> => {
   const res = await api.doFetch('patch', LINK_DASHBOARD_COLUMN, { title, id })
-  console.log(res?.data)
+
   return res?.data
 }
 

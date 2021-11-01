@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import urlValue from 'utils/functions'
+import urlValue from '../../utils/functions'
 import { TITLE_VALIDATION } from '../../utils/validation'
 import { BoardStore } from '../../stores'
 import { Button, TextBox } from '..'
@@ -21,6 +21,8 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
   isModalOpened,
   onModalClose,
 }) => {
+  const { projectId } = urlValue(window.location.href)
+
   const { t } = useTranslation()
 
   const {
@@ -28,9 +30,6 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm()
-
-  const { projectId } = urlValue(window.location.href)
-  // const projectId = urlValue(window.location.href).projectId
 
   const onSubmit = (data: IOnSubmitProps) => {
     BoardStore.pushColumn(data.title, projectId)

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
-import { UserStore } from 'stores'
-import { BASIC_URL } from 'utils/httpLinks'
+import { UserStore } from '../stores'
+import { BASIC_URL } from '../utils/httpLinks'
 
 class ApiProvider {
   private axiosWrapper: AxiosInstance

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react'
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
-import { IProjectType } from 'utils/types'
+import { IProjectType } from '../../utils/types'
 import { Button, Accordion, CreateProjectArea } from '../../components'
 import { ProjectsStore } from '../../stores'
 import useMedia from '../../hooks/useMedia'
@@ -15,7 +14,6 @@ import styles from './Projects.module.scss'
 
 const Projects: React.FC = ({ children }) => {
   const { projects } = ProjectsStore
-  console.log(projects)
 
   useEffect(() => {
     ProjectsStore.asyncGetProjects()
@@ -53,16 +51,14 @@ const Projects: React.FC = ({ children }) => {
     return projectsContent
   })
 
-  const handleOnDragEnd = (result: object) => ProjectsStore.dragProject(result)
-
-  const accordionBlock = (): string => {
+  const accordionBlock = () => {
     const block = `${
       (isOpened && styles.accordionBlock) || styles.accordionBlockMax
     }`
     return block
   }
 
-  const createProjectArea = (): string => {
+  const createProjectArea = () => {
     const area = `${
       (isOpened && styles.openedCreateProjectBlock) ||
       styles.closeCreateProjectBlock
@@ -70,7 +66,7 @@ const Projects: React.FC = ({ children }) => {
     return area
   }
 
-  const projectsCount = (): string => {
+  const projectsCount = () => {
     const count = `${
       ProjectsStore.projects.length === 0 ? styles.countNone : styles.count
     }`
@@ -137,6 +133,7 @@ const Projects: React.FC = ({ children }) => {
             </div>
           </form>
           <Button
+            tooltipContent={t('tooltip.change')}
             onClick={() => {
               setIsSearchOpened(!isSearchOpened)
             }}
@@ -163,66 +160,29 @@ const Projects: React.FC = ({ children }) => {
           styles[`projectsBlocks${responsive}`]
         }`}
       >
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId='cards'>
-            {(conduct) => (
-              <div
-                className={`${styles.accordionBlock} ${
-                  styles[`accordionBlock${responsive}`]
-                } ${accordionBlock()}`}
-                {...conduct.droppableProps}
-                ref={conduct.innerRef}
-              >
-                {(isSearchOpened &&
-                  projectsByContent?.map((data, index) => (
-                    <Draggable
-                      key={data.id}
-                      draggableId={data.id}
-                      index={index}
-                    >
-                      {(provided): JSX.Element => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.dragHandleProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <Accordion
-                            title={data.title}
-                            content={data.content}
-                            id={data.id}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))) ||
-                  projectsByTitle?.map(
-                    (data, index): JSX.Element => (
-                      <Draggable
-                        key={data.id}
-                        draggableId={data.id}
-                        index={index}
-                      >
-                        {(provid) => (
-                          <div
-                            ref={provid.innerRef}
-                            {...provid.draggableProps}
-                            {...provid.dragHandleProps}
-                          >
-                            <Accordion
-                              title={data.title}
-                              content={data.content}
-                              id={data.id}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ),
-                  )}
-                {conduct.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div
+          className={`${styles.accordionBlock} ${
+            styles[`accordionBlock${responsive}`]
+          } ${accordionBlock()}`}
+        >
+          {(isSearchOpened &&
+            projectsByContent?.map((data) => (
+              <Accordion
+                title={data.title}
+                content={data.content}
+                id={data.id}
+                key={data.id}
+              />
+            ))) ||
+            projectsByTitle?.map((data) => (
+              <Accordion
+                title={data.title}
+                content={data.content}
+                id={data.id}
+                key={data.id}
+              />
+            ))}
+        </div>
         <div
           className={`${styles.createProjectArea} ${
             styles[`createProjectArea${responsive}`]

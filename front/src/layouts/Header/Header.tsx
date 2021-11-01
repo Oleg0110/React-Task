@@ -19,31 +19,34 @@ interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
+  const { user } = UserStore
+
+  const { t, i18n } = useTranslation()
+  const history = useHistory()
+
   const responsive = useMedia(
     RESPONSIVE_SIZES,
     RESPONSIVE_VALUE,
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const history = useHistory()
+  const [searchOpened, setSearchOpened] = useState(false)
 
   const isAuth = !!UserStore.userToken
-
-  const { t, i18n } = useTranslation()
-
-  const [searchOpened, setSearchOpened] = useState(false)
+  const logoName = user?.name.toLocaleUpperCase().split('')[0]
 
   const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(event.target.value)
   }
 
-  const searchHeaderInput = (): string => {
+  const searchHeaderInput = () => {
     const searchInput = `${styles[`searchHeaderInput${responsive}`]} ${
       searchOpened && styles.searchHeaderInputOpen
     }`
     return searchInput
   }
-  const userPhoto = (): string => (!isAuth ? styles.empty : styles.userPhoto)
+
+  const userPhoto = () => (!isAuth ? styles.empty : styles.userPhoto)
 
   return (
     <header
@@ -52,7 +55,7 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
       }`}
     >
       <div className={styles.logoField}>
-        <Button onClick={onClick}>
+        <Button tooltipContent={t('tooltip.sidebar')} onClick={onClick}>
           <div className={`${styles['open-sidebar-icon']}`} />
         </Button>
         <div className={styles.logoPosition}>
@@ -87,14 +90,17 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
               }`}
             />
           </Button>
-          <Button>
+          <Button tooltipContent={t('tooltip.notification')}>
             <div className={`${styles.icon} ${styles['bell-icon']}`} />
           </Button>
-          <Button onClick={() => history.push(ROUTES.settings)}>
+          <Button
+            tooltipContent={t('tooltip.settings')}
+            onClick={() => history.push(ROUTES.settings)}
+          >
             <div className={`${styles.icon} ${styles['setting-icon']}`} />
           </Button>
           <Button onClick={userField}>
-            <div className={userPhoto()} />
+            <div className={userPhoto()}>{logoName}</div>
           </Button>
           <select
             className={styles.language}

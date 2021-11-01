@@ -1,4 +1,4 @@
-import { IProjectType } from 'utils/types'
+import { IProjectType } from '../utils/types'
 import { LINK_PROJECTS } from '../utils/httpLinks'
 import api from './ApiProvider'
 
@@ -11,12 +11,14 @@ export const getProjects = async (userId: string): Promise<IProjectType[]> => {
 export const push = async (
   title: string,
   content: string,
-  userId: string,
+  idUser: string,
+  userEmail: any,
 ): Promise<IProjectType> => {
   const res = await api.doFetch('post', LINK_PROJECTS, {
     title,
     content,
-    userId,
+    idUser,
+    userEmail,
   })
 
   return res?.data
@@ -48,12 +50,4 @@ export const changedContent = async (
 
 export const deleted = async (id: string) => {
   await api.doFetch('delete', `${LINK_PROJECTS}/${id}`)
-}
-
-export const drag = async (result: object) => {
-  const res = await api.doFetch('patch', `${LINK_PROJECTS}${'/position'}`, {
-    result,
-  })
-
-  return res?.data
 }

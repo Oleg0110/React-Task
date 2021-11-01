@@ -20,8 +20,8 @@
     "exit": "Exit"
   },
   "home": {
-    "title": "My",
-    "projectTitle": "project",
+    "title": "My ",
+    "projectTitle": " project",
     "wont": "If you wont to make project, please Sign up or Log In",
     "create": "Create your first Project",
     "go": "Let's Go",
@@ -52,7 +52,16 @@
     "title": "Board",
     "release": "Release",
     "create": "Create Column",
-    "taskPlaceholder": "Task search..."
+    "taskPlaceholder": "Task search...",
+    "owner": "Project owner:"
+  },
+  "manageProject": {
+    "title": "Manage Project",
+    "owner": "Project owner:",
+    "palceholder": "Search User",
+    "addToProject": "Add to this Project",
+    "team": "Team",
+    "totalUsers": "Users in the Project :"
   },
   "people": {
     "title": "Users ",
@@ -94,10 +103,28 @@
     "changeContent": "Change Content",
     "descriptionPlaceholder": "Description",
     "changeTitle": "Change Title",
-    "projectTitle": "Title"
+    "projectTitle": "Title",
+    "addToProject": "Add to Project",
+    "choose": "Choose a profession :",
+    "changeTask": "Change Task",
+    "asignee": "Asignee someone",
+    "asigneeMe": "Asignee to me",
+    "taskAsignee": "Asignee: "
   },
   "empty": {
     "title": "Sorry!",
     "text": "The page is being developed in the future there will be content"
+  },
+  "tooltip": {
+    "manageProject": "Manage this Project",
+    "notification": "Your notifications",
+    "settings": "Settings",
+    "close": "Close",
+    "change": "Change",
+    "sidebar": "Sidebar",
+    "plus": "Add Task",
+    "delete": "Delete",
+    "addToProject": "Add to Project",
+    "addToTask": "Add to Task"
   }
 }

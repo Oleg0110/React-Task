@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { observer } from 'mobx-react'
+import { useTranslation } from 'react-i18next'
 import { Button, DeleteTaskModal, ChangeTaskModal } from '..'
+import urlValue from '../../utils/functions'
+import { UserStore } from '../../stores'
 import styles from './Task.module.scss'
 
 interface ITaskProps {
@@ -13,6 +16,7 @@ interface ITaskProps {
   index: number
   id: string
   columnId: string
+  asigneeUserEmail?: string
 }
 
 // !!! ToDo Draggable
@@ -26,17 +30,49 @@ const Task: React.FC<ITaskProps> = ({
   index,
   id,
   columnId,
+  asigneeUserEmail,
 }) => {
+  const { user } = UserStore
+  const { projectId } = urlValue(window.location.href)
+
+  const { t } = useTranslation()
+
   const [isOpened, setIsOpened] = useState(false)
   const [isModalOpened, setIsModalOpened] = useState(false)
+
+  const owner = user?.projects.find(
+    (found: any) => found.projectId === projectId,
+  )
+
+  const userState = () => {
+    if (owner.state !== 'owner' && owner.state !== 'manager') {
+      return styles.none
+    }
+    return styles.block
+  }
+
+  const opanModal = () => {
+    if (owner.state !== 'owner' && owner.state !== 'manager') {
+      return setIsModalOpened(false)
+    }
+    return setIsModalOpened(!isModalOpened)
+  }
+
+  const asignee = () => {
+    if (asigneeUserEmail === 'no asignee') {
+      return styles.none
+    }
+    return styles.block
+  }
 
   return (
     <>
       <ChangeTaskModal
         id={id}
         columnId={columnId}
-        onModalClose={() => setIsModalOpened(false)}
+        setIsModalOpened={setIsModalOpened}
         isModalOpened={isModalOpened}
+        asigneeUserEmail={asigneeUserEmail}
       />
       <DeleteTaskModal
         id={id}
@@ -58,13 +94,14 @@ const Task: React.FC<ITaskProps> = ({
                 background: snapshot.isDragging ? '#f2ca90' : '#fff',
               }}
             >
-              <button
-                type='button'
-                className={styles.cardText}
-                onClick={() => setIsModalOpened(!isModalOpened)}
-              >
-                {text}
-              </button>
+              <p className={styles.textPosition}>
+                <Button
+                  tooltipContent={t('tooltip.change')}
+                  onClick={opanModal}
+                >
+                  <p className={styles.cardText}>{text}</p>
+                </Button>
+              </p>
               <p className={labelStyle ? styles[labelStyle] : ''}>{label}</p>
               <div className={styles.taskInfo}>
                 <div className={styles.stateTable}>
@@ -79,10 +116,18 @@ const Task: React.FC<ITaskProps> = ({
                     }`}
                   />
                 </div>
-                <div className={styles.userPhotoBlock}>
-                  <Button onClick={() => setIsOpened(!isOpened)}>
-                    <div className={styles.delete} />
-                  </Button>
+                <div className={styles.deleteBlock}>
+                  <div className={asignee()}>
+                    <p className={styles.asignee}>{asigneeUserEmail}</p>
+                  </div>
+                  <div className={userState()}>
+                    <Button
+                      tooltipContent={t('tooltip.delete')}
+                      onClick={() => setIsOpened(!isOpened)}
+                    >
+                      <div className={styles.delete} />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

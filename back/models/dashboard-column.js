@@ -3,7 +3,7 @@ const normalize = require('normalize-mongoose')
 
 const columnSchema = new Schema({
    title: { type: String, required: true },
-   // tasks: [{ type: Types.ObjectId, ref: "Task" }],
+   tasks: [{ type: Types.ObjectId, ref: "Task" }],
    projectOwner: { type: Types.ObjectId, ref: "Project" }
 })
 

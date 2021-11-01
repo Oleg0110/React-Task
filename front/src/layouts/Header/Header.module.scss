@@ -155,13 +155,14 @@
 }
 
 .userPhoto {
-   background-image: url(../../assets/img/person.png);
-   background-repeat: no-repeat;
-   background-position: center;
-   background-size: 45px;
-   border-radius: 50%;
-   width: 30px;
-   height: 30px;
+  background-color: #7d7d7d87;
+  border: 1px solid #fff;
+  color: black;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 500;
+  width: 30px;
+  height: 30px;
 }
 
 .language {

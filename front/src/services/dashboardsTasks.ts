@@ -1,4 +1,4 @@
-import { ITaskType } from 'utils/types'
+import { ITaskType } from '../utils/types'
 import { LINK_DASHBOARD_TASKS } from '../utils/httpLinks'
 import api from './ApiProvider'
 
@@ -27,10 +27,30 @@ export const taskChanged = async (
   id: string,
 ): Promise<ITaskType> => {
   const res = await api.doFetch('patch', LINK_DASHBOARD_TASKS, { text, id })
-  console.log(res?.data)
+
   return res?.data
 }
 
 export const taskDelete = async (id: string) => {
   await api.doFetch('delete', `${LINK_DASHBOARD_TASKS}/${id}`)
+}
+
+export const setAsignee = async (id: string, taskId: string) => {
+  const res = await api.doFetch(
+    'post',
+    'http://localhost:5000/dashboards/asignee-user',
+    { id, taskId },
+  )
+
+  return res?.data
+}
+
+export const deleteAsignee = async (noAsignee: string, taskId: string) => {
+  const res = await api.doFetch(
+    'post',
+    'http://localhost:5000/dashboards/no-asignee',
+    { noAsignee, taskId },
+  )
+
+  return res?.data
 }
