@@ -1,35 +1,28 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IUserState, IUserType } from '../../utils/types'
-import { IUsers } from '../../utils/interface'
-import {
-  addUser,
-  onProject,
-  getUser,
-  getUsers,
-  login,
-  register,
-  search,
-  removeUser,
-  asigneeUserSearch,
-} from '../../services/user'
+import { IUser, IUsers } from '../../utils/interface'
 import { storageDataName } from '../../utils/constants'
+import RootStore from '../RootStore/RootStore'
 
 class UserStore {
   usersPagination: IUsers | null = null
 
-  user: IUserType | null = null
+  user: IUser | null = null
 
-  usersOnProject: IUserType[] | null = null
+  usersOnProject: IUser[] | null = null
 
   userId = ''
 
   userToken = ''
 
-  userSearch: Omit<IUserType[], 'password'> | null = null
+  userSearch: Omit<IUser[], 'password'> | null = null
 
-  constructor() {
+  rootStore: RootStore
+
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore
     makeObservable(this, {
       usersPagination: observable,
+      usersOnProject: observable,
       user: observable,
       userId: observable,
       userToken: observable,
@@ -51,6 +44,11 @@ class UserStore {
       deleteUser: action,
       searchAsigneeUser: action,
       setAsigneeUserSearch: action,
+      clearUserNotification: action,
+      setUserOnProject: action,
+      setAddedUserToProject: action,
+      setDeletedUserOnProject: action,
+      setClearNotification: action,
     })
     this.getUserToken()
     this.getUserId()
@@ -87,6 +85,7 @@ class UserStore {
   }
 
   asyncGetUsers = async (number: number, usersOnPage: number) => {
+    const { getUsers } = this.rootStore.apiProvider.userApi
     const users: IUsers | null = await getUsers(number, usersOnPage)
 
     this.setUsers(users)
@@ -101,57 +100,111 @@ class UserStore {
     await this.getUserId()
 
     if (this.userId) {
+      const { getUser } = this.rootStore.apiProvider.userApi
       const user = await getUser(this.userId)
 
       this.setUser(user)
     }
   }
 
-  setUser = (user: IUserType | null) => {
+  setUser = (user: IUser | null) => {
     this.user = user
   }
 
   registerUser = async (email: string, name: string, password: string) => {
+    const { register } = this.rootStore.apiProvider.userApi
+
     await register(email, name, password)
     await this.asyncGetUser()
   }
 
   loginUser = async (email: string, password: string) => {
+    const { login } = this.rootStore.apiProvider.userApi
+
     await login(email, password)
     await this.asyncGetUser()
   }
 
   searchUser = async (text: string) => {
+    const { search } = this.rootStore.apiProvider.userApi
+
     const found = await search(text)
     this.setUserSearch(found)
   }
 
-  setUserSearch = (found: Omit<IUserType[], 'password'>) => {
+  setUserSearch = (found: Omit<IUser[], 'password'>) => {
     this.userSearch = found
   }
 
   getUsersOnProject = async (projectId: string) => {
-    const all = await onProject(projectId)
+    const { onProject } = this.rootStore.apiProvider.userApi
 
-    this.usersOnProject = all
+    const allUsers = await onProject(projectId)
+    if (allUsers) {
+      this.setUserOnProject(allUsers)
+    }
+    // this.usersOnProject = allUsers
+  }
+
+  setUserOnProject = (allUsers: Omit<IUser[], 'password'>) => {
+    this.usersOnProject = allUsers
   }
 
   addToProject = async (userId: string, projectId: string, state: string) => {
-    await addUser(userId, projectId, state)
+    const { addUser } = this.rootStore.apiProvider.userApi
+
+    const addedUser = await addUser(userId, projectId, state)
+
+    if (addedUser) {
+      this.setAddedUserToProject(addedUser)
+    }
+  }
+
+  setAddedUserToProject = (addedUser: Omit<IUser, 'password'>) => {
+    this.usersOnProject?.push(addedUser)
   }
 
   deleteUser = async (userId: string, projectId: string) => {
-    await removeUser(userId, projectId)
+    const { removeUser } = this.rootStore.apiProvider.userApi
+
+    const result = await removeUser(userId, projectId)
+
+    const foundUserIndex =
+      result && this.usersOnProject?.findIndex((found) => found.id === userId)
+
+    if (foundUserIndex) {
+      this.setDeletedUserOnProject(foundUserIndex)
+    }
+  }
+
+  setDeletedUserOnProject = (foundUserIndex: number) => {
+    this.usersOnProject?.splice(foundUserIndex, 1)
   }
 
   searchAsigneeUser = async (text: string, projectId: string) => {
+    const { asigneeUserSearch } = this.rootStore.apiProvider.userApi
+
     const asignee = await asigneeUserSearch(text, projectId)
     this.setUserSearch(asignee)
   }
 
-  setAsigneeUserSearch = (asignee: Omit<IUserType[], 'password'>) => {
+  setAsigneeUserSearch = (asignee: Omit<IUser[], 'password'>) => {
     this.userSearch = asignee
+  }
+
+  clearUserNotification = async (userId: string) => {
+    const { clearNotification } = this.rootStore.apiProvider.userApi
+
+    const result = await clearNotification(userId)
+
+    if (result) {
+      this.setClearNotification()
+    }
+  }
+
+  setClearNotification = () => {
+    this.user?.notification.splice(0, this.user?.notification.length)
   }
 }
 
-export default new UserStore()
+export default UserStore

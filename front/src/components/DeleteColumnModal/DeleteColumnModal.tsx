@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { IModalWindowProps } from '../../utils/interface'
 import { Button } from '..'
-import { BoardStore } from '../../stores'
+import useStore from '../../hooks/useStore'
 import styles from './DeleteColumnModal.module.scss'
 
 const DeleteColumnModal: React.FC<IModalWindowProps> = ({
@@ -11,9 +11,12 @@ const DeleteColumnModal: React.FC<IModalWindowProps> = ({
   onModalClose,
   id,
 }) => {
+  const { boardStore } = useStore()
+  const { deletedColumn } = boardStore
+
   const { t } = useTranslation()
 
-  const onClick = () => BoardStore.deletedColumn(id)
+  const onClick = () => deletedColumn(id)
 
   return (
     <>
@@ -21,6 +24,7 @@ const DeleteColumnModal: React.FC<IModalWindowProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={onModalClose}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${

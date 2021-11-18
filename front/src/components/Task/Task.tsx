@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router'
 import { Button, DeleteTaskModal, ChangeTaskModal } from '..'
 import urlValue from '../../utils/functions'
-import { UserStore } from '../../stores'
+import { stateManager, stateOwner } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './Task.module.scss'
 
 interface ITaskProps {
-  text: string
   label?: string
   labelStyle?: string
   taskState?: string
@@ -16,13 +17,14 @@ interface ITaskProps {
   index: number
   id: string
   columnId: string
-  asigneeUserEmail?: string
+  // text: string
+  // asigneeUser: string
+  // asigneeUserId: string
 }
 
 // !!! ToDo Draggable
 
 const Task: React.FC<ITaskProps> = ({
-  text,
   label,
   labelStyle,
   taskState,
@@ -30,112 +32,116 @@ const Task: React.FC<ITaskProps> = ({
   index,
   id,
   columnId,
-  asigneeUserEmail,
+  // text,
+  // asigneeUser,
+  // asigneeUserId,
 }) => {
-  const { user } = UserStore
-  const { projectId } = urlValue(window.location.href)
+  const { userStore, boardStore } = useStore()
+  const { usersOnProject, userId } = userStore
+  const { column } = boardStore
+
+  const foundTask = column
+    ?.find((found) => found.id === columnId)
+    ?.tasks.find((found) => found.id === id)
+
+  // const foundede = column?.find((found) => found.id === columnId)
+  // const [text] = foundede?.tasks
+  // console.log(1, toJS(column))
+  // console.log(2, toJS(task))
+  // console.log(3, toJS(foundTask))
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
 
   const { t } = useTranslation()
 
   const [isOpened, setIsOpened] = useState(false)
   const [isModalOpened, setIsModalOpened] = useState(false)
 
-  const owner = user?.projects.find(
-    (found: any) => found.projectId === projectId,
-  )
+  const { text, asigneeUser, asigneeUserId } = foundTask!
 
-  const userState = () => {
-    if (owner.state !== 'owner' && owner.state !== 'manager') {
-      return styles.none
-    }
-    return styles.block
-  }
+  const onProject = usersOnProject
+    ?.find((found) => found.id === userId)
+    ?.projects.find((found) => found.projectId === projectId)
+
+  const state =
+    onProject?.state === stateOwner || onProject?.state === stateManager
 
   const opanModal = () => {
-    if (owner.state !== 'owner' && owner.state !== 'manager') {
+    if (onProject?.state !== stateOwner && onProject?.state !== stateManager) {
       return setIsModalOpened(false)
     }
     return setIsModalOpened(!isModalOpened)
   }
 
-  const asignee = () => {
-    if (asigneeUserEmail === 'no asignee') {
-      return styles.none
-    }
-    return styles.block
-  }
-
   return (
-    <>
-      <ChangeTaskModal
-        id={id}
-        columnId={columnId}
-        setIsModalOpened={setIsModalOpened}
-        isModalOpened={isModalOpened}
-        asigneeUserEmail={asigneeUserEmail}
-      />
-      <DeleteTaskModal
-        id={id}
-        columnId={columnId}
-        onModalClose={() => setIsOpened(false)}
-        isModalOpened={isOpened}
-      />
-      <Draggable draggableId={id} index={index} key={id}>
-        {(provided, snapshot) => (
+    <Draggable draggableId={id} index={index} key={id}>
+      {(provided, snapshot) => (
+        <div
+          className={styles.back}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <ChangeTaskModal
+            id={id}
+            columnId={columnId}
+            setIsModalOpened={setIsModalOpened}
+            isModalOpened={isModalOpened}
+            asigneeUserEmail={asigneeUser}
+            asigneeUserId={asigneeUserId}
+          />
+          <DeleteTaskModal
+            id={id}
+            columnId={columnId}
+            onModalClose={() => setIsOpened(false)}
+            isModalOpened={isOpened}
+          />
           <div
-            className={styles.back}
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
+            className={styles.taskCard}
+            style={{
+              background: snapshot.isDragging ? '#f2ca90' : '#fff',
+            }}
           >
-            <div
-              className={styles.taskCard}
-              style={{
-                background: snapshot.isDragging ? '#f2ca90' : '#fff',
-              }}
-            >
-              <p className={styles.textPosition}>
-                <Button
-                  tooltipContent={t('tooltip.change')}
-                  onClick={opanModal}
-                >
-                  <p className={styles.cardText}>{text}</p>
-                </Button>
-              </p>
-              <p className={labelStyle ? styles[labelStyle] : ''}>{label}</p>
-              <div className={styles.taskInfo}>
-                <div className={styles.stateTable}>
-                  <div
-                    className={`${styles.taskState} ${
-                      styles[`taskState-${taskState}`]
-                    }`}
-                  />
-                  <div
-                    className={`${styles.priority} ${
-                      styles[`priority-${priority}`]
-                    }`}
-                  />
-                </div>
-                <div className={styles.deleteBlock}>
-                  <div className={asignee()}>
-                    <p className={styles.asignee}>{asigneeUserEmail}</p>
-                  </div>
-                  <div className={userState()}>
-                    <Button
-                      tooltipContent={t('tooltip.delete')}
-                      onClick={() => setIsOpened(!isOpened)}
-                    >
-                      <div className={styles.delete} />
-                    </Button>
-                  </div>
-                </div>
+            <p className={styles.textPosition}>
+              <Button tooltipContent={t('tooltip.change')} onClick={opanModal}>
+                <p className={styles.cardText}>{text}</p>
+              </Button>
+            </p>
+            <p className={labelStyle ? styles[labelStyle] : ''}>{label}</p>
+            <div className={styles.taskInfo}>
+              <div className={styles.stateTable}>
+                <div
+                  className={`${styles.taskState} ${
+                    styles[`taskState-${taskState}`]
+                  }`}
+                />
+                <div
+                  className={`${styles.priority} ${
+                    styles[`priority-${priority}`]
+                  }`}
+                />
+              </div>
+              <div className={styles.deleteBlock}>
+                {asigneeUser !== 'no asignee' && (
+                  <p className={styles.asignee}>{asigneeUser}</p>
+                )}
+                {state && (
+                  <Button
+                    tooltipContent={t('tooltip.delete')}
+                    onClick={() => setIsOpened(!isOpened)}
+                  >
+                    <div className={styles.delete} />
+                  </Button>
+                )}
               </div>
             </div>
-            {/* {provided.placeholder} */}
           </div>
-        )}
-      </Draggable>
-    </>
+          {/* {provided.placeholder} */}
+        </div>
+      )}
+    </Draggable>
   )
 }
 

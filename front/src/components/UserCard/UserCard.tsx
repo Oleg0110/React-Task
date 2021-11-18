@@ -12,7 +12,7 @@ interface IUserCardProps {
 const UserCard: React.FC<IUserCardProps> = ({ name, email }) => {
   const { t } = useTranslation()
 
-  const logoName = name.toLocaleUpperCase().split('')[0]
+  const logoName = name.toLocaleUpperCase().charAt(0)
 
   const copyEmail = async () => {
     if (email === undefined) {

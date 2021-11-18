@@ -31,3 +31,8 @@ export const ROUTES = {
 }
 
 export const storageDataName = 'userData'
+
+export const stateOwner = 'owner'
+export const stateManager = 'manager'
+export const stateDeveloper = 'developer'
+export const stateQA = 'qa'

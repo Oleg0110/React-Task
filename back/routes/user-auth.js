@@ -194,5 +194,22 @@ res.status(200).json(userInProjectFilter)
   }
 })
 
+router.delete("/clear-notification/:userId", async (req, res) => {
+  try {
+      const  { userId } = req.params
+
+      if (!userId) {
+         return res.status(400).json({ error: "invalid data" })
+      }
+
+     await User.findOneAndUpdate({_id:userId},{$set:{notification:[]}})
+
+      res.status(200).json([])
+
+  } catch (error) {
+      res.status(500).json({ error: "internal server error" })
+  }
+})
+
 
 module.exports = router;

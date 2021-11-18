@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import { BoardStore } from '../../stores'
+import { useHistory } from 'react-router'
 import { Button } from '..'
+import urlValue from '../../utils/functions'
+import useStore from '../../hooks/useStore'
 import styles from './FindAsigneeUser.module.scss'
 
 interface IFindAsigneeUser {
@@ -10,6 +12,8 @@ interface IFindAsigneeUser {
   email: string
   id: string
   taskId: string
+  columnId: string
+  setIsModalOpened: (boolean: boolean) => void
 }
 
 const FindAsigneeUser: React.FC<IFindAsigneeUser> = ({
@@ -17,11 +21,22 @@ const FindAsigneeUser: React.FC<IFindAsigneeUser> = ({
   email,
   id,
   taskId,
+  columnId,
+  setIsModalOpened,
 }) => {
+  // const { userStore } = useStore()
+  const { boardStore } = useStore()
+  const { asigneeUser } = boardStore
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
+
   const { t } = useTranslation()
 
   const asignee = () => {
-    BoardStore.setAsigneeUser(id, taskId)
+    asigneeUser(id, taskId, projectId, columnId)
+    setIsModalOpened(false)
   }
 
   return (

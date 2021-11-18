@@ -9,17 +9,20 @@ import {
   ChangeProjectTitleModal,
   ChangeProjectContentModal,
 } from '../index'
-import { UserStore } from '../../stores'
+import useStore from '../../hooks/useStore'
 import styles from './Accordion.module.scss'
 
 interface IAccordionProps {
-  title: string
-  content: string
   id: string
 }
 
-const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
-  const { user } = UserStore
+const Accordion: React.FC<IAccordionProps> = ({ id }) => {
+  const { userStore, projectStore } = useStore()
+  const { userId } = userStore
+  const { projects } = projectStore
+
+  const foundProject = projects.find((found) => found.id === id)
+  const { title, content } = foundProject!
 
   const history = useHistory()
   const { t } = useTranslation()
@@ -30,14 +33,9 @@ const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
   const [isChangeTitleOpened, setIsChangeTitleOpened] = useState(false)
   const [isContentTitleOpened, setIsContentTitleOpened] = useState(false)
 
-  const owner = user?.projects.find((found: any) => found.projectId === id)
-
-  const userState = () => {
-    if (owner?.state !== 'owner') {
-      return styles.none
-    }
-    return styles.block
-  }
+  const project = projects.find(
+    (found) => found.userOwner === userId && found.id === id,
+  )
 
   return (
     <div className={styles.accordionSection}>
@@ -78,14 +76,16 @@ const Accordion: React.FC<IAccordionProps> = ({ title, content, id }) => {
             >
               {t('accordion.go')}
             </Button>
-            <div className={userState()}>
-              <Button
-                tooltipContent={t('tooltip.settings')}
-                onClick={() => setIsOptionsOpened(!isOptionsOpened)}
-              >
-                <div className={styles.threeDots} />
-              </Button>
-            </div>
+            {project && (
+              <div className={styles.block}>
+                <Button
+                  tooltipContent={t('tooltip.settings')}
+                  onClick={() => setIsOptionsOpened(!isOptionsOpened)}
+                >
+                  <div className={styles.threeDots} />
+                </Button>
+              </div>
+            )}
           </div>
           <div
             className={`${styles.infoButtonsBackFon} ${

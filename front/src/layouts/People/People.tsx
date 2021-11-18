@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { useHistory } from 'react-router'
-import { IUserType } from '../../utils/types'
 import { Pagination, UserCard } from '../../components'
 import useMedia from '../../hooks/useMedia'
 import {
@@ -10,12 +9,14 @@ import {
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
-import { UserStore } from '../../stores'
 import urlValue from '../../utils/functions'
+import { IUser } from '../../utils/interface'
+import useStore from '../../hooks/useStore'
 import styles from './People.module.scss'
 
 const People: React.FC = () => {
-  const { usersPagination } = UserStore
+  const { userStore } = useStore()
+  const { usersPagination, asyncGetUsers } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
@@ -31,11 +32,11 @@ const People: React.FC = () => {
 
       setCurrentPage(page)
 
-      UserStore.asyncGetUsers(page, usersOnPage)
+      asyncGetUsers(page, usersOnPage)
     } else {
-      UserStore.asyncGetUsers(currentPage, usersOnPage)
+      asyncGetUsers(currentPage, usersOnPage)
     }
-  }, [currentPage, usersOnPage, local])
+  }, [setCurrentPage, asyncGetUsers, currentPage, usersOnPage, local])
 
   const responsive = useMedia(
     RESPONSIVE_SIZES,
@@ -43,7 +44,7 @@ const People: React.FC = () => {
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const currentUser: IUserType[] = usersPagination?.currentUser || []
+  const currentUser: IUser[] = usersPagination?.currentUser || []
   const allUsers = usersPagination?.allUsers
 
   const projectsCount = () => {
@@ -60,6 +61,7 @@ const People: React.FC = () => {
       <div className={styles.peopleField}>
         <div className={`${styles.backFon} ${styles[`backFon${responsive}`]}`}>
           <div className={styles.scroll}>
+            {!usersPagination && <div className={styles.loader} />}
             {currentUser.map((data) => (
               <UserCard name={data.name} email={data.email} key={data.id} />
             ))}

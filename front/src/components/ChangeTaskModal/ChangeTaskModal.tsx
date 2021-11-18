@@ -2,17 +2,18 @@ import React, { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
+import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
 import { IModalWindowProps } from '../../utils/interface'
 import { Button, TextBox, FindAsigneeUser, UserSearch } from '..'
-import { BoardStore, UserStore } from '../../stores'
 import { CREATE_CONTENT_VALIDATION } from '../../utils/validation'
+import useStore from '../../hooks/useStore'
 import styles from './ChangeTaskModal.module.scss'
 
 interface IChangeTaskModalProps extends IModalWindowProps {
   columnId: string
   asigneeUserEmail?: string
+  asigneeUserId?: string
   setIsModalOpened: (boolean: boolean) => void
 }
 
@@ -26,15 +27,21 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
   id,
   columnId,
   asigneeUserEmail,
+  asigneeUserId,
 }) => {
-  const { user, userSearch, userId } = UserStore
-  const { projectId } = urlValue(window.location.href)
+  const { boardStore, userStore } = useStore()
+  const { userSearch, userId, getUsersOnProject, searchAsigneeUser } = userStore
+  const { changeTask, asigneeUser, deleteAsigneeUser } = boardStore
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
 
   const { t } = useTranslation()
 
   useEffect(() => {
-    UserStore.getUsersOnProject(projectId)
-  }, [projectId])
+    getUsersOnProject(projectId)
+  }, [getUsersOnProject, projectId])
 
   const {
     register,
@@ -43,24 +50,19 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
   } = useForm()
 
   const onSubmit = (data: IOnSubmitProps) => {
-    BoardStore.changeTask(data.text, id, columnId)
+    changeTask(data.text, id, columnId)
+    setIsModalOpened(false)
   }
-
-  const owner = user?.projects.find(
-    (found: any) => found.projectId === projectId,
-  )
 
   const search = (data: IOnSubmitProps) => {
-    if (owner.state !== 'owner' && owner.state !== 'manager') {
-      toast.error('Sorry you are not owner')
-    } else {
-      UserStore.searchAsigneeUser(data.text, projectId)
-    }
+    searchAsigneeUser(data.text, projectId)
   }
 
-  const deleteAsigneeUser = () => {
+  const deleteAsignee = () => {
     const noAsignee = 'no asignee'
-    BoardStore.deleteAsigneeUser(noAsignee, id)
+    if (asigneeUserId) {
+      deleteAsigneeUser(noAsignee, id, projectId, asigneeUserId, columnId)
+    }
     setIsModalOpened(false)
   }
 
@@ -71,23 +73,9 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
     return styles.aigneeModalBody
   }
 
-  const asigneeInfo = () => {
-    if (asigneeUserEmail !== 'no asignee') {
-      return styles.none
-    }
-    return styles.block
-  }
-
   const asigneeToME = () => {
-    BoardStore.setAsigneeUser(userId, id)
+    asigneeUser(userId, id, projectId, columnId)
     setIsModalOpened(false)
-  }
-
-  const asignee = () => {
-    if (asigneeUserEmail === 'no asignee') {
-      return styles.none
-    }
-    return styles.asignee
   }
 
   return (
@@ -96,6 +84,7 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={() => setIsModalOpened(false)}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${
@@ -108,8 +97,8 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
               <div className={styles.closeIcon} />
             </Button>
           </div>
-          <div className={styles.searchArea}>
-            <div className={asigneeInfo()}>
+          {asigneeUserEmail === 'no asignee' && (
+            <div className={styles.searchArea}>
               <span className={styles.title}>{t('modal.asignee')}</span>
               <div className={styles.inputPositon}>
                 <UserSearch onSubmit={search} />
@@ -123,6 +112,8 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
                       email={data.email}
                       key={data.id}
                       taskId={id}
+                      setIsModalOpened={setIsModalOpened}
+                      columnId={columnId}
                     />
                   ))}
                 </div>
@@ -131,16 +122,18 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
                 <span className={styles.me}>{t('modal.asigneeMe')}</span>
               </Button>
             </div>
+          )}
+          {asigneeUserEmail !== 'no asignee' && (
             <div className={styles.asigneeUserPosition}>
-              <p className={asignee()}>
+              <p className={styles.asignee}>
                 {t('modal.taskAsignee')}
                 <span className={styles.userEmail}>{asigneeUserEmail}</span>
-                <Button onClick={deleteAsigneeUser}>
+                <Button onClick={deleteAsignee}>
                   <div className={styles.deleteUser} />
                 </Button>
               </p>
             </div>
-          </div>
+          )}
           <hr className={styles.line} />
           <form
             className={styles.descriptionProjectBlock}

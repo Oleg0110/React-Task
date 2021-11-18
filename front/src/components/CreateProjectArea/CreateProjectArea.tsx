@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { Button, TextBox } from '..'
-import { ProjectsStore } from '../../stores'
 import useMedia from '../../hooks/useMedia'
 import {
   CREATE_CONTENT_VALIDATION,
@@ -14,6 +13,7 @@ import {
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './CreateProjectArea.module.scss'
 
 interface IOnSubmitProps {
@@ -22,6 +22,9 @@ interface IOnSubmitProps {
 }
 
 const CreateProjectArea: React.FC = () => {
+  const { projectStore } = useStore()
+  const { pushProject } = projectStore
+
   const { t } = useTranslation()
 
   const responsive = useMedia(
@@ -37,7 +40,7 @@ const CreateProjectArea: React.FC = () => {
   } = useForm()
 
   const onSubmit = (data: IOnSubmitProps) => {
-    ProjectsStore.pushProject(data.title, data.content)
+    pushProject(data.title, data.content)
   }
 
   return (

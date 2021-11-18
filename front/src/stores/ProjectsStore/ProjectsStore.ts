@@ -1,18 +1,14 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IProjectType } from '../../utils/types'
-import { UserStore } from '..'
-import {
-  changedContent,
-  changedTitle,
-  deleted,
-  getProjects,
-  push,
-} from '../../services/projects'
+import { IProject } from '../../utils/interface'
+import RootStore from '../RootStore/RootStore'
 
 class ProjectsStore {
-  projects: IProjectType[] = []
+  projects: IProject[] = []
 
-  constructor() {
+  rootStore: RootStore
+
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore
     makeObservable(this, {
       projects: observable,
       pushProject: action,
@@ -26,33 +22,36 @@ class ProjectsStore {
       setChangeContent: action,
       setDeleteProject: action,
     })
+    // this.asyncGetProjects()
   }
 
   asyncGetProjects = async () => {
-    const { userId } = UserStore
-
+    const { userId } = this.rootStore.userStore
+    const { getProjects } = this.rootStore.apiProvider.projectApi
     const projects = await getProjects(userId)
 
     this.setProjects(projects)
   }
 
-  setProjects = (projects: IProjectType[]) => {
+  setProjects = (projects: IProject[]) => {
     this.projects = projects
   }
 
   pushProject = async (title: string, content: string) => {
-    const idUser = UserStore.userId
-    const userEmail = UserStore.user?.email
+    const { userId, user } = this.rootStore.userStore
+    const { push } = this.rootStore.apiProvider.projectApi
+    const userEmail = user?.email
 
-    const project = await push(title, content, idUser, userEmail)
+    const project = await push(title, content, userId, userEmail)
     this.setProject(project)
   }
 
-  setProject = (project: IProjectType) => {
+  setProject = (project: IProject) => {
     this.projects.push(project)
   }
 
   changedProjecTitle = async (title: string, id: string) => {
+    const { changedTitle } = this.rootStore.apiProvider.projectApi
     const changedProjectTitle = await changedTitle(title, id)
     const foundProjectIndex = this.projects.findIndex(
       (found) => found.id === id,
@@ -63,12 +62,13 @@ class ProjectsStore {
 
   setChangeTitle = (
     foundProjectIndex: number,
-    changedProjectTitle: IProjectType,
+    changedProjectTitle: IProject,
   ) => {
     this.projects.splice(foundProjectIndex, 1, changedProjectTitle)
   }
 
   changedProjecContent = async (content: string, id: string) => {
+    const { changedContent } = this.rootStore.apiProvider.projectApi
     const changedProjectContent = await changedContent(content, id)
     const foundProjectIndex = this.projects.findIndex(
       (found) => found.id === id,
@@ -79,12 +79,13 @@ class ProjectsStore {
 
   setChangeContent = (
     foundProjectIndex: number,
-    changedProjectContent: IProjectType,
+    changedProjectContent: IProject,
   ) => {
     this.projects.splice(foundProjectIndex, 1, changedProjectContent)
   }
 
   deletedProject = async (id: string) => {
+    const { deleted } = this.rootStore.apiProvider.projectApi
     await deleted(id)
     const foundProjectIndex = this.projects.findIndex(
       (found) => found.id === id,
@@ -97,4 +98,4 @@ class ProjectsStore {
   }
 }
 
-export default new ProjectsStore()
+export default ProjectsStore

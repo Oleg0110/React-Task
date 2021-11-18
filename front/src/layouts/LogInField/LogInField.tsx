@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import { UserStore } from '../../stores'
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from '../../utils/validation'
 import { Button, TextBox } from '../../components'
 import { ROUTES } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './LogInField.module.scss'
 
 interface IOnSubmitProps {
@@ -15,10 +15,13 @@ interface IOnSubmitProps {
 }
 
 const LogInField: React.FC = () => {
+  const { userStore } = useStore()
+  const { userToken, loginUser } = userStore
+
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!UserStore.userToken
+  const isAuth = !!userToken
 
   useEffect(() => {
     isAuth ? history.push(ROUTES.home) : history.push(ROUTES.userAauthLogIn)
@@ -33,7 +36,7 @@ const LogInField: React.FC = () => {
   const [isPassword, setIsPassword] = useState('password')
 
   const onSubmit = (data: IOnSubmitProps) => {
-    UserStore.loginUser(data.email, data.password)
+    loginUser(data.email, data.password)
   }
 
   return (

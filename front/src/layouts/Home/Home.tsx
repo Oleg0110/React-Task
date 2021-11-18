@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
@@ -10,10 +10,21 @@ import {
   RESPONSIVE_WHITHOUT_VALUE,
   ROUTES,
 } from '../../utils/constants'
-import { UserStore } from '../../stores'
+import useStore from '../../hooks/useStore'
 import styles from './Home.module.scss'
 
-const Home: React.FC<RouteComponentProps<any>> = ({ children }) => {
+const Home: React.FC<RouteComponentProps> = ({ children }) => {
+  const { userStore, projectStore } = useStore()
+  const { userToken } = userStore
+  const { asyncGetProjects } = projectStore
+
+  const isAuth = !!userToken
+  useEffect(() => {
+    if (isAuth) {
+      asyncGetProjects()
+    }
+  }, [asyncGetProjects, isAuth])
+
   const { t } = useTranslation()
   const history = useHistory()
 
@@ -22,8 +33,6 @@ const Home: React.FC<RouteComponentProps<any>> = ({ children }) => {
     RESPONSIVE_VALUE,
     RESPONSIVE_WHITHOUT_VALUE,
   )
-
-  const isAuth = !!UserStore.userToken
 
   const attention = isAuth ? `${t('home.create')}` : `${t('home.wont')}`
   const attentionSignUpButton = isAuth

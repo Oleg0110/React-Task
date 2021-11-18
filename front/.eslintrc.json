@@ -42,11 +42,11 @@
       }
     ],
     "import/no-extraneous-dependencies": 0,
+    "no-param-reassign": ["error", { "props": false }],
     // ----
     "no-underscore-dangle": "warn",
     "jsx-quotes": 0,
     "react/require-default-props": 0,
-    "jsx-a11y/control-has-associated-label": 0,
     // Prettier correct Column.tsx
     "object-curly-newline": 0,
     // ----------

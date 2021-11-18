@@ -50,7 +50,7 @@ router.post("/", auth, async (req, res) => {
 
       await User.findOneAndUpdate(
         {_id:idUser},
-        {$addToSet:{projects: [{projectId,state:'owner'}]}}
+        {$addToSet:{projects: [{projectId,state:'owner'}], }}
       )
    
       res.status(201).json(pro)
@@ -104,22 +104,6 @@ router.patch("/content", auth, async (req, res) => {
       res.status(500).json({ error: "internal server error" })
    }
 })
-
-// router.patch("/position", async (req, res) => {
-//    try {
-//       const { result } = req.body
-//       if (!result.destination) return;
-
-//       const [reorderedItem] = projects.splice(result.source.index, 1);
-//       projects.splice(result.destination.index, 0, reorderedItem);
-
-//       res.status(200).json(projects)
-
-//       return
-//    } catch (error) {
-//       res.status(500).json({ error: "internal server error" })
-//    }
-// })
 
 router.delete("/:id", auth, async (req, res) => {
    try {

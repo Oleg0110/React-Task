@@ -6,6 +6,11 @@ const schema = new Schema({
    name: { type: String, required: true, max: 25 },
    password: { type: String, required: true, min: 8 },
    projects: [{projectId:{ type: Types.ObjectId, ref: "Project" },state: {type:String}}],
+   notification: [{projectId:{ type: Types.ObjectId, ref: "Project" },
+   taskId:{ type: Types.ObjectId, ref: "Task" },
+   text: {type:String},
+   projectName: {type:String}
+   }]
 })
 
 schema.plugin(normalize)

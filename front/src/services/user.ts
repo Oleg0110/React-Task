@@ -1,135 +1,140 @@
-import { toast } from 'react-toastify'
-import { IUsers } from '../utils/interface'
-import { ILoginType, IRegisterType, IUserType } from '../utils/types'
-import { storageDataName } from '../utils/constants'
-import {
-  LINK_MANAGE_PROJECT,
-  LINK_USER_AUTH,
-  LINK_USER_AUTH_LOG_IN,
-  LINK_USER_AUTH_PEOPLE,
-  LINK_USER_AUTH_SING_UP,
-  LINK_USER_AUTH_USER,
-  LINK_USER_MANAGE_PROJECT,
-} from '../utils/httpLinks'
-import api from './ApiProvider'
+import { useContext } from 'react'
+// import { toast } from 'react-toastify'
+// import { ILogin, IRegister, IUser, IUsers } from '../utils/interface'
+// import { storageDataName } from '../utils/constants'
+// import {
+//   LINK_MANAGE_PROJECT,
+//   LINK_USER_AUTH,
+//   LINK_USER_AUTH_LOG_IN,
+//   LINK_USER_AUTH_PEOPLE,
+//   LINK_USER_AUTH_SING_UP,
+//   LINK_USER_AUTH_USER,
+//   LINK_USER_MANAGE_PROJECT,
+// } from '../utils/httpLinks'
+// import api from '../stores/ApiProviderStore/ApiProviderStore'
+// import { RootStoreContext } from '../stores/RootStore/RootStore'
+// import useStore from '../hooks/useStore'
 
-export const getUsers = async (
-  number: number,
-  usersOnPage: number,
-): Promise<Omit<IUsers, 'password'>> => {
-  const res = await api.doFetch(
-    'get',
-    `${LINK_USER_AUTH_PEOPLE}?page=${number}&count=${usersOnPage}`,
-  )
+// export const getUsers = async (
+//   number: number,
+//   usersOnPage: number,
+// ): Promise<Omit<IUsers, 'password'>> => {
+//   const rootStore = useContext(RootStoreContext)
+//   const { doFetch } = rootStore.apiProvider
 
-  return res?.data
-}
+//   const { apiProvider } = useStore()
 
-export const getUser = async (userId: string): Promise<IUserType> => {
-  const res = await api.doFetch('get', `${LINK_USER_AUTH_USER}/${userId}`)
+//   const res = await doFetch(
+//     'get',
+//     `${LINK_USER_AUTH_PEOPLE}?page=${number}&count=${usersOnPage}`,
+//   )
 
-  return res?.data
-}
+//   return res?.data
+// }
 
-export const register = async (
-  email: string,
-  name: string,
-  password: string,
-): Promise<IRegisterType> => {
-  const res = await api.doFetch('post', LINK_USER_AUTH_SING_UP, {
-    email,
-    name,
-    password,
-  })
+// export const getUser = async (userId: string): Promise<IUser> => {
+//   const res = await api.doFetch('get', `${LINK_USER_AUTH_USER}/${userId}`)
 
-  if (res) {
-    const { token, currentUser } = res.data
+//   return res?.data
+// }
 
-    localStorage.setItem(
-      storageDataName,
-      JSON.stringify({
-        userId: currentUser.id,
-        // token: token,
-        token,
-      }),
-    )
+// export const register = async (
+//   email: string,
+//   name: string,
+//   password: string,
+// ): Promise<IRegister> => {
+//   const res = await api.doFetch('post', LINK_USER_AUTH_SING_UP, {
+//     email,
+//     name,
+//     password,
+//   })
 
-    toast.success('Acount was Created')
+//   if (res) {
+//     const { token, currentUser } = res.data
 
-    return currentUser
-  }
-  throw toast.success('Acount was not Created')
-}
+//     localStorage.setItem(
+//       storageDataName,
+//       JSON.stringify({
+//         userId: currentUser.id,
+//         // token: token,
+//         token,
+//       }),
+//     )
 
-export const login = async (
-  email: string,
-  password: string,
-): Promise<ILoginType | void> => {
-  const res = await api.doFetch('post', LINK_USER_AUTH_LOG_IN, {
-    email,
-    password,
-  })
+//     toast.success('Acount was Created')
 
-  if (res) {
-    const user = res.data
+//     return currentUser
+//   }
+//   throw toast.success('Acount was not Created')
+// }
 
-    localStorage.setItem(
-      storageDataName,
-      JSON.stringify({
-        userId: user.userId,
-        token: user.token,
-      }),
-    )
+// export const login = async (
+//   email: string,
+//   password: string,
+// ): Promise<ILogin | void> => {
+//   const res = await api.doFetch('post', LINK_USER_AUTH_LOG_IN, {
+//     email,
+//     password,
+//   })
 
-    toast.success('Welcome')
-  }
-}
+//   if (res) {
+//     const user = res.data
 
-export const search = async (
-  text: string,
-): Promise<Omit<IUserType[], 'password'>> => {
-  const res = await api.doFetch('get', `${LINK_USER_MANAGE_PROJECT}/${text}`)
+//     localStorage.setItem(
+//       storageDataName,
+//       JSON.stringify({
+//         userId: user.userId,
+//         token: user.token,
+//       }),
+//     )
 
-  return res?.data
-}
+//     toast.success('Welcome')
+//   }
+// }
 
-export const onProject = async (
-  projectId: string,
-): Promise<IUserType[] | null> => {
-  const res = await api.doFetch(
-    'get',
-    `${LINK_USER_AUTH}/${'all-on-project'}/${projectId}`,
-  )
+// export const search = async (
+//   text: string,
+// ): Promise<Omit<IUser[], 'password'>> => {
+//   const res = await api.doFetch('get', `${LINK_USER_MANAGE_PROJECT}/${text}`)
 
-  return res?.data
-}
+//   return res?.data
+// }
 
-export const addUser = async (
-  userId: string,
-  projectId: string,
-  state: string,
-) => {
-  const res = await api.doFetch(
-    'post',
-    `${LINK_MANAGE_PROJECT}/${'add-to-project'}`,
-    { userId, projectId, state },
-  )
+// export const onProject = async (projectId: string): Promise<IUser[] | null> => {
+//   const res = await api.doFetch(
+//     'get',
+//     `${LINK_USER_AUTH}/${'all-on-project'}/${projectId}`,
+//   )
 
-  return res?.data
-}
+//   return res?.data
+// }
 
-export const removeUser = async (userId: string, projectId: string) => {
-  await api.doFetch('delete', `${LINK_MANAGE_PROJECT}/${userId}/${projectId}`)
-}
+// export const addUser = async (
+//   userId: string,
+//   projectId: string,
+//   state: string,
+// ) => {
+//   const res = await api.doFetch(
+//     'post',
+//     `${LINK_MANAGE_PROJECT}/${'add-to-project'}`,
+//     { userId, projectId, state },
+//   )
 
-export const asigneeUserSearch = async (
-  text: string,
-  projectId: string,
-): Promise<Omit<IUserType[], 'password'>> => {
-  const res = await api.doFetch(
-    'get',
-    `${LINK_USER_AUTH}/${'asignee-user'}/${text}/${projectId}`,
-  )
+//   return res?.data
+// }
 
-  return res?.data
-}
+// export const removeUser = async (userId: string, projectId: string) => {
+//   await api.doFetch('delete', `${LINK_MANAGE_PROJECT}/${userId}/${projectId}`)
+// }
+
+// export const asigneeUserSearch = async (
+//   text: string,
+//   projectId: string,
+// ): Promise<Omit<IUser[], 'password'>> => {
+//   const res = await api.doFetch(
+//     'get',
+//     `${LINK_USER_AUTH}/${'asignee-user'}/${text}/${projectId}`,
+//   )
+
+//   return res?.data
+// }

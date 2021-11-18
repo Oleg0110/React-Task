@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { IModalWindowProps } from '../../utils/interface'
 import { Button } from '..'
-import { ProjectsStore } from '../../stores'
+import useStore from '../../hooks/useStore'
 import styles from './DeleteProjectModal.module.scss'
 
 const DeleteProjectModal: React.FC<IModalWindowProps> = ({
@@ -11,9 +11,12 @@ const DeleteProjectModal: React.FC<IModalWindowProps> = ({
   onModalClose,
   id,
 }) => {
+  const { projectStore } = useStore()
+  const { deletedProject } = projectStore
+
   const { t } = useTranslation()
 
-  const onClick = () => ProjectsStore.deletedProject(id)
+  const onClick = () => deletedProject(id)
 
   return (
     <>
@@ -21,6 +24,7 @@ const DeleteProjectModal: React.FC<IModalWindowProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={onModalClose}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${

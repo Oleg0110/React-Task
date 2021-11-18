@@ -60,7 +60,7 @@ const TextBox = ({
     {(!!type && (
       <input
         {...register(label, required)}
-        className={inputStyle ? styles[inputStyle] : ''}
+        className={inputStyle && styles[inputStyle]}
         placeholder={placeholder}
         defaultValue={defaultValue}
         type={type}
@@ -72,12 +72,10 @@ const TextBox = ({
       <textarea
         {...register(label, required)}
         placeholder={placeholder}
-        className={inputStyle ? styles[inputStyle] : ''}
+        className={inputStyle && styles[inputStyle]}
       />
     )}
-    {error && (
-      <p className={errorPosition ? styles[errorPosition] : ''}>{error}</p>
-    )}
+    {error && <p className={errorPosition && styles[errorPosition]}>{error}</p>}
   </>
 )
 

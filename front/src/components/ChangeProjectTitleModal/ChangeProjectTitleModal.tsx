@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { IModalWindowProps } from '../../utils/interface'
 import { Button, TextBox } from '..'
-import { ProjectsStore } from '../../stores'
 import { TITLE_VALIDATION } from '../../utils/validation'
+import useStore from '../../hooks/useStore'
 import styles from './ChangeProjectTitleModal.module.scss'
 
 interface IOnSubmitProps {
@@ -17,6 +17,9 @@ const ChangeProjectTitleModal: React.FC<IModalWindowProps> = ({
   onModalClose,
   id,
 }) => {
+  const { projectStore } = useStore()
+  const { changedProjecTitle } = projectStore
+
   const { t } = useTranslation()
 
   const {
@@ -26,7 +29,7 @@ const ChangeProjectTitleModal: React.FC<IModalWindowProps> = ({
   } = useForm()
 
   const onSubmit = (data: IOnSubmitProps) => {
-    ProjectsStore.changedProjecTitle(data.title, id)
+    changedProjecTitle(data.title, id)
   }
 
   return (
@@ -35,6 +38,7 @@ const ChangeProjectTitleModal: React.FC<IModalWindowProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={onModalClose}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${
