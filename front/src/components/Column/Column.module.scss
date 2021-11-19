@@ -1,7 +1,7 @@
 .taskBoard {
    width: 300px;
-   min-height: 60px;
-   max-height: 550px;
+   min-height: 40px;
+  //  max-height: 550px;
    background-color: #bce0bb;
    margin: 20px 10px;
    border-radius: 5px;
@@ -120,10 +120,3 @@
    }
 }
 
-.none {
-  display: none;
-}
-
-.block {
-  display: block;
-}

@@ -1,9 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import { UserStore } from '../../stores'
+import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
 import { Button } from '..'
+import useStore from '../../hooks/useStore'
+import { stateDeveloper, stateManager, stateQA } from '../../utils/constants'
 import styles from './AddToProjectModal.module.scss'
 
 interface IAddToProjectModalProps {
@@ -17,21 +19,26 @@ const AddToProjectModal: React.FC<IAddToProjectModalProps> = ({
   setIsModalOpened,
   userId,
 }) => {
-  const { projectId } = urlValue(window.location.href)
+  const { userStore } = useStore()
+  const { addToProject } = userStore
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
   const { t } = useTranslation()
 
   const setManager = () => {
-    UserStore.addToProject(userId, projectId, 'manager')
+    addToProject(userId, projectId, stateManager)
 
     setIsModalOpened(false)
   }
   const setDeveloper = () => {
-    UserStore.addToProject(userId, projectId, 'developer')
+    addToProject(userId, projectId, stateDeveloper)
 
     setIsModalOpened(false)
   }
   const setQa = () => {
-    UserStore.addToProject(userId, projectId, 'qa')
+    addToProject(userId, projectId, stateQA)
 
     setIsModalOpened(false)
   }
@@ -42,6 +49,7 @@ const AddToProjectModal: React.FC<IAddToProjectModalProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={() => setIsModalOpened(false)}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${

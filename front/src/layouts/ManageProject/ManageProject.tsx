@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import { IUserType } from '../../utils/types'
+import { useHistory } from 'react-router'
 import {
   FindUser,
   TeamAccordion,
@@ -11,12 +10,17 @@ import {
 } from '../../components'
 import useMedia from '../../hooks/useMedia'
 import urlValue from '../../utils/functions'
-import { ProjectsStore, UserStore } from '../../stores'
 import {
+  stateOwner,
   RESPONSIVE_SIZES,
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
+  stateManager,
+  stateDeveloper,
+  stateQA,
 } from '../../utils/constants'
+import { IUser } from '../../utils/interface'
+import useStore from '../../hooks/useStore'
 import styles from './ManageProject.module.scss'
 
 interface IOnSubmitProps {
@@ -24,18 +28,23 @@ interface IOnSubmitProps {
 }
 
 const ManageProject: React.FC = () => {
-  const { userSearch, usersOnProject, user } = UserStore
-  const { projects } = ProjectsStore
-  const { projectId } = urlValue(window.location.href)
+  const { userStore, projectStore } = useStore()
+  const { userSearch, usersOnProject, getUsersOnProject, searchUser, userId } =
+    userStore
+  const { projects, asyncGetProjects } = projectStore
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
 
   const { t } = useTranslation()
 
   const foundProject = projects.find((found) => found.id === projectId)
 
   useEffect(() => {
-    ProjectsStore.asyncGetProjects()
-    UserStore.getUsersOnProject(projectId)
-  }, [projectId])
+    asyncGetProjects()
+    getUsersOnProject(projectId)
+  }, [asyncGetProjects, getUsersOnProject, projectId])
 
   const responsive = useMedia(
     RESPONSIVE_SIZES,
@@ -43,35 +52,33 @@ const ManageProject: React.FC = () => {
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const owner = user?.projects.find(
-    (found: any) => found.projectId === projectId,
-  )
+  const onProject = usersOnProject
+    ?.find((found) => found.id === userId)
+    ?.projects.find((found) => found.projectId === projectId)
+
+  const state =
+    onProject?.state === stateOwner || onProject?.state === stateManager
 
   const onSubmit = (data: IOnSubmitProps) => {
-    if (owner.state !== 'owner' && owner.state !== 'manager') {
-      toast.error('Sorry you are not owner')
-    } else {
-      UserStore.searchUser(data.text)
-    }
+    searchUser(data.text)
   }
 
-  const manager: IUserType[] | null = []
-  const developer: IUserType[] | null = []
-  const qa: IUserType[] | null = []
+  const manager: IUser[] | null = []
+  const developer: IUser[] | null = []
+  const qa: IUser[] | null = []
 
   if (usersOnProject) {
-    usersOnProject.map((el) => {
-      const obj = el.projects.find(
-        (found: any) => found.projectId === projectId,
-      )
+    usersOnProject.map((data) => {
+      const obj = data.projects.find((found) => found.projectId === projectId)
 
-      if (obj?.state === 'manager') {
-        manager.push(el)
-      } else if (obj?.state === 'developer') {
-        developer.push(el)
-      } else if (obj?.state === 'qa') {
-        qa.push(el)
+      if (obj?.state === stateManager) {
+        manager.push(data)
+      } else if (obj?.state === stateDeveloper) {
+        developer.push(data)
+      } else if (obj?.state === stateQA) {
+        qa.push(data)
       }
+      return []
     })
   }
 
@@ -87,36 +94,39 @@ const ManageProject: React.FC = () => {
         </div>
       </div>
       <div className={styles.workArea}>
-        <div className={styles.teamFieldSearch}>
-          <div
-            className={`${styles.backSearchFon} ${
-              styles[`backSearchFon${responsive}`]
-            }`}
-          >
-            <div className={styles.addField}>
-              <div className={styles.addToProject}>
-                <h2 className={styles.addTitle}>
-                  {t('manageProject.addToProject')}
-                </h2>
-                <UserSearch onSubmit={onSubmit} />
-                <div className={styles.foundUser}>
-                  <div className={styles.scroll}>
-                    <div className={styles.users}>
-                      {userSearch?.map((data) => (
-                        <FindUser
-                          id={data.id}
-                          name={data.name}
-                          email={data.email}
-                          key={data.id}
-                        />
-                      ))}
+        {state && (
+          <div className={styles.teamFieldSearch}>
+            <div
+              className={`${styles.backSearchFon} ${
+                styles[`backSearchFon${responsive}`]
+              }`}
+            >
+              <div className={styles.addField}>
+                <div className={styles.addToProject}>
+                  <h2 className={styles.addTitle}>
+                    {t('manageProject.addToProject')}
+                  </h2>
+                  <UserSearch onSubmit={onSubmit} />
+                  <div className={styles.foundUser}>
+                    <div className={styles.scroll}>
+                      <div className={styles.users}>
+                        {userSearch?.map((data) => (
+                          <FindUser
+                            id={data.id}
+                            name={data.name}
+                            email={data.email}
+                            key={data.id}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+
         <div className={styles.teamField}>
           <div
             className={`${styles.backFon} ${styles[`backFon${responsive}`]}`}
@@ -136,36 +146,21 @@ const ManageProject: React.FC = () => {
                 <div>
                   <TeamAccordion title='Manager'>
                     {manager.map((data) => (
-                      <AddedUserCard
-                        name={data.name}
-                        email={data.email}
-                        id={data.id}
-                        key={data.id}
-                      />
+                      <AddedUserCard id={data.id} key={data.id} />
                     ))}
                   </TeamAccordion>
                 </div>
                 <div>
                   <TeamAccordion title='Developer'>
                     {developer.map((data) => (
-                      <AddedUserCard
-                        name={data.name}
-                        email={data.email}
-                        id={data.id}
-                        key={data.id}
-                      />
+                      <AddedUserCard id={data.id} key={data.id} />
                     ))}
                   </TeamAccordion>
                 </div>
                 <div>
                   <TeamAccordion title='QA'>
                     {qa.map((data) => (
-                      <AddedUserCard
-                        name={data.name}
-                        email={data.email}
-                        id={data.id}
-                        key={data.id}
-                      />
+                      <AddedUserCard id={data.id} key={data.id} />
                     ))}
                   </TeamAccordion>
                 </div>

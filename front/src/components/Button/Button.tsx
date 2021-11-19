@@ -3,18 +3,18 @@ import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import styles from './Button.module.scss'
 
-// type ButtonStyleTypes =
-//   | 'mainButtonStyle'
-//   | 'sidebarButtonStyle'
-//   | 'thirdButtonStyle'
-//   | 'fourthButtonStyle'
-//   | 'fifthButtonStyle'
-//   | 'userFieldButtonStyle'
+type ButtonStyleTypes =
+  | 'mainButtonStyle'
+  | 'sidebarButtonStyle'
+  | 'thirdButtonStyle'
+  | 'fourthButtonStyle'
+  | 'fifthButtonStyle'
+  | 'userFieldButtonStyle'
 
 interface IButtonProps {
   onClick?: (arg0: any) => void
   onSubmit?: (arg0: any) => void
-  buttonStyle?: string
+  buttonStyle?: ButtonStyleTypes
   tooltipContent?: string
 }
 
@@ -25,7 +25,7 @@ const Button: React.FC<IButtonProps> = forwardRef(
         <Tippy content={tooltipContent}>
           <button
             type='submit'
-            className={buttonStyle ? styles[buttonStyle] : ''}
+            className={buttonStyle && styles[buttonStyle]}
             onClick={onClick}
             onSubmit={onSubmit}
           >
@@ -35,7 +35,7 @@ const Button: React.FC<IButtonProps> = forwardRef(
       )) || (
         <button
           type='submit'
-          className={buttonStyle ? styles[buttonStyle] : ''}
+          className={buttonStyle && styles[buttonStyle]}
           onClick={onClick}
           onSubmit={onSubmit}
         >

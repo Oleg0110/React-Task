@@ -37,7 +37,16 @@
 .teamFieldSearch{
   margin: auto;
   width: 25%;
+  display: block;
 }
+
+.none {
+  display: none;
+  &teamFieldSearch{
+    display: none;
+  }
+}
+
 
 .backSearchFon {
   background-color: #bce0bb;

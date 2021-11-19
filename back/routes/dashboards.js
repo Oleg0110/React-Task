@@ -26,7 +26,7 @@ router.get("/task/:columnId", auth, async (req, res) => {
 
       const task = await Task.find({ columnOwner: columnId })
 
-      res.status(200).json(task)
+      res.status(200).json(task.sort((a, b) => a.index-b.index ))
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -69,7 +69,12 @@ router.patch("/column", auth, async (req, res) => {
          { new: true }
       )
 
+      const task = await Task.find({columnOwner:id })
+
+      changedColumn.tasks = task
+      
       res.status(200).json(changedColumn)
+
       return
 
    } catch (error) {
@@ -101,15 +106,77 @@ router.delete("/column/:id", auth, async (req, res) => {
 router.patch("/task-position", async (req, res) => {
    try {
       const { result } = req.body
+
       if (!result.destination) return;
+      
+      if(result.source.droppableId === result.destination.droppableId){
 
-      const source = column.find(found => found.id === result.source.droppableId)
-      const destination = column.find(found => found.id === result.destination.droppableId)
+        if(result.source.index < result.destination.index){
+          const sourceTask = await Task.findOne({columnOwner: result.source.droppableId, index:result.source.index})
+          
+          await Task.updateMany(
+            { columnOwner: result.source.droppableId, index: {$lte: result.destination.index, $gt: result.source.index} },
+            {$inc : { index : -1}}
+            )
+  
+          await Task.findOneAndUpdate({_id: sourceTask._id},
+            {$set:{index: result.destination.index}})
+            
+        }
 
-      const [reorderedItem] = source.tasks.splice(result.source.index, 1);
-      destination.tasks.splice(result.destination.index, 0, reorderedItem);
+        if(result.source.index > result.destination.index){
+          const sourceTask = await Task.findOne({columnOwner: result.source.droppableId, index:result.source.index})
+          
+          await Task.updateMany(
+            { columnOwner: result.source.droppableId, index: {$gte: result.destination.index, $lt: result.source.index} },
+            {$inc : { index : +1}}
+            )
+  
+           await Task.findOneAndUpdate({_id: sourceTask._id},
+            {$set:{index: result.destination.index}})
+            
+  
+        }
 
-      res.status(200).json(column)
+        const sortTask = await Task.find({columnOwner: result.source.droppableId})
+
+        const sortResult = sortTask.sort((a, b) => a.index-b.index )
+        
+        res.status(200).json(sortResult)
+        return
+        }
+        
+
+      if(result.source.droppableId !== result.destination.droppableId){
+
+        await Task.updateMany(
+            { columnOwner: result.destination.droppableId, index: {$gte: result.destination.index} },
+            {$inc : { index : 1}}
+            )
+          
+        await Task.findOneAndUpdate({columnOwner: result.source.droppableId, index:result.source.index},
+          {$set:{index: result.destination.index, columnOwner: result.destination.droppableId}})
+
+        await Task.updateMany(
+          { columnOwner: result.source.droppableId, index: {$gt: result.source.index} },
+          {$inc : { index : -1}}
+          )
+
+
+          const sourceTasks = await Task.find({columnOwner: result.source.droppableId})
+          const sortSourceTasks = sourceTasks.sort((a, b) => a.index-b.index )
+
+          const destinationTasks = await Task.find({columnOwner: result.destination.droppableId})
+          const sortDestinationTasks = destinationTasks.sort((a, b) => a.index-b.index )
+
+          const allPositions = {
+            sortSourceTasks,
+            sortDestinationTasks
+          }
+
+          res.status(200).json(allPositions)
+        }
+
       return
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -118,9 +185,9 @@ router.patch("/task-position", async (req, res) => {
 
 router.post("/task", auth, async (req, res) => {
    try {
-      const { text, id, projectId } = req.body
+      const { text, id, projectId, indexNumber } = req.body
 
-      if (!text && !id && !projectId) {
+      if (!text && !id && !projectId && !indexNumber) {
          return res.status(400).json({ error: "invalid input" })
       }
 
@@ -128,11 +195,14 @@ router.post("/task", auth, async (req, res) => {
          text,
          columnOwner: id,
          projectOwner: projectId,
+         index: indexNumber
       })
 
       await task.save()
 
-      res.status(201).json(task)
+      const allTasks = await Task.find({columnOwner:id})
+
+      res.status(201).json(allTasks)
       return
 
    } catch (error) {
@@ -162,19 +232,32 @@ router.patch("/task", auth, async (req, res) => {
    }
 })
 
-router.delete("/task/:id", auth, async (req, res) => {
+router.delete("/task/:id/:columnId", auth, async (req, res) => {
    try {
-      const { id } = req.params
+      const { id,columnId } = req.params
 
       if (!id) {
          return res.status(400).json({ error: "invalid input" })
       }
 
-      const deletedTask = await Task.findOneAndDelete(
+      const foundDeletedTask = await Task.findOne(
          { _id: id }
       )
+      
+      await Task.updateMany(
+        { columnOwner: columnId, index: {$gt: foundDeletedTask.index} },
+        {$inc : { index : -1}}
+        )
 
-      res.status(200).json(deletedTask)
+        const deletedTask = await Task.findOneAndDelete(
+           { _id: id }
+        )
+        
+        const foundTask = await Task.find(
+          { columnOwner: columnId }
+          )
+
+      res.status(200).json(foundTask)
 
    } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -183,22 +266,26 @@ router.delete("/task/:id", auth, async (req, res) => {
 
 router.post("/asignee-user", auth, async (req, res) => {
   try {
-      const { id,taskId } = req.body
+      const { userId,taskId,projectId } = req.body
       
-      if (!id && !taskId) {
+      if (!userId && !taskId && !projectId) {
         return res.status(400).json({ error: "invalid input" })
      }
 
-     const asigneeUser = await User.findOne({_id:id})
-     
-      await Task.findOneAndUpdate(
-        {_id:taskId},
-        {$set:{asigneeUser:asigneeUser.email }}
+     await User.findOneAndUpdate(
+      {_id:userId},
+      {$addToSet:{notification:[{projectId,text:'notification-3'}]}}
      )
 
+     const asigneeUser = await User.findOne({_id:userId})
+     
+     const updateTask = await Task.findOneAndUpdate(
+        {_id:taskId},
+        {$set:{asigneeUser:asigneeUser.email, asigneeUserId:userId}},
+        {new:true}
+     )
 
-  
-      res.status(201).json(asigneeUser.email)
+      res.status(201).json(updateTask)
       return
 
   } catch (error) {
@@ -208,18 +295,24 @@ router.post("/asignee-user", auth, async (req, res) => {
 
 router.post("/no-asignee", auth, async (req, res) => {
   try {
-      const { noAsignee,taskId } = req.body
+      const { noAsignee, taskId, projectId, userId } = req.body
       
-      if (!noAsignee && !taskId) {
+      if (!noAsignee && !taskId && !projectId && !userId) {
         return res.status(400).json({ error: "invalid input" })
      }
 
-      await Task.findOneAndUpdate(
-        {_id:taskId},
-        {$set:{asigneeUser:noAsignee }}
+     await User.findOneAndUpdate(
+      {_id:userId},
+      {$addToSet:{notification:[{projectId,text:'notification-4'}]}}
      )
 
-      res.status(201).json(noAsignee)
+     const deletedAsignee = await Task.findOneAndUpdate(
+        {_id:taskId},
+        {$set:{asigneeUser:noAsignee, asigneeUserId: noAsignee}},
+        {new:true}
+     )
+
+      res.status(201).json(deletedAsignee)
       return
 
   } catch (error) {

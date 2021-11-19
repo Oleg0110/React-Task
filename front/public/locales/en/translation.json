@@ -19,6 +19,14 @@
     "logIn": "Log In",
     "exit": "Exit"
   },
+  "notification": {
+    "title": "Notification ",
+    "addToProject": "You have been added to this project ",
+    "removeFromProject": "You have been removed from this project ",
+    "assigne": "You have been assigned a task on this project ",
+    "removedAssignment": "You have been removed from the task assignment task on this project ",
+    "error": "You have been removed from this project"
+  },
   "home": {
     "title": "My ",
     "projectTitle": " project",
@@ -85,9 +93,9 @@
     "passwordPlaceholder": "Password",
     "signUp": "Sign up",
     "by": "By signing up, you agree to our",
-    "terms": "Terms",
+    "terms": " Terms ",
     "and": "and",
-    "policy": "Data Policy",
+    "policy": " Data Policy",
     "have": "Have an account?",
     "logIn": "Log In"
   },

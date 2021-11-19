@@ -9,8 +9,8 @@ import {
   TITLE_VALIDATION,
 } from '../../utils/validation'
 import { Button, TextBox } from '../../components'
-import { UserStore } from '../../stores'
 import { ROUTES } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './SignUpField.module.scss'
 
 interface IOnSubmitProps {
@@ -20,6 +20,9 @@ interface IOnSubmitProps {
 }
 
 const SignUpField: React.FC = () => {
+  const { userStore } = useStore()
+  const { userToken, registerUser } = userStore
+
   const { t } = useTranslation()
   const history = useHistory()
 
@@ -29,7 +32,7 @@ const SignUpField: React.FC = () => {
     formState: { errors },
   } = useForm()
 
-  const isAuth = !!UserStore.userToken
+  const isAuth = !!userToken
 
   useEffect(() => {
     if (isAuth) {
@@ -42,7 +45,7 @@ const SignUpField: React.FC = () => {
   const [isPassword, setIsPassword] = useState('password')
 
   const onSubmit = (data: IOnSubmitProps) => {
-    UserStore.registerUser(data.email, data.name, data.password)
+    registerUser(data.email, data.name, data.password)
   }
 
   return (
@@ -87,6 +90,15 @@ const SignUpField: React.FC = () => {
               errorPosition='errorAuth'
               required={PASSWORD_VALIDATION}
             />
+            <Button
+              onClick={() => {
+                setIsPassword(isPassword === 'password' ? 'text' : 'password')
+              }}
+            >
+              <div
+                className={`${styles.type} ${styles[`type-${isPassword}`]}`}
+              />
+            </Button>
           </div>
           <div className={styles.buttonPosition}>
             <Button buttonStyle='fifthButtonStyle'>
@@ -94,13 +106,6 @@ const SignUpField: React.FC = () => {
             </Button>
           </div>
         </form>
-        <Button
-          onClick={() => {
-            setIsPassword(isPassword === 'password' ? 'text' : 'password')
-          }}
-        >
-          <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
-        </Button>
         <p className={styles.attention}>
           {t('signUp.by')}
           <span className={styles.ourTerms}>{t('signUp.terms')}</span>

@@ -4,7 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 
 const initItems = {
-  fallbackLng: 'en',
+  fallbackLng: 'EN',
   whitelist: ['en', 'ua', 'ru'],
   debug: false,
   detection: {

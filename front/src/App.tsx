@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+import useStore from './hooks/useStore'
 import { Header, Sidebar } from './layouts'
 import { Button, UserField } from './components'
 import {
@@ -13,12 +14,12 @@ import {
   ROUTES,
 } from './utils/constants'
 import useMedia from './hooks/useMedia'
-import { UserStore } from './stores'
 import useRoutes from './utils/routes'
+import { IButtonProps } from './utils/interface'
 import styles from './App.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
-const buttons = [
+const buttons: IButtonProps[] = [
   {
     id: '0',
     name: 'header.home',
@@ -63,7 +64,10 @@ const App: React.FC = () => {
   const [isSidebarOpened, setSidebarOpened] = useState(false)
   const [isUserFieldOpened, setUserFieldOpened] = useState(false)
 
-  const isAuth = !!UserStore.userToken
+  const { userStore } = useStore()
+  const { userToken } = userStore
+
+  const isAuth = !!userToken
 
   const onButtonClick = (links: string) => {
     const click = isAuth

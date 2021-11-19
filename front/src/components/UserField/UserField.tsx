@@ -3,8 +3,8 @@ import { observer } from 'mobx-react'
 import { useHistory } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Button } from '..'
-import { UserStore } from '../../stores'
 import { ROUTES, storageDataName } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './UserField.module.scss'
 
 interface IUserFieldProps {
@@ -13,13 +13,14 @@ interface IUserFieldProps {
 }
 
 const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
-  const { user } = UserStore
+  const { userStore } = useStore()
+  const { user, userToken } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!UserStore.userToken
-  const logoName = user?.name.toLocaleUpperCase().split('')[0]
+  const isAuth = !!userToken
+  const logoName = user?.name.toLocaleUpperCase().charAt(0)
 
   const logout = () => {
     localStorage.removeItem(storageDataName)

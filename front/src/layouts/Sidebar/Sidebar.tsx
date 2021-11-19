@@ -4,7 +4,8 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components'
 import { ROUTES } from '../../utils/constants'
-import { UserStore } from '../../stores'
+import { IButtonProps } from '../../utils/interface'
+import useStore from '../../hooks/useStore'
 import styles from './Sidebar.module.scss'
 
 interface ISidebarProps {
@@ -12,7 +13,7 @@ interface ISidebarProps {
   setSidebarOpened: (boolean: boolean) => void
 }
 
-const buttons = [
+const buttons: IButtonProps[] = [
   {
     id: '0',
     name: 'sidebar.backlog',
@@ -55,10 +56,13 @@ const Sidebar: React.FC<ISidebarProps> = ({
   children,
   setSidebarOpened,
 }) => {
+  const { userStore } = useStore()
+  const { userToken } = userStore
+
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!UserStore.userToken
+  const isAuth = !!userToken
 
   const onButtonClick = (links: string) => {
     isAuth ? history.push(links) : toast.error('please sign up or log in')

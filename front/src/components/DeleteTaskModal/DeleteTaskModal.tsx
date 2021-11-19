@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { IModalWindowProps } from '../../utils/interface'
 import { Button } from '..'
-import { BoardStore } from '../../stores'
+import useStore from '../../hooks/useStore'
 import styles from './DeleteTaskModal.module.scss'
 
 interface IDeleteTaskModalProps extends IModalWindowProps {
@@ -16,9 +16,12 @@ const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
   id,
   columnId,
 }) => {
+  const { boardStore } = useStore()
+  const { deleteTask } = boardStore
+
   const { t } = useTranslation()
 
-  const onClick = () => BoardStore.deleteTask(id, columnId)
+  const onClick = () => deleteTask(id, columnId)
 
   return (
     <>
@@ -26,6 +29,7 @@ const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={onModalClose}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${

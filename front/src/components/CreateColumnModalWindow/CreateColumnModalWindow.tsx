@@ -2,15 +2,16 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
 import { TITLE_VALIDATION } from '../../utils/validation'
-import { BoardStore } from '../../stores'
 import { Button, TextBox } from '..'
+import useStore from '../../hooks/useStore'
 import styles from './CreateColumnModalWindow.module.scss'
 
 interface ICreateColumnModalWindowProps {
   isModalOpened: boolean
-  onModalClose?: () => void
+  setIsModalOpened: (boolean: boolean) => void
 }
 
 interface IOnSubmitProps {
@@ -19,9 +20,14 @@ interface IOnSubmitProps {
 
 const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
   isModalOpened,
-  onModalClose,
+  setIsModalOpened,
 }) => {
-  const { projectId } = urlValue(window.location.href)
+  const { boardStore } = useStore()
+  const { pushColumn } = boardStore
+
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
 
   const { t } = useTranslation()
 
@@ -32,7 +38,8 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
   } = useForm()
 
   const onSubmit = (data: IOnSubmitProps) => {
-    BoardStore.pushColumn(data.title, projectId)
+    pushColumn(data.title, projectId)
+    setIsModalOpened(false)
   }
 
   return (
@@ -40,7 +47,8 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
       <button
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
-        onClick={onModalClose}
+        onClick={() => setIsModalOpened(false)}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${
@@ -49,7 +57,7 @@ const CreateColumnModalWindow: React.FC<ICreateColumnModalWindowProps> = ({
       >
         <div className={styles.modalBody}>
           <div className={styles.closeIconPosition}>
-            <Button onClick={onModalClose}>
+            <Button onClick={() => setIsModalOpened(false)}>
               <div className={styles.closeIcon} />
             </Button>
           </div>

@@ -2,14 +2,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { toast } from 'react-toastify'
+import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
 import { Button } from '..'
-import { UserStore } from '../../stores'
-import { IUserState } from '../../utils/types'
+import useStore from '../../hooks/useStore'
 import styles from './DeleteUserModal.module.scss'
 
 interface IDeleteTaskModalProps {
-  userId: string
+  idUser: string
   isModalOpened: boolean
   setIsModalOpened: (boolean: boolean) => void
 }
@@ -17,18 +17,24 @@ interface IDeleteTaskModalProps {
 const DeleteUserModal: React.FC<IDeleteTaskModalProps> = ({
   isModalOpened,
   setIsModalOpened,
-  userId,
+  idUser,
 }) => {
-  const userLocalId = UserStore.userId
-  const { projectId } = urlValue(window.location.href)
+  const { userStore } = useStore()
+  const { userId, deleteUser } = userStore
+
+  const userLocalId = userId
+  const history = useHistory()
+
+  const { projectId } = urlValue(history.location.pathname)
 
   const { t } = useTranslation()
 
   const onClick = () => {
-    if (userId === userLocalId) {
+    if (idUser === userLocalId) {
       return toast.error('Sorry, you cannot delete yourself')
     }
-    return UserStore.deleteUser(userId, projectId)
+    setIsModalOpened(false)
+    return deleteUser(idUser, projectId)
   }
   return (
     <>
@@ -36,6 +42,7 @@ const DeleteUserModal: React.FC<IDeleteTaskModalProps> = ({
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
         onClick={() => setIsModalOpened(false)}
+        aria-label='Open Modal Window'
       />
       <div
         className={`${styles.createArea} ${

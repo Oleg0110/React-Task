@@ -5,9 +5,9 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { NO_EMPTY_VALIDATION } from '../../utils/validation'
-import { UserStore } from '../../stores'
 import { Button } from '..'
 import { ROUTES } from '../../utils/constants'
+import useStore from '../../hooks/useStore'
 import styles from './Pagination.module.scss'
 
 interface IPaginationProps {
@@ -25,7 +25,8 @@ const Pagination: React.FC<IPaginationProps> = ({
   setCurrentPage,
   currentPage,
 }) => {
-  const { usersPagination } = UserStore
+  const { userStore } = useStore()
+  const { usersPagination, asyncGetUsers } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
@@ -38,7 +39,7 @@ const Pagination: React.FC<IPaginationProps> = ({
     if (pageNumbers.length !== currentPage) {
       const nextCurrentPage = +currentPage + 1
 
-      UserStore.asyncGetUsers(nextCurrentPage, usersOnPage)
+      asyncGetUsers(nextCurrentPage, usersOnPage)
       history.push(
         `${ROUTES.people}?page=${nextCurrentPage}&count=${usersOnPage}`,
       )
@@ -49,7 +50,7 @@ const Pagination: React.FC<IPaginationProps> = ({
 
       const currentNextPage = pageNumbers.length
 
-      UserStore.asyncGetUsers(currentNextPage, usersOnPage)
+      asyncGetUsers(currentNextPage, usersOnPage)
       history.push(
         `${ROUTES.people}?page=${currentNextPage}&count=${usersOnPage}`,
       )
@@ -62,7 +63,7 @@ const Pagination: React.FC<IPaginationProps> = ({
     if (currentPage > 1) {
       const prevCurrentPage = currentPage - 1
 
-      UserStore.asyncGetUsers(prevCurrentPage, usersOnPage)
+      asyncGetUsers(prevCurrentPage, usersOnPage)
       history.push(
         `${ROUTES.people}?page=${prevCurrentPage}&count=${usersOnPage}`,
       )
@@ -73,7 +74,7 @@ const Pagination: React.FC<IPaginationProps> = ({
 
       const currentPrevPage = 1
 
-      UserStore.asyncGetUsers(currentPrevPage, usersOnPage)
+      asyncGetUsers(currentPrevPage, usersOnPage)
       history.push(
         `${ROUTES.people}?page=${currentPrevPage}&count=${usersOnPage}`,
       )
@@ -86,7 +87,7 @@ const Pagination: React.FC<IPaginationProps> = ({
     if (data.number <= pageNumbers.length && data.number > 0) {
       setCurrentPage(data.number)
 
-      UserStore.asyncGetUsers(data.number, usersOnPage)
+      asyncGetUsers(data.number, usersOnPage)
 
       return history.push(
         `${ROUTES.people}?page=${data.number}&count=${usersOnPage}`,

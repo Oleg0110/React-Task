@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const User = require("../models/user")
+const Project = require("../models/project")
 
 router.post("/add-to-project", async (req, res) => {
   try {
@@ -10,23 +11,23 @@ router.post("/add-to-project", async (req, res) => {
        return res.status(400).json({ error: "invalid data" })
       }
 
-      // const user = await User.findOne({_id:userId, 'projects.projectId':projectId})
-      // if(!!user === true){
-      //   const userArrState = user.projects.find((found)=> found.projectId === projectId)
-      //   console.log(userArrState);
-      //   const userState = userArrState.find((find)=> find === state)
+      const userData = await User.findOne({_id:userId, 'projects.projectId':projectId})
 
-      //   if (!!userState === true) {
-      //     return res.status(400).json({ error: "invalid data" })
-      //    }
-      // }
+      if(userData){
+        const userArrState = userData.projects.find(({projectId}) => projectId === projectId)
+        
+        if (userArrState.projectId) {
+          return res.status(400).json({ error: "invalid data" })
+         }
+      }
 
-      await User.findOneAndUpdate(
+    const updateUser = await User.findOneAndUpdate(
        {_id:userId},
-       {$addToSet:{projects: [{projectId,state}]}}
+       {$addToSet:{projects: [{projectId,state}],notification:[{projectId,text:'notification-1'}]}},
+       {new:true}
       )
 
-      res.status(200)
+      res.status(200).json(updateUser)
 
   } catch (error) {
       res.status(500).json({ error: "internal server error" })
@@ -41,10 +42,16 @@ try {
     return res.status(400).json({ error: "invalid data" })
    }
 
-   const us = await User.updateOne({_id:userId, 'projects.projectId': projectId},{$pull:{projects:{projectId:projectId}}})
-console.log(us);
+   const projectName = await Project.findOne({_id:projectId})
+   
+   const updateUser = await User.findOneAndUpdate(
+      {_id:userId, 'projects.projectId': projectId},
+      {$pull:{projects:{projectId:projectId}},
+      $addToSet:{notification:[{projectId,text:'notification-2',projectName: projectName.title }]}},
+      {new:true}
+    )
 
-res.status(200)
+res.status(200).json(updateUser._id)
 
 } catch (error) {
   
