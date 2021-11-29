@@ -12,8 +12,8 @@ type ButtonStyleTypes =
   | 'userFieldButtonStyle'
 
 interface IButtonProps {
-  onClick?: (arg0: any) => void
-  onSubmit?: (arg0: any) => void
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onSubmit?: () => void
   buttonStyle?: ButtonStyleTypes
   tooltipContent?: string
 }

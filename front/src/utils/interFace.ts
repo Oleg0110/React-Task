@@ -6,7 +6,7 @@ import {
 
 export interface IModalWindowProps {
   isModalOpened: boolean
-  onModalClose?: () => void
+  setIsModalOpened: (boolean: boolean) => void
   id: string
 }
 
@@ -25,13 +25,7 @@ export interface IUsers {
 }
 
 export interface IRegister {
-  token: string
   currentUser: IUser
-}
-
-export interface ILogin {
-  userId: string
-  token: string
 }
 
 export interface ITask {
@@ -65,4 +59,12 @@ export interface IButtonProps {
   link: string
   icon: string
   style: IButtonStyleTypes
+}
+
+export interface INotification {
+  notification: string
+  projectId: string
+  projectName?: string
+  text: string
+  _id: string
 }

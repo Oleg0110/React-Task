@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components'
 import { ROUTES } from '../../utils/constants'
-import { IButtonProps } from '../../utils/interface'
+import { IButtonProps } from '../../utils/interFace'
 import useStore from '../../hooks/useStore'
 import styles from './Sidebar.module.scss'
 
@@ -57,15 +57,15 @@ const Sidebar: React.FC<ISidebarProps> = ({
   setSidebarOpened,
 }) => {
   const { userStore } = useStore()
-  const { userToken } = userStore
+  const { isAuthenticated } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!userToken
-
   const onButtonClick = (links: string) => {
-    isAuth ? history.push(links) : toast.error('please sign up or log in')
+    isAuthenticated
+      ? history.push(links)
+      : toast.error('please sign up or log in')
     setSidebarOpened(false)
   }
 

@@ -69,11 +69,11 @@ router.patch("/column", auth, async (req, res) => {
          { new: true }
       )
 
-      const task = await Task.find({columnOwner:id })
+      // const task = await Task.find({columnOwner:id })
 
-      changedColumn.tasks = task
+      // changedColumn.tasks = task
       
-      res.status(200).json(changedColumn)
+      res.status(200).json(changedColumn.title)
 
       return
 
@@ -162,19 +162,7 @@ router.patch("/task-position", async (req, res) => {
           {$inc : { index : -1}}
           )
 
-
-          const sourceTasks = await Task.find({columnOwner: result.source.droppableId})
-          const sortSourceTasks = sourceTasks.sort((a, b) => a.index-b.index )
-
-          const destinationTasks = await Task.find({columnOwner: result.destination.droppableId})
-          const sortDestinationTasks = destinationTasks.sort((a, b) => a.index-b.index )
-
-          const allPositions = {
-            sortSourceTasks,
-            sortDestinationTasks
-          }
-
-          res.status(200).json(allPositions)
+          res.status(200).json('successfully')
         }
 
       return
@@ -200,9 +188,7 @@ router.post("/task", auth, async (req, res) => {
 
       await task.save()
 
-      const allTasks = await Task.find({columnOwner:id})
-
-      res.status(201).json(allTasks)
+      res.status(201).json(task)
       return
 
    } catch (error) {
@@ -224,7 +210,7 @@ router.patch("/task", auth, async (req, res) => {
          { new: true }
       )
 
-      res.status(200).json(changedTask)
+      res.status(200).json(changedTask.text)
       return
 
    } catch (error) {
@@ -249,7 +235,7 @@ router.delete("/task/:id/:columnId", auth, async (req, res) => {
         {$inc : { index : -1}}
         )
 
-        const deletedTask = await Task.findOneAndDelete(
+         await Task.findOneAndDelete(
            { _id: id }
         )
         

@@ -22,7 +22,6 @@ const DeleteUserModal: React.FC<IDeleteTaskModalProps> = ({
   const { userStore } = useStore()
   const { userId, deleteUser } = userStore
 
-  const userLocalId = userId
   const history = useHistory()
 
   const { projectId } = urlValue(history.location.pathname)
@@ -30,7 +29,7 @@ const DeleteUserModal: React.FC<IDeleteTaskModalProps> = ({
   const { t } = useTranslation()
 
   const onClick = () => {
-    if (idUser === userLocalId) {
+    if (idUser === userId) {
       return toast.error('Sorry, you cannot delete yourself')
     }
     setIsModalOpened(false)

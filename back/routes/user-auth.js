@@ -15,6 +15,7 @@ router.get("/user/:id", async (req, res) => {
 
       const user = await User.findOne({ _id: id })
 
+
       res.status(200).json(user)
       return
 

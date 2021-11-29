@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { Button, NotificationCard } from '..'
 import useStore from '../../hooks/useStore'
-import { IAllType } from '../../utils/types'
+import { INotification } from '../../utils/interFace'
 import styles from './Notification.module.scss'
 
 interface INotificationProps {
@@ -16,51 +16,39 @@ const Notification: React.FC<INotificationProps> = ({
   setIsModalOpened,
 }) => {
   const { userStore } = useStore()
-  const { user, userId, userToken, clearUserNotification } = userStore
+  const { user, userId, clearUserNotification } = userStore
 
   const { t } = useTranslation()
-
-  const isAuth = !!userToken
-
-  const sidebarHeight = () => {
-    const sidebar = isAuth ? styles.sidebarHeight : styles.sidebar
-    return sidebar
-  }
 
   const clearNotification = () => {
     clearUserNotification(userId)
     setIsModalOpened(false)
   }
 
-  const allNotifications: IAllType[] | null = []
+  const allNotifications: INotification[] | null = []
 
   user?.notification.map((el) => {
-    if (el.text === 'notification-1') {
-      allNotifications.push({
-        noti: t('notification.addToProject'),
-        ...el,
-      })
-    } else if (el.text === 'notification-2') {
-      allNotifications.push({
-        noti: t('notification.removeFromProject'),
-        ...el,
-      })
-    } else if (el.text === 'notification-3') {
-      allNotifications.push({
-        noti: t('notification.assigne'),
-        ...el,
-      })
-    } else if (el.text === 'notification-4') {
-      allNotifications.push({
-        noti: t('notification.removedAssignment'),
-        ...el,
-      })
+    const noti = { ...el }
+
+    switch (el.text) {
+      case 'notification-1':
+        noti.notification = t('notification.addToProject')
+        break
+      case 'notification-2':
+        noti.notification = t('notification.removeFromProject')
+        break
+      case 'notification-3':
+        noti.notification = t('notification.assigne')
+        break
+      case 'notification-4':
+        noti.notification = t('notification.removedAssignment')
+        break
     }
-    return {}
+    return allNotifications.push(noti)
   })
 
   return (
-    <div className={isOpened ? sidebarHeight() : styles.opened}>
+    <div className={isOpened ? styles.sidebarHeight : styles.opened}>
       <div className={styles.content}>
         <h1 className={styles.title}>
           {t('notification.title')}
@@ -73,8 +61,8 @@ const Notification: React.FC<INotificationProps> = ({
       <div className={styles.notificationField}>
         {allNotifications.map((data) => (
           <NotificationCard
-            key={data.id}
-            all={data}
+            key={data._id}
+            notificationData={data}
             setIsModalOpened={setIsModalOpened}
           />
         ))}

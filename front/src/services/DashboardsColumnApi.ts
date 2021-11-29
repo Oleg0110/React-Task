@@ -1,5 +1,5 @@
 import { LINK_DASHBOARD_COLUMN } from '../utils/httpLinks'
-import { IColumn } from '../utils/interface'
+import { IColumn } from '../utils/interFace'
 import RootStore from '../stores/RootStore/RootStore'
 
 class DashboardsColumnApi {
@@ -31,7 +31,7 @@ class DashboardsColumnApi {
     return res?.data
   }
 
-  change = async (title: string, id: string): Promise<IColumn> => {
+  change = async (title: string, id: string): Promise<string> => {
     const res = await this.rootStore.apiProvider.doFetch(
       'patch',
       LINK_DASHBOARD_COLUMN,

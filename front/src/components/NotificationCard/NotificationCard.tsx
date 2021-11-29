@@ -4,20 +4,18 @@ import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import useStore from '../../hooks/useStore'
-import { IAllType } from '../../utils/types'
+import { INotification } from '../../utils/interFace'
 import { ROUTES } from '../../utils/constants'
 import { Button } from '..'
 import styles from './NotificationCard.module.scss'
 
 interface INotificationCardProps {
-  // id: string
-  // text: string
-  all: IAllType
+  notificationData: INotification
   setIsModalOpened: (boolean: boolean) => void
 }
 
 const NotificationCard: React.FC<INotificationCardProps> = ({
-  all,
+  notificationData,
   setIsModalOpened,
 }) => {
   const { projectStore } = useStore()
@@ -26,7 +24,7 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
   const { t } = useTranslation()
   const history = useHistory()
 
-  const { noti, projectId, projectName } = all
+  const { notification, projectId, projectName } = notificationData
 
   const projectTitle = projects.find((found) => found.id === projectId)?.title
 
@@ -34,7 +32,7 @@ const NotificationCard: React.FC<INotificationCardProps> = ({
     <div className={styles.notificationField}>
       <div className={styles.card}>
         <p>
-          {noti}
+          {notification}
           <Button
             onClick={() => {
               if (projectName) {

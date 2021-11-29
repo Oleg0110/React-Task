@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import { IModalWindowProps } from '../../utils/interface'
+import { IModalWindowProps } from '../../utils/interFace'
 import { Button } from '..'
 import useStore from '../../hooks/useStore'
 import styles from './DeleteColumnModal.module.scss'
 
 const DeleteColumnModal: React.FC<IModalWindowProps> = ({
   isModalOpened,
-  onModalClose,
+  setIsModalOpened,
   id,
 }) => {
   const { boardStore } = useStore()
@@ -23,7 +23,7 @@ const DeleteColumnModal: React.FC<IModalWindowProps> = ({
       <button
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
-        onClick={onModalClose}
+        onClick={() => setIsModalOpened(false)}
         aria-label='Open Modal Window'
       />
       <div
@@ -33,7 +33,7 @@ const DeleteColumnModal: React.FC<IModalWindowProps> = ({
       >
         <div className={styles.modalBody}>
           <div className={styles.closeIconPosition}>
-            <Button onClick={onModalClose}>
+            <Button onClick={() => setIsModalOpened(false)}>
               <div className={styles.closeIcon} />
             </Button>
           </div>

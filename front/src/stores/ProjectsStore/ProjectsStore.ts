@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IProject } from '../../utils/interface'
+import { IProject } from '../../utils/interFace'
 import RootStore from '../RootStore/RootStore'
 
 class ProjectsStore {

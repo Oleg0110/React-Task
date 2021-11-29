@@ -27,8 +27,16 @@ const Dashboards: React.FC = ({ children }) => {
 
   const { projectId } = urlValue(history.location.pathname)
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    asyncGetColumn(projectId)
+    const getColumns = async () => {
+      setLoading(true)
+      await asyncGetColumn(projectId)
+      return setLoading(false)
+    }
+    getColumns()
+
     asyncGetProjects()
     getUsersOnProject(projectId)
   }, [asyncGetColumn, asyncGetProjects, getUsersOnProject, projectId])
@@ -97,17 +105,12 @@ const Dashboards: React.FC = ({ children }) => {
             </Button>
           </div>
         )}
-
         <form
           className={styles.searchBoardArea}
           onChange={(e) => {
             e.preventDefault()
             if (searchValue.current) {
               setSearchTitle(searchValue.current.value)
-            } else {
-              console.warn(
-                "Strange behavior, i don't know why, but null came here: searchValue",
-              )
             }
           }}
         >
@@ -118,7 +121,7 @@ const Dashboards: React.FC = ({ children }) => {
             ref={searchValue}
           />
           <div className={styles.searchIcon} />
-          <Button onClick={(e) => e.preventDefault()}>
+          <Button onClick={(e) => e?.preventDefault()}>
             <div className={styles.delete} />
           </Button>
         </form>
@@ -137,7 +140,7 @@ const Dashboards: React.FC = ({ children }) => {
       </div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <div className={styles.boardColumn}>
-          {column.length === 0 && <div className={styles.loader} />}
+          {loading && column.length === 0 && <div className={styles.loader} />}
           {filteredColumn.map((data) => (
             <Column taskData={data.tasks} key={data.id} columnId={data.id} />
           ))}

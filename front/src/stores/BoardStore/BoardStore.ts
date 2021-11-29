@@ -1,7 +1,9 @@
-import { action, makeObservable, observable, toJS } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 import { DropResult } from 'react-beautiful-dnd'
+import { toast } from 'react-toastify'
+import { IColumn, ITask } from '../../utils/interFace'
+
 import RootStore from '../RootStore/RootStore'
-import { IColumn, ITask } from '../../utils/interface'
 
 class BoardStore {
   column: IColumn[] = []
@@ -30,12 +32,9 @@ class BoardStore {
       setChangeTask: action,
       setAddedTask: action,
       setAddedColumn: action,
-      setChangedColumn: action,
       setDeletedColumn: action,
       setDeleteAsignee: action,
       setAsigneeUser: action,
-      setTaskSourcePosition: action,
-      setTaskDestinationPosition: action,
     })
   }
 
@@ -70,17 +69,16 @@ class BoardStore {
   changeColumn = async (title: string, id: string) => {
     const { change } = this.rootStore.apiProvider.dashboardsColumnApi
 
-    const changedColumn = await change(title, id)
-
-    if (changedColumn) {
-      const foundColumnIndex = this.column.findIndex((found) => found.id === id)
-
-      this.setChangedColumn(foundColumnIndex, changedColumn)
+    const foundColumn = this.column.find((found) => found.id === id)
+    if (foundColumn) {
+      foundColumn.title = title
     }
-  }
 
-  setChangedColumn = (foundColumnIndex: number, changedColumn: IColumn) => {
-    this.column.splice(foundColumnIndex, 1, changedColumn)
+    const changedColumnTitle = await change(title, id)
+
+    if (!changedColumnTitle) {
+      toast.warn('invalid data')
+    }
   }
 
   deletedColumn = async (id: string) => {
@@ -144,9 +142,8 @@ class BoardStore {
     }
   }
 
-  setAddedTask = (foundColumnId: IColumn, task: ITask[]) => {
-    foundColumnId.tasks = task
-    // foundColumnId?.tasks.push(task)
+  setAddedTask = (foundColumnId: IColumn, task: ITask) => {
+    foundColumnId?.tasks.push(task)
   }
 
   changeTask = async (text: string, id: string, columnId: string) => {
@@ -156,19 +153,15 @@ class BoardStore {
 
     const foundColumn = this.column.find((found) => found.id === columnId)
 
-    if (foundColumn && changedTask) {
-      const foundTask = foundColumn.tasks.findIndex((found) => found.id === id)
+    const foundTask = foundColumn?.tasks.find((found) => found.id === id)
 
-      this.setChangeTask(foundColumn, foundTask, changedTask)
+    if (changedTask && foundTask) {
+      this.setChangeTask(foundTask, changedTask)
     }
   }
 
-  setChangeTask = (
-    foundColumn: IColumn,
-    foundTask: number,
-    changedTask: ITask,
-  ) => {
-    foundColumn.tasks.splice(foundTask, 1, changedTask)
+  setChangeTask = (foundTask: ITask, changedTask: string) => {
+    foundTask.text = changedTask
   }
 
   deleteTask = async (id: string, columnId: string) => {
@@ -179,14 +172,11 @@ class BoardStore {
     const foundColumn = this.column.find((found) => found.id === columnId)
 
     if (foundColumn && deletedTask) {
-      // const foundTask = foundColumn.tasks.findIndex((found) => found.id === id)
-
       this.setDeleteTask(foundColumn, deletedTask)
     }
   }
 
   setDeleteTask = (foundColumn: IColumn, deletedTask: ITask[]) => {
-    // foundColumn.tasks.splice(foundTask, 1)
     foundColumn.tasks = deletedTask
   }
 
@@ -206,57 +196,111 @@ class BoardStore {
   dragColumn = async (result: DropResult) => {
     const { taskPosition } = this.rootStore.apiProvider.dashboardsTasksApi
 
-    const resultPosition = await taskPosition(result)
-
-    const sourceColumn =
-      resultPosition &&
-      this.column?.find((found) => found.id === result.source.droppableId)
-
     if (
-      result &&
-      resultPosition &&
-      result.source?.droppableId !== result.destination?.droppableId
+      result.destination &&
+      result.source.droppableId === result.destination.droppableId
     ) {
-      const destination = this.column.find(
-        (found) => found.id === result.destination?.droppableId,
-      )
-      const source = this.column.find(
-        (found) => found.id === result.source?.droppableId,
-      )
+      if (result.source.index < result.destination.index) {
+        const sourceColumn = this.column?.find(
+          (found) => found.id === result.source.droppableId,
+        )
 
-      if (destination && source && resultPosition) {
-        this.setTaskDestinationPosition(destination, source, resultPosition)
-        // const sources = this.column.find(found => found.id === result.source.droppableId)
-        // const destinations = this.column.find(
-        //   (found) => found.id === result.destination.droppableId,
-        // )
+        const foundsourcetask = sourceColumn?.tasks.find(
+          (found) => found.index === result.source.index,
+        )
 
-        // const [reorderedItem] = source.tasks.splice(result.source.index, 1);
-        // destination.tasks.splice(result.destination.index, 0, reorderedItem);
+        sourceColumn?.tasks.forEach((data) => {
+          if (result.destination) {
+            if (
+              result.source.index < data.index &&
+              data.index <= result.destination.index
+            ) {
+              data.index -= 1
+            }
+          }
+        })
 
-        // destination.tasks = resultPosition.sortDestinationTasks
-        // source.tasks = resultPosition.sortSourceTasks
+        if (foundsourcetask) {
+          foundsourcetask.index = result.destination.index
+        }
 
-        return
+        sourceColumn?.tasks.sort((a, b) => a.index - b.index)
+      }
+
+      if (result.source.index > result.destination.index) {
+        const sourceColumn = this.column?.find(
+          (found) => found.id === result.source.droppableId,
+        )
+
+        const foundsourcetask = sourceColumn?.tasks.find(
+          (found) => found.index === result.source.index,
+        )
+
+        sourceColumn?.tasks.forEach((data) => {
+          if (
+            result.destination &&
+            result.source.index > data.index &&
+            data.index >= result.destination.index
+          ) {
+            data.index += 1
+          }
+        })
+
+        if (foundsourcetask) {
+          foundsourcetask.index = result.destination.index
+        }
+
+        sourceColumn?.tasks.sort((a, b) => a.index - b.index)
       }
     }
 
-    if (resultPosition) {
-      this.setTaskSourcePosition(sourceColumn, resultPosition)
+    if (
+      result.destination &&
+      result.source.droppableId !== result.destination.droppableId
+    ) {
+      const sourceColumn = this.column?.find(
+        (found) => found.id === result.source.droppableId,
+      )
+
+      const destinationColumn = this.column?.find(
+        (found) => found.id === result.destination?.droppableId,
+      )
+
+      destinationColumn?.tasks.forEach((data) => {
+        if (result.destination && data.index >= result.destination.index) {
+          data.index += 1
+        }
+      })
+
+      const foundSourceTask = sourceColumn?.tasks.find(
+        (found) => found.index === result.source.index,
+      )
+
+      if (foundSourceTask) {
+        foundSourceTask.index = result.destination.index
+        foundSourceTask.columnOwner = result.destination.droppableId
+
+        destinationColumn?.tasks.push(foundSourceTask)
+      }
+
+      destinationColumn?.tasks.sort((a, b) => a.index - b.index)
+
+      sourceColumn?.tasks.splice(result.source.index, 1)
+
+      sourceColumn?.tasks.forEach((data) => {
+        if (data.index > result.source.index) {
+          data.index -= 1
+        }
+      })
+
+      sourceColumn?.tasks.sort((a, b) => a.index - b.index)
     }
-  }
 
-  setTaskSourcePosition = (sourceColumn: IColumn, resultPosition: ITask[]) => {
-    sourceColumn.tasks = resultPosition
-  }
+    const resultPosition: string = await taskPosition(result)
 
-  setTaskDestinationPosition = (
-    destination: IColumn,
-    source: IColumn,
-    resultPosition: { sortSourceTasks: ITask[]; sortDestinationTasks: ITask[] },
-  ) => {
-    destination.tasks = resultPosition.sortDestinationTasks
-    source.tasks = resultPosition.sortSourceTasks
+    if (!resultPosition) {
+      toast.warn('invalid data')
+    }
   }
 
   asigneeUser = async (
@@ -281,7 +325,7 @@ class BoardStore {
     }
   }
 
-  setAsigneeUser = (
+  setAsigneeUser = async (
     foundColumn: IColumn,
     foundTaskIndex: number,
     updateTask: ITask,

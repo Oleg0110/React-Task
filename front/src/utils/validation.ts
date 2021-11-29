@@ -6,11 +6,6 @@ export const TITLE_VALIDATION = {
   },
 }
 
-export const TASKS_CONTENT_VALIDATION = {
-  required: "Can't be Empty",
-  minLength: 1,
-}
-
 export const CREATE_CONTENT_VALIDATION = {
   required: "Can't be Empty and min: 15 Symbols",
   minLength: {

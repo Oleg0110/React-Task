@@ -24,7 +24,7 @@
     "addToProject": "You have been added to this project ",
     "removeFromProject": "You have been removed from this project ",
     "assigne": "You have been assigned a task on this project ",
-    "removedAssignment": "You have been removed from the task assignment task on this project ",
+    "removedAssignment": "You have been removed from the task on this project ",
     "error": "You have been removed from this project"
   },
   "home": {

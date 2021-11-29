@@ -8,7 +8,7 @@ import urlValue from '../../utils/functions'
 import { Button, Task, CreateTaskModalWindow, DeleteColumnModal } from '..'
 import { TITLE_VALIDATION } from '../../utils/validation'
 import { stateManager, stateOwner } from '../../utils/constants'
-import { ITask } from '../../utils/interface'
+import { ITask } from '../../utils/interFace'
 import useStore from '../../hooks/useStore'
 import styles from './Column.module.scss'
 
@@ -31,6 +31,7 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
 
   const foundColumn = column?.find((data) => data.id === columnId)
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { title } = foundColumn!
 
   const { t } = useTranslation()
@@ -51,6 +52,7 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
 
   const onSubmit = (data: IOnSubmitProps) => {
     changeColumn(data.title, columnId)
+    setIsInputOpened(false)
   }
 
   const onProject = usersOnProject
@@ -73,7 +75,7 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
     <div>
       <DeleteColumnModal
         id={columnId}
-        onModalClose={() => setIsDeleteOpened(false)}
+        setIsModalOpened={setIsDeleteOpened}
         isModalOpened={isDeleteOpened}
       />
       <Droppable droppableId={columnId}>

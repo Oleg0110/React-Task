@@ -9,7 +9,7 @@ import {
   LINK_USER_MANAGE_PROJECT,
 } from '../utils/httpLinks'
 import RootStore from '../stores/RootStore/RootStore'
-import { ILogin, IRegister, IUser, IUsers } from '../utils/interface'
+import { IRegister, IUser, IUsers } from '../utils/interFace'
 import { storageDataName } from '../utils/constants'
 
 class UserApi {
@@ -74,7 +74,7 @@ class UserApi {
     throw toast.success('Acount was not Created')
   }
 
-  login = async (email: string, password: string): Promise<ILogin | void> => {
+  login = async (email: string, password: string) => {
     const res = await this.rootStore.apiProvider.doFetch(
       'post',
       LINK_USER_AUTH_LOG_IN,

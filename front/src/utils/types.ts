@@ -6,15 +6,8 @@ export type IUserProjectsType = {
 export type IUserNotificationType = {
   projectId: string
   text: string
-  id: string
-}
-
-export type IAllType = {
-  noti: string
-  projectId: string
-  projectName?: string
-  text: string
-  id: string
+  _id: string
+  notification: string
 }
 
 export type IButtonStyleTypes =

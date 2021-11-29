@@ -15,15 +15,14 @@ import styles from './Home.module.scss'
 
 const Home: React.FC<RouteComponentProps> = ({ children }) => {
   const { userStore, projectStore } = useStore()
-  const { userToken } = userStore
+  const { isAuthenticated } = userStore
   const { asyncGetProjects } = projectStore
 
-  const isAuth = !!userToken
   useEffect(() => {
-    if (isAuth) {
+    if (isAuthenticated) {
       asyncGetProjects()
     }
-  }, [asyncGetProjects, isAuth])
+  }, [asyncGetProjects, isAuthenticated])
 
   const { t } = useTranslation()
   const history = useHistory()
@@ -34,11 +33,15 @@ const Home: React.FC<RouteComponentProps> = ({ children }) => {
     RESPONSIVE_WHITHOUT_VALUE,
   )
 
-  const attention = isAuth ? `${t('home.create')}` : `${t('home.wont')}`
-  const attentionSignUpButton = isAuth
+  const attention = isAuthenticated
+    ? `${t('home.create')}`
+    : `${t('home.wont')}`
+  const attentionSignUpButton = isAuthenticated
     ? `${t('home.makeProject')}`
     : `${t('home.go')}`
-  const attentionLink = isAuth ? ROUTES.projects : ROUTES.userAauthLogIn
+  const attentionLink = isAuthenticated
+    ? ROUTES.projects
+    : ROUTES.userAauthLogIn
 
   return (
     <div className={styles.backFon}>

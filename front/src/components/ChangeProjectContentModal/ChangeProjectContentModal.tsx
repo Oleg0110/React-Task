@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
-import { IModalWindowProps } from '../../utils/interface'
+import { IModalWindowProps } from '../../utils/interFace'
 import { Button, TextBox } from '..'
 import { CREATE_CONTENT_VALIDATION } from '../../utils/validation'
 import useStore from '../../hooks/useStore'
@@ -14,7 +14,7 @@ interface IOnSubmitProps {
 
 const ChangeProjectContentModal: React.FC<IModalWindowProps> = ({
   isModalOpened,
-  onModalClose,
+  setIsModalOpened,
   id,
 }) => {
   const { projectStore } = useStore()
@@ -30,6 +30,7 @@ const ChangeProjectContentModal: React.FC<IModalWindowProps> = ({
 
   const onSubmit = (data: IOnSubmitProps) => {
     changedProjecContent(data.content, id)
+    setIsModalOpened(false)
   }
 
   return (
@@ -37,7 +38,7 @@ const ChangeProjectContentModal: React.FC<IModalWindowProps> = ({
       <button
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
-        onClick={onModalClose}
+        onClick={() => setIsModalOpened(false)}
         aria-label='Open Modal Window'
       />
       <div
@@ -47,7 +48,7 @@ const ChangeProjectContentModal: React.FC<IModalWindowProps> = ({
       >
         <div className={styles.modalBody}>
           <div className={styles.closeIconPosition}>
-            <Button onClick={onModalClose}>
+            <Button onClick={() => setIsModalOpened(false)}>
               <div className={styles.closeIcon} />
             </Button>
           </div>

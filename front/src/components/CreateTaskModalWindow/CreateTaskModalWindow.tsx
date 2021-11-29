@@ -4,8 +4,8 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
-import { IModalWindowProps } from '../../utils/interface'
-import { TASKS_CONTENT_VALIDATION } from '../../utils/validation'
+import { IModalWindowProps } from '../../utils/interFace'
+import { CREATE_CONTENT_VALIDATION } from '../../utils/validation'
 import { Button, TextBox } from '..'
 import useStore from '../../hooks/useStore'
 import styles from './CreateTaskModalWindow.module.scss'
@@ -101,7 +101,7 @@ const CreateTaskModalWindow: React.FC<ICreateTaskModalWindowProps> = ({
                   register={register}
                   error={errors?.text?.message}
                   errorPosition='errorContentPosition'
-                  required={TASKS_CONTENT_VALIDATION}
+                  required={CREATE_CONTENT_VALIDATION}
                 />
               </div>
               <Button buttonStyle='fifthButtonStyle'>

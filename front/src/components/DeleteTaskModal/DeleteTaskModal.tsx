@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import { IModalWindowProps } from '../../utils/interface'
+import { IModalWindowProps } from '../../utils/interFace'
 import { Button } from '..'
 import useStore from '../../hooks/useStore'
 import styles from './DeleteTaskModal.module.scss'
@@ -12,7 +12,7 @@ interface IDeleteTaskModalProps extends IModalWindowProps {
 
 const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
   isModalOpened,
-  onModalClose,
+  setIsModalOpened,
   id,
   columnId,
 }) => {
@@ -28,7 +28,7 @@ const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
       <button
         type='button'
         className={`${styles.backFon} ${isModalOpened && styles.opened}`}
-        onClick={onModalClose}
+        onClick={() => setIsModalOpened(false)}
         aria-label='Open Modal Window'
       />
       <div
@@ -38,7 +38,7 @@ const DeleteTaskModal: React.FC<IDeleteTaskModalProps> = ({
       >
         <div className={styles.modalBody}>
           <div className={styles.closeIconPosition}>
-            <Button onClick={onModalClose}>
+            <Button onClick={() => setIsModalOpened(false)}>
               <div className={styles.closeIcon} />
             </Button>
           </div>

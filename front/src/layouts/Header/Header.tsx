@@ -22,7 +22,7 @@ interface IHeaderProps {
 
 const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
   const { userStore } = useStore()
-  const { user, userToken } = userStore
+  const { user, isAuthenticated } = userStore
 
   const { t, i18n } = useTranslation()
   const history = useHistory()
@@ -36,7 +36,6 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
   const [searchOpened, setSearchOpened] = useState(false)
   const [isOpenedNotification, setIsOpenedNotification] = useState(false)
 
-  const isAuth = !!userToken
   const logoName = user?.name.toLocaleUpperCase().charAt(0)
 
   const changeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -50,7 +49,7 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
     return searchInput
   }
 
-  const userPhoto = () => (!isAuth ? styles.empty : styles.userPhoto)
+  const userPhoto = () => (!isAuthenticated ? styles.empty : styles.userPhoto)
 
   const notificationCount = () => {
     if (user?.notification.length && user?.notification.length > 9) {
@@ -73,10 +72,10 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
     return toast.info('You do not have notification')
   }
 
-  const leng = () => {
-    const len = localStorage.getItem('i18nextLng')
-    if (len) {
-      return len
+  const language = () => {
+    const languageLetters = localStorage.getItem('i18nextLng')
+    if (languageLetters) {
+      return languageLetters
     }
     return 'EN'
   }
@@ -127,26 +126,30 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
               }`}
             />
           </Button>
-          <Button
-            tooltipContent={t('tooltip.notification')}
-            onClick={() => isAuth && notificationOpen()}
-          >
-            <div className={`${styles.icon} ${styles['bell-icon']}`}>
-              {user?.notification.length && (
-                <div className={styles.bellNotification}>
-                  <span className={notificationCountStyle()}>
-                    {notificationCount()}
-                  </span>
+          {isAuthenticated && (
+            <div className={styles.bellSettingsPosition}>
+              <Button
+                tooltipContent={t('tooltip.notification')}
+                onClick={notificationOpen}
+              >
+                <div className={`${styles.icon} ${styles['bell-icon']}`}>
+                  {user?.notification.length && (
+                    <div className={styles.bellNotification}>
+                      <span className={notificationCountStyle()}>
+                        {notificationCount()}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
+              </Button>
+              <Button
+                tooltipContent={t('tooltip.settings')}
+                onClick={() => history.push(ROUTES.settings)}
+              >
+                <div className={`${styles.icon} ${styles['setting-icon']}`} />
+              </Button>
             </div>
-          </Button>
-          <Button
-            tooltipContent={t('tooltip.settings')}
-            onClick={() => isAuth && history.push(ROUTES.settings)}
-          >
-            <div className={`${styles.icon} ${styles['setting-icon']}`} />
-          </Button>
+          )}
           <Button onClick={userField}>
             <div className={userPhoto()}>{logoName}</div>
           </Button>
@@ -154,7 +157,7 @@ const Header: React.FC<IHeaderProps> = ({ onClick, children, userField }) => {
             className={styles.language}
             onChange={(event) => changeLanguage(event)}
           >
-            <option hidden>{leng()}</option>
+            <option hidden>{language()}</option>
             <option className={styles.option} value='EN'>
               EN
             </option>
