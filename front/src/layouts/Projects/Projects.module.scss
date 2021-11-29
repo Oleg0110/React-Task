@@ -9,6 +9,14 @@
    padding-left: 20px;
 }
 
+.count {
+   color: #6b9b6c;
+}
+
+.countNone {
+   display: none;
+}
+
 .create {
    display: flex;
    padding: 20px 25px 0px 25px;
@@ -17,15 +25,12 @@
    flex-wrap: wrap;
 }
 
-.createMD {
-   padding-bottom: 20px;
-}
-
 .searchArea {
    display: flex;
 }
 
 .searchAreaSD {
+   display: flex;
    width: 100%;
    margin-bottom: 20px;
 }
@@ -83,8 +88,8 @@
    transform: rotate(45deg);
 }
 
-.three-dots {
-   background-image: url(../../assets/icon/threeDots.svg);
+.change {
+   background-image: url(../../assets/icon/arrowRepeatIcon.svg);
    background-position: center;
    background-repeat: no-repeat;
    background-size: 20px;
@@ -111,7 +116,74 @@
 }
 
 .projectsBlocksMD {
+   display: flex;
+   justify-content: flex-start;
    flex-direction: column-reverse;
+   margin-top: 10px;
+}
+
+.projectsBlocksSD {
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: column-reverse;
+   margin-top: 10px;
+}
+
+.loader {
+  font-size: 10px;
+  margin: 190px auto;
+  text-indent: -9999em;
+  width: 11em;
+  height: 11em;
+  border-radius: 50%;
+  background: #000000;
+  background: linear-gradient(to right, #8dbc8b 10%, rgba(0,0,0, 0) 42%);
+  position: relative;
+  animation: load3 1.4s infinite linear;
+  transform: translateZ(0);
+
+  &:before {
+    width: 50%;
+    height: 50%;
+    background: #8dbc8b;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+  }
+
+  &:after {
+    background: #ffffff;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+}
+
+@-webkit-keyframes load3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .accordionBlock {
@@ -122,6 +194,31 @@
    margin-top: 20px;
    border-radius: 5px;
    width: 55%;
+
+   &::-webkit-scrollbar {
+      width: 15px;
+   }
+
+   &::-webkit-scrollbar-track {
+      background: #ffffff;
+      border-radius: 10px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: #adadad;
+      border: 4px solid #cccccc;
+      border-radius: 10px;
+   }
+}
+
+.accordionBlockMD {
+   width: 100%;
+   margin-right: 10px;
+}
+
+.accordionBlockSD {
+   width: 100%;
+   margin-right: 10px;
 }
 
 .accordionBlockMax {
@@ -130,31 +227,22 @@
    transition: 0.5s;
 }
 
-.accordionBlock::-webkit-scrollbar {
-   width: 15px;
-}
-
-.accordionBlock::-webkit-scrollbar-track {
-   background: #cccccc;
-   border-radius: 10px;
-}
-
-.accordionBlock::-webkit-scrollbar-thumb {
-   background-color: #adadad;
-   border: 4px solid #cccccc;
-   border-radius: 10px;
-}
-
 .createProjectArea {
    background-color: #bce0bb;
    border-radius: 5px;
    height: 500px;
    width: 35%;
-   margin: 20px 25px 0 60px;
+   margin: 20px 25px 0 40px;
 }
 
-.createProjectMD {
-   height: 300px;
+.createProjectAreaSD {
+   height: 310px;
+   width: 96%;
+   margin: auto;
+}
+
+.createProjectAreaMD {
+   height: 310px;
    width: 96%;
    margin: auto;
 }

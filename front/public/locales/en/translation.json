@@ -1,0 +1,138 @@
+{
+  "header": {
+    "searchPlaceholder": "Search",
+    "home": "Home",
+    "projects": "Projects",
+    "dashboards": "Dashboards",
+    "people": "People"
+  },
+  "sidebar": {
+    "backlog": "Backlog",
+    "reports": "Reports",
+    "components": "Components",
+    "releases": "Releases",
+    "addItem": "Add-Item"
+  },
+  "userField": {
+    "title": "Acount",
+    "signUp": "Sign up",
+    "logIn": "Log In",
+    "exit": "Exit"
+  },
+  "notification": {
+    "title": "Notification ",
+    "addToProject": "You have been added to this project ",
+    "removeFromProject": "You have been removed from this project ",
+    "assigne": "You have been assigned a task on this project ",
+    "removedAssignment": "You have been removed from the task on this project ",
+    "error": "You have been removed from this project"
+  },
+  "home": {
+    "title": "My ",
+    "projectTitle": " project",
+    "wont": "If you wont to make project, please Sign up or Log In",
+    "create": "Create your first Project",
+    "go": "Let's Go",
+    "makeProject": "Make Project"
+  },
+  "projects": {
+    "title": "Projects ",
+    "titlePlaceholder": "Title search...",
+    "contentPlaceholder": "Content search...",
+    "create": "Create Project",
+    "hide": "Hide Block"
+  },
+  "accordion": {
+    "go": "Go To Project",
+    "changeTitle": "Change Title",
+    "changeContent": "Change Content",
+    "delete": "Delete Project"
+  },
+  "createProject": {
+    "title": "Create Project",
+    "name": "Project Name :",
+    "titlePlaceholder": "Title",
+    "description": "Project Description :",
+    "descriptionPlaceholder": "Description",
+    "create": "Create Project"
+  },
+  "dashboards": {
+    "title": "Board",
+    "release": "Release",
+    "create": "Create Column",
+    "taskPlaceholder": "Task search...",
+    "owner": "Project owner:"
+  },
+  "manageProject": {
+    "title": "Manage Project",
+    "owner": "Project owner:",
+    "palceholder": "Search User",
+    "addToProject": "Add to this Project",
+    "team": "Team",
+    "totalUsers": "Users in the Project :"
+  },
+  "people": {
+    "title": "Users ",
+    "click": "Click card to copy email !",
+    "of": " of ",
+    "choose": "Choose page:"
+  },
+  "logIn": {
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "logIn": "Log In",
+    "or": "OR",
+    "forgot": "Forgot password?",
+    "doNot": "Don't have an account? ",
+    "signUp": "Sign up"
+  },
+  "signUp": {
+    "title": "Sign up to make your first Project",
+    "emailPlaceholder": "Email",
+    "namePlaceholder": "Name",
+    "passwordPlaceholder": "Password",
+    "signUp": "Sign up",
+    "by": "By signing up, you agree to our",
+    "terms": " Terms ",
+    "and": "and",
+    "policy": " Data Policy",
+    "have": "Have an account?",
+    "logIn": "Log In"
+  },
+  "modal": {
+    "columnTitle": "Column Title",
+    "titlePlaceholder": "Title",
+    "addColumn": "Add Column",
+    "taskTitle": "Task Text",
+    "contentPlaceholder": "Text",
+    "addTask": "Add Task",
+    "sure": "Are You sure?",
+    "delete": "Delete",
+    "changeContent": "Change Content",
+    "descriptionPlaceholder": "Description",
+    "changeTitle": "Change Title",
+    "projectTitle": "Title",
+    "addToProject": "Add to Project",
+    "choose": "Choose a profession :",
+    "changeTask": "Change Task",
+    "asignee": "Asignee someone",
+    "asigneeMe": "Asignee to me",
+    "taskAsignee": "Asignee: "
+  },
+  "empty": {
+    "title": "Sorry!",
+    "text": "The page is being developed in the future there will be content"
+  },
+  "tooltip": {
+    "manageProject": "Manage this Project",
+    "notification": "Your notifications",
+    "settings": "Settings",
+    "close": "Close",
+    "change": "Change",
+    "sidebar": "Sidebar",
+    "plus": "Add Task",
+    "delete": "Delete",
+    "addToProject": "Add to Project",
+    "addToTask": "Add to Task"
+  }
+}

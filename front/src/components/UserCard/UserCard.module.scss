@@ -1,0 +1,60 @@
+.back {
+   padding: 7px 10px;
+}
+
+.userCard {
+   background-color: #fff;
+   padding: 10px 35px 10px 10px;
+   border-radius: 10px;
+   box-shadow: 0px 2px 0px 0px #aaa;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   cursor: pointer;
+   width: 100%;
+
+   &:active {
+      background-color: rgb(173, 173, 173);
+   }
+}
+
+.userBlock {
+   display: flex;
+   align-items: center;
+}
+
+.userPhoto {
+  background-color: #7d7d7d87;
+  border: 1px solid #fff;
+  color: black;
+  border-radius: 50%;
+  font-size: 27px;
+  font-weight: 500;
+  width: 40px;
+  height: 40px;
+}
+
+.infoField {
+   display: flex;
+   flex-direction: column;
+   text-align: start;
+   margin-left: 20px;
+}
+
+.userName {
+   font-size: 20px;
+   font-weight: 500;
+   margin-bottom: 5px;
+}
+
+.userEmail {
+   color: #636363;
+   font-size: 14px;
+}
+
+.copy {
+   opacity: 0.3;
+   font-weight: 500;
+   font-size: 20px;
+   margin-right: 20%;
+}

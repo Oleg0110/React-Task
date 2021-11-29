@@ -1,0 +1,136 @@
+.sidebar {
+   position: absolute;
+   top: 60px;
+   right: 5px;
+   border: 2px solid #d1c9c9;
+   padding: 15px 20px;
+   background-color: #ffffff;
+   z-index: 1;
+   height: 130px;
+   width: 250px;
+}
+
+.sidebarHeight {
+   position: absolute;
+   top: 60px;
+   right: 5px;
+   border: 2px solid #d1c9c9;
+   padding: 15px 20px;
+   background-color: #ffffff;
+   z-index: 1;
+   height: 165px;
+   width: 250px;
+}
+
+.content {
+   display: flex;
+   flex-direction: column;
+}
+
+.opened {
+   display: none;
+}
+
+.title {
+   margin-top: -10px;
+   padding-bottom: 10px;
+   margin-bottom: 10px;
+   font-size: 18px;
+   border-bottom: 1px solid #afb0b0;
+   color: #979797;
+}
+
+.closeIcon {
+   background-image: url(../../assets/icon/closeIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 13px;
+   right: 5px;
+   top: 5px;
+   width: 20px;
+   height: 20px;
+   position: absolute;
+}
+
+.infoField {
+   display: flex;
+   align-items: center;
+   margin-bottom: 15px;
+   border-bottom: 1px solid #afb0b0;
+   padding-bottom: 16px;
+}
+
+.infoFieldNone {
+   display: none;
+}
+
+.empty {
+   background-image: url(../../assets/icon/user.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 37px;
+   width: 37px;
+   height: 37px;
+}
+
+.userPhoto {
+  background-color: #7d7d7d87;
+  border: 1px solid #fff;
+  color: black;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 500;
+  width: 30px;
+  height: 30px;
+}
+.userInfo {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin-left: 10px;
+}
+
+.name {
+   font-size: 20px;
+   margin-bottom: 5px;
+}
+
+.email {
+   font-size: 12px;
+   font-weight: 500;
+   color: #afb0b0;
+}
+
+.buttonField {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+}
+
+.buttons {
+   display: block;
+}
+
+.buttonsNone {
+   display: none;
+}
+
+.buttonSign {
+   font-size: 18px;
+}
+
+.buttonLog {
+   font-size: 18px;
+}
+
+.exit {
+   display: block;
+}
+
+.exitNone {
+   display: none;
+}
+
+.buttonExit {
+   font-size: 18px;
+}

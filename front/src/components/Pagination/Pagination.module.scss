@@ -1,0 +1,162 @@
+.numberField {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.chooseInput{
+  padding: 4px 0px 4px 5px;
+  border-radius: 4px;
+  border: 1px solid #9493935c;
+  width: 30px;
+  margin-right: 5px;
+}
+
+.chooseField{
+  display: flex;
+    align-items: center;
+}
+
+.backFon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: block;
+}
+
+.choose{
+  padding: 0 5px 2px 5px;
+    font-size: 15px;
+}
+
+.numbers {
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #6b9b6c;
+    border-radius: 5px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
+
+.option {
+  background-color: #ffa726;
+  color: #fff;
+  &:not(:checked){
+    background-color: #6b9b6c;
+  }
+}
+
+.pagination {
+   height: 25px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0px 2px 0px 0px #aaa;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 98%;
+}
+
+.number {
+   color: #545454;
+   font-size: 17px;
+   padding: 0px 5px;
+   border-radius: 50%;
+   cursor: pointer;
+   &:hover {
+      color: #000;
+      background-color: #ffa726;
+   }
+}
+
+
+.backInputFon{
+  background-color: #bce0bb;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrowBack {
+   background-color: #bce0bb;
+   margin-left: 20px;
+   height: 35px;
+   border-radius: 5px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 125px;
+}
+
+.arrowField {
+   height: 25px;
+   background-color: #fff;
+   border-radius: 10px;
+   box-shadow: 0px 2px 0px 0px #aaa;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+}
+
+.buttonsField {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.next {
+   background-image: url(../../assets/icon/chevronRight.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 15px;
+   width: 25px;
+   height: 25px;
+   margin-left: 5px;
+   border-radius: 50%;
+   &:hover {
+      background-color: #ffa726;
+   }
+}
+
+.prev {
+   background-image: url(../../assets/icon/chevronRight.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 15px;
+   width: 25px;
+   height: 25px;
+   transform: rotate(180deg);
+   margin-right: 5px;
+   border-radius: 50%;
+   &:hover {
+      background-color: #ffa726;
+   }
+}
+
+.pages{
+  display: flex;
+    align-items: center;
+    padding-bottom: 2px;
+}
+
+.currentPage{
+  font-weight: 600;
+  font-size: 19px;
+  color: #ffa726;
+}
+
+.numberPage{
+  font-weight: 600;
+  font-size: 19px;
+  color: #6b9b6c;
+}
+
+.of{
+  padding: 0 5px 0 5px;
+}

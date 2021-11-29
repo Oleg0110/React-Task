@@ -1,0 +1,122 @@
+.taskBoard {
+   width: 300px;
+   min-height: 40px;
+  //  max-height: 550px;
+   background-color: #bce0bb;
+   margin: 20px 10px;
+   border-radius: 5px;
+}
+
+.taskInfo {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding-top: 3px;
+}
+
+.clickOutside {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: -1;
+}
+
+.inputPositon {
+   display: none;
+   z-index: 1;
+}
+
+.opened {
+   display: block;
+}
+
+.inputPositonError {
+   display: flex;
+}
+
+.input {
+   background-color: #bce0bb;
+   border: 2px solid #ffa726;
+   text-align: start;
+   width: 200px;
+   border-radius: 5px;
+   padding: 3px 4px;
+   margin: 3px 0 0 4px;
+   font-weight: bold;
+   font-size: 14px;
+   color: rgb(117, 117, 117);
+}
+
+.errorPosition {
+   padding: 3px;
+   font-size: 11px;
+   color: #d81f1f;
+   border-radius: 5px;
+}
+
+.taskTitle {
+   text-align: start;
+   padding: 8px 10px;
+   font-weight: bold;
+   color: rgb(117, 117, 117);
+   display: block;
+}
+
+.hide {
+   display: none;
+}
+
+.buttonPosition {
+   display: flex;
+   align-items: center;
+}
+
+.plus {
+   background-image: url(../../assets/icon/plusIcon.svg);
+   background-repeat: no-repeat;
+   background-position: center;
+   width: 25px;
+   height: 25px;
+
+   &:hover {
+      background-color: rgba(148, 148, 148, 0.575);
+      border-radius: 50%;
+   }
+}
+
+.delete {
+   background-image: url(../../assets/icon/trashIcon.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 15px;
+   width: 30px;
+   height: 30px;
+
+   &:hover {
+      background-color: rgba(148, 148, 148, 0.575);
+      border-radius: 50%;
+   }
+}
+
+.scroll {
+   overflow: auto;
+   max-height: 440px;
+
+   &::-webkit-scrollbar {
+      width: 15px;
+   }
+
+   &::-webkit-scrollbar-track {
+      background: #bce0bb;
+      border-radius: 10px;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: #adadad;
+      border: 4px solid #cccccc;
+      border-radius: 10px;
+   }
+}
+

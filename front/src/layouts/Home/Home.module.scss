@@ -1,38 +1,81 @@
 .backFon {
    background-color: #bce0bb;
-   height: 92vh;
+   height: 92.5vh;
+}
+
+.logoPosition {
+   align-self: stretch;
+}
+
+.logo {
+   padding-top: 30px;
+   font-size: 170px;
+   letter-spacing: 70px;
+   margin-left: 60px;
+}
+
+.logoMD {
+   padding-top: 20px;
+   font-size: 100px;
+   letter-spacing: 50px;
+   margin-left: 45px;
+}
+
+.logoSD {
+   padding-top: 20px;
+   font-size: 60px;
+   letter-spacing: 30px;
+   margin-left: 25px;
+}
+
+.underLine {
+   border: 0.5px solid;
+   width: 600px;
+   margin: auto;
+}
+
+.underLineMD {
+   border: 0.5px solid;
+   width: 430px;
+   margin: auto;
+}
+
+.underLineSD {
+   border: 0.5px solid;
+   width: 275px;
+   margin: auto;
 }
 
 .title {
    font-size: 50px;
    font-weight: 100;
-   padding: 60px 0 20px;
+   padding: 30px 0 10px;
+}
+
+.titleSD {
+   font-size: 25px;
+   font-weight: 100;
+   padding: 20px 0 10px;
 }
 
 .titleMD {
-   font-size: 35px;
-   padding: 50px 0 15px;
-}
-.titleSD {
-   font-size: 30px;
-}
-
-.myName {
-   font-weight: 400;
+   font-size: 40px;
+   font-weight: 100;
+   padding: 30px 0 10px;
 }
 
 .projectTitle {
    font-weight: 100;
-   font-size: 100px;
    color: #2d5826;
+   font-size: 50px;
 }
 
 .projectTitleMD {
-   font-size: 80px;
+   font-size: 40px;
 }
 
 .projectTitleSD {
-   font-size: 55px;
+   font-size: 30px;
 }
 
 .line {

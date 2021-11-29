@@ -1,0 +1,77 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "react-app",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "react-hooks",
+    "react",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": 0,
+    "no-param-reassign": ["error", { "props": false }],
+    // ----
+    "no-underscore-dangle": "warn",
+    "jsx-quotes": 0,
+    "react/require-default-props": 0,
+    // Prettier correct Column.tsx
+    "object-curly-newline": 0,
+    // ----------
+    // index.ts when example ../Column.jsx => goode .tsx => error
+    "import/no-cycle": 0,
+    // ------------------
+    // When save problem with "||"
+    "operator-linebreak": 0,
+    // ----------------
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-extra-semi": 0,
+    "no-sparse-arrays": 0,
+    "no-unused-vars": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "no-unused-expressions": 0,
+    "no-use-before-define": "off",
+    "max-depth": ["error", 5],
+    "semi": ["error", "never"],
+    "react/prop-types": 0,
+    "react/no-unescaped-entities": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-props-no-spreading": 0,
+    "require-jsdoc": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": "off"
+  }
+}

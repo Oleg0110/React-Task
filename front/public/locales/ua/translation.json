@@ -1,0 +1,138 @@
+{
+  "header": {
+    "searchPlaceholder": "Пошук",
+    "home": "Дім",
+    "projects": "Проекти",
+    "dashboards": "Дошка",
+    "people": "Користувачі"
+  },
+  "sidebar": {
+    "backlog": "Відставання",
+    "reports": "Звіти",
+    "components": "Компоненти",
+    "releases": "Випуски",
+    "addItem": "Додати предмет"
+  },
+  "userField": {
+    "title": "Обліковий Запис",
+    "signUp": "Зареєструйтесь",
+    "logIn": "Увійти",
+    "exit": "Вихід"
+  },
+  "notification": {
+    "title": "Сповіщення ",
+    "addToProject": "Вас додали до цього проекту ",
+    "removeFromProject": "Вас вилучили з цього проекту ",
+    "assigne": "Вам було призначено завдання на цьому проекті ",
+    "removedAssignment": "Вас вилучено із завдання на цьому проекті ",
+    "error": "Вас вилучили з цього проекту"
+  },
+  "home": {
+    "title": "Мій ",
+    "projectTitle": " проект",
+    "wont": "Якщо ви збираєтесь створювати проект, будь ласка, зареєструйтесь або увійдіть",
+    "create": "Створіть свій перший проект",
+    "go": "Ходімо",
+    "makeProject": "Створити Проект"
+  },
+  "projects": {
+    "title": "Проекти ",
+    "titlePlaceholder": "Пошук за назвою...",
+    "contentPlaceholder": "Пошук вмісту ...",
+    "create": "Створити проект",
+    "hide": "Приховати блок"
+  },
+  "accordion": {
+    "go": "Перейти",
+    "changeTitle": "Змінити Назву",
+    "changeContent": "Змінити Вміст",
+    "delete": "Видалити Проект"
+  },
+  "createProject": {
+    "title": "Створити проект",
+    "name": "Назва проекту :",
+    "titlePlaceholder": "Заголовок",
+    "description": "Опис проекту :",
+    "descriptionPlaceholder": "Опис",
+    "create": "Створити проект"
+  },
+  "dashboards": {
+    "title": "Дошка",
+    "release": "Випуск",
+    "create": "Створити Список",
+    "taskPlaceholder": "Пошук Завдань ...",
+    "owner": "Власник проекту:"
+  },
+  "manageProject": {
+    "title": "Керувати проектом",
+    "owner": "Власник проекту:",
+    "palceholder": "Пошук користувача",
+    "addToProject": "Додати до цього проекту",
+    "team": "Команда",
+    "totalUsers": "Користувачі в проекті :"
+  },
+  "people": {
+    "title": "Користувачі ",
+    "click": "Натисніть на картку, щоб скопіювати електронну пошту!",
+    "of": "з",
+    "choose": "Виберіть сторінку:"
+  },
+  "logIn": {
+    "emailPlaceholder": "Електронна пошта",
+    "passwordPlaceholder": "Пароль",
+    "logIn": "Увійти",
+    "or": "АБО",
+    "forgot": "Забули пароль?",
+    "doNot": "Не маєте облікового запису? ",
+    "signUp": "Зареєструйтесь"
+  },
+  "signUp": {
+    "title": "Зареєструйтесь, щоб створити свій перший проект",
+    "emailPlaceholder": "Електронна пошта",
+    "namePlaceholder": "Ім'я",
+    "passwordPlaceholder": "Пароль",
+    "signUp": "Зареєструйтесь",
+    "by": "Зареєструвавшись, ви приймаєте наші",
+    "terms": " Умови ",
+    "and": "і ",
+    "policy": " Політику використання даних",
+    "have": "У вас є обліковий запис? ",
+    "logIn": "Увійти"
+  },
+  "modal": {
+    "columnTitle": "Заголовок списку",
+    "titlePlaceholder": "Заголовок",
+    "addColumn": "Додати Список",
+    "taskTitle": "Текст Завдання",
+    "contentPlaceholder": "Текст",
+    "addTask": "Додати Завдання",
+    "sure": "Ви впевнені?",
+    "delete": "Видалити",
+    "changeContent": "Змінити Вміст",
+    "descriptionPlaceholder": "Опис",
+    "changeTitle": "Змінити Назву",
+    "projectTitle": "Заголовок",
+    "addToProject": "Додати до цього проекту",
+    "choose": "Виберіть професію:",
+    "changeTask": "Змінити Завдання",
+    "asignee": "Призначити когось",
+    "asigneeMe": "Призначити мені",
+    "taskAsignee": "Призначений: "
+  },
+  "empty": {
+    "title": "Перепрошую!",
+    "text": "Сторінка розробляється в майбутньому буде вміст"
+  },
+  "tooltip": {
+    "manageProject": "Керуйте цим Проектом",
+    "notification": "Ваші сповіщення",
+    "settings": "Налаштування",
+    "close": "Закрити",
+    "change": "Змінити",
+    "sidebar": "Панель",
+    "plus": "Додати завдання",
+    "delete": "Видалити",
+    "addToProject": "Додати до проекту",
+    "addToTask": "Додати до завдання"
+  }
+}

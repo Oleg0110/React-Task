@@ -1,0 +1,152 @@
+.back {
+   padding: 5px 5px;
+}
+.taskCard {
+   background-color: #fff;
+   padding: 10px 0px 1px 10px;
+   border-radius: 10px;
+   box-shadow: 0px 2px 0px 0px #aaa;
+   overflow: hidden;
+
+}
+
+.textPosition {
+  text-align: start;
+  word-break: break-all
+}
+
+.cardText {
+   text-align: start;
+   font-size: 15px;
+   font-weight: 500;
+   color: #848484;
+   margin-right: 15px;
+}
+
+.asignee {
+  font-size: 14px;
+  background-color: #f6b75b75;
+  border-radius: 5px;
+  border: 3px solid #ffa726;
+
+}
+
+.firstLabelStyle {
+   background-color: #ffbd36;
+   border-radius: 5px;
+   font-weight: 700;
+   color: #000000b5;
+   width: 60%;
+   font-size: 12px;
+   padding: 2px;
+}
+
+.secondLabelStyle {
+   background-color: #4bd2d9;
+   border-radius: 5px;
+   font-weight: 700;
+   color: #fff;
+   width: 45%;
+   font-size: 12px;
+   padding: 2px;
+}
+
+.thirdLabelStyle {
+   background-color: #ff8c00;
+   border-radius: 5px;
+   font-weight: 700;
+   color: rgb(255, 255, 255);
+   width: 50%;
+   font-size: 12px;
+   padding: 2px;
+}
+
+.fourthLabelStyle {
+   background-color: #7d44d7;
+   border-radius: 5px;
+   font-weight: 700;
+   color: #fff;
+   width: 55%;
+   font-size: 12px;
+   padding: 2px;
+}
+
+.taskInfo {
+   padding: 10px 5px 0px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.stateTable {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+}
+
+.taskState {
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 20px;
+   margin-right: 5px;
+   width: 20px;
+   height: 20px;
+}
+
+.taskState-done {
+   background-image: url(../../assets/icon/doneIcon.svg);
+}
+
+.taskState-tool {
+   background-image: url(../../assets/icon/tool.svg);
+}
+
+.taskState-mark {
+   background-image: url(../../assets/icon/bookmark.svg);
+}
+
+.taskState-arrow-up {
+   background-image: url(../../assets/icon/arrowUpIcon.svg);
+}
+
+.priority {
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 20px;
+   margin-right: 5px;
+   width: 20px;
+   height: 20px;
+}
+
+.priority-medium {
+   background-image: url(../../assets/icon/doubleArrow.svg);
+}
+
+.priority-low {
+   background-image: url(../../assets/icon/slash.svg);
+}
+
+.priority-hight {
+   background-image: url(../../assets/icon/arrowUpIcon2.svg);
+}
+
+.deleteBlock {
+  display: flex;
+  align-items: center;
+}
+
+.delete {
+   background-image: url(../../assets/icon/trashIcon.svg);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 15px;
+   width: 30px;
+   height: 30px;
+   right: 0px;
+   bottom: 0px;
+
+   &:hover {
+      background-color: rgba(148, 148, 148, 0.575);
+      border-radius: 50%;
+   }
+}

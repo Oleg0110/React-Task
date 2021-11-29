@@ -1,0 +1,202 @@
+.mainBoardStyle {
+  padding: 20px;
+}
+
+.boardStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px 30px;
+}
+
+.mainTitle {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.ownerField {
+ border-radius: 5px;
+   background-color: #7d7d7d36;
+   padding: 10px;
+}
+
+.owner {
+ font-size: 15px;
+ font-weight: 500;
+}
+
+.ownerEmail{
+ margin-left: 10px;
+ font-weight: 400;
+}
+
+.workArea{
+  display: flex;
+}
+
+.teamFieldSearch{
+  margin: auto;
+  width: 25%;
+  display: block;
+}
+
+.none {
+  display: none;
+  &teamFieldSearch{
+    display: none;
+  }
+}
+
+
+.backSearchFon {
+  background-color: #bce0bb;
+  height: 500px;
+  border-radius: 5px;
+}
+
+// .backSearchFonMD {
+//   width: 80%;
+// }
+
+// .backSearchFonSD {
+//   width: 100%;
+// }
+
+.addField{
+  padding: 10px;
+}
+
+.addToProject{
+  border: 3px solid #7d7d7d8f;
+  background-color: #fff;
+  padding: 10px 5px;
+  border-radius: 10px;
+  width: 100%;
+  height: 480px;
+}
+
+.addTitle{
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.inputSearchUser{
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #9493935c;
+  box-shadow: 1px 1px 2px 1px #aaa;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.backFon {
+  background-color: #bce0bb;
+  height: 500px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+// .backFonMD {
+//   width: 100%;
+// }
+
+// .backFonSD {
+//   width: 100%;
+// }
+
+.foundUser {
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #9493935c;
+  box-shadow: 1px 1px 2px 1px #aaa;
+  width: 90%;
+  height: 390px;
+  margin: auto;
+}
+
+.scroll {
+  overflow: auto;
+  max-height: 380px;
+
+  &::-webkit-scrollbar {
+     width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+     background: #bce0bb;
+     border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+     background-color: #adadad;
+     border: 4px solid #cccccc;
+     border-radius: 10px;
+  }
+}
+
+.users{
+  margin-right: 5px;
+}
+
+.teamField {
+  margin: auto;
+  width: 65%;
+}
+
+.team{
+  border: 3px solid #7d7d7d8f;
+  background-color: #fff;
+  padding: 10px 5px;
+  border-radius: 10px;
+  width: 100%;
+  height: 480px;
+}
+
+.titleField{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.teamTitle{
+  font-weight: 500;
+  font-size: 23px;
+  margin: 0 0 10px 10px;
+  text-align: start;
+}
+
+.users{
+  font-size: 15px;
+  font-weight: 500
+}
+
+.totalUsers{
+  margin-left: 5px;
+  color: #6b9b6c;
+  font-size: 17px;
+}
+
+.line{
+  border: 0.5px solid #7d7d7d70;
+}
+
+.teamScroll{
+  overflow: auto;
+  max-height: 380px;
+
+  &::-webkit-scrollbar {
+     width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+     background: #bce0bb;
+     border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+     background-color: #adadad;
+     border: 4px solid #cccccc;
+     border-radius: 10px;
+  }
+}
