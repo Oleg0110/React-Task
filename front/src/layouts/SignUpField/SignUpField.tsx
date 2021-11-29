@@ -21,7 +21,7 @@ interface IOnSubmitProps {
 
 const SignUpField: React.FC = () => {
   const { userStore } = useStore()
-  const { userToken, registerUser } = userStore
+  const { registerUser, isAuthenticated } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
@@ -32,15 +32,13 @@ const SignUpField: React.FC = () => {
     formState: { errors },
   } = useForm()
 
-  const isAuth = !!userToken
-
   useEffect(() => {
-    if (isAuth) {
+    if (isAuthenticated) {
       history.push(ROUTES.home)
     } else {
       history.push(ROUTES.userAuthSignUp)
     }
-  }, [isAuth, history])
+  }, [isAuthenticated, history])
 
   const [isPassword, setIsPassword] = useState('password')
 
@@ -90,15 +88,6 @@ const SignUpField: React.FC = () => {
               errorPosition='errorAuth'
               required={PASSWORD_VALIDATION}
             />
-            <Button
-              onClick={() => {
-                setIsPassword(isPassword === 'password' ? 'text' : 'password')
-              }}
-            >
-              <div
-                className={`${styles.type} ${styles[`type-${isPassword}`]}`}
-              />
-            </Button>
           </div>
           <div className={styles.buttonPosition}>
             <Button buttonStyle='fifthButtonStyle'>
@@ -106,6 +95,13 @@ const SignUpField: React.FC = () => {
             </Button>
           </div>
         </form>
+        <Button
+          onClick={() => {
+            setIsPassword(isPassword === 'password' ? 'text' : 'password')
+          }}
+        >
+          <div className={`${styles.type} ${styles[`type-${isPassword}`]}`} />
+        </Button>
         <p className={styles.attention}>
           {t('signUp.by')}
           <span className={styles.ourTerms}>{t('signUp.terms')}</span>

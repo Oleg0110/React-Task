@@ -12,8 +12,6 @@ app.use("/projects", require("./routes/projects"))
 
 app.use("/dashboards", require("./routes/dashboards"))
 
-app.use("/user", require("./routes/users"))
-
 app.use("/manage-project", require("./routes/manage"))
 
 app.use("/user-auth", require("./routes/user-auth"))

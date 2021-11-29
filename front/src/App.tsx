@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
+import { IButtonProps } from './utils/interFace'
 import useStore from './hooks/useStore'
 import { Header, Sidebar } from './layouts'
 import { Button, UserField } from './components'
@@ -15,7 +16,7 @@ import {
 } from './utils/constants'
 import useMedia from './hooks/useMedia'
 import useRoutes from './utils/routes'
-import { IButtonProps } from './utils/interface'
+
 import styles from './App.module.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -65,12 +66,10 @@ const App: React.FC = () => {
   const [isUserFieldOpened, setUserFieldOpened] = useState(false)
 
   const { userStore } = useStore()
-  const { userToken } = userStore
-
-  const isAuth = !!userToken
+  const { isAuthenticated } = userStore
 
   const onButtonClick = (links: string) => {
-    const click = isAuth
+    const click = isAuthenticated
       ? history.push(links)
       : toast.error('please sign up or log in')
 

@@ -22,6 +22,7 @@ const Accordion: React.FC<IAccordionProps> = ({ id }) => {
   const { projects } = projectStore
 
   const foundProject = projects.find((found) => found.id === id)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { title, content } = foundProject!
 
   const history = useHistory()
@@ -41,17 +42,17 @@ const Accordion: React.FC<IAccordionProps> = ({ id }) => {
     <div className={styles.accordionSection}>
       <DeleteProjectModal
         id={id}
-        onModalClose={() => setIsDeleteOpened(false)}
+        setIsModalOpened={setIsDeleteOpened}
         isModalOpened={isDeleteOpened}
       />
       <ChangeProjectTitleModal
         id={id}
-        onModalClose={() => setIsChangeTitleOpened(false)}
+        setIsModalOpened={setIsChangeTitleOpened}
         isModalOpened={isChangeTitleOpened}
       />
       <ChangeProjectContentModal
         id={id}
-        onModalClose={() => setIsContentTitleOpened(false)}
+        setIsModalOpened={setIsContentTitleOpened}
         isModalOpened={isContentTitleOpened}
       />
       <button

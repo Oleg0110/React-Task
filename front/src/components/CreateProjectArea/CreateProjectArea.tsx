@@ -21,7 +21,14 @@ interface IOnSubmitProps {
   content: string
 }
 
-const CreateProjectArea: React.FC = () => {
+interface ICreateProjectAreaProps {
+  setIsOpened: (boolean: boolean) => void
+  setChangeName: (boolean: boolean) => void
+}
+const CreateProjectArea: React.FC<ICreateProjectAreaProps> = ({
+  setIsOpened,
+  setChangeName,
+}) => {
   const { projectStore } = useStore()
   const { pushProject } = projectStore
 
@@ -41,6 +48,8 @@ const CreateProjectArea: React.FC = () => {
 
   const onSubmit = (data: IOnSubmitProps) => {
     pushProject(data.title, data.content)
+    setIsOpened(false)
+    setChangeName(false)
   }
 
   return (

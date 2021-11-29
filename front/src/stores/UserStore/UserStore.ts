@@ -1,5 +1,5 @@
-import { action, makeObservable, observable } from 'mobx'
-import { IUser, IUsers } from '../../utils/interface'
+import { action, computed, makeObservable, observable } from 'mobx'
+import { IUser, IUsers } from '../../utils/interFace'
 import { storageDataName } from '../../utils/constants'
 import RootStore from '../RootStore/RootStore'
 
@@ -49,10 +49,16 @@ class UserStore {
       setAddedUserToProject: action,
       setDeletedUserOnProject: action,
       setClearNotification: action,
+      isAuthenticated: computed,
     })
     this.getUserToken()
     this.getUserId()
     this.asyncGetUser()
+  }
+
+  get isAuthenticated() {
+    const token = !!this.userToken
+    return token
   }
 
   getUserId = () => {

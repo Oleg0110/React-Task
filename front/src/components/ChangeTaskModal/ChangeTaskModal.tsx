@@ -4,10 +4,11 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router'
 import urlValue from '../../utils/functions'
-import { IModalWindowProps } from '../../utils/interface'
+import { IModalWindowProps } from '../../utils/interFace'
 import { Button, TextBox, FindAsigneeUser, UserSearch } from '..'
 import { CREATE_CONTENT_VALIDATION } from '../../utils/validation'
 import useStore from '../../hooks/useStore'
+import { noAsignee } from '../../utils/constants'
 import styles from './ChangeTaskModal.module.scss'
 
 interface IChangeTaskModalProps extends IModalWindowProps {
@@ -59,7 +60,6 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
   }
 
   const deleteAsignee = () => {
-    const noAsignee = 'no asignee'
     if (asigneeUserId) {
       deleteAsigneeUser(noAsignee, id, projectId, asigneeUserId, columnId)
     }
@@ -67,7 +67,7 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
   }
 
   const aigneeModalBody = () => {
-    if (asigneeUserEmail === 'no asignee') {
+    if (asigneeUserEmail === noAsignee) {
       return styles.modalBody
     }
     return styles.aigneeModalBody
@@ -75,6 +75,7 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
 
   const asigneeToME = () => {
     asigneeUser(userId, id, projectId, columnId)
+
     setIsModalOpened(false)
   }
 
@@ -97,7 +98,7 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
               <div className={styles.closeIcon} />
             </Button>
           </div>
-          {asigneeUserEmail === 'no asignee' && (
+          {asigneeUserEmail === noAsignee && (
             <div className={styles.searchArea}>
               <span className={styles.title}>{t('modal.asignee')}</span>
               <div className={styles.inputPositon}>
@@ -123,7 +124,7 @@ const ChangeTaskModal: React.FC<IChangeTaskModalProps> = ({
               </Button>
             </div>
           )}
-          {asigneeUserEmail !== 'no asignee' && (
+          {asigneeUserEmail !== noAsignee && (
             <div className={styles.asigneeUserPosition}>
               <p className={styles.asignee}>
                 {t('modal.taskAsignee')}

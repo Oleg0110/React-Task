@@ -8,7 +8,7 @@ import {
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
-import { IProject } from '../../utils/interface'
+import { IProject } from '../../utils/interFace'
 import useStore from '../../hooks/useStore'
 import styles from './Projects.module.scss'
 
@@ -16,8 +16,15 @@ const Projects: React.FC = ({ children }) => {
   const { projectStore } = useStore()
   const { projects, asyncGetProjects } = projectStore
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    asyncGetProjects()
+    const getProjects = async () => {
+      setLoading(true)
+      await asyncGetProjects()
+      return setLoading(false)
+    }
+    getProjects()
   }, [asyncGetProjects])
 
   const { t } = useTranslation()
@@ -41,6 +48,7 @@ const Projects: React.FC = ({ children }) => {
     const projectsTitle = found.title
       .toLowerCase()
       .includes(searchTitle.toLowerCase())
+
     return projectsTitle
   })
 
@@ -94,15 +102,10 @@ const Projects: React.FC = ({ children }) => {
           <form
             onChange={(e) => {
               e.preventDefault()
-              if (searchTitleref.current) {
+              searchTitleref.current &&
                 setSearchTitle(searchTitleref.current.value)
-              } else if (searchContentref.current) {
+              searchContentref.current &&
                 setSearchContent(searchContentref.current.value)
-              } else {
-                console.warn(
-                  "Strange behavior, i don't know why, but null came here: searchValue",
-                )
-              }
             }}
           >
             <div
@@ -117,7 +120,7 @@ const Projects: React.FC = ({ children }) => {
                 ref={searchTitleref}
               />
               <div className={styles.searchIcon} />
-              <Button onClick={(e) => e.preventDefault()}>
+              <Button onClick={(e) => e?.preventDefault()}>
                 <div className={styles.delete} />
               </Button>
             </div>
@@ -133,7 +136,7 @@ const Projects: React.FC = ({ children }) => {
                 ref={searchContentref}
               />
               <div className={styles.searchIcon} />
-              <Button onClick={(e) => e.preventDefault()}>
+              <Button onClick={(e) => e?.preventDefault()}>
                 <div className={styles.delete} />
               </Button>
             </div>
@@ -157,7 +160,7 @@ const Projects: React.FC = ({ children }) => {
           {openModalButton()}
         </Button>
       </div>
-      {projects.length === 0 && <div className={styles.loader} />}
+      {loading && projects.length === 0 && <div className={styles.loader} />}
       <div
         className={`${styles.projectsBlocks} ${
           styles[`projectsBlocks${responsive}`]
@@ -181,7 +184,10 @@ const Projects: React.FC = ({ children }) => {
             styles[`createProjectArea${responsive}`]
           } ${createProjectArea()}`}
         >
-          <CreateProjectArea />
+          <CreateProjectArea
+            setIsOpened={setIsOpened}
+            setChangeName={setChangeName}
+          />
         </div>
       </div>
       {children}

@@ -14,12 +14,11 @@ interface IUserFieldProps {
 
 const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
   const { userStore } = useStore()
-  const { user, userToken } = userStore
+  const { user, isAuthenticated } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!userToken
   const logoName = user?.name.toLocaleUpperCase().charAt(0)
 
   const logout = () => {
@@ -30,27 +29,27 @@ const UserField: React.FC<IUserFieldProps> = ({ isOpened, onModalClose }) => {
   }
 
   const userInfo = () => {
-    const info = isAuth ? styles.infoField : styles.infoFieldNone
+    const info = isAuthenticated ? styles.infoField : styles.infoFieldNone
     return info
   }
 
   const userPhoto = () => {
-    const photo = isAuth ? styles.userPhoto : styles.empty
+    const photo = isAuthenticated ? styles.userPhoto : styles.empty
     return photo
   }
 
   const authentication = () => {
-    const auth = !isAuth ? styles.buttons : styles.buttonsNone
+    const auth = !isAuthenticated ? styles.buttons : styles.buttonsNone
     return auth
   }
 
   const exit = () => {
-    const onClick = isAuth ? styles.exit : styles.exitNone
+    const onClick = isAuthenticated ? styles.exit : styles.exitNone
     return onClick
   }
 
   const sidebarHeight = () => {
-    const sidebar = isAuth ? styles.sidebarHeight : styles.sidebar
+    const sidebar = isAuthenticated ? styles.sidebarHeight : styles.sidebar
     return sidebar
   }
 

@@ -18,6 +18,8 @@ class RootStore {
     makeObservable(this, {
       userStore: observable,
       projectStore: observable,
+      boardStore: observable,
+      apiProvider: observable,
     })
 
     this.userStore = new UserStore(this)

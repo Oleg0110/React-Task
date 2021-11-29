@@ -18,6 +18,7 @@ const AddedUserCard: React.FC<IFindUserProps> = ({ id }) => {
 
   const foundUser = usersOnProject?.find((found) => found.id === id)
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { name, email } = foundUser!
 
   const history = useHistory()

@@ -16,16 +16,16 @@ interface IOnSubmitProps {
 
 const LogInField: React.FC = () => {
   const { userStore } = useStore()
-  const { userToken, loginUser } = userStore
+  const { loginUser, isAuthenticated } = userStore
 
   const { t } = useTranslation()
   const history = useHistory()
 
-  const isAuth = !!userToken
-
   useEffect(() => {
-    isAuth ? history.push(ROUTES.home) : history.push(ROUTES.userAauthLogIn)
-  }, [isAuth, history])
+    isAuthenticated
+      ? history.push(ROUTES.home)
+      : history.push(ROUTES.userAauthLogIn)
+  }, [isAuthenticated, history])
 
   const {
     register,

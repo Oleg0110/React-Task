@@ -19,7 +19,7 @@ import {
   stateDeveloper,
   stateQA,
 } from '../../utils/constants'
-import { IUser } from '../../utils/interface'
+import { IUser } from '../../utils/interFace'
 import useStore from '../../hooks/useStore'
 import styles from './ManageProject.module.scss'
 
@@ -71,12 +71,16 @@ const ManageProject: React.FC = () => {
     usersOnProject.map((data) => {
       const obj = data.projects.find((found) => found.projectId === projectId)
 
-      if (obj?.state === stateManager) {
-        manager.push(data)
-      } else if (obj?.state === stateDeveloper) {
-        developer.push(data)
-      } else if (obj?.state === stateQA) {
-        qa.push(data)
+      switch (obj?.state) {
+        case stateManager:
+          manager.push(data)
+          break
+        case stateDeveloper:
+          developer.push(data)
+          break
+        case stateQA:
+          qa.push(data)
+          break
       }
       return []
     })
@@ -144,21 +148,21 @@ const ManageProject: React.FC = () => {
               <hr className={styles.line} />
               <div className={styles.teamScroll}>
                 <div>
-                  <TeamAccordion title='Manager'>
+                  <TeamAccordion title='Manager' count={manager.length}>
                     {manager.map((data) => (
                       <AddedUserCard id={data.id} key={data.id} />
                     ))}
                   </TeamAccordion>
                 </div>
                 <div>
-                  <TeamAccordion title='Developer'>
+                  <TeamAccordion title='Developer' count={developer.length}>
                     {developer.map((data) => (
                       <AddedUserCard id={data.id} key={data.id} />
                     ))}
                   </TeamAccordion>
                 </div>
                 <div>
-                  <TeamAccordion title='QA'>
+                  <TeamAccordion title='QA' count={qa.length}>
                     {qa.map((data) => (
                       <AddedUserCard id={data.id} key={data.id} />
                     ))}

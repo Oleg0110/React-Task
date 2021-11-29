@@ -1,6 +1,6 @@
 import { DropResult } from 'react-beautiful-dnd'
 import { LINK_DASHBOARD, LINK_DASHBOARD_TASKS } from '../utils/httpLinks'
-import { ITask } from '../utils/interface'
+import { ITask } from '../utils/interFace'
 import RootStore from '../stores/RootStore/RootStore'
 
 class DashboardsTasksApi {
@@ -24,7 +24,7 @@ class DashboardsTasksApi {
     id: string,
     projectId: string,
     indexNumber: number,
-  ): Promise<ITask[]> => {
+  ): Promise<ITask> => {
     const res = await this.rootStore.apiProvider.doFetch(
       'post',
       LINK_DASHBOARD_TASKS,
@@ -39,7 +39,7 @@ class DashboardsTasksApi {
     return res?.data
   }
 
-  taskChanged = async (text: string, id: string): Promise<ITask> => {
+  taskChanged = async (text: string, id: string): Promise<string> => {
     const res = await this.rootStore.apiProvider.doFetch(
       'patch',
       LINK_DASHBOARD_TASKS,

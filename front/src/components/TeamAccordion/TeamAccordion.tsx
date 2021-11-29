@@ -4,9 +4,14 @@ import styles from './TeamAccordion.module.scss'
 
 interface ITeamAccordionProps {
   title: string
+  count: number
 }
 
-const TeamAccordion: React.FC<ITeamAccordionProps> = ({ title, children }) => {
+const TeamAccordion: React.FC<ITeamAccordionProps> = ({
+  title,
+  children,
+  count,
+}) => {
   const [isOpened, setIsOpened] = useState(false)
 
   return (
@@ -16,7 +21,10 @@ const TeamAccordion: React.FC<ITeamAccordionProps> = ({ title, children }) => {
         className={`${styles.accordion} `}
         onClick={() => setIsOpened(!isOpened)}
       >
-        <p className={styles.accordionTitle}>{title}</p>
+        <p className={styles.accordionTitle}>
+          {title}
+          {count !== 0 && <span className={styles.countUsers}>{count}</span>}
+        </p>
         <div
           className={`${styles.chevronRight} ${isOpened && styles.chevronDown}`}
         />

@@ -7,7 +7,6 @@ import {
   LogInField,
   People,
   Projects,
-  Settings,
   SignUpField,
   ManageProject,
 } from '../layouts'
@@ -25,7 +24,7 @@ const useRoutes = () => (
     <Route path={ROUTES.components} component={EmptyPage} />
     <Route path={ROUTES.releases} component={EmptyPage} />
     <Route path={ROUTES.addItem} component={EmptyPage} />
-    <Route path={ROUTES.settings} component={Settings} />
+    <Route path={ROUTES.settings} component={EmptyPage} />
     <Route path={ROUTES.userAuthSignUp} component={SignUpField} />
     <Route path={ROUTES.userAauthLogIn} component={LogInField} />
     <Redirect to='/' />
