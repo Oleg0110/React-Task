@@ -12,9 +12,9 @@
 
 <h2 align="start">Website information</h2>
 
-> **_About Project_** : When I created this website, it was my first experience with React, TypeScrip, Node.js, MongoDB and more.I have used the latest version of React to get acquainted with React Hooks, Lifecycle, Component etc.
+> **_About Project_** : When I created this website, it was my first experience with React, TypeScript, Node.js, MongoDB and more.I have used the latest version of React to get acquainted with React Hooks, Lifecycle, Component etc.
 
-> **_What I used to create this project_** : React, TypeScrip, SCSS, MobX, Node.js, MongoDB, Mongoose, Eslint, AirBnb, React Router DOM, i18next, React-Toastify, axios, Beautiful DND, React Hook Form, bcryptjs, CORS, Tippy.js for React
+> **_What I used to create this project_** : React, TypeScript, SCSS, MobX, Node.js, MongoDB, Mongoose, Eslint, AirBnb, React Router DOM, i18next, React-Toastify, axios, Beautiful DND, React Hook Form, bcryptjs, CORS, Tippy.js for React
 
 <span>You can ask me <strong>"What Can I do here",</strong> let me show you every page and you will understand, what you can do:</span>
 
