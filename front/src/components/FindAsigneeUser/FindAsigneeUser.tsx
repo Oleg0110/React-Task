@@ -24,7 +24,6 @@ const FindAsigneeUser: React.FC<IFindAsigneeUser> = ({
   columnId,
   setIsModalOpened,
 }) => {
-  // const { userStore } = useStore()
   const { boardStore } = useStore()
   const { asigneeUser } = boardStore
 

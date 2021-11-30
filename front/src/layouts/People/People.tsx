@@ -10,7 +10,7 @@ import {
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
 import urlValue from '../../utils/functions'
-import { IUser } from '../../utils/interFace'
+import { IUser } from '../../utils/interface'
 import useStore from '../../hooks/useStore'
 import styles from './People.module.scss'
 

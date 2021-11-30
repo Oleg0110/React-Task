@@ -8,7 +8,7 @@ import {
   RESPONSIVE_VALUE,
   RESPONSIVE_WHITHOUT_VALUE,
 } from '../../utils/constants'
-import { IProject } from '../../utils/interFace'
+import { IProject } from '../../utils/interface'
 import useStore from '../../hooks/useStore'
 import styles from './Projects.module.scss'
 

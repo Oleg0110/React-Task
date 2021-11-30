@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
-import { IProject } from '../../utils/interFace'
+import { IProject } from '../../utils/interface'
 import RootStore from '../RootStore/RootStore'
 
 class ProjectsStore {
@@ -22,7 +22,6 @@ class ProjectsStore {
       setChangeContent: action,
       setDeleteProject: action,
     })
-    // this.asyncGetProjects()
   }
 
   asyncGetProjects = async () => {

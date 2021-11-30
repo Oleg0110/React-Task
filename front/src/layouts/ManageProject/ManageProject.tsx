@@ -19,7 +19,7 @@ import {
   stateDeveloper,
   stateQA,
 } from '../../utils/constants'
-import { IUser } from '../../utils/interFace'
+import { IUser } from '../../utils/interface'
 import useStore from '../../hooks/useStore'
 import styles from './ManageProject.module.scss'
 

@@ -1,6 +1,6 @@
 import { DropResult } from 'react-beautiful-dnd'
 import { LINK_DASHBOARD, LINK_DASHBOARD_TASKS } from '../utils/httpLinks'
-import { ITask } from '../utils/interFace'
+import { ITask } from '../utils/interface'
 import RootStore from '../stores/RootStore/RootStore'
 
 class DashboardsTasksApi {

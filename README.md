@@ -12,6 +12,8 @@
 
 <h2 align="start">Website information</h2>
 
+> **_About Project_** : When I created this website, it was my first experience with React, TypeScrip, Node.js, MongoDB and more.I have used the latest version of React to get acquainted with React Hooks, Lifecycle, Component etc.
+
 > **_What I used to create this project_** : React, TypeScrip, SCSS, MobX, Node.js, MongoDB, Mongoose, Eslint, AirBnb, React Router DOM, i18next, React-Toastify, axios, Beautiful DND, React Hook Form, bcryptjs, CORS, Tippy.js for React
 
 <span>You can ask me <strong>"What Can I do here",</strong> let me show you every page and you will understand, what you can do:</span>
@@ -33,9 +35,31 @@
 
 ---
 
-<p style="font-size: 25px;"><strong>- Projects </strong>Page</p>
+<p style="font-size: 25px;"><strong>- After Authorization </strong></p>
 
-<!-- <span style="font-size: 15px;display: list-item;list-style-position: inside">Create Project</span> -->
+<ul> 
+  <li><h6><em>We see that the user can't go to some pages before authorization, but after authorization the user icon changes and the user can go to another page.</em></h6></li>
+  <p align="center">
+    <img src="./README/auth.gif" alt="Logo" width="700px" height="400px"/>
+  </p>
+</ul>
+
+---
+
+<p style="font-size: 25px;"><strong>- i18Next </strong></p>
+
+> **_Attention_** : <span>- Sorry for some screen recording problems.</span>
+
+<ul> 
+  <li><h6><em>The website is multilingual and it is possible to translate into one of three languages.</em></h6></li>
+  <p align="center">
+    <img src="./README/i18next.gif" alt="Logo" width="700px" height="400px"/>
+  </p>
+</ul>
+
+---
+
+<p style="font-size: 25px;"><strong>- Projects </strong>Page</p>
 
 <ul> 
 <h5><em>You Can :</em></h5>
@@ -52,6 +76,8 @@
 ---
 
 <p style="font-size: 25px;"><strong>- Dashboards </strong>Page</p>
+
+> **_Attention_** : <span>- When you click "Go to Project", I take the project ID from the URL and download all the information from the server side. Also, when you search for a user to assign, the search is performed through the backend.</span>
 
 <ul>
 <h5><em>You Can :</em></h5>
@@ -79,7 +105,7 @@
 <h5><em>You Can :</em></h5>
   <li><h6><em>Find a user and add to the project as: Manager, Developer or QA. Also you can remove from project</em></h6></li>
 
-> **_Attention_** : <span>- If you've added a user as a Developer or QA, that person can't: add, modify, or delete anything.</span>
+> **_Attention_** : <span>- If you've added a user as a Developer or QA, that person can't: add, modify, or delete anything, due to lack of rights.</span>
 
   <p align="center">
     <img src="./README/manageProject.gif" alt="Logo" width="700px" height="400px"/>

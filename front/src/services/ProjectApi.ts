@@ -1,6 +1,6 @@
 import { LINK_PROJECTS } from '../utils/httpLinks'
 import RootStore from '../stores/RootStore/RootStore'
-import { IProject } from '../utils/interFace'
+import { IProject } from '../utils/interface'
 
 class ProjectApi {
   rootStore: RootStore

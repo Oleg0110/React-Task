@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
-import { IModalWindowProps } from '../../utils/interFace'
+import { IModalWindowProps } from '../../utils/interface'
 import { Button } from '..'
 import useStore from '../../hooks/useStore'
 import styles from './DeleteTaskModal.module.scss'
