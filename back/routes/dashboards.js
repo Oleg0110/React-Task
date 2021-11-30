@@ -68,10 +68,6 @@ router.patch("/column", auth, async (req, res) => {
          { $set: { title } },
          { new: true }
       )
-
-      // const task = await Task.find({columnOwner:id })
-
-      // changedColumn.tasks = task
       
       res.status(200).json(changedColumn.title)
 

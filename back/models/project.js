@@ -6,8 +6,6 @@ const schema = new Schema({
    content: { type: String, required: true },
    userOwner: { type: Types.ObjectId, ref: "User" },
    userEmail:{type:String, required:true},
-   // column: [{ type: Types.ObjectId, ref: "Column" }],
-   //  addUsers: [{"id": String}],
 })
 
 schema.plugin(normalize)

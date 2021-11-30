@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx'
 import { DropResult } from 'react-beautiful-dnd'
 import { toast } from 'react-toastify'
-import { IColumn, ITask } from '../../utils/interFace'
+import { IColumn, ITask } from '../../utils/interface'
 
 import RootStore from '../RootStore/RootStore'
 
@@ -22,7 +22,6 @@ class BoardStore {
       changeTask: action,
       deleteTask: action,
       dragColumn: action,
-      // dragInColumn: action,
       asyncGetColumn: action,
       setColumn: action,
       setTasks: action,
@@ -179,19 +178,6 @@ class BoardStore {
   setDeleteTask = (foundColumn: IColumn, deletedTask: ITask[]) => {
     foundColumn.tasks = deletedTask
   }
-
-  // dragInColumn(result:object, idColumn:string) {
-
-  //    if (this.column.length) {
-  //       const column = this.column.find((data) => data.id === idColumn);
-
-  //       if (!result.destination) return;
-
-  //       const [reorderedItem] = column.tasks.splice(result.source.index, 1);
-  //       column.tasks.splice(result.destination.index, 0, reorderedItem);
-  //    }
-
-  // }
 
   dragColumn = async (result: DropResult) => {
     const { taskPosition } = this.rootStore.apiProvider.dashboardsTasksApi

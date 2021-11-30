@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx'
-import { IUser, IUsers } from '../../utils/interFace'
+import { IUser, IUsers } from '../../utils/interface'
 import { storageDataName } from '../../utils/constants'
 import RootStore from '../RootStore/RootStore'
 
@@ -149,7 +149,6 @@ class UserStore {
     if (allUsers) {
       this.setUserOnProject(allUsers)
     }
-    // this.usersOnProject = allUsers
   }
 
   setUserOnProject = (allUsers: Omit<IUser[], 'password'>) => {

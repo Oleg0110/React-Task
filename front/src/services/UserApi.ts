@@ -9,7 +9,7 @@ import {
   LINK_USER_MANAGE_PROJECT,
 } from '../utils/httpLinks'
 import RootStore from '../stores/RootStore/RootStore'
-import { IRegister, IUser, IUsers } from '../utils/interFace'
+import { IRegister, IUser, IUsers } from '../utils/interface'
 import { storageDataName } from '../utils/constants'
 
 class UserApi {
@@ -62,7 +62,6 @@ class UserApi {
         storageDataName,
         JSON.stringify({
           userId: currentUser.id,
-          // token: token,
           token,
         }),
       )

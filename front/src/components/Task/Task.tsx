@@ -17,12 +17,7 @@ interface ITaskProps {
   index: number
   id: string
   columnId: string
-  // text: string
-  // asigneeUser: string
-  // asigneeUserId: string
 }
-
-// !!! ToDo Draggable
 
 const Task: React.FC<ITaskProps> = ({
   label,
@@ -32,9 +27,6 @@ const Task: React.FC<ITaskProps> = ({
   index,
   id,
   columnId,
-  // text,
-  // asigneeUser,
-  // asigneeUserId,
 }) => {
   const { userStore, boardStore } = useStore()
   const { usersOnProject, userId } = userStore
@@ -43,12 +35,6 @@ const Task: React.FC<ITaskProps> = ({
   const foundTask = column
     ?.find((found) => found.id === columnId)
     ?.tasks.find((found) => found.id === id)
-
-  // const foundede = column?.find((found) => found.id === columnId)
-  // const [text] = foundede?.tasks
-  // console.log(1, toJS(column))
-  // console.log(2, toJS(task))
-  // console.log(3, toJS(foundTask))
 
   const history = useHistory()
 
