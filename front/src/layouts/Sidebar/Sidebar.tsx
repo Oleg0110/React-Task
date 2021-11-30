@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components'
 import { ROUTES } from '../../utils/constants'
-import { IButtonProps } from '../../utils/interFace'
+import { IButtonProps } from '../../utils/interface'
 import useStore from '../../hooks/useStore'
 import styles from './Sidebar.module.scss'
 

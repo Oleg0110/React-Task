@@ -1,5 +1,5 @@
 import { LINK_DASHBOARD_COLUMN } from '../utils/httpLinks'
-import { IColumn } from '../utils/interFace'
+import { IColumn } from '../utils/interface'
 import RootStore from '../stores/RootStore/RootStore'
 
 class DashboardsColumnApi {

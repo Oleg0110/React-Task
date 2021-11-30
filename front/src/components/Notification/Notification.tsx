@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'react-i18next'
 import { Button, NotificationCard } from '..'
 import useStore from '../../hooks/useStore'
-import { INotification } from '../../utils/interFace'
+import { INotification } from '../../utils/interface'
 import styles from './Notification.module.scss'
 
 interface INotificationProps {

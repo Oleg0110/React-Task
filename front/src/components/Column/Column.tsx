@@ -8,7 +8,7 @@ import urlValue from '../../utils/functions'
 import { Button, Task, CreateTaskModalWindow, DeleteColumnModal } from '..'
 import { TITLE_VALIDATION } from '../../utils/validation'
 import { stateManager, stateOwner } from '../../utils/constants'
-import { ITask } from '../../utils/interFace'
+import { ITask } from '../../utils/interface'
 import useStore from '../../hooks/useStore'
 import styles from './Column.module.scss'
 
@@ -46,10 +46,6 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
     formState: { errors },
   } = useForm()
 
-  // const handleOnDragEnd = (result) => {
-  //    dragInColumn(result, id)
-  // }
-
   const onSubmit = (data: IOnSubmitProps) => {
     changeColumn(data.title, columnId)
     setIsInputOpened(false)
@@ -68,8 +64,6 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
     }
     return setIsInputOpened(!isInputOpened)
   }
-
-  // console.log(toJS(taskData))
 
   return (
     <div>
@@ -147,19 +141,8 @@ const Column: React.FC<IColumnProps> = ({ columnId, taskData }) => {
                 </div>
               )}
             </div>
-            {/* {foundColumn?.tasks?.map((data, index) => (
-              <Task
-                index={index}
-                key={data.id}
-                id={data.id}
-                columnId={columnId}
-              />
-            ))} */}
             {taskData?.map((data, index) => (
               <Task
-                // text={data.text}
-                // asigneeUser={data.asigneeUser}
-                // asigneeUserId={data.asigneeUserId}
                 index={index}
                 key={data.id}
                 id={data.id}
